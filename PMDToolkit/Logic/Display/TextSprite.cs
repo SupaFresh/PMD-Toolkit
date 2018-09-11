@@ -74,7 +74,7 @@ namespace PMDToolkit.Logic.Display {
             TextureManager.TextureProgram.PushModelView();
             Loc2D drawLoc = GetStart();
             Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
-            Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale(NUM_SCALE, NUM_SCALE, 0));
+            Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(NUM_SCALE, NUM_SCALE, 0));
             Graphics.TextureManager.TextureProgram.UpdateModelView();
 
             TextureManager.SingleFont.RenderText(0, 0, Text, null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color);

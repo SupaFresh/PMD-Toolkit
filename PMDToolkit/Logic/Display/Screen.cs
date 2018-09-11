@@ -686,14 +686,14 @@ namespace PMDToolkit.Logic.Display {
             if (CurrentFade == FadeType.FadeIn) {
                 Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
                 Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(0, 0, 0, (byte)(FadeTime.Ticks * 255 / TOTAL_FADE_TIME.Ticks)));
-                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale(TextureManager.SCREEN_WIDTH, TextureManager.SCREEN_HEIGHT, 1));
+                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(TextureManager.SCREEN_WIDTH, TextureManager.SCREEN_HEIGHT, 1));
                 Graphics.TextureManager.TextureProgram.UpdateModelView();
                 Graphics.TextureManager.BlankTexture.Render(null);
                 Graphics.TextureManager.TextureProgram.SetTextureColor(Color4.White);
             } else if (CurrentFade == FadeType.FadeOut) {
                 Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
                 Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(0, 0, 0, (byte)(255 - FadeTime.Ticks * 255 / TOTAL_FADE_TIME.Ticks)));
-                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale(TextureManager.SCREEN_WIDTH, TextureManager.SCREEN_HEIGHT, 1));
+                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(TextureManager.SCREEN_WIDTH, TextureManager.SCREEN_HEIGHT, 1));
                 Graphics.TextureManager.TextureProgram.UpdateModelView();
                 Graphics.TextureManager.BlankTexture.Render(null);
                 Graphics.TextureManager.TextureProgram.SetTextureColor(Color4.White);

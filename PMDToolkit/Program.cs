@@ -222,7 +222,7 @@ namespace PMDToolkit {
                     RenderTime elapsedTime = new RenderTime((int)(e.Time * Graphics.TextureManager.FPS_CAP * 1000));
 
                     //set this frame's input
-                    Logic.Gameplay.Input input = new Logic.Gameplay.Input(Keyboard, Mouse);
+                    Logic.Gameplay.Input input = new Logic.Gameplay.Input();
                     Logic.Gameplay.Processor.SetFrameInput(input, elapsedTime, (int)Math.Round(UpdateFrequency));
 
                     Logic.Display.Screen.Process(elapsedTime);

@@ -85,7 +85,7 @@ namespace PMDToolkit.Logic.Gameplay {
             //top
             TextureManager.TextureProgram.PushModelView();
             TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(Start.X + Graphics.TextureManager.MenuBack.TileWidth, Start.Y, 0));
-            TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale((float)(End.X - Start.X - 2 * Graphics.TextureManager.MenuBack.TileWidth) / Graphics.TextureManager.MenuBack.TileWidth, 1, 1));
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale((float)(End.X - Start.X - 2 * Graphics.TextureManager.MenuBack.TileWidth) / Graphics.TextureManager.MenuBack.TileWidth, 1, 1));
             TextureManager.TextureProgram.UpdateModelView();
             Graphics.TextureManager.MenuBack.RenderTile(1, 0);
             TextureManager.TextureProgram.PopModelView();
@@ -93,7 +93,7 @@ namespace PMDToolkit.Logic.Gameplay {
             //right
             TextureManager.TextureProgram.PushModelView();
             TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(End.X - Graphics.TextureManager.MenuBack.TileWidth, Start.Y + Graphics.TextureManager.MenuBack.TileHeight, 0));
-            TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale(1, (float)(End.Y - Start.Y - 2 * Graphics.TextureManager.MenuBack.TileHeight) / Graphics.TextureManager.MenuBack.TileHeight, 1));
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(1, (float)(End.Y - Start.Y - 2 * Graphics.TextureManager.MenuBack.TileHeight) / Graphics.TextureManager.MenuBack.TileHeight, 1));
             TextureManager.TextureProgram.UpdateModelView();
             Graphics.TextureManager.MenuBack.RenderTile(2, 1);
             TextureManager.TextureProgram.PopModelView();
@@ -101,7 +101,7 @@ namespace PMDToolkit.Logic.Gameplay {
             //bottom
             TextureManager.TextureProgram.PushModelView();
             TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(Start.X + Graphics.TextureManager.MenuBack.TileWidth, End.Y - Graphics.TextureManager.MenuBack.TileHeight, 0));
-            TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale((float)(End.X - Start.X - 2 * Graphics.TextureManager.MenuBack.TileWidth) / Graphics.TextureManager.MenuBack.TileWidth, 1, 1));
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale((float)(End.X - Start.X - 2 * Graphics.TextureManager.MenuBack.TileWidth) / Graphics.TextureManager.MenuBack.TileWidth, 1, 1));
             TextureManager.TextureProgram.UpdateModelView();
             Graphics.TextureManager.MenuBack.RenderTile(1, 2);
             TextureManager.TextureProgram.PopModelView();
@@ -109,7 +109,7 @@ namespace PMDToolkit.Logic.Gameplay {
             //left
             TextureManager.TextureProgram.PushModelView();
             TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(Start.X, Start.Y + Graphics.TextureManager.MenuBack.TileHeight, 0));
-            TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale(1, (float)(End.Y - Start.Y - 2 * Graphics.TextureManager.MenuBack.TileHeight) / Graphics.TextureManager.MenuBack.TileHeight, 1));
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(1, (float)(End.Y - Start.Y - 2 * Graphics.TextureManager.MenuBack.TileHeight) / Graphics.TextureManager.MenuBack.TileHeight, 1));
             TextureManager.TextureProgram.UpdateModelView();
             Graphics.TextureManager.MenuBack.RenderTile(0, 1);
             TextureManager.TextureProgram.PopModelView();
@@ -117,7 +117,7 @@ namespace PMDToolkit.Logic.Gameplay {
             //center
             TextureManager.TextureProgram.PushModelView();
             TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(Start.X + Graphics.TextureManager.MenuBack.TileWidth, Start.Y + Graphics.TextureManager.MenuBack.TileHeight, 0));
-            TextureManager.TextureProgram.LeftMultModelView(Matrix4.Scale((float)(End.X - Start.X - 2 * Graphics.TextureManager.MenuBack.TileWidth) / Graphics.TextureManager.MenuBack.TileWidth,
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale((float)(End.X - Start.X - 2 * Graphics.TextureManager.MenuBack.TileWidth) / Graphics.TextureManager.MenuBack.TileWidth,
                 (float)(End.Y - Start.Y - 2 * Graphics.TextureManager.MenuBack.TileHeight) / Graphics.TextureManager.MenuBack.TileHeight, 1));
             TextureManager.TextureProgram.UpdateModelView();
             Graphics.TextureManager.MenuBack.RenderTile(1, 1);
