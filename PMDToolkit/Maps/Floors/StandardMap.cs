@@ -24,14 +24,10 @@ THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit;
-using PMDToolkit.Maps;
 using PMDToolkit.Data;
-using PMDToolkit.Logic.Gameplay;
 
-namespace PMDToolkit.Maps.Floors {
+namespace PMDToolkit.Maps.Floors
+{
     public class StandardMap : RandomMap {
 
         public StandardMap()

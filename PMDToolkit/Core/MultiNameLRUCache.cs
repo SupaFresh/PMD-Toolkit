@@ -24,9 +24,9 @@ THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace PMDToolkit.Core {
+namespace PMDToolkit.Core
+{
     public class MultiNameLRUCache<K, V> {
 
         #region Fields

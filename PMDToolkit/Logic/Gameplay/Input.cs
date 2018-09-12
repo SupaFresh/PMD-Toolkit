@@ -22,16 +22,11 @@ THE SOFTWARE.
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OpenTK.Graphics;
 using OpenTK.Input;
-using OpenTK.Platform;
 using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Gameplay {
+namespace PMDToolkit.Logic.Gameplay
+{
     public class Input {
 
         public enum InputType {

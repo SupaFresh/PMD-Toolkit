@@ -23,15 +23,11 @@ THE SOFTWARE.
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.IO;
 
-namespace PMDToolkit.Graphics {
+namespace PMDToolkit.Graphics
+{
     public class ShaderProgram : IDisposable {
 
         protected int mProgramID;

@@ -22,17 +22,11 @@ THE SOFTWARE.
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
-using PMDToolkit.Logic.Results;
-using PMDToolkit.Core;
 using System.IO;
 
-namespace PMDToolkit.Maps {
+namespace PMDToolkit.Maps
+{
     public class ActiveMap : BasicMap {
         
         public Item[] Items { get; set; }

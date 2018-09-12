@@ -22,12 +22,10 @@ THE SOFTWARE.
 */
 
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace PMDToolkit.Logic.Gameplay {
+namespace PMDToolkit.Logic.Gameplay
+{
     public struct Command {
 
         public enum CommandType {

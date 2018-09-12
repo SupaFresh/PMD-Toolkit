@@ -23,12 +23,9 @@ THE SOFTWARE.
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 
-namespace PMDToolkit.Data {
+namespace PMDToolkit.Data
+{
     public static class GameData {
         public const int MAX_ITEMS = 30;
         public const int MAX_MOVES = 10;

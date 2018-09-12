@@ -22,15 +22,11 @@ THE SOFTWARE.
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 
-namespace PMDToolkit.Data {
+namespace PMDToolkit.Data
+{
     public class CharAnimation {
         public Logic.Display.CharSprite.ActionType ActionType { get; set; }
 

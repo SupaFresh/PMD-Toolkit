@@ -22,12 +22,9 @@ THE SOFTWARE.
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace PMDToolkit.Data {
+namespace PMDToolkit.Data
+{
     public class ItemPreset {
         
         public int ItemNum { get; set; }

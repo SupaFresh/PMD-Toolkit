@@ -24,14 +24,10 @@ THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
-using PMDToolkit.Logic.Results;
 using System.IO;
 
-namespace PMDToolkit.Maps {
+namespace PMDToolkit.Maps
+{
     public abstract class RandomMap : ActiveMap {
 
         protected int seed;

@@ -22,17 +22,12 @@ THE SOFTWARE.
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Maps;
-using PMDToolkit.Logic.Gameplay;
 using PMDToolkit.Logic.Display;
 using PMDToolkit.Graphics;
-using PMDToolkit.Graphics;
 
-namespace PMDToolkit.Logic.Results {
+namespace PMDToolkit.Logic.Results
+{
     public class AddItem : IResult {
 
         //public ResultType Type { get { return ResultType.SpawnNpc; } }

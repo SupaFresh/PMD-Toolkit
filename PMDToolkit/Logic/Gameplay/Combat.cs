@@ -24,16 +24,11 @@ THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Maps;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using PMDToolkit.Graphics;
-using PMDToolkit.Core;
 
-namespace PMDToolkit.Logic.Gameplay {
+namespace PMDToolkit.Logic.Gameplay
+{
     public static partial class Processor {
 
 

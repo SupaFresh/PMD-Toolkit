@@ -22,15 +22,13 @@ THE SOFTWARE.
 */
 
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Logs;
 
-namespace PMDToolkit.Data {
+namespace PMDToolkit.Data
+{
     public class DexFormEntry {
 
 

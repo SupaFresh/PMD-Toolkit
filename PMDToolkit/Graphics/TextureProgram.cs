@@ -24,15 +24,13 @@ THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using System.IO;
 using PMDToolkit.Data;
 
-namespace PMDToolkit.Graphics {
+namespace PMDToolkit.Graphics
+{
     public class TextureProgram : ShaderProgram {
 
         //Attribute locations

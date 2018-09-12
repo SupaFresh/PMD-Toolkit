@@ -22,14 +22,12 @@ THE SOFTWARE.
 */
 
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using PMDToolkit.Graphics;
 
-namespace PMDToolkit.Maps {
+namespace PMDToolkit.Maps
+{
     public class TileAnim {
 
         public List<TileTexture> Frames;
