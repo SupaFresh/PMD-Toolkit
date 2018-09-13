@@ -21,15 +21,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using OpenTK.Input;
 using PMDToolkit.Maps;
 
 namespace PMDToolkit.Logic.Gameplay
 {
-    public class Input {
-
-        public enum InputType {
+    public class Input
+    {
+        public enum InputType
+        {
             Z,
             X,
             C,
@@ -45,17 +45,20 @@ namespace PMDToolkit.Logic.Gameplay
 
         private Direction8 dir = Maps.Direction8.None;
 
-
-        public bool this[InputType i] {
-            get {
+        public bool this[InputType i]
+        {
+            get
+            {
                 return inputStates[(int)i];
             }
         }
 
         public int TotalInputs { get { return inputStates.Length; } }
 
-        public Direction8 Direction {
-            get {
+        public Direction8 Direction
+        {
+            get
+            {
                 return dir;
             }
         }
@@ -74,24 +77,29 @@ namespace PMDToolkit.Logic.Gameplay
         public bool Print { get; set; }
         public bool Restart { get; set; }
 
-        public Input() {
+        public Input()
+        {
             dir = Direction8.None;
         }
 
-        public Input(KeyboardDevice keyboard, MouseDevice mouse) {
+        public Input(KeyboardDevice keyboard, MouseDevice mouse)
+        {
             Loc2D dirLoc = new Loc2D();
 
-
-            if (keyboard[Key.Down]) {
+            if (keyboard[Key.Down])
+            {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Down, 1);
             }
-            if (keyboard[Key.Left]) {
+            if (keyboard[Key.Left])
+            {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Left, 1);
             }
-            if (keyboard[Key.Up]) {
+            if (keyboard[Key.Up])
+            {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Up, 1);
             }
-            if (keyboard[Key.Right]) {
+            if (keyboard[Key.Right])
+            {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Right, 1);
             }
 
@@ -128,19 +136,21 @@ namespace PMDToolkit.Logic.Gameplay
 #endif
         }
 
-        public static bool operator ==(Input input1, Input input2) {
+        public static bool operator ==(Input input1, Input input2)
+        {
             if (input1.Direction != input2.Direction) return false;
 
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 9; i++)
+            {
                 if (input1[(InputType)i] != input2[(InputType)i]) return false;
             }
 
             return true;
         }
 
-        public static bool operator !=(Input input1, Input input2) {
+        public static bool operator !=(Input input1, Input input2)
+        {
             return !(input1 == input2);
         }
-
     }
 }

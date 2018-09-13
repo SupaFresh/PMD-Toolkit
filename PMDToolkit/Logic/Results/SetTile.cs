@@ -21,30 +21,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
+using PMDToolkit.Maps;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Results {
-    public class SetTile : IResult {
-
+namespace PMDToolkit.Logic.Results
+{
+    public class SetTile : IResult
+    {
         //public ResultType Type { get { return ResultType.SetTile; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        Loc2D loc;
-        Tile tile;
+        private Loc2D loc;
+        private Tile tile;
         public List<TileAnim> groundLayers;
         public List<TileAnim> propBackLayers;
         public List<TileAnim> propFrontLayers;
         public List<TileAnim> fringeLayers;
 
-        public SetTile(BasicMap map, Loc2D loc) {
+        public SetTile(BasicMap map, Loc2D loc)
+        {
             this.loc = loc;
             this.tile = new Tile(map.MapArray[loc.X, loc.Y]);
             groundLayers = new List<TileAnim>();
@@ -69,7 +66,8 @@ namespace PMDToolkit.Logic.Results {
             }
         }
 
-        public void Execute() {
+        public void Execute()
+        {
             Screen.Map.MapArray[loc.X, loc.Y] = tile;
             for (int i = 0; i < groundLayers.Count; i++)
             {

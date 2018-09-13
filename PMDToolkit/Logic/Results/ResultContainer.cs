@@ -21,18 +21,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Graphics;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Results {
-    public class ResultContainer : IResultContainer {
-
+namespace PMDToolkit.Logic.Results
+{
+    public class ResultContainer : IResultContainer
+    {
         private List<ResultBranch> branches;
-        
+
         public int BranchCount { get { return branches.Count; } }
 
         public bool Empty
@@ -68,8 +65,9 @@ namespace PMDToolkit.Logic.Results {
         {
             branches.Add(new ResultBranch());
         }
-        
-        public void AddResult(IResult result) {
+
+        public void AddResult(IResult result)
+        {
             branches[BranchCount - 1].Results.Enqueue(result);
         }
 
@@ -90,7 +88,7 @@ namespace PMDToolkit.Logic.Results {
 
         public IEnumerable<ResultBranch> GetAllBranches()
         {
-            foreach(ResultBranch branch in branches)
+            foreach (ResultBranch branch in branches)
                 yield return branch;
         }
     }

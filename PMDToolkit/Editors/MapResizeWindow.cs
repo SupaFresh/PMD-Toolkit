@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace PMDToolkit.Editors
@@ -31,9 +25,8 @@ namespace PMDToolkit.Editors
             RefreshResizeDir();
         }
 
-        void RefreshResizeDir()
+        private void RefreshResizeDir()
         {
-            
             btnCenter.Text = "";
             btnBottom.Text = "";
             btnLeft.Text = "";
@@ -49,27 +42,35 @@ namespace PMDToolkit.Editors
                 case Maps.Direction8.None:
                     btnCenter.Text = "X";
                     break;
+
                 case Maps.Direction8.Down:
                     btnBottom.Text = "X";
                     break;
+
                 case Maps.Direction8.Left:
                     btnLeft.Text = "X";
                     break;
+
                 case Maps.Direction8.Up:
                     btnTop.Text = "X";
                     break;
+
                 case Maps.Direction8.Right:
                     btnRight.Text = "X";
                     break;
+
                 case Maps.Direction8.DownLeft:
                     btnBottomLeft.Text = "X";
                     break;
+
                 case Maps.Direction8.UpLeft:
                     btnTopLeft.Text = "X";
                     break;
+
                 case Maps.Direction8.UpRight:
                     btnTopRight.Text = "X";
                     break;
+
                 case Maps.Direction8.DownRight:
                     btnBottomRight.Text = "X";
                     break;

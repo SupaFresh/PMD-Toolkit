@@ -21,14 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
+using PMDToolkit.Logs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Xml;
-using PMDToolkit.Logs;
 
 namespace PMDToolkit.Data
 {
@@ -65,7 +61,6 @@ namespace PMDToolkit.Data
 
         public static void Init()
         {
-
             if (File.Exists("Paths.xml"))
             {
                 try
@@ -84,7 +79,7 @@ namespace PMDToolkit.Data
         public static void CreateDefaultPaths()
         {
             //set all paths to default
-            
+
             TilesPath = AssetPath + "Tile\\";
             SpritesPath = AssetPath + "Sprite\\";
             PortraitsPath = AssetPath + "Portrait\\";
@@ -97,9 +92,8 @@ namespace PMDToolkit.Data
             SavePaths();
         }
 
-        static void LoadPaths()
+        private static void LoadPaths()
         {
-
             using (XmlReader reader = XmlReader.Create("Paths.xml"))
             {
                 while (reader.Read())

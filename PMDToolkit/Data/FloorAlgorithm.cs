@@ -21,18 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Logs;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 
 namespace PMDToolkit.Data
 {
-    public class FloorAlgorithm {
-
+    public class FloorAlgorithm
+    {
         //begin with:
         //loading of set maps
         //floor-by-floor
@@ -44,8 +43,10 @@ namespace PMDToolkit.Data
 
         public List<Tuple<string, bool>> FloorSettings { get; set; }
         public List<string> LayerSettings { get; set; }
+
         //tile data
         public List<string> TileSettings { get; set; }
+
         public List<string> FoliageSettings { get; set; }
         public List<string> CoverSettings { get; set; }
 
@@ -53,7 +54,8 @@ namespace PMDToolkit.Data
         public List<string> NpcGroups { get; set; }
         public List<string> RoomGroups { get; set; }
 
-        public FloorAlgorithm() {
+        public FloorAlgorithm()
+        {
             FloorSettings = new List<Tuple<string, bool>>();
             LayerSettings = new List<string>();
             TileSettings = new List<string>();
@@ -65,51 +67,71 @@ namespace PMDToolkit.Data
             RoomGroups = new List<string>();
         }
 
-        
-
-        public void Load(int algorithmNum) {
+        public void Load(int algorithmNum)
+        {
             Num = algorithmNum;
-            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "FloorAlgorithm\\" + algorithmNum + ".xml")) {
-                while (reader.Read()) {
-                    if (reader.IsStartElement()) {
-                        switch (reader.Name) {
-                            case "Name": {
+            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "FloorAlgorithm\\" + algorithmNum + ".xml"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "Name":
+                                {
                                     Name = reader.ReadString();
                                     break;
                                 }
-                            case "FloorSetting": {
-                                    if (reader.Read()) {
+                            case "FloorSetting":
+                                {
+                                    if (reader.Read())
+                                    {
                                         string settingName = reader.ReadElementString("FloorInt");
                                         bool settingBool = reader.ReadElementString("FloorIntBool").ToBool();
                                         FloorSettings.Add(new Tuple<string, bool>(settingName, settingBool));
                                     }
                                 }
                                 break;
-                            case "LayerSetting": {
+
+                            case "LayerSetting":
+                                {
                                     LayerSettings.Add(reader.ReadString());
                                 }
                                 break;
-                            case "TileSetting": {
+
+                            case "TileSetting":
+                                {
                                     TileSettings.Add(reader.ReadString());
                                 }
                                 break;
-                            case "FoliageSetting": {
+
+                            case "FoliageSetting":
+                                {
                                     FoliageSettings.Add(reader.ReadString());
                                 }
                                 break;
-                            case "CoverSetting": {
+
+                            case "CoverSetting":
+                                {
                                     CoverSettings.Add(reader.ReadString());
                                 }
                                 break;
-                            case "ItemGroup": {
+
+                            case "ItemGroup":
+                                {
                                     ItemGroups.Add(reader.ReadString());
                                 }
                                 break;
-                            case "NpcGroup": {
+
+                            case "NpcGroup":
+                                {
                                     NpcGroups.Add(reader.ReadString());
                                 }
                                 break;
-                            case "RoomGroup": {
+
+                            case "RoomGroup":
+                                {
                                     RoomGroups.Add(reader.ReadString());
                                 }
                                 break;
@@ -119,92 +141,131 @@ namespace PMDToolkit.Data
             }
         }
 
-
-        public void Save(int algorithmNum) {
+        public void Save(int algorithmNum)
+        {
             if (!Directory.Exists(Paths.DataPath + "FloorAlgorithm"))
                 Directory.CreateDirectory(Paths.DataPath + "FloorAlgorithm");
-            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "FloorAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings)) {
+            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "FloorAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings))
+            {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("AlgorithmEntry");
 
                 #region Basic data
+
                 writer.WriteStartElement("General");
                 writer.WriteElementString("Name", Name);
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Basic data
+
                 #region Floor Settings
+
                 writer.WriteStartElement("FloorSettings");
-                for (int i = 0; i < FloorSettings.Count; i++) {
+                for (int i = 0; i < FloorSettings.Count; i++)
+                {
                     writer.WriteStartElement("FloorSetting");
                     writer.WriteElementString("FloorInt", FloorSettings[i].Item1);
                     writer.WriteElementString("FloorIntBool", FloorSettings[i].Item2.ToString());
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Floor Settings
+
                 #region Layer Settings
+
                 writer.WriteStartElement("LayerSettings");
-                for (int i = 0; i < LayerSettings.Count; i++) {
+                for (int i = 0; i < LayerSettings.Count; i++)
+                {
                     writer.WriteElementString("LayerSetting", LayerSettings[i]);
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Layer Settings
+
                 #region Tile Settings
+
                 writer.WriteStartElement("TileSettings");
-                for (int i = 0; i < TileSettings.Count; i++) {
+                for (int i = 0; i < TileSettings.Count; i++)
+                {
                     writer.WriteElementString("TileSetting", TileSettings[i]);
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Tile Settings
+
                 #region Foliage Settings
+
                 writer.WriteStartElement("FoliageSettings");
-                for (int i = 0; i < FoliageSettings.Count; i++) {
+                for (int i = 0; i < FoliageSettings.Count; i++)
+                {
                     writer.WriteElementString("FoliageSetting", FoliageSettings[i]);
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Foliage Settings
+
                 #region Cover Settings
+
                 writer.WriteStartElement("CoverSettings");
-                for (int i = 0; i < CoverSettings.Count; i++) {
+                for (int i = 0; i < CoverSettings.Count; i++)
+                {
                     writer.WriteElementString("CoverSetting", CoverSettings[i]);
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Cover Settings
+
                 #region Item Settings
+
                 writer.WriteStartElement("ItemGroups");
-                for (int i = 0; i < ItemGroups.Count; i++) {
+                for (int i = 0; i < ItemGroups.Count; i++)
+                {
                     writer.WriteElementString("ItemGroup", ItemGroups[i]);
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Item Settings
+
                 #region NPC Settings
+
                 writer.WriteStartElement("NpcGroups");
-                for (int i = 0; i < NpcGroups.Count; i++) {
+                for (int i = 0; i < NpcGroups.Count; i++)
+                {
                     writer.WriteElementString("NpcGroup", NpcGroups[i]);
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion NPC Settings
+
                 #region Room Settings
+
                 writer.WriteStartElement("RoomGroups");
-                for (int i = 0; i < RoomGroups.Count; i++) {
+                for (int i = 0; i < RoomGroups.Count; i++)
+                {
                     writer.WriteElementString("RoomGroup", RoomGroups[i]);
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Room Settings
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
         }
 
-        public Maps.RandomMap CreateFloor() {
-            switch (Num) {
-                case 0: {
+        public Maps.RandomMap CreateFloor()
+        {
+            switch (Num)
+            {
+                case 0:
+                    {
                         //return new Maps.Floors.GridRooms();
-                    return new Maps.Floors.BranchRooms();
+                        return new Maps.Floors.BranchRooms();
                     }
-                default: {
-                    return null;
+                default:
+                    {
+                        return null;
                     }
             }
         }

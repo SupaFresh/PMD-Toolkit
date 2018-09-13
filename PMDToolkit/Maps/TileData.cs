@@ -21,16 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PMDToolkit.Maps {
-    public struct TileData {
-
-
+namespace PMDToolkit.Maps
+{
+    public struct TileData
+    {
         public Enums.TileType Type;
         public int Data1;
         public int Data2;
@@ -40,7 +34,8 @@ namespace PMDToolkit.Maps {
         public string String2;
         public string String3;
 
-        public TileData(Enums.TileType type, int data1, int data2, int data3, string String1, string String2, string String3) {
+        public TileData(Enums.TileType type, int data1, int data2, int data3, string String1, string String2, string String3)
+        {
             Type = type;
             Data1 = data1;
             Data2 = data2;
@@ -49,6 +44,5 @@ namespace PMDToolkit.Maps {
             this.String2 = String2;
             this.String3 = String3;
         }
-
     }
 }

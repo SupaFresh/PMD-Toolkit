@@ -21,19 +21,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace PMDToolkit.Editors
 {
     public class PathTextBox : TextBox
     {
         [DllImport("user32.dll")]
-        static extern bool HideCaret(IntPtr hWnd);
+        private static extern bool HideCaret(IntPtr hWnd);
 
         public PathTextBox()
         {

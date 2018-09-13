@@ -21,23 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 
-namespace PMDToolkit.Logic.Display {
-    public class PlayerSprite : CharSprite {
-
+namespace PMDToolkit.Logic.Display
+{
+    public class PlayerSprite : CharSprite
+    {
         public PlayerSprite()
         {
-
         }
 
         public PlayerSprite(Loc2D charLoc, Direction8 charDir, Gameplay.FormData data)
@@ -45,6 +36,5 @@ namespace PMDToolkit.Logic.Display {
         {
             CharData = data;
         }
-
     }
 }

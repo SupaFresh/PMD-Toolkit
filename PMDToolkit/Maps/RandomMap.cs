@@ -21,15 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace PMDToolkit.Maps
 {
-    public abstract class RandomMap : ActiveMap {
-
+    public abstract class RandomMap : ActiveMap
+    {
         protected int seed;
         protected Random rand;
 
@@ -43,13 +42,15 @@ namespace PMDToolkit.Maps
 
         public RandomMap()
         {
-
         }
 
         //recalculates wall/water/slippery textures after a change
-        public void RecalculateArea(Loc2D start, Loc2D end) {
-            for (int x = start.X; x <= end.X; x++) {
-                for (int y = start.Y; y <= end.Y; y++) {
+        public void RecalculateArea(Loc2D start, Loc2D end)
+        {
+            for (int x = start.X; x <= end.X; x++)
+            {
+                for (int y = start.Y; y <= end.Y; y++)
+                {
                     //recalculate water
 
                     //recalculate slippery (cover)
@@ -61,13 +62,10 @@ namespace PMDToolkit.Maps
 
         public abstract void Generate(int seed, Data.RDungeonFloor entry, List<FloorBorder> floorBorders, Dictionary<int, List<int>> borderLinks);
 
-
-
         public void Save(BinaryWriter writer)
         {
             base.Save(writer);
             //write to memory stream
-
         }
 
         public void Load(BinaryReader reader)
@@ -75,6 +73,5 @@ namespace PMDToolkit.Maps
             base.Load(reader);
             //read from memory stream
         }
-
     }
 }

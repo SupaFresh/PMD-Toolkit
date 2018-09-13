@@ -21,27 +21,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
+using PMDToolkit.Core;
+using PMDToolkit.Logs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.IO;
-using PMDToolkit.Core;
-using System.Reflection;
-using PMDToolkit.Logs;
+using System.Xml;
 
-namespace PMDToolkit.Data {
-    public class RoomAlgorithm {
-        
+namespace PMDToolkit.Data
+{
+    public class RoomAlgorithm
+    {
         public string Name { get; set; }
 
         public List<Tuple<string, bool>> RoomSettings { get; set; }
 
         public Type Algorithm { get; set; }
 
-        public RoomAlgorithm() {
+        public RoomAlgorithm()
+        {
             RoomSettings = new List<Tuple<string, bool>>();
         }
 
@@ -89,17 +87,25 @@ namespace PMDToolkit.Data {
         //    }
         //}
 
-        public void Load(int algorithmNum) {
-            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "RoomAlgorithm\\" + algorithmNum + ".xml")) {
-                while (reader.Read()) {
-                    if (reader.IsStartElement()) {
-                        switch (reader.Name) {
-                            case "Name": {
+        public void Load(int algorithmNum)
+        {
+            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "RoomAlgorithm\\" + algorithmNum + ".xml"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "Name":
+                                {
                                     Name = reader.ReadString();
                                     break;
                                 }
-                            case "RoomSetting": {
-                                    if (reader.Read()) {
+                            case "RoomSetting":
+                                {
+                                    if (reader.Read())
+                                    {
                                         string settingName = reader.ReadElementString("RoomInt");
                                         bool settingBool = reader.ReadElementString("RoomIntBool").ToBool();
                                         RoomSettings.Add(new Tuple<string, bool>(settingName, settingBool));
@@ -112,34 +118,43 @@ namespace PMDToolkit.Data {
             }
         }
 
-        public void Save(int algorithmNum) {
+        public void Save(int algorithmNum)
+        {
             if (!Directory.Exists(Paths.DataPath + "RoomAlgorithm"))
                 Directory.CreateDirectory(Paths.DataPath + "RoomAlgorithm");
-            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "RoomAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings)) {
+            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "RoomAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings))
+            {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("AlgorithmEntry");
 
                 #region Basic data
+
                 writer.WriteStartElement("General");
                 writer.WriteElementString("Name", Name);
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Basic data
+
                 #region Dungeon Settings
+
                 writer.WriteStartElement("RoomSettings");
-                for (int i = 0; i < RoomSettings.Count; i++) {
+                for (int i = 0; i < RoomSettings.Count; i++)
+                {
                     writer.WriteStartElement("RoomSetting");
                     writer.WriteElementString("RoomInt", RoomSettings[i].Item1);
                     writer.WriteElementString("RoomIntBool", RoomSettings[i].Item2.ToString());
                     writer.WriteEndElement();
                 }
-                #endregion
+
+                #endregion Dungeon Settings
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
         }
 
-        public void CreateRoom() {
+        public void CreateRoom()
+        {
             //pass in: map settings, map demands
             //pass out: room structure: tiles, items, npcs
         }

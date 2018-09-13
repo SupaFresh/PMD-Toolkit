@@ -21,30 +21,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit;
-using PMDToolkit.Maps;
 using PMDToolkit.Data;
 using PMDToolkit.Logic.Gameplay;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace PMDToolkit.Maps.Floors
 {
-
     public class BranchRooms : RandomMap
     {
-
-        int minLineSize = 8;
-        int maxLineSize = 16;
-        int minPassageSize = 0;
-        int maxPassageSize = 3;
-        int minSizeChangePeriod = 3;
-        int maxSizeChangePeriod = 7;
-        double mainFreedom = 0.5;
+        private int minLineSize = 8;
+        private int maxLineSize = 16;
+        private int minPassageSize = 0;
+        private int maxPassageSize = 3;
+        private int minSizeChangePeriod = 3;
+        private int maxSizeChangePeriod = 7;
+        private double mainFreedom = 0.5;
 
         private Loc2D StartPoint { get { return BorderPoints[0]; } }
 
@@ -57,7 +50,6 @@ namespace PMDToolkit.Maps.Floors
 
         public BranchRooms()
         {
-
         }
 
         //an initial create-map method
@@ -222,7 +214,6 @@ namespace PMDToolkit.Maps.Floors
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(45, 0), 0);
                         else if (!blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(46, 0), 0);
-
                     }
                     else
                     {
@@ -384,13 +375,12 @@ namespace PMDToolkit.Maps.Floors
         private bool IsLineForbidden(BranchLine line)
         {
             //"draw" pixels of the line, checking to see if any part of the line's crossing is "forbidden"
-            
+
             return false;
         }
 
         private bool IsCurveForbidden()
         {
-
             return false;
         }
 
@@ -404,7 +394,7 @@ namespace PMDToolkit.Maps.Floors
             //if tile value is out of range of min and max, return true
             return false;
         }
-        
+
         private void ExpandArray(Direction8 dir)
         {
             int expansion = 10;
@@ -474,7 +464,6 @@ namespace PMDToolkit.Maps.Floors
                 outDir = Operations.GetOuterBound8(0, 0, AgeArray.GetLength(0), AgeArray.GetLength(1), destLoc.X, destLoc.Y);
             }
 
-
             AgeArray[destLoc.X, destLoc.Y] = -1;
         }
 
@@ -496,7 +485,6 @@ namespace PMDToolkit.Maps.Floors
             int subChange = Math.Abs(Operations.DimOfDir(diff.X, diff.Y, subDir));
 
             int err = change / 2;
-
 
             Loc2D curLoc = loc1;
             int tileSize = rand.Next(minPassageSize, maxPassageSize + 1);
@@ -523,7 +511,6 @@ namespace PMDToolkit.Maps.Floors
             DrawPath(loc2, tileSize);
         }
 
-
         public void DrawStraightLine(Loc2D loc1, Loc2D loc2)
         {
             Loc2D diff = loc2 - loc1;
@@ -542,7 +529,6 @@ namespace PMDToolkit.Maps.Floors
             int subChange = Math.Abs(Operations.DimOfDir(diff.X, diff.Y, subDir));
 
             int err = change / 2;
-
 
             Loc2D curLoc = loc1;
 
@@ -622,7 +608,6 @@ namespace PMDToolkit.Maps.Floors
             //}
         }
 
-
         public void DrawBlob(Loc2D center, int avgSize, int diffSize, int wobble, bool hollow)
         {
             //wobble of 1 = egg
@@ -638,19 +623,17 @@ namespace PMDToolkit.Maps.Floors
                     int disSquared = x * x + y * y;
                     double angle = Math.Atan2(y, x);
                     double r = Math.Sin(angle * wobble + offset) * diffSize + avgSize;
-                    if (disSquared < r*r)
+                    if (disSquared < r * r)
                     {
                         //draw
-                        DrawTile(new Loc2D(x,y) + center);
+                        DrawTile(new Loc2D(x, y) + center);
                     }
                 }
             }
         }
 
-
-        bool IsBlocked(int x, int y, Direction8 dir)
+        private bool IsBlocked(int x, int y, Direction8 dir)
         {
-
             Operations.MoveInDirection8(ref x, ref y, dir, 1);
 
             if (x < 0 || x > Width - 1 || y < 0 || y > Height - 1)
@@ -658,14 +641,12 @@ namespace PMDToolkit.Maps.Floors
 
             if (AgeArray[x, y] != -1)
                 return true;
-            
+
             return false;
         }
 
-
         public void GenItems()
         {
-
             for (int n = 0; n < 10; n++)
             {
                 GenItem();
@@ -674,7 +655,6 @@ namespace PMDToolkit.Maps.Floors
 
         public void GenItem()
         {
-
             //List<Loc2D> possiblePoints = new List<Loc2D>();
             //for (int i = 0; i < Width; i++) {
             //    for (int j = 0; j < Height; j++) {
@@ -687,20 +667,15 @@ namespace PMDToolkit.Maps.Floors
             //    Loc2D loc = possiblePoints[rand.Next(possiblePoints.Count)];
             //    MapArray[loc.X, loc.Y].Item = new Item(rand.Next(5), 1);
             //}
-
         }
-
 
         public void SpawnNpcs()
         {
             //spawn NPCs
-
         }
-
 
         public bool SpawnNpc(DungeonArrayRoom room)
         {
-
             List<Loc2D> possiblePoints = new List<Loc2D>();
             for (int y = room.StartY; y <= room.EndY; y++)
             {

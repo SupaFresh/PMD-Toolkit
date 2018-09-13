@@ -21,26 +21,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
+using PMDToolkit.Maps;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Results {
-    public class SetMap : IResult {
-
+namespace PMDToolkit.Logic.Results
+{
+    public class SetMap : IResult
+    {
         //public ResultType Type { get { return ResultType.SetMap; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        DisplayMap map;
-        int floor;
+        private DisplayMap map;
+        private int floor;
 
-        public SetMap(ActiveMap map, int floor) {
+        public SetMap(ActiveMap map, int floor)
+        {
             this.map = new DisplayMap();
             this.map.MapArray = new Tile[map.Width, map.Height];
             for (int y = 0; y < map.Height; y++)
@@ -102,14 +99,14 @@ namespace PMDToolkit.Logic.Results {
                     }
                 }
             }
-                        
+
             this.floor = floor;
         }
 
-        public void Execute() {
+        public void Execute()
+        {
             Screen.Map = map;
             Screen.Floor = floor;
         }
-
     }
 }

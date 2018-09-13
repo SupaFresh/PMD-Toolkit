@@ -23,21 +23,17 @@ THE SOFTWARE.
 
 // Released to the public domain. Use, modify and relicense at will.
 
-using System;
-using System.Linq;
+using DragonOgg.MediaPlayer;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Audio;
-using OpenTK.Audio.OpenAL;
-using OpenTK.Input;
+using PMDToolkit.Graphics;
+using System;
 using System.Threading;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using DragonOgg.MediaPlayer;
-using PMDToolkit.Graphics;
 
-namespace PMDToolkit {
+namespace PMDToolkit
+{
     public class Game : GameWindow
     {
         public enum GameLoadState
@@ -54,8 +50,8 @@ namespace PMDToolkit {
 
         public static GameLoadState GameLoaded;
 
-        static string loadMessage;
-        static object lockObj = new object();
+        private static string loadMessage;
+        private static object lockObj = new object();
 
         public static void UpdateLoadMsg(string loadMsg)
         {
@@ -63,9 +59,9 @@ namespace PMDToolkit {
                 loadMessage = loadMsg;
         }
 
-        int errorCount;
+        private int errorCount;
 
-        static void openGame()
+        private static void openGame()
         {
             try
             {
@@ -86,7 +82,8 @@ namespace PMDToolkit {
 
         /// <summary>Creates a 800x600 window with the specified title.</summary>
         public Game()
-            : base(Graphics.TextureManager.SCREEN_WIDTH, Graphics.TextureManager.SCREEN_HEIGHT, GraphicsMode.Default, "PMD Toolkit") {
+            : base(Graphics.TextureManager.SCREEN_WIDTH, Graphics.TextureManager.SCREEN_HEIGHT, GraphicsMode.Default, "PMD Toolkit")
+        {
             VSync = VSyncMode.On;
             string version = GL.GetString(StringName.Version);
             string vendor = GL.GetString(StringName.Vendor);
@@ -98,12 +95,12 @@ namespace PMDToolkit {
 
             string[] extensionsList = extensions.Split(' ');
 
-
             int major = (int)version[0];
             int minor = (int)version[2];
             if (major < 2 || major == 2 && minor < 1)
                 throw new System.Exception("OpenGL 2.1 not supported!  Current version: " + version);
-            if (!extensions.Contains("GL_ARB_texture_non_power_of_two")) {
+            if (!extensions.Contains("GL_ARB_texture_non_power_of_two"))
+            {
                 throw new System.Exception("Non-Power of 2 Textures not supported!");
             }
             WindowBorder = OpenTK.WindowBorder.Fixed;
@@ -112,21 +109,23 @@ namespace PMDToolkit {
         }
 
         /// <summary>Load resources here.</summary>
-        protected override void OnLoad(EventArgs e) {
+        protected override void OnLoad(EventArgs e)
+        {
             base.OnLoad(e);
 
             Graphics.TextureManager.InitBase();
 
             GameLoaded = GameLoadState.Loading;
 
-            Thread thread = new Thread(() => {
+            Thread thread = new Thread(() =>
+            {
                 AsyncLoad();
             });
             thread.IsBackground = true;
             thread.Start();
         }
 
-        void AsyncLoad()
+        private void AsyncLoad()
         {
             try
             {
@@ -170,7 +169,8 @@ namespace PMDToolkit {
         /// along when the aspect ratio of your window).
         /// </summary>
         /// <param name="e">Not used.</param>
-        protected override void OnResize(EventArgs e) {
+        protected override void OnResize(EventArgs e)
+        {
             base.OnResize(e);
 
             Graphics.TextureManager.SetViewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
@@ -180,7 +180,8 @@ namespace PMDToolkit {
         /// Called when it is time to setup the next frame. Add you game logic here.
         /// </summary>
         /// <param name="e">Contains timing information for framerate independent logic.</param>
-        protected override void OnUpdateFrame(FrameEventArgs e) {
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
             base.OnUpdateFrame(e);
 
             if (Editors.MainPanel.GameNeedWait)
@@ -240,7 +241,8 @@ namespace PMDToolkit {
         /// Called when it is time to render the next frame. Add your rendering code here.
         /// </summary>
         /// <param name="e">Contains timing information.</param>
-        protected override void OnRenderFrame(FrameEventArgs e) {
+        protected override void OnRenderFrame(FrameEventArgs e)
+        {
             base.OnRenderFrame(e);
             if (GameLoaded < GameLoadState.Loaded)
             {
@@ -262,7 +264,6 @@ namespace PMDToolkit {
             {
                 try
                 {
-
                     //Clear color AND stencil buffer
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.StencilBufferBit);
 
@@ -308,7 +309,8 @@ namespace PMDToolkit {
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main() {
+        private static void Main()
+        {
             //Console.WindowWidth = Console.LargestWindowWidth;
             //Console.WindowHeight = Console.LargestWindowHeight;
 
@@ -317,7 +319,6 @@ namespace PMDToolkit {
             Logs.Logger.Init();
             Logs.Logger.LogInfo("=== " + DateTime.Now.ToLongTimeString() + " Start up ===");
 
-            
 #if RUNNING_GAME
             openGame();
 

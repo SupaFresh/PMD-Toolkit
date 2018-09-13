@@ -21,33 +21,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
 
-namespace PMDToolkit.Logic.Results {
-    public class CreateEmitter : IResult {
-
+namespace PMDToolkit.Logic.Results
+{
+    public class CreateEmitter : IResult
+    {
         //public ResultType Type { get { return ResultType.CreateEmitter; } }
 
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        IEmitter emitter;
+        private IEmitter emitter;
 
-        public CreateEmitter(IEmitter emitter) {
+        public CreateEmitter(IEmitter emitter)
+        {
             this.emitter = emitter;
         }
 
-        public void Execute() {
+        public void Execute()
+        {
             Screen.Emitters.Add(emitter);
         }
     }

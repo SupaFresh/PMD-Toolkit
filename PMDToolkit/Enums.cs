@@ -21,14 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PMDToolkit.Enums {
-    public enum GrowthGroup {
+namespace PMDToolkit.Enums
+{
+    public enum GrowthGroup
+    {
         None = 0,
         Erratic = 1,
         Fast = 2,
@@ -38,7 +34,8 @@ namespace PMDToolkit.Enums {
         Fluctuating = 6
     }
 
-    public enum EggGroup {
+    public enum EggGroup
+    {
         Undiscovered = 0,
         Ditto = 1,
         Monster = 2,
@@ -56,8 +53,8 @@ namespace PMDToolkit.Enums {
         Dragon = 14
     }
 
-
-    public enum BodyShape {
+    public enum BodyShape
+    {
         Head,
         Serpentine,
         Fins,
@@ -74,7 +71,8 @@ namespace PMDToolkit.Enums {
         Insectoid
     }
 
-    public enum ItemType {
+    public enum ItemType
+    {
         None = 0,
         Use = 1,
         Hold = 2,
@@ -82,8 +80,8 @@ namespace PMDToolkit.Enums {
         Bag = 4
     };
 
-
-    public enum Element {
+    public enum Element
+    {
         None,
         Bug,
         Dark,
@@ -105,14 +103,15 @@ namespace PMDToolkit.Enums {
         Water
     };
 
-    public enum MoveCategory {
+    public enum MoveCategory
+    {
         Physical,
         Special,
         Status
     };
 
-
-    public enum Weather {
+    public enum Weather
+    {
         Ambiguous = -1,//for server weather.  counts as "none" in every other case.
         None = 0,
         Raining = 1,
@@ -128,8 +127,8 @@ namespace PMDToolkit.Enums {
         Ashfall = 11
     };
 
-
-    public enum StatusAilment {
+    public enum StatusAilment
+    {
         OK,
         Burn,
         Freeze,
@@ -138,8 +137,8 @@ namespace PMDToolkit.Enums {
         Sleep
     }
 
-
-    public enum RangeType {
+    public enum RangeType
+    {
         None = 0,
         Front = 1,
         FrontUntil = 2,
@@ -151,16 +150,16 @@ namespace PMDToolkit.Enums {
         EightDirections = 8
     };
 
-
-    public enum Alignment {
+    public enum Alignment
+    {
         None = 0,
         Self = 1,
         Friend = 2,
         Foe = 3
     };
-    
 
-    public enum TileType {
+    public enum TileType
+    {
         Void = -1,
         Walkable = 0,
         Blocked = 3,
@@ -174,7 +173,8 @@ namespace PMDToolkit.Enums {
         Trap = 13
     };
 
-    public enum WalkMode {
+    public enum WalkMode
+    {
         Normal = 0,
         Air = 1,
         All = 2
@@ -194,5 +194,4 @@ namespace PMDToolkit.Enums {
         Normal = 0,
         Shiny = 1
     }
-
 }

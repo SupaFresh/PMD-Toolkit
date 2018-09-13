@@ -21,17 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Graphics;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Results {
+namespace PMDToolkit.Logic.Results
+{
     public class MotionResultContainer : IResultContainer
     {
-
         private Dictionary<int, ResultBranch> branches;
         private int currentId;
 
@@ -66,7 +62,6 @@ namespace PMDToolkit.Logic.Results {
             return true;
         }
 
-
         public void OpenBranch(int id)
         {
             if (!branches.ContainsKey(id))
@@ -74,11 +69,12 @@ namespace PMDToolkit.Logic.Results {
 
             currentId = id;
         }
-        
-        public void AddResult(IResult result) {
+
+        public void AddResult(IResult result)
+        {
             branches[currentId].Results.Enqueue(result);
         }
-        
+
         public bool IsBranchEmpty()
         {
             return (branches[currentId].Results.Count == 0);

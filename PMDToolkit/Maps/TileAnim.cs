@@ -21,15 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
+using PMDToolkit.Graphics;
 using System.Collections.Generic;
 using System.IO;
-using PMDToolkit.Graphics;
 
 namespace PMDToolkit.Maps
 {
-    public class TileAnim {
-
+    public class TileAnim
+    {
         public List<TileTexture> Frames;
         public RenderTime FrameLength;
 
@@ -48,8 +47,9 @@ namespace PMDToolkit.Maps
             }
             FrameLength = oldTileAnim.FrameLength;
         }
-        
-        public TileAnim(Loc2D texture, int sheet) {
+
+        public TileAnim(Loc2D texture, int sheet)
+        {
             Frames = new List<TileTexture>();
             Frames.Add(new TileTexture(texture, sheet));
             FrameLength = RenderTime.FromMillisecs(1);
@@ -90,8 +90,6 @@ namespace PMDToolkit.Maps
                 Frames.Add(layer);
             }
         }
-
-
 
         public static bool operator ==(TileAnim param1, TileAnim param2)
         {

@@ -21,27 +21,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit;
-using PMDToolkit.Maps;
 using PMDToolkit.Data;
+using System;
 
-
-namespace PMDToolkit.Maps.Dungeons {
-    public class Mapped : BasicDungeon {
-
-        string fileName;
+namespace PMDToolkit.Maps.Dungeons
+{
+    public class Mapped : BasicDungeon
+    {
+        private string fileName;
 
         public override void Generate(int seed, RDungeonEntry entry)
         {
             Generate(seed, "");
         }
 
-        public void Generate(int seed, string fileName )
+        public void Generate(int seed, string fileName)
         {
             this.seed = seed;
             this.entry = null;

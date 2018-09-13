@@ -21,27 +21,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Display {
-    public class DisplayMap {
-
+namespace PMDToolkit.Logic.Display
+{
+    public class DisplayMap
+    {
         public Tile[,] MapArray { get; set; }
 
         public List<TileAnim[,]> GroundLayers { get; set; }
         public List<TileAnim[,]> PropBackLayers { get; set; }
         public List<TileAnim[,]> PropFrontLayers { get; set; }
         public List<TileAnim[,]> FringeLayers { get; set; }
-        
+
         public int Width { get { return MapArray.GetLength(0); } }
         public int Height { get { return MapArray.GetLength(1); } }
 
@@ -55,11 +50,9 @@ namespace PMDToolkit.Logic.Display {
             FringeLayers = new List<TileAnim[,]>();
         }
 
-        public void Draw() {
-
-
+        public void Draw()
+        {
         }
-
 
         public void DrawGround(int x, int y, Loc2D loc)
         {
@@ -78,7 +71,6 @@ namespace PMDToolkit.Logic.Display {
             }
             TextureManager.TextureProgram.PopModelView();
         }
-
 
         public void DrawPropBack(int x, int y, Loc2D loc)
         {

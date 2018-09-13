@@ -21,20 +21,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
 using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Gameplay {
-    public abstract class MenuBase {
-
+namespace PMDToolkit.Logic.Gameplay
+{
+    public abstract class MenuBase
+    {
         public Loc2D Start { get; set; }
         public Loc2D End { get; set; }
 
@@ -45,7 +40,8 @@ namespace PMDToolkit.Logic.Gameplay {
 
         public abstract Loc2D PickerPos { get; }
 
-        public MenuBase() {
+        public MenuBase()
+        {
             NonChoices = new List<MenuText>();
             Choices = new List<MenuText>();
             Visible = true;
@@ -53,7 +49,8 @@ namespace PMDToolkit.Logic.Gameplay {
 
         public abstract void Process(Input input, ActiveChar character, ref bool moveMade);
 
-        public void Draw() {
+        public void Draw()
+        {
             if (!Visible) return;
 
             //draw background
@@ -124,7 +121,8 @@ namespace PMDToolkit.Logic.Gameplay {
             TextureManager.TextureProgram.PopModelView();
 
             //draw choices
-            for (int i = 0; i < Choices.Count; i++) {
+            for (int i = 0; i < Choices.Count; i++)
+            {
                 TextureManager.SingleFont.RenderText(Choices[i].Loc.X, Choices[i].Loc.Y, Choices[i].Text, null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Choices[i].Color);
             }
 
@@ -134,7 +132,6 @@ namespace PMDToolkit.Logic.Gameplay {
             TextureManager.TextureProgram.UpdateModelView();
             Graphics.TextureManager.Picker.Render(null);
             TextureManager.TextureProgram.PopModelView();
-
         }
     }
 }

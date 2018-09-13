@@ -21,20 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Graphics;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-
-namespace PMDToolkit.Maps {
-    public class Tile {
-
-
+namespace PMDToolkit.Maps
+{
+    public class Tile
+    {
         public TileData Data;
 
         public Tile()
@@ -42,11 +32,13 @@ namespace PMDToolkit.Maps {
             Data = new TileData(Enums.TileType.Void, 0, 0, 0, "", "", "");
         }
 
-        public Tile(Tile tile) {
+        public Tile(Tile tile)
+        {
             this.Data = tile.Data;
         }
 
-        public Tile(Enums.TileType type, int data1, int data2, int data3) {
+        public Tile(Enums.TileType type, int data1, int data2, int data3)
+        {
             Data = new TileData(type, data1, data2, data3, "", "", "");
         }
 
@@ -54,6 +46,5 @@ namespace PMDToolkit.Maps {
         {
             Data = new TileData(type, data1, data2, data3, tileString1, tileString2, tileString3);
         }
-
     }
 }

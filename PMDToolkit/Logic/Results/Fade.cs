@@ -21,30 +21,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Graphics;
 
-namespace PMDToolkit.Logic.Results {
-    public class Fade : IResult {
-
+namespace PMDToolkit.Logic.Results
+{
+    public class Fade : IResult
+    {
         //public ResultType Type { get { return ResultType.Fade; } }
 
         public RenderTime Delay { get { return Display.Screen.TOTAL_FADE_TIME; } }
 
-        Display.Screen.FadeType fadeType;
+        private Display.Screen.FadeType fadeType;
 
-        public Fade(Display.Screen.FadeType fadeType) {
+        public Fade(Display.Screen.FadeType fadeType)
+        {
             this.fadeType = fadeType;
         }
 
-        public void Execute() {
+        public void Execute()
+        {
             Display.Screen.FadeTime = Display.Screen.TOTAL_FADE_TIME;
             Display.Screen.CurrentFade = fadeType;
         }
-
     }
 }

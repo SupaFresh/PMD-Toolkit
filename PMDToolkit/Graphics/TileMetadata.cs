@@ -21,28 +21,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using System.IO;
-using PMDToolkit.Core;
 
-namespace PMDToolkit.Graphics {
-    public class TileMetadata {
-
-        long headerSize;
-        long[] tilePositions;
+namespace PMDToolkit.Graphics
+{
+    public class TileMetadata
+    {
+        private long headerSize;
+        private long[] tilePositions;
 
         public int[] TileSizes { get; set; }
-        
 
-        Size size;
+        private Size size;
 
         public Size Size { get { return size; } }
 
@@ -53,7 +44,8 @@ namespace PMDToolkit.Graphics {
             return tilePositions[index] + headerSize;
         }
 
-        public void Load(string filePath) {
+        public void Load(string filePath)
+        {
             // File format:
             // [tileset-width(4)][tileset-height(4)][tile-count(4)]
             // [tileposition-1(4)][tilesize-1(4)][tileposition-2(4)][tilesize-2(4)][tileposition-n(n*4)][tilesize-n(n*4)]
@@ -84,9 +76,6 @@ namespace PMDToolkit.Graphics {
                     headerSize = fileStream.Position;
                 }
             }
-
         }
-
-
     }
 }

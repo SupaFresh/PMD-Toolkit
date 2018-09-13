@@ -21,20 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Display {
-
-    class NormalMoveAnimation : ISpellSprite
+namespace PMDToolkit.Logic.Display
+{
+    internal class NormalMoveAnimation : ISpellSprite
     {
         #region Constructors
 
@@ -68,14 +61,16 @@ namespace PMDToolkit.Logic.Display {
             set;
         }
 
-        public int Frame {
+        public int Frame
+        {
             get;
             set;
         }
 
         //total frames
 
-        public int Loops {
+        public int Loops
+        {
             get;
             set;
         }
@@ -100,35 +95,38 @@ namespace PMDToolkit.Logic.Display {
         public RenderTime ActionTime { get; set; }
         public bool ActionDone { get; set; }
 
-
         #endregion Properties
 
         public virtual void Begin()
         {
-
         }
 
         public virtual void Process(RenderTime elapsedTime)
         {
             ActionTime += elapsedTime;
             FrameTime += elapsedTime;
-            if (FrameTime >= FrameLength) {
+            if (FrameTime >= FrameLength)
+            {
                 FrameTime = FrameTime - FrameLength;
                 Frame++;
             }
 
-            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TotalFrames) {
+            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TotalFrames)
+            {
                 Loops++;
                 Frame = 0;
             }
 
-            if (Loops >= TotalLoops) {
+            if (Loops >= TotalLoops)
+            {
                 ActionDone = true;
             }
         }
 
-        public virtual void Draw() {
-            if (!ActionDone) {
+        public virtual void Draw()
+        {
+            if (!ActionDone)
+            {
                 TextureManager.TextureProgram.PushModelView();
                 Loc2D drawLoc = GetStart();
                 Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
@@ -141,15 +139,16 @@ namespace PMDToolkit.Logic.Display {
             }
         }
 
-        public Loc2D GetStart() {
-            return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE/2- Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileWidth / 2,
+        public Loc2D GetStart()
+        {
+            return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileWidth / 2,
                 MapLoc.Y + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileHeight / 2 - MapHeight);
         }
 
-        public Loc2D GetEnd() {
+        public Loc2D GetEnd()
+        {
             return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileWidth / 2,
                 MapLoc.Y + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileHeight / 2 - MapHeight);
         }
-
     }
 }

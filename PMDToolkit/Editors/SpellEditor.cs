@@ -1,86 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using PMDToolkit.Data;
+﻿using PMDToolkit.Data;
 using PMDToolkit.Graphics;
+using System;
+using System.Windows.Forms;
 
-namespace PMDToolkit.Editors {
-    public partial class SpellEditor : Form {
-        int spellNum;
+namespace PMDToolkit.Editors
+{
+    public partial class SpellEditor : Form
+    {
+        private int spellNum;
 
-        public SpellEditor() {
+        public SpellEditor()
+        {
             InitializeComponent();
 
             Array types = Enum.GetValues(typeof(Enums.Element));
-            for (int i = 0; i < types.Length; i++) {
+            for (int i = 0; i < types.Length; i++)
+            {
                 cbType.Items.Add(types.GetValue(i));
             }
             cbType.SelectedIndex = 0;
 
             Array categories = Enum.GetValues(typeof(Enums.MoveCategory));
-            for (int i = 0; i < categories.Length; i++) {
+            for (int i = 0; i < categories.Length; i++)
+            {
                 cbCategory.Items.Add(categories.GetValue(i));
             }
             cbCategory.SelectedIndex = 0;
 
             Array ranges = Enum.GetValues(typeof(Enums.RangeType));
-            for (int i = 0; i < ranges.Length; i++) {
+            for (int i = 0; i < ranges.Length; i++)
+            {
                 cbRange.Items.Add(ranges.GetValue(i));
             }
             cbRange.SelectedIndex = 0;
 
-
             Array startAnims = Enum.GetValues(typeof(Logic.Display.MoveAnimationType));
-            for (int i = 0; i < startAnims.Length; i++) {
+            for (int i = 0; i < startAnims.Length; i++)
+            {
                 cbStartAnim.Items.Add(startAnims.GetValue(i));
             }
             cbStartAnim.SelectedIndex = 0;
 
             Array startUserAnims = Enum.GetValues(typeof(Logic.Display.CharSprite.ActionType));
-            for (int i = 0; i < startUserAnims.Length; i++) {
+            for (int i = 0; i < startUserAnims.Length; i++)
+            {
                 cbStartUser.Items.Add(startUserAnims.GetValue(i));
             }
             cbStartUser.SelectedIndex = 0;
 
-
             Array midAnims = Enum.GetValues(typeof(Logic.Display.MoveAnimationType));
-            for (int i = 0; i < midAnims.Length; i++) {
+            for (int i = 0; i < midAnims.Length; i++)
+            {
                 cbMidAnim.Items.Add(midAnims.GetValue(i));
             }
             cbMidAnim.SelectedIndex = 0;
 
             Array midUserAnims = Enum.GetValues(typeof(Logic.Display.CharSprite.ActionType));
-            for (int i = 0; i < midUserAnims.Length; i++) {
+            for (int i = 0; i < midUserAnims.Length; i++)
+            {
                 cbMidUser.Items.Add(midUserAnims.GetValue(i));
             }
             cbMidUser.SelectedIndex = 0;
 
             Array midTargetAnims = Enum.GetValues(typeof(Logic.Display.CharSprite.ActionType));
-            for (int i = 0; i < midTargetAnims.Length; i++) {
+            for (int i = 0; i < midTargetAnims.Length; i++)
+            {
                 cbMidTarget.Items.Add(midTargetAnims.GetValue(i));
             }
             cbMidTarget.SelectedIndex = 0;
 
-
             Array endAnims = Enum.GetValues(typeof(Logic.Display.MoveAnimationType));
-            for (int i = 0; i < endAnims.Length; i++) {
+            for (int i = 0; i < endAnims.Length; i++)
+            {
                 cbEndAnim.Items.Add(endAnims.GetValue(i));
             }
             cbEndAnim.SelectedIndex = 0;
 
             Array endUserAnims = Enum.GetValues(typeof(Logic.Display.CharSprite.ActionType));
-            for (int i = 0; i < endUserAnims.Length; i++) {
+            for (int i = 0; i < endUserAnims.Length; i++)
+            {
                 cbEndUser.Items.Add(endUserAnims.GetValue(i));
             }
             cbEndUser.SelectedIndex = 0;
 
             Array endTargetAnims = Enum.GetValues(typeof(Logic.Display.CharSprite.ActionType));
-            for (int i = 0; i < endTargetAnims.Length; i++) {
+            for (int i = 0; i < endTargetAnims.Length; i++)
+            {
                 cbEndTarget.Items.Add(endTargetAnims.GetValue(i));
             }
             cbEndTarget.SelectedIndex = 0;
@@ -117,8 +122,6 @@ namespace PMDToolkit.Editors {
 
             nudStartSound.Maximum = Int32.MaxValue;
 
-
-
             nudMidIndex.Maximum = Int32.MaxValue;
             nudMidLength.Maximum = Int32.MaxValue;
 
@@ -145,8 +148,6 @@ namespace PMDToolkit.Editors {
 
             nudMidSound.Maximum = Int32.MaxValue;
 
-
-
             nudEndIndex.Maximum = Int32.MaxValue;
             nudEndLength.Maximum = Int32.MaxValue;
 
@@ -172,11 +173,10 @@ namespace PMDToolkit.Editors {
             nudEndTarget3.Maximum = Int32.MaxValue;
 
             nudEndSound.Maximum = Int32.MaxValue;
-
         }
 
-
-        public void LoadSpell(int index) {
+        public void LoadSpell(int index)
+        {
             spellNum = index;
             MoveEntry entry = GameData.MoveDex[index];
 
@@ -218,8 +218,6 @@ namespace PMDToolkit.Editors {
 
             nudStartSound.Value = entry.StartSound;
 
-
-
             cbMidAnim.SelectedIndex = (int)entry.MidAnim.AnimType;
             nudMidIndex.Value = entry.MidAnim.AnimIndex;
             nudMidLength.Value = entry.MidAnim.FrameLength.ToMillisecs();
@@ -232,8 +230,6 @@ namespace PMDToolkit.Editors {
             cbMidTarget.SelectedIndex = (int)entry.MidTargetAnim.ActionType;
 
             nudMidSound.Value = entry.MidSound;
-
-
 
             cbEndAnim.SelectedIndex = (int)entry.EndAnim.AnimType;
             nudEndIndex.Value = entry.EndAnim.AnimIndex;
@@ -249,8 +245,8 @@ namespace PMDToolkit.Editors {
             nudEndSound.Value = entry.EndSound;
         }
 
-        MoveEntry GetEntry() {
-
+        private MoveEntry GetEntry()
+        {
             MoveEntry entry = new MoveEntry();
 
             entry.Name = txtName.Text;
@@ -291,8 +287,6 @@ namespace PMDToolkit.Editors {
 
             entry.StartSound = (int)nudStartSound.Value;
 
-
-
             entry.MidAnim.AnimType = (Logic.Display.MoveAnimationType)cbMidAnim.SelectedIndex;
             entry.MidAnim.AnimIndex = (int)nudMidIndex.Value;
             entry.MidAnim.FrameLength = RenderTime.FromMillisecs((int)nudMidLength.Value);
@@ -305,8 +299,6 @@ namespace PMDToolkit.Editors {
             entry.MidTargetAnim.ActionType = (Logic.Display.CharSprite.ActionType)cbMidTarget.SelectedIndex;
 
             entry.MidSound = (int)nudMidSound.Value;
-
-
 
             entry.EndAnim.AnimType = (Logic.Display.MoveAnimationType)cbEndAnim.SelectedIndex;
             entry.EndAnim.AnimIndex = (int)nudEndIndex.Value;
@@ -324,31 +316,36 @@ namespace PMDToolkit.Editors {
             return entry;
         }
 
-        public void SaveSpell() {
-
+        public void SaveSpell()
+        {
             MoveEntry entry = GetEntry();
 
             GameData.MoveDex[spellNum] = entry;
             GameData.MoveDex[spellNum].Save(spellNum);
         }
 
-        private void btnOK_Click(object sender, EventArgs e) {
+        private void btnOK_Click(object sender, EventArgs e)
+        {
             SaveSpell();
             this.Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) {
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
 
-        private void btnTest_Click(object sender, EventArgs e) {
+        private void btnTest_Click(object sender, EventArgs e)
+        {
             MoveEntry entry = GetEntry();
 
             PMDToolkit.Logic.Gameplay.Processor.MockAttack(entry);
         }
 
-        private void Anim_Changed(object sender, EventArgs e) {
-            if (chkAutoTest.Checked) {
+        private void Anim_Changed(object sender, EventArgs e)
+        {
+            if (chkAutoTest.Checked)
+            {
                 MoveEntry entry = GetEntry();
                 PMDToolkit.Logic.Gameplay.Processor.MockAttack(entry);
             }

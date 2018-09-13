@@ -21,18 +21,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 namespace PMDToolkit.Data
 {
-    using System.Collections.Generic;
-    using System.Xml;
-    using System.IO;
     using PMDToolkit.Core;
     using PMDToolkit.Logs;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Xml;
 
-    public class DexEntry {
-
-
+    public class DexEntry
+    {
         public int DexNum { get; set; }
 
         public string Name { get; set; }
@@ -47,30 +45,39 @@ namespace PMDToolkit.Data
 
         public List<DexFormEntry> Forms { get; set; }
 
-        public DexEntry() {
+        public DexEntry()
+        {
             Forms = new List<DexFormEntry>();
         }
 
-
-        public void Load(int dexNum) {
+        public void Load(int dexNum)
+        {
             DexNum = dexNum;
-            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "Dex\\" + DexNum + ".xml")) {
-                while (reader.Read()) {
-                    if (reader.IsStartElement()) {
-                        switch (reader.Name) {
-                            case "DexNum": {
+            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "Dex\\" + DexNum + ".xml"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "DexNum":
+                                {
                                     DexNum = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Name": {
+                            case "Name":
+                                {
                                     Name = reader.ReadString();
                                     break;
                                 }
-                            case "SpeciesName": {
+                            case "SpeciesName":
+                                {
                                     SpeciesName = reader.ReadString();
                                     break;
                                 }
-                            case "GrowthGroup": {
+                            case "GrowthGroup":
+                                {
                                     Growth = reader.ReadString().ToEnum<Enums.GrowthGroup>();
                                     break;
                                 }
@@ -94,7 +101,8 @@ namespace PMDToolkit.Data
             }
 
             int formNum = 0;
-            while (File.Exists(Paths.DataPath + "Dex\\" + DexNum + "-" + formNum + ".xml")) {
+            while (File.Exists(Paths.DataPath + "Dex\\" + DexNum + "-" + formNum + ".xml"))
+            {
                 DexFormEntry form = new DexFormEntry();
                 form.Load(DexNum, formNum);
                 Forms.Add(form);
@@ -102,15 +110,17 @@ namespace PMDToolkit.Data
             }
         }
 
-
-        public void Save() {
+        public void Save()
+        {
             if (!Directory.Exists(Paths.DataPath + "Dex\\" + DexNum))
                 Directory.CreateDirectory(Paths.DataPath + "Dex\\" + DexNum);
-            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Dex\\" + DexNum + ".xml", Logger.XmlWriterSettings)) {
+            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Dex\\" + DexNum + ".xml", Logger.XmlWriterSettings))
+            {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("DexEntry");
 
                 #region Basic data
+
                 writer.WriteStartElement("General");
                 writer.WriteElementString("Name", Name);
                 writer.WriteElementString("SpeciesName", SpeciesName);
@@ -118,16 +128,17 @@ namespace PMDToolkit.Data
                 writer.WriteElementString("EggGroup1", EggGroup1.ToString());
                 writer.WriteElementString("EggGroup2", EggGroup2.ToString());
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Basic data
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
 
-            foreach (DexFormEntry form in Forms) {
+            foreach (DexFormEntry form in Forms)
+            {
                 form.Save(DexNum);
             }
         }
-
     }
 }

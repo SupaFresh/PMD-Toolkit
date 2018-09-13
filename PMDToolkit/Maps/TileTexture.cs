@@ -21,17 +21,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-
 namespace PMDToolkit.Maps
 {
-    public struct TileTexture {
-
+    public struct TileTexture
+    {
         public Loc2D Texture;
         public int Sheet;
 
-        
-        public TileTexture(Loc2D texture, int sheet) {
+        public TileTexture(Loc2D texture, int sheet)
+        {
             Texture = texture;
             Sheet = sheet;
         }
@@ -46,10 +44,10 @@ namespace PMDToolkit.Maps
             return !(param1 == param2);
         }
 
-        public void Draw() {
+        public void Draw()
+        {
             Graphics.Texture texture = Graphics.TextureManager.GetTile(Sheet, Texture);
             texture.Render(null);
         }
-
     }
 }

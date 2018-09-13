@@ -21,17 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 using System.IO;
-using PMDToolkit.Core;
 
-namespace PMDToolkit.Graphics {
-
+namespace PMDToolkit.Graphics
+{
     public enum FrameType
     {
         Idle = 0,
@@ -46,56 +43,69 @@ namespace PMDToolkit.Graphics {
         Sleep
     }
 
-    public class FrameData {
+    public class FrameData
+    {
         #region Fields
 
-        int frameWidth;
-        int frameHeight;
+        private int frameWidth;
+        private int frameHeight;
 
         #endregion Fields
 
         #region Properties
 
-        public int FrameWidth {
+        public int FrameWidth
+        {
             get { return frameWidth; }
         }
 
-        public int FrameHeight {
+        public int FrameHeight
+        {
             get { return frameHeight; }
         }
 
-        Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, int>> frameCount;
+        private Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, int>> frameCount;
 
         #endregion Properties
 
-        public FrameData() {
+        public FrameData()
+        {
             frameCount = new Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, int>>();
         }
 
         #region Methods
 
-        public void SetFrameSize(int animWidth, int animHeight, int frames) {
+        public void SetFrameSize(int animWidth, int animHeight, int frames)
+        {
             frameWidth = animWidth / frames;
 
             frameHeight = animHeight;
         }
 
-        public void SetFrameCount(FrameType type, PMDToolkit.Maps.Direction8 dir, int count) {
-            if (frameCount.ContainsKey(type) == false) {
+        public void SetFrameCount(FrameType type, PMDToolkit.Maps.Direction8 dir, int count)
+        {
+            if (frameCount.ContainsKey(type) == false)
+            {
                 frameCount.Add(type, new Dictionary<PMDToolkit.Maps.Direction8, int>());
             }
-            if (frameCount[type].ContainsKey(dir) == false) {
+            if (frameCount[type].ContainsKey(dir) == false)
+            {
                 frameCount[type].Add(dir, count);
-            } else {
+            }
+            else
+            {
                 frameCount[type][dir] = count;
             }
         }
 
-        public int GetFrameCount(FrameType type, PMDToolkit.Maps.Direction8 dir) {
+        public int GetFrameCount(FrameType type, PMDToolkit.Maps.Direction8 dir)
+        {
             Dictionary<PMDToolkit.Maps.Direction8, int> dirs = null;
-            if (frameCount.TryGetValue(type, out dirs)) {
+            if (frameCount.TryGetValue(type, out dirs))
+            {
                 int value = 0;
-                if (dirs.TryGetValue(dir, out value)) {
+                if (dirs.TryGetValue(dir, out value))
+                {
                     return value;
                 }
             }
@@ -106,19 +116,20 @@ namespace PMDToolkit.Graphics {
         #endregion Methods
     }
 
-    public class SpriteSheet : IDisposable {
+    public class SpriteSheet : IDisposable
+    {
         #region Fields
 
-        FrameData frameData;
+        private FrameData frameData;
 
-        int sizeInBytes;
+        private int sizeInBytes;
 
         #endregion Fields
 
         #region Constructors
 
-        public SpriteSheet() {
-
+        public SpriteSheet()
+        {
             frameData = new FrameData();
             animations = new Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, TileSheet>>();
         }
@@ -127,22 +138,24 @@ namespace PMDToolkit.Graphics {
 
         #region Properties
 
-        public int BytesUsed {
+        public int BytesUsed
+        {
             get { return sizeInBytes; }
         }
 
-        public FrameData FrameData {
+        public FrameData FrameData
+        {
             get { return frameData; }
         }
 
-        Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, TileSheet>> animations;
+        private Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, TileSheet>> animations;
 
         #endregion Properties
 
         #region Methods
 
-
-        public Rectangle GetFrameBounds(FrameType frameType, PMDToolkit.Maps.Direction8 direction, int frameNum) {
+        public Rectangle GetFrameBounds(FrameType frameType, PMDToolkit.Maps.Direction8 direction, int frameNum)
+        {
             Rectangle rec = new Rectangle();
             rec.X = frameNum * frameData.FrameWidth;
             rec.Y = 0;
@@ -218,15 +231,14 @@ namespace PMDToolkit.Graphics {
                     }
                 }
             }
-            
 
             this.sizeInBytes = totalByteSize;
-
         }
 
-
-        public TileSheet GetSheet(FrameType type, PMDToolkit.Maps.Direction8 dir) {
-            if (IsFrameTypeDirectionless(type)) {
+        public TileSheet GetSheet(FrameType type, PMDToolkit.Maps.Direction8 dir)
+        {
+            if (IsFrameTypeDirectionless(type))
+            {
                 dir = PMDToolkit.Maps.Direction8.Down;
             }
             if (animations.ContainsKey(type))
@@ -240,19 +252,26 @@ namespace PMDToolkit.Graphics {
             return TextureManager.ErrorTexture;
         }
 
-        public void AddSheet(FrameType type, PMDToolkit.Maps.Direction8 dir, TileSheet surface) {
-            if (!animations.ContainsKey(type)) {
+        public void AddSheet(FrameType type, PMDToolkit.Maps.Direction8 dir, TileSheet surface)
+        {
+            if (!animations.ContainsKey(type))
+            {
                 animations.Add(type, new Dictionary<PMDToolkit.Maps.Direction8, TileSheet>());
             }
-            if (animations[type].ContainsKey(dir) == false) {
+            if (animations[type].ContainsKey(dir) == false)
+            {
                 animations[type].Add(dir, surface);
-            } else {
+            }
+            else
+            {
                 animations[type][dir] = surface;
             }
         }
 
-        public static bool IsFrameTypeDirectionless(FrameType frameType) {
-            switch (frameType) {
+        public static bool IsFrameTypeDirectionless(FrameType frameType)
+        {
+            switch (frameType)
+            {
                 case FrameType.Sleep:
                     return true;
             }
@@ -261,9 +280,9 @@ namespace PMDToolkit.Graphics {
 
         public void Dispose()
         {
-            foreach(FrameType frameType in animations.Keys)
+            foreach (FrameType frameType in animations.Keys)
             {
-                foreach(Maps.Direction8 dir in animations[frameType].Keys)
+                foreach (Maps.Direction8 dir in animations[frameType].Keys)
                 {
                     if (animations[frameType][dir] != null)
                     {
@@ -271,7 +290,6 @@ namespace PMDToolkit.Graphics {
                     }
                 }
             }
-
         }
 
         #endregion Methods

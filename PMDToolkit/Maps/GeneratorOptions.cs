@@ -21,13 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PMDToolkit.Maps {
+namespace PMDToolkit.Maps
+{
     public class GeneratorOptions
     {
         #region Constructors
@@ -36,7 +31,7 @@ namespace PMDToolkit.Maps {
         {
             TrapMin = 5;
             TrapMax = 30;
-            
+
             ItemMin = 5;
             ItemMax = 30;
 
@@ -55,9 +50,9 @@ namespace PMDToolkit.Maps {
 
             HallTurnMin = 0;
             HallTurnMax = 3;
-			
-	    	HallVarMin = 0;
-	        HallVarMax = 3;
+
+            HallVarMin = 0;
+            HallVarMax = 3;
 
             WaterFrequency = 0;
 
@@ -74,8 +69,6 @@ namespace PMDToolkit.Maps {
 
         #region Properties
 
-        
-
         /// <summary>
         /// Gets or Sets the maximum number of traps that will be generated. Adjust to number between 0 and 255 to see changes.
         /// </summary>
@@ -91,7 +84,7 @@ namespace PMDToolkit.Maps {
         {
             get; set;
         }
-        
+
         /// <summary>
         /// Gets or Sets the maximum number of items that will be generated. Adjust to number between 0 and 255 to see changes.
         /// </summary>
@@ -162,24 +155,24 @@ namespace PMDToolkit.Maps {
         {
             get; set;
         }
-		
-		/// <summary>
+
+        /// <summary>
         /// Gets or Sets the max number of times there is a turn in a hallway. Adjust to number 0 or above to see changes.  May be overridden if the hall is too short.
         /// </summary>
         public int HallTurnMax
         {
             get; set;
         }
-		
-		/// <summary>
+
+        /// <summary>
         /// Gets or Sets the min amount a turn swerves in a hallway. Adjust to number 0 or above to see changes.  May be overridden if the hall is too short.
         /// </summary>
         public int HallVarMin
         {
             get; set;
         }
-		
-		/// <summary>
+
+        /// <summary>
         /// Gets or Sets the max amount a turn swerves in a hallway. Adjust to number 0 or above to see changes.  May be overridden if the hall is too short.
         /// </summary>
         public int HallVarMax
@@ -191,7 +184,6 @@ namespace PMDToolkit.Maps {
         {
             get; set;
         }
-
 
         //After setting water, the algorithm will "blast" several craters of water into the dungeon map, to simulate how water appears in pools in PMD
 

@@ -21,22 +21,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
+using PMDToolkit.Data;
 using System;
 using System.Collections.Generic;
-using PMDToolkit.Data;
 
 namespace PMDToolkit.Maps.Floors
 {
-    public class StandardMap : RandomMap {
-
+    public class StandardMap : RandomMap
+    {
         public StandardMap()
         {
-            
         }
 
         //an initial create-map method
-        public override void Generate(int seed, RDungeonFloor entry, List<FloorBorder> floorBorders, Dictionary<int, List<int>> borderLinks) {
+        public override void Generate(int seed, RDungeonFloor entry, List<FloorBorder> floorBorders, Dictionary<int, List<int>> borderLinks)
+        {
             //TODO: make sure that this algorithm follows floorBorders and borderLinks constraints
 
             this.seed = seed;
@@ -49,7 +48,6 @@ namespace PMDToolkit.Maps.Floors
             rand = new Random(seed);
 
             MapArray = new Tile[10, 10];
-
 
             MapLayer ground = new MapLayer(Width, Height);
             GroundLayers.Add(ground);
@@ -64,7 +62,6 @@ namespace PMDToolkit.Maps.Floors
 
             BorderPoints[0] = new Loc2D(0, 0);
         }
-
 
         public void Generate(int seed, string fileName)
         {
@@ -82,7 +79,7 @@ namespace PMDToolkit.Maps.Floors
             //load from file
 
             MapArray = new Tile[100, 100];
-            
+
             MapLayer ground = new MapLayer(Width, Height);
             GroundLayers.Add(ground);
             for (int y = 0; y < Height; y++)
@@ -96,6 +93,5 @@ namespace PMDToolkit.Maps.Floors
 
             BorderPoints[0] = new Loc2D(99, 0);
         }
-        
     }
 }

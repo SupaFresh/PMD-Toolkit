@@ -21,16 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Gameplay {
-    public class PathTile {
-
+namespace PMDToolkit.Logic.Gameplay
+{
+    public class PathTile
+    {
         public Loc2D Location { get; set; }
         public bool Seen { get; set; }
         public bool Traversed { get; set; }
@@ -38,7 +34,8 @@ namespace PMDToolkit.Logic.Gameplay {
         public double Heuristic { get; set; }
         public PathTile BackReference { get; set; }
 
-        public PathTile(Loc2D location, bool seen, bool traversed, int cost, int heuristic, PathTile backReference) {
+        public PathTile(Loc2D location, bool seen, bool traversed, int cost, int heuristic, PathTile backReference)
+        {
             Location = location;
             Seen = seen;
             Traversed = traversed;

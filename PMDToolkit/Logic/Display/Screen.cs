@@ -21,26 +21,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Core;
-using PMDToolkit.Graphics;
+using DragonOgg.MediaPlayer;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using DragonOgg.MediaPlayer;
+using PMDToolkit.Core;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
+using System;
+using System.Collections.Generic;
 
-using OpenTK.Audio;
-using OpenTK.Audio.OpenAL;
-
-namespace PMDToolkit.Logic.Display {
-    public static class Screen {
-
-        public enum EffectPriority {
+namespace PMDToolkit.Logic.Display
+{
+    public static class Screen
+    {
+        public enum EffectPriority
+        {
             Ground = -2,
             Back = -1,
             None = 0,
@@ -48,7 +43,8 @@ namespace PMDToolkit.Logic.Display {
             Overlay = 2
         }
 
-        public enum FadeType {
+        public enum FadeType
+        {
             None,
             FadeIn,
             FadeOut
@@ -110,14 +106,17 @@ namespace PMDToolkit.Logic.Display {
         public static int Floor { get; set; }
 
         //game elements
-        public static CharSprite FocusedCharacter { 
-            get {
+        public static CharSprite FocusedCharacter
+        {
+            get
+            {
                 if (FocusedIndex < 0)
                     return Players[FocusedIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
                 else
                     return Npcs[FocusedIndex];
-                }
+            }
         }
+
         public static PlayerSprite[] Players { get; set; }
         public static NpcSprite[] Npcs { get; set; }
         public static ItemAnim[] Items { get; set; }
@@ -136,15 +135,16 @@ namespace PMDToolkit.Logic.Display {
         public static int PPMax { get; set; }
         public static int PP { get; set; }
         public static int Gold { get; set; }
-                
+
         public static bool Diagonal { get; set; }
         public static bool Turn { get; set; }
         public static bool Jump { get; set; }
         public static bool Spell { get; set; }
 
         public static Random Rand { get; set; }
-        
-        public static void Init() {
+
+        public static void Init()
+        {
             miscResults = new List<Logic.Results.IResult>();
             resultContainers = new Queue<Results.IResultContainer>();
             outContainer = new Results.ResultContainer();
@@ -165,12 +165,14 @@ namespace PMDToolkit.Logic.Display {
                 Items[i] = new ItemAnim();
             }
             Effects = new Dictionary<EffectPriority, List<ISprite>>();
-            for (int n = (int)EffectPriority.Ground; n <= (int)EffectPriority.Overlay; n++) {
+            for (int n = (int)EffectPriority.Ground; n <= (int)EffectPriority.Overlay; n++)
+            {
                 Effects.Add((EffectPriority)n, new List<ISprite>());
             }
             Emitters = new List<IEmitter>();
             CurrentCharMoves = new int[Gameplay.Processor.MAX_MOVE_SLOTS];
-            for (int i = 0; i < Gameplay.Processor.MAX_MOVE_SLOTS; i++) {
+            for (int i = 0; i < Gameplay.Processor.MAX_MOVE_SLOTS; i++)
+            {
                 CurrentCharMoves[i] = -1;
             }
             Rand = new Random();
@@ -181,7 +183,6 @@ namespace PMDToolkit.Logic.Display {
             Zoom = GameZoom.x1;
             //DebugSpeed = GameSpeed.Pause;
         }
-
 
         public static void AddResult(Results.IResult result)
         {
@@ -253,7 +254,6 @@ namespace PMDToolkit.Logic.Display {
 
         public static void Process(RenderTime elapsedTime)
         {
-
             if (DebugSpeed == GameSpeed.Pause)
             {
                 return;
@@ -266,14 +266,13 @@ namespace PMDToolkit.Logic.Display {
             else
             {
                 int speedFactor = 1000;
-                
+
                 speedFactor = (int)(speedFactor * Math.Pow(2, (int)DebugSpeed));
 
                 RenderTime newElapsed = elapsedTime * speedFactor / 1000;
                 ProcessActions(newElapsed);
-
             }
-            
+
             //if actions are ready for queue, get a new result
             ProcessTaskQueue(true);
 
@@ -283,7 +282,6 @@ namespace PMDToolkit.Logic.Display {
 
         public static void ForceReady()
         {
-
             while (!outContainer.IsFinished() || resultContainers.Count > 0)
             {
                 ProcessActions(RenderTime.FromMillisecs(1000));
@@ -291,16 +289,18 @@ namespace PMDToolkit.Logic.Display {
             }
         }
 
-        public static void ProcessActions(RenderTime elapsedTime) {
-
+        public static void ProcessActions(RenderTime elapsedTime)
+        {
             TotalTick += (ulong)elapsedTime.Ticks;
 
             outContainer.ProcessDelay(elapsedTime);
 
             //update music
-            if (NextSong != null) {
+            if (NextSong != null)
+            {
                 MusicFadeTime -= elapsedTime;
-                if (MusicFadeTime.Ticks <= 0) {
+                if (MusicFadeTime.Ticks <= 0)
+                {
                     AudioManager.BGM.Stop();
                     if (System.IO.File.Exists(NextSong))
                     {
@@ -313,15 +313,19 @@ namespace PMDToolkit.Logic.Display {
                     {
                         Song = "";
                     }
-                } else {
+                }
+                else
+                {
                     AudioManager.BGM.SetVolume((float)MusicFadeTime.Ticks / (float)MUSIC_FADE_TOTAL.Ticks);
                 }
             }
 
             //update fade
-            if (CurrentFade != FadeType.None) {
+            if (CurrentFade != FadeType.None)
+            {
                 FadeTime -= elapsedTime;
-                if (FadeTime.Ticks <= 0) {
+                if (FadeTime.Ticks <= 0)
+                {
                     CurrentFade = FadeType.None;
                 }
             }
@@ -339,26 +343,28 @@ namespace PMDToolkit.Logic.Display {
             }
 
             //update Npcs
-            foreach (NpcSprite npc in Npcs) {
+            foreach (NpcSprite npc in Npcs)
+            {
                 npc.Process(elapsedTime);
             }
 
-            for (int n = (int)EffectPriority.Ground; n <= (int)EffectPriority.Overlay; n++) {
-                for (int i = Effects[(EffectPriority)n].Count - 1; i >= 0; i--) {
+            for (int n = (int)EffectPriority.Ground; n <= (int)EffectPriority.Overlay; n++)
+            {
+                for (int i = Effects[(EffectPriority)n].Count - 1; i >= 0; i--)
+                {
                     Effects[(EffectPriority)n][i].Process(elapsedTime);
                     if (Effects[(EffectPriority)n][i].ActionDone) Effects[(EffectPriority)n].RemoveAt(i);
                 }
             }
 
-            for (int i = Emitters.Count - 1; i >= 0; i--) {
+            for (int i = Emitters.Count - 1; i >= 0; i--)
+            {
                 Emitters[i].Process(elapsedTime);
                 if (Emitters[i].ActionDone) Emitters.RemoveAt(i);
             }
 
-
             //update the camera, reliant on the player
             CamOffset = FocusedCharacter.TileOffset;
-            
         }
 
         public static void ProcessTaskQueue(bool askUp)
@@ -434,8 +440,8 @@ namespace PMDToolkit.Logic.Display {
             }
         }
 
-        public static void Draw(int fps) {
-
+        public static void Draw(int fps)
+        {
             //draw menus on top
             //if (ShowTitle) {
             //    Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
@@ -473,13 +479,17 @@ namespace PMDToolkit.Logic.Display {
             TextureManager.TextureProgram.SetTextureColor(Color4.White);
             TextureManager.TextureProgram.PopModelView();
 
-            for (int j = camStartTile.Y; j <= camEndTile.Y; j++) {
-                for (int i = camStartTile.X; i <= camEndTile.X; i++) {
+            for (int j = camStartTile.Y; j <= camEndTile.Y; j++)
+            {
+                for (int i = camStartTile.X; i <= camEndTile.X; i++)
+                {
                     //set tile sprite position
-                    if (i < 0 || j < 0 || i >= Map.Width || j >= Map.Height) {
-                        
-                    } else {
-                        Map.DrawGround(i * TextureManager.TILE_SIZE, j * TextureManager.TILE_SIZE, new Loc2D(i,j));
+                    if (i < 0 || j < 0 || i >= Map.Width || j >= Map.Height)
+                    {
+                    }
+                    else
+                    {
+                        Map.DrawGround(i * TextureManager.TILE_SIZE, j * TextureManager.TILE_SIZE, new Loc2D(i, j));
                         if (Turn) Graphics.TextureManager.GetTile(1, new Loc2D(1, 0)).Render(null);
                     }
                 }
@@ -495,24 +505,28 @@ namespace PMDToolkit.Logic.Display {
 
             //draw effects laid on ground
             List<ISprite> sortedSprites = new List<ISprite>();
-            foreach (ISprite effect in Effects[EffectPriority.Ground]) {
-                if (IsSpriteInView(camStart, camEnd, effect)) {
+            foreach (ISprite effect in Effects[EffectPriority.Ground])
+            {
+                if (IsSpriteInView(camStart, camEnd, effect))
+                {
                     AddInOrder(sortedSprites, effect);
                 }
             }
             int charIndex = 0;
-            while (charIndex < sortedSprites.Count) {
+            while (charIndex < sortedSprites.Count)
+            {
                 sortedSprites[charIndex].Draw();
                 charIndex++;
             }
-
 
             //draw effects in object space
             sortedSprites = new List<ISprite>();
 
             //get all back effects, see if they're in the screen, and put them in the list, sorted
-            foreach (ISprite effect in Effects[EffectPriority.Back]) {
-                if (IsSpriteInView(camStart, camEnd, effect)) {
+            foreach (ISprite effect in Effects[EffectPriority.Back])
+            {
+                if (IsSpriteInView(camStart, camEnd, effect))
+                {
                     AddInOrder(sortedSprites, effect);
                 }
             }
@@ -536,25 +550,29 @@ namespace PMDToolkit.Logic.Display {
                 }
             }
             //get all effects, see if they're in the screen, and put them in the list, sorted
-            foreach (ISprite effect in Effects[EffectPriority.None]) {
-                if (IsSpriteInView(camStart, camEnd, effect)) {
+            foreach (ISprite effect in Effects[EffectPriority.None])
+            {
+                if (IsSpriteInView(camStart, camEnd, effect))
+                {
                     AddInOrder(sortedSprites, effect);
                 }
             }
 
             //draw object
             charIndex = 0;
-            for (int j = camStartTile.Y; j <= camEndTile.Y; j++) {
+            for (int j = camStartTile.Y; j <= camEndTile.Y; j++)
+            {
                 //before drawing objects, draw all active effects behind objects
 
-                for (int i = camStartTile.X; i <= camEndTile.X; i++) {
+                for (int i = camStartTile.X; i <= camEndTile.X; i++)
+                {
                     //set tile sprite position
-                    if (i < 0 || j < 0 || i >= Map.Width || j >= Map.Height) {
-
+                    if (i < 0 || j < 0 || i >= Map.Width || j >= Map.Height)
+                    {
                     }
                     else
                     {
-                        Map.DrawPropBack(i * TextureManager.TILE_SIZE, j * TextureManager.TILE_SIZE, new Loc2D(i,j));
+                        Map.DrawPropBack(i * TextureManager.TILE_SIZE, j * TextureManager.TILE_SIZE, new Loc2D(i, j));
                     }
                 }
 
@@ -573,13 +591,11 @@ namespace PMDToolkit.Logic.Display {
                     }
                 }
 
-
                 for (int i = camStartTile.X; i <= camEndTile.X; i++)
                 {
                     //set tile sprite position
                     if (i < 0 || j < 0 || i >= Map.Width || j >= Map.Height)
                     {
-
                     }
                     else
                     {
@@ -603,35 +619,40 @@ namespace PMDToolkit.Logic.Display {
                 }
             }
             //draw remaining sprites
-            while (charIndex < sortedSprites.Count) {
+            while (charIndex < sortedSprites.Count)
+            {
                 sortedSprites[charIndex].Draw();
                 charIndex++;
             }
 
             //draw effects in top
             sortedSprites = new List<ISprite>();
-            foreach (ISprite effect in Effects[EffectPriority.Top]) {
-                if (IsSpriteInView(camStart, camEnd, effect)) {
+            foreach (ISprite effect in Effects[EffectPriority.Top])
+            {
+                if (IsSpriteInView(camStart, camEnd, effect))
+                {
                     AddInOrder(sortedSprites, effect);
                 }
             }
             charIndex = 0;
-            while (charIndex < sortedSprites.Count) {
+            while (charIndex < sortedSprites.Count)
+            {
                 sortedSprites[charIndex].Draw();
                 charIndex++;
             }
 
             //draw foreground
-            for (int j = camStartTile.Y; j <= camEndTile.Y; j++) {
-                for (int i = camStartTile.X; i <= camEndTile.X; i++) {
+            for (int j = camStartTile.Y; j <= camEndTile.Y; j++)
+            {
+                for (int i = camStartTile.X; i <= camEndTile.X; i++)
+                {
                     //set tile sprite position
-                    if (i < 0 || j < 0 || i >= Map.Width || j >= Map.Height) {
-
+                    if (i < 0 || j < 0 || i >= Map.Width || j >= Map.Height)
+                    {
                     }
                     else
                     {
                         Map.DrawFringe(i * TextureManager.TILE_SIZE, j * TextureManager.TILE_SIZE, new Loc2D(i, j));
-
 
                         if (ShowGrid)
                         {
@@ -647,50 +668,58 @@ namespace PMDToolkit.Logic.Display {
 
             //draw effects in foreground
             sortedSprites = new List<ISprite>();
-            foreach (ISprite effect in Effects[EffectPriority.Overlay]) {
-                if (IsSpriteInView(camStart, camEnd, effect)) {
+            foreach (ISprite effect in Effects[EffectPriority.Overlay])
+            {
+                if (IsSpriteInView(camStart, camEnd, effect))
+                {
                     AddInOrder(sortedSprites, effect);
                 }
             }
             charIndex = 0;
-            while (charIndex < sortedSprites.Count) {
+            while (charIndex < sortedSprites.Count)
+            {
                 sortedSprites[charIndex].Draw();
                 charIndex++;
             }
 
-
             Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
             Gameplay.MenuManager.DrawMenus();
-                
 
             //Moves
             Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
-            if (Spell) {
+            if (Spell)
+            {
                 string[] keys = new string[4] { "S", "D", "X", "C" };
                 TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(-240, 32, 0));
-                for (int i = 0; i < Gameplay.Processor.MAX_MOVE_SLOTS; i++) {
+                for (int i = 0; i < Gameplay.Processor.MAX_MOVE_SLOTS; i++)
+                {
                     TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(0, 64, 0));
                     Graphics.TextureManager.TextureProgram.UpdateModelView();
 
-                    if (CurrentCharMoves[i] >= 0) {
+                    if (CurrentCharMoves[i] >= 0)
+                    {
                         Data.MoveEntry moveEntry = Data.GameData.MoveDex[CurrentCharMoves[i]];
                         TextureManager.SingleFont.RenderText(244, 20, keys[i] + ": (" + moveEntry.PP + "PP) " + moveEntry.Name, null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color4.White);
-                    } else {
+                    }
+                    else
+                    {
                         TextureManager.SingleFont.RenderText(244, 20, keys[i] + ": Empty", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color4.White);
                     }
                 }
             }
 
-            
             //draw transitions
-            if (CurrentFade == FadeType.FadeIn) {
+            if (CurrentFade == FadeType.FadeIn)
+            {
                 Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
                 Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(0, 0, 0, (byte)(FadeTime.Ticks * 255 / TOTAL_FADE_TIME.Ticks)));
                 Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(TextureManager.SCREEN_WIDTH, TextureManager.SCREEN_HEIGHT, 1));
                 Graphics.TextureManager.TextureProgram.UpdateModelView();
                 Graphics.TextureManager.BlankTexture.Render(null);
                 Graphics.TextureManager.TextureProgram.SetTextureColor(Color4.White);
-            } else if (CurrentFade == FadeType.FadeOut) {
+            }
+            else if (CurrentFade == FadeType.FadeOut)
+            {
                 Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
                 Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(0, 0, 0, (byte)(255 - FadeTime.Ticks * 255 / TOTAL_FADE_TIME.Ticks)));
                 Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(TextureManager.SCREEN_WIDTH, TextureManager.SCREEN_HEIGHT, 1));
@@ -714,7 +743,7 @@ namespace PMDToolkit.Logic.Display {
 
             Loc2D camStart = new Loc2D((int)(camCenter.X - TextureManager.SCREEN_WIDTH / scale / 2), (int)(camCenter.Y - TextureManager.SCREEN_HEIGHT / scale / 2));
             Loc2D camEnd = new Loc2D((int)(camCenter.X + TextureManager.SCREEN_WIDTH / scale / 2), (int)(camCenter.Y + TextureManager.SCREEN_HEIGHT / scale / 2));
-            
+
             loc.X = (int)(loc.X / scale);
             loc.Y = (int)(loc.Y / scale);
             loc += camStart;
@@ -725,7 +754,8 @@ namespace PMDToolkit.Logic.Display {
             return loc;
         }
 
-        public static bool IsSpriteInView(Loc2D camStart, Loc2D camEnd, ISprite sprite) {
+        public static bool IsSpriteInView(Loc2D camStart, Loc2D camEnd, ISprite sprite)
+        {
             if (sprite == null) return false;
             Loc2D spriteStart = sprite.GetStart();
             Loc2D spriteEnd = sprite.GetEnd();
@@ -744,7 +774,7 @@ namespace PMDToolkit.Logic.Display {
             //check to see if the sprite's top is to the bottom of the screen's bottom side
             if (spriteStart.Y > camEnd.Y)
                 return false;
-            
+
             //check to see if the sprite's bottom is to the top of the screen's top side
             if (spriteEnd.Y < camStart.Y)
                 return false;
@@ -752,26 +782,34 @@ namespace PMDToolkit.Logic.Display {
             return true;
         }
 
-        public static void AddInOrder(List<ISprite> sprites, ISprite sprite) {
+        public static void AddInOrder(List<ISprite> sprites, ISprite sprite)
+        {
             int min = 0;
             int max = sprites.Count - 1;
             int point = max;
             MathFunctions.Compare compare = MathFunctions.Compare.Less;
-            while (min <= max) {
+            while (min <= max)
+            {
                 point = (min + max) / 2;
 
                 compare = CompareSpriteCoords(sprites[point], sprite);
 
-                if (compare == MathFunctions.Compare.Greater) {
+                if (compare == MathFunctions.Compare.Greater)
+                {
                     //go down
                     max = point - 1;
-                } else if (compare == MathFunctions.Compare.Less) {
+                }
+                else if (compare == MathFunctions.Compare.Less)
+                {
                     //go up
                     min = point + 1;
-                } else {
+                }
+                else
+                {
                     //go past the last index of equal comparison
                     point++;
-                    while (point < sprites.Count && CompareSpriteCoords(sprites[point], sprite) == MathFunctions.Compare.Equal) {
+                    while (point < sprites.Count && CompareSpriteCoords(sprites[point], sprite) == MathFunctions.Compare.Equal)
+                    {
                         point++;
                     }
                     sprites.Insert(point, sprite);
@@ -779,41 +817,50 @@ namespace PMDToolkit.Logic.Display {
                 }
             }
             //no place found
-            if (compare == MathFunctions.Compare.Greater) {
+            if (compare == MathFunctions.Compare.Greater)
+            {
                 //put this one under the current point
                 sprites.Insert(point, sprite);
-            } else {
+            }
+            else
+            {
                 //put this one above the current point
-                sprites.Insert(point+1, sprite);
+                sprites.Insert(point + 1, sprite);
             }
         }
 
-        static float GetZoomScale(GameZoom zoom)
+        private static float GetZoomScale(GameZoom zoom)
         {
             switch (zoom)
             {
                 case GameZoom.x8Near:
                     return 8f;
+
                 case GameZoom.x4Near:
                     return 4f;
+
                 case GameZoom.x2Near:
                     return 2f;
+
                 case GameZoom.x2Far:
                     return 0.5f;
+
                 case GameZoom.x4Far:
                     return 0.25f;
+
                 case GameZoom.x8Far:
                     return 0.125f;
+
                 case GameZoom.x16Far:
                     return 0.0625f;
+
                 default:
                     return 1.0f;
             }
         }
 
-
-
-        public static MathFunctions.Compare CompareSpriteCoords(ISprite sprite1, ISprite sprite2) {
+        public static MathFunctions.Compare CompareSpriteCoords(ISprite sprite1, ISprite sprite2)
+        {
             return MathFunctions.CompareValues(sprite1.MapLoc.Y, sprite2.MapLoc.Y);
         }
 
@@ -824,10 +871,9 @@ namespace PMDToolkit.Logic.Display {
 
             if (ShowDebug)
             {
-                TextureManager.GetMugshot(FocusedCharacter.CharData.Species, FocusedCharacter.CharData.Form, FocusedCharacter.CharData.Shiny, FocusedCharacter.CharData.Gender).RenderTile(0,0);
+                TextureManager.GetMugshot(FocusedCharacter.CharData.Species, FocusedCharacter.CharData.Form, FocusedCharacter.CharData.Shiny, FocusedCharacter.CharData.Gender).RenderTile(0, 0);
 
                 //TextureManager.SingleFont.RenderText(2, 32, "\u2640 \u2642", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color4.White);
-
 
 #if GAME_MODE
             TextureManager.SingleFont.RenderTextShadowed(TextureManager.SCREEN_WIDTH - 2, 22, Floor + "F", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, Color4.White);
@@ -839,14 +885,11 @@ namespace PMDToolkit.Logic.Display {
                 TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 72, "F2 = Slow Down | F3 = Speed Up", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
                 TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 82, "Zoom: " + Zoom.ToString(), null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
 
-
-
                 if (Print) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 92, "ASCII Print", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.LightYellow);
                 if (Intangible) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 102, "Intangible", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.LightYellow);
                 if (Jump) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 112, "Jump", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
                 if (Turn) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 122, "Turn", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
                 if (Diagonal) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 132, "Diagonal", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
-
             }
 
             if (ShowCoords)
@@ -856,8 +899,7 @@ namespace PMDToolkit.Logic.Display {
             }
             List<string> logs = Logs.Logger.GetRecentBattleLog(16);
             for (int i = 0; i < logs.Count; i++)
-                TextureManager.SingleFont.RenderText(2, 48+10*i, logs[i], null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color4.White);
+                TextureManager.SingleFont.RenderText(2, 48 + 10 * i, logs[i], null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color4.White);
         }
-
     }
 }

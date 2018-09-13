@@ -21,22 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
+using PMDToolkit.Core;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using PMDToolkit.Graphics;
-using PMDToolkit.Core;
 using System.IO;
 
-namespace PMDToolkit.Logic.Gameplay {
-    public static partial class Processor {
-
+namespace PMDToolkit.Logic.Gameplay
+{
+    public static partial class Processor
+    {
         public const int MAX_INV_SLOTS = 8;
         public const int MAX_MOVE_SLOTS = 4;
         public const int MAX_TEAM_SLOTS = 4;
@@ -52,12 +47,14 @@ namespace PMDToolkit.Logic.Gameplay {
         //a distinction must be made between a game command and an interface command
         //key commands: Up, Down, Left, Right, A(Attack), B(Jump), X(Pickup?), Y(Moves?), MouseDown, MouseUp
         public static Input PrevInput { get; set; }
+
         public static Input CurrentInput { get; set; }
         public static RenderTime InputTime { get; set; }
 
-        static MapGroup CurrentMapGroup;
+        private static MapGroup CurrentMapGroup;
 
         public static int Seed { get; set; }
+
         public static MoveState[] Moves
         {
             get
@@ -66,7 +63,7 @@ namespace PMDToolkit.Logic.Gameplay {
             }
         }
 
-        static int money;
+        private static int money;
         public static int[] Inventory { get; set; }
 
         public static ActiveChar FocusedCharacter
@@ -76,19 +73,21 @@ namespace PMDToolkit.Logic.Gameplay {
                 return CharOfIndex(FocusedCharIndex);
             }
         }
+
         public static int FocusedCharIndex;
-        static int currentCharIndex;
-        static int turnsTaken;
-        static int turnCount;
-        static bool someoneMoved;
+        private static int currentCharIndex;
+        private static int turnsTaken;
+        private static int turnCount;
+        private static bool someoneMoved;
 
-        static List<Command> replayInputs;
-        static bool isLogging;
+        private static List<Command> replayInputs;
+        private static bool isLogging;
 
-        static bool print;
-        static bool allowPrint;
+        private static bool print;
+        private static bool allowPrint;
 
-        public static void Init() {
+        public static void Init()
+        {
             //clean map pointer
             CurrentMapGroup = null;
 
@@ -99,7 +98,8 @@ namespace PMDToolkit.Logic.Gameplay {
                 Players[i] = new Player();
             }
             Inventory = new int[MAX_INV_SLOTS];
-            for (int i = 0; i < MAX_INV_SLOTS; i++) {
+            for (int i = 0; i < MAX_INV_SLOTS; i++)
+            {
                 Inventory[i] = -1;
             }
 
@@ -113,13 +113,14 @@ namespace PMDToolkit.Logic.Gameplay {
             CurrentMapID = "";
         }
 
-
-        public static void Restart() {
+        public static void Restart()
+        {
             isLogging = true;
             StartMap("", Rand.Next());
         }
 
-        public static void StartDungeon(int seed) {
+        public static void StartDungeon(int seed)
+        {
             //BeginSeed(seed);
             //CurrentMapGroup = Data.GameData.DungeonAlgorithmDex[Data.GameData.RDungeonDex[0].Algorithm].CreateDungeon();
             //CurrentMapGroup.Generate(seed, Data.GameData.RDungeonDex[0]);
@@ -149,31 +150,38 @@ namespace PMDToolkit.Logic.Gameplay {
             Rand = new Random(seed);
         }
 
-        public static void StartReplay(string path) {
-            try {
+        public static void StartReplay(string path)
+        {
+            try
+            {
                 Display.Screen.AddResult(new Results.Fade(Display.Screen.FadeType.FadeOut));
                 isLogging = false;
                 replayInputs.Clear();
-                using (StreamReader reader = new StreamReader(path, true)) {
+                using (StreamReader reader = new StreamReader(path, true))
+                {
                     int seed = reader.ReadLine().ToInt();
                     StartDungeon(seed);
-                    while(!reader.EndOfStream){
+                    while (!reader.EndOfStream)
+                    {
                         string[] commandString = reader.ReadLine().Split(' ');
                         Command command = new Command((Command.CommandType)commandString[0].ToInt());
-                        for (int i = 1; i < commandString.Length; i++) {
+                        for (int i = 1; i < commandString.Length; i++)
+                        {
                             command.AddArg(commandString[i].ToInt());
                         }
                         replayInputs.Add(command);
                     }
                 }
                 Display.Screen.AddResult(new Results.Fade(Display.Screen.FadeType.FadeIn));
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Logs.Logger.LogError(new Exception("Replay Error with " + path + "\n", ex));
             }
-            
         }
 
-        public static void MoveToFloor(int exitPoint) {
+        public static void MoveToFloor(int exitPoint)
+        {
             //FloorLink landing = CurrentMapGroup.GetFloorLink(CurrentFloor, exitPoint);
             //int floor = landing.FloorNum;
             //int entrance = landing.EntranceIndex;
@@ -191,7 +199,8 @@ namespace PMDToolkit.Logic.Gameplay {
             //BeginFloor();
         }
 
-        private static void ResetGameState() {
+        private static void ResetGameState()
+        {
             //reset player
             for (int i = 0; i < MAX_TEAM_SLOTS; i++)
             {
@@ -213,15 +222,16 @@ namespace PMDToolkit.Logic.Gameplay {
             BeginFloor();
         }
 
-        public static void BeginFloor() {
+        public static void BeginFloor()
+        {
             Display.Screen.AddResult(new Results.SetMap(CurrentMap, 0));
 
             for (int i = 0; i < MAX_TEAM_SLOTS; i++)
             {
-                Display.Screen.AddResult(new Results.RemoveCharacter(i-MAX_TEAM_SLOTS));
-                ActiveChar character = CharOfIndex(i-MAX_TEAM_SLOTS);
+                Display.Screen.AddResult(new Results.RemoveCharacter(i - MAX_TEAM_SLOTS));
+                ActiveChar character = CharOfIndex(i - MAX_TEAM_SLOTS);
                 if (!character.dead)
-                    Display.Screen.AddResult(new Results.SpawnCharacter(character, i-MAX_TEAM_SLOTS));
+                    Display.Screen.AddResult(new Results.SpawnCharacter(character, i - MAX_TEAM_SLOTS));
             }
             currentCharIndex = -MAX_TEAM_SLOTS;
             SwitchFocus(-MAX_TEAM_SLOTS);
@@ -229,16 +239,17 @@ namespace PMDToolkit.Logic.Gameplay {
             Display.Screen.AddResult(new Results.BGM(CurrentMap.Music, true));
 
             //resync NPCs
-            for (int i = 0; i < BasicMap.MAX_NPC_SLOTS; i++) {
+            for (int i = 0; i < BasicMap.MAX_NPC_SLOTS; i++)
+            {
                 Display.Screen.AddResult(new Results.RemoveCharacter(i));
-                if (!Npcs[i].dead) {
+                if (!Npcs[i].dead)
+                {
                     Display.Screen.AddResult(new Results.SpawnCharacter(Npcs[i], i));
                 }
             }
             turnCount = 0;
             print = true;
         }
-
 
         public static void SwitchFocus(int focus)
         {
@@ -265,9 +276,10 @@ namespace PMDToolkit.Logic.Gameplay {
             ProcessMeta();
         }
 
-        public static void Process() {
-
-            if (print && allowPrint) {
+        public static void Process()
+        {
+            if (print && allowPrint)
+            {
                 Print();
                 print = false;
             }
@@ -277,20 +289,27 @@ namespace PMDToolkit.Logic.Gameplay {
             Display.Screen.BeginConcurrent();
             ProcessPlayerInput(CharOfIndex(currentCharIndex), ref moveMade);
             //if a move was made, everyone else gets a turn
-            if (moveMade) {
+            if (moveMade)
+            {
                 someoneMoved = true;
 
                 PassToNextTurn();
 
-                while (true) {
+                while (true)
+                {
                     //all other characters get a turn, if they have one.
                     ActiveChar character = CharOfIndex(currentCharIndex);
-                    if (!character.dead) {
-                        if (turnsTaken <= character.TurnCounter) {
-                            if (IsPlayerTurn()) {
+                    if (!character.dead)
+                    {
+                        if (turnsTaken <= character.TurnCounter)
+                        {
+                            if (IsPlayerTurn())
+                            {
                                 SwitchFocus(currentCharIndex);
                                 break;
-                            } else {
+                            }
+                            else
+                            {
                                 someoneMoved = true;
                                 ProcessAIDecision(character);
                             }
@@ -305,8 +324,8 @@ namespace PMDToolkit.Logic.Gameplay {
             Display.Screen.EndConcurrent();
         }
 
-
-        private static void ProcessMeta() {
+        private static void ProcessMeta()
+        {
             if (CurrentInput.Intangible && !PrevInput.Intangible)
             {
                 Intangible = !Intangible;
@@ -362,7 +381,6 @@ namespace PMDToolkit.Logic.Gameplay {
 
             if (Editors.MapEditor.mapEditing)
             {
-
                 if (!CurrentInput.RightMouse && PrevInput.RightMouse && CurrentInput.Shift)
                 {
                     Loc2D coords = Display.Screen.ScreenCoordsToMapCoords(CurrentInput.MouseLoc);
@@ -391,7 +409,6 @@ namespace PMDToolkit.Logic.Gameplay {
                     }
                     else if (PrevInput.LeftMouse)
                     {
-
                     }
                 }
                 else if (Editors.MapEditor.chosenEditMode == Editors.MapEditor.TileEditMode.Fill)
@@ -408,8 +425,8 @@ namespace PMDToolkit.Logic.Gameplay {
             }
         }
 
-
-        private static bool IsPlayerTurn() {
+        private static bool IsPlayerTurn()
+        {
             if (currentCharIndex < 0) return true;
             //if (directCommand && charIndex < 0) return true;
             return false;
@@ -422,23 +439,27 @@ namespace PMDToolkit.Logic.Gameplay {
             return false;
         }
 
-        private static void ProcessPlayerInput(ActiveChar character, ref bool moveMade) {
-            if (MenuManager.Menus.Count > 0) {
+        private static void ProcessPlayerInput(ActiveChar character, ref bool moveMade)
+        {
+            if (MenuManager.Menus.Count > 0)
+            {
                 MenuManager.ProcessMenus(CurrentInput, character, ref moveMade);
                 return;
-            } else if (replayInputs.Count > 0 && !isLogging) {
+            }
+            else if (replayInputs.Count > 0 && !isLogging)
+            {
                 ProcessDecision(replayInputs[0], character, ref moveMade);
                 replayInputs.RemoveAt(0);
                 return;
             }
-            
+
             Command command = new Command(Command.CommandType.None);
 
             bool jump = false;
             bool spell = false;
             bool turn = false;
             bool diagonal = false;
-            
+
 #if GAME_MODE
             //menu button presses
             if (CurrentInput[Input.InputType.Enter] && !PrevInput[Input.InputType.Enter]) {
@@ -449,58 +470,84 @@ namespace PMDToolkit.Logic.Gameplay {
                 MenuManager.Menus.Insert(0, new SpellMenu());
             } else
 #endif
-                //multi-button presses
-            if (CurrentInput[Input.InputType.A]) {
-                if (CurrentInput[Input.InputType.S] && !PrevInput[Input.InputType.S]) {
+            //multi-button presses
+            if (CurrentInput[Input.InputType.A])
+            {
+                if (CurrentInput[Input.InputType.S] && !PrevInput[Input.InputType.S])
+                {
                     command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 0);
-                } else if (CurrentInput[Input.InputType.D] && !PrevInput[Input.InputType.D]) {
+                }
+                else if (CurrentInput[Input.InputType.D] && !PrevInput[Input.InputType.D])
+                {
                     command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 1);
-                } else if (CurrentInput[Input.InputType.X] && !PrevInput[Input.InputType.X]) {
+                }
+                else if (CurrentInput[Input.InputType.X] && !PrevInput[Input.InputType.X])
+                {
                     command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 2);
-                } else if (CurrentInput[Input.InputType.C] && !PrevInput[Input.InputType.C]) {
+                }
+                else if (CurrentInput[Input.InputType.C] && !PrevInput[Input.InputType.C])
+                {
                     command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 3);
-                } else {
+                }
+                else
+                {
                     //keep move display
                     spell = true;
-                    if (CurrentInput.Direction != Direction8.None) {
+                    if (CurrentInput.Direction != Direction8.None)
+                    {
                         command = new Command(Command.CommandType.Dir);
                         command.AddArg((int)CurrentInput.Direction);
                     }
                 }
-            } else {
-                if (CurrentInput[Input.InputType.Z]) {
+            }
+            else
+            {
+                if (CurrentInput[Input.InputType.Z])
+                {
                     jump = true;
                 }
-                if (CurrentInput[Input.InputType.S]) {
+                if (CurrentInput[Input.InputType.S])
+                {
                     turn = true;
                 }
-                if (CurrentInput[Input.InputType.D]) {
+                if (CurrentInput[Input.InputType.D])
+                {
                     diagonal = true;
                 }
 
                 //single button presses
-                if (CurrentInput[Input.InputType.X] && !PrevInput[Input.InputType.X]) {
-                    if (jump) {
+                if (CurrentInput[Input.InputType.X] && !PrevInput[Input.InputType.X])
+                {
+                    if (jump)
+                    {
                         command = new Command(Command.CommandType.AltAttack);
                         command.AddArg((int)character.CharDir);
                         command.AddArg(1);
-                    } else {
+                    }
+                    else
+                    {
                         command = new Command(Command.CommandType.Attack);
                     }
                     jump = false;
                     turn = false;
                     diagonal = false;
-                } else if (CurrentInput[Input.InputType.C] && !PrevInput[Input.InputType.C]) {
-                    if (jump) {
+                }
+                else if (CurrentInput[Input.InputType.C] && !PrevInput[Input.InputType.C])
+                {
+                    if (jump)
+                    {
                         command = new Command(Command.CommandType.Wait);
-                    } else {
+                    }
+                    else
+                    {
                         command = new Command(Command.CommandType.Pickup);
                     }
                     jump = false;
                     turn = false;
                     diagonal = false;
                 }//directions
-                else if (CurrentInput.Direction != Direction8.None) {
+                else if (CurrentInput.Direction != Direction8.None)
+                {
                     if (Display.Screen.DebugSpeed != Display.Screen.GameSpeed.Instant || PrevInput.Direction == Direction8.None)
                     {
                         Command.CommandType cmdType = Command.CommandType.None;
@@ -537,30 +584,36 @@ namespace PMDToolkit.Logic.Gameplay {
 
         //the intention, and its result to that frame
         //"choose the action to partake in"
-        public static void ProcessDecision(Command command, ActiveChar character, ref bool moveMade) {
+        public static void ProcessDecision(Command command, ActiveChar character, ref bool moveMade)
+        {
             //translates commands into actions
-            if (character == FocusedCharacter && command.Type != Command.CommandType.None && isLogging) {
+            if (character == FocusedCharacter && command.Type != Command.CommandType.None && isLogging)
+            {
                 Logs.Logger.LogJourney(command);
             }
 
-            switch (command.Type) {
-                case Command.CommandType.Dir: {
+            switch (command.Type)
+            {
+                case Command.CommandType.Dir:
+                    {
                         ProcessDir((Direction8)command[0], character, ref moveMade);
                     }
                     break;
+
                 case Command.CommandType.Move:
                     {
                         Display.Screen.BeginRunModeConcurrent(CharIndex(character));
                         //takes a dir argument
                         //Display.Screen.ResultList.Add(new Results.StartTag("Move"));
-                        if (command.ArgCount > 0) {
+                        if (command.ArgCount > 0)
+                        {
                             ProcessDir((Direction8)command[0], character, ref moveMade);
                         }
                         ProcessWalk(character, ref moveMade);
                         //Display.Screen.ResultList.Add(new Results.EndTag());
                     }
                     break;
-                    #if GAME_MODE
+#if GAME_MODE
                     case Command.CommandType.Attack: {
                         Display.Screen.BeginConcurrent();
                         //takes a dir argument
@@ -570,6 +623,7 @@ namespace PMDToolkit.Logic.Gameplay {
                         Attack(character, ref moveMade);
                     }
                     break;
+
                     case Command.CommandType.Pickup:
                     {
                         Display.Screen.BeginConcurrent();
@@ -577,6 +631,7 @@ namespace PMDToolkit.Logic.Gameplay {
                         ProcessPickup(character, ref moveMade);
                     }
                     break;
+
                     case Command.CommandType.Use:
                     {
                         Display.Screen.BeginConcurrent();
@@ -584,6 +639,7 @@ namespace PMDToolkit.Logic.Gameplay {
                         ProcessItemUse(character, command[0], ref moveMade);
                     }
                     break;
+
                     case Command.CommandType.Throw:
                     {
                         Display.Screen.BeginConcurrent();
@@ -591,6 +647,7 @@ namespace PMDToolkit.Logic.Gameplay {
                         ProcessThrow(character, command[0], ref moveMade);
                     }
                     break;
+
                     case Command.CommandType.Drop:
                     {
                         Display.Screen.BeginConcurrent();
@@ -598,6 +655,7 @@ namespace PMDToolkit.Logic.Gameplay {
                         ProcessDrop(character, command[0], ref moveMade);
                     }
                     break;
+
                     case Command.CommandType.Spell:
                     {
                         Display.Screen.BeginConcurrent();
@@ -606,29 +664,32 @@ namespace PMDToolkit.Logic.Gameplay {
                     }
                     break;
 #endif
-                    case Command.CommandType.Wait:
+                case Command.CommandType.Wait:
                     {
                         moveMade = true;
                     }
                     break;
-                    default: break;
+
+                default: break;
             }
-            if (moveMade) {
+            if (moveMade)
+            {
                 ProcessTurnEnd(character);
             }
         }
 
-        private static void ProcessAIDecision(ActiveChar character) {
+        private static void ProcessAIDecision(ActiveChar character)
+        {
             //picks an action
             bool moveMade = false;
 
             Command command = character.Tactic.Think();
 
             ProcessDecision(command, character, ref moveMade);
-
         }
-        
-        private static void PassToNextTurn() {
+
+        private static void PassToNextTurn()
+        {
             if (IsGameOver())
             {
                 Display.Screen.EndConcurrent();
@@ -640,12 +701,15 @@ namespace PMDToolkit.Logic.Gameplay {
             bool lastTurn = (currentCharIndex == BasicMap.MAX_NPC_SLOTS - 1);
             currentCharIndex = (currentCharIndex + MAX_TEAM_SLOTS + 1) % (BasicMap.MAX_NPC_SLOTS + MAX_TEAM_SLOTS) - MAX_TEAM_SLOTS;
             Display.Screen.SwitchConcurrentBranch(currentCharIndex);
-            if (lastTurn) {
-
-                if (someoneMoved) {
+            if (lastTurn)
+            {
+                if (someoneMoved)
+                {
                     turnsTaken++;
                     someoneMoved = false;
-                } else {
+                }
+                else
+                {
                     turnsTaken = 0;
                     ProcessMapTurnEnd();
                 }
@@ -654,88 +718,103 @@ namespace PMDToolkit.Logic.Gameplay {
             }
         }
 
-        private static void ProcessMapRoundEnd() {
-
+        private static void ProcessMapRoundEnd()
+        {
             foreach (Player player in Players)
             {
                 ProcessRoundEnd(player);
             }
 
-            foreach (Npc npc in Npcs) {
+            foreach (Npc npc in Npcs)
+            {
                 ProcessRoundEnd(npc);
             }
         }
 
-        private static void ProcessRoundEnd(ActiveChar character) {
-            if (!character.dead) {
-                if (character.MovementSpeed >= 0) {
+        private static void ProcessRoundEnd(ActiveChar character)
+        {
+            if (!character.dead)
+            {
+                if (character.MovementSpeed >= 0)
+                {
                     character.TurnCounter = character.MovementSpeed;
                 }
             }
         }
 
-        private static void ProcessMapTurnEnd() {
+        private static void ProcessMapTurnEnd()
+        {
             foreach (Player player in Players)
             {
                 ProcessMapTurnEnd(player);
             }
 
-            foreach (Npc npc in Npcs) {
+            foreach (Npc npc in Npcs)
+            {
                 ProcessMapTurnEnd(npc);
             }
 
-            if (turnCount % 10 == 0) {
+            if (turnCount % 10 == 0)
+            {
                 //Display.Screen.ResultList.Add(new Results.BattleMsg("Hail continues to fall."));
             }
-
 
             turnCount++;
         }
 
-        private static void ProcessMapTurnEnd(ActiveChar character) {
-
-            if (!character.dead) {
-                if (character.VolatileStatus.ContainsKey("MovementSpeed")) {
+        private static void ProcessMapTurnEnd(ActiveChar character)
+        {
+            if (!character.dead)
+            {
+                if (character.VolatileStatus.ContainsKey("MovementSpeed"))
+                {
                     character.VolatileStatus["MovementSpeed"].Counter--;
-                    if (character.VolatileStatus["MovementSpeed"].Counter <= 0) {
+                    if (character.VolatileStatus["MovementSpeed"].Counter <= 0)
+                    {
                         AddExtraStatus(character, "MovementSpeed", 0, -1, 0);
                     }
                 }
 
-                if (character.MovementSpeed < 0) {
+                if (character.MovementSpeed < 0)
+                {
                     character.TurnCounter++;
                     if (character.TurnCounter > 0) character.TurnCounter = character.MovementSpeed;
                 }
 
-                if (character.Status == Enums.StatusAilment.Burn) {
+                if (character.Status == Enums.StatusAilment.Burn)
+                {
                     Display.Screen.BeginConcurrent();
                     DamageCharacter(character, 1, false);
                     character.StatusCounter--;
-                    if (character.StatusCounter <= 0) {
+                    if (character.StatusCounter <= 0)
+                    {
                         SetStatusAilment(character, Enums.StatusAilment.OK, 0);
                     }
                 }
             }
         }
 
-        private static void ProcessTurnEnd(ActiveChar character) {
-
-            if (!character.dead) {
-
-                if (character.Status == Enums.StatusAilment.Poison) {
+        private static void ProcessTurnEnd(ActiveChar character)
+        {
+            if (!character.dead)
+            {
+                if (character.Status == Enums.StatusAilment.Poison)
+                {
                     Display.Screen.BeginConcurrent();
                     DeductPP(character, 1);
                     character.StatusCounter--;
-                    if (character.StatusCounter <= 0) {
+                    if (character.StatusCounter <= 0)
+                    {
                         SetStatusAilment(character, Enums.StatusAilment.OK, 0);
                     }
                 }
             }
         }
 
-        private static void ProcessDir(Direction8 dir, ActiveChar character, ref bool moveMade) {
-
-            if (character.Status == Enums.StatusAilment.Freeze) {
+        private static void ProcessDir(Direction8 dir, ActiveChar character, ref bool moveMade)
+        {
+            if (character.Status == Enums.StatusAilment.Freeze)
+            {
                 return;
             }
 
@@ -743,43 +822,46 @@ namespace PMDToolkit.Logic.Gameplay {
             Display.Screen.AddResult(new Results.Dir(CharIndex(character), character.CharDir));
         }
 
-        private static void ProcessWalk(ActiveChar character, ref bool moveMade) {
-
+        private static void ProcessWalk(ActiveChar character, ref bool moveMade)
+        {
             if (character.dead) return;
 
             Loc2D loc = character.CharLoc;
             Operations.MoveInDirection8(ref loc, character.CharDir, 1);
 
             //check for blocking
-            if (DirBlocked(character.CharDir, character)) {
+            if (DirBlocked(character.CharDir, character))
+            {
                 return;
             }
 
-
-
             moveMade = true;
 
-            if (character.Status == Enums.StatusAilment.Freeze) {
+            if (character.Status == Enums.StatusAilment.Freeze)
+            {
                 return;
             }
 
             character.CharLoc = loc;
 
             Display.Screen.AddResult(new Results.CreateAction(CharIndex(character), character, Display.CharSprite.ActionType.Walk));
-            
+
             Display.Screen.AddResult(new Results.Loc(CharIndex(character), loc));
-            
+
             moveMade = true;
 
             //if void, add restart
-            if (!Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, character.CharLoc.X, character.CharLoc.Y)) {
+            if (!Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, character.CharLoc.X, character.CharLoc.Y))
+            {
                 //Lose();
                 throw new Exception("Player out of bounds");
-            } else {
+            }
+            else
+            {
                 //god mode check
                 if (Intangible)
                     return;
-                
+
                 Tile tile = CurrentMap.MapArray[character.CharLoc.X, character.CharLoc.Y];
 
                 //if landed on certain tiles, present effects
@@ -792,19 +874,21 @@ namespace PMDToolkit.Logic.Gameplay {
                         ProcessWalk(character, ref moveMade);
                     }
                 }
-                
             }
         }
 
-        private static void ProcessPickup(ActiveChar character, ref bool moveMade) {
+        private static void ProcessPickup(ActiveChar character, ref bool moveMade)
+        {
             Tile tile = CurrentMap.MapArray[character.CharLoc.X, character.CharLoc.Y];
 
             int freeSlot = FindInvSlot();
 
-            if (tile.Data.Type == Enums.TileType.ChangeFloor) {
+            if (tile.Data.Type == Enums.TileType.ChangeFloor)
+            {
                 //if we're at the stairs, we go on
                 //a case for changing floor; leader only!
-                if (character == Players[0]) {
+                if (character == Players[0])
+                {
                     Display.Screen.AddResult(new Results.SE("magic135"));
                     //send changefloor result
                     Display.Screen.AddResult(new Results.Fade(Display.Screen.FadeType.FadeOut));
@@ -822,8 +906,9 @@ namespace PMDToolkit.Logic.Gameplay {
                 Display.Screen.AddResult(new Results.BattleMsg("Nothing there."));
                 return;
             }
-            
-            if (freeSlot == -1) {
+
+            if (freeSlot == -1)
+            {
                 Display.Screen.AddResult(new Results.BattleMsg("Inv full"));
                 return;
             }
@@ -831,74 +916,84 @@ namespace PMDToolkit.Logic.Gameplay {
             int itemIndex = CurrentMap.Items[itemSlot].ItemIndex;
             Inventory[freeSlot] = itemIndex;
             CurrentMap.Items[itemSlot] = new Item();
-            
+
             Display.Screen.AddResult(new Results.SE("magic130"));
             Display.Screen.AddResult(new Results.RemoveItem(itemSlot));
 
             Display.Screen.AddResult(new Results.BattleMsg(character.Name + " picked up a " + Data.GameData.ItemDex[itemIndex].Name + "."));
-            
         }
 
-        private static void ProcessDrop(ActiveChar character, int invSlot, ref bool moveMade) {
-            if (!CanDrop(invSlot)) {
+        private static void ProcessDrop(ActiveChar character, int invSlot, ref bool moveMade)
+        {
+            if (!CanDrop(invSlot))
+            {
                 Display.Screen.AddResult(new Results.BattleMsg("Can't drop slot " + (invSlot + 1)));
                 return;
             }
             Loc2D loc = character.CharLoc;
-            if (!CanItemLand(loc)) {
+            if (!CanItemLand(loc))
+            {
                 Display.Screen.AddResult(new Results.BattleMsg("Can't drop here!"));
                 return;
             }
             moveMade = true;
             int itemIndex = Inventory[invSlot];
 
-
             int mapSlot = CurrentMap.AddItem(new Item(itemIndex, 1, "", false, loc));
 
             Inventory[invSlot] = -1;
-            
+
             Display.Screen.AddResult(new Results.SE("magic693"));
             Display.Screen.AddResult(new Results.AddItem(CurrentMap, mapSlot));
 
             Display.Screen.AddResult(new Results.BattleMsg(character.Name + " dropped a " + Data.GameData.ItemDex[itemIndex].Name + "."));
         }
 
-        private static int FindInvSlot() {
-            for (int i = 0; i < MAX_INV_SLOTS; i++) {
+        private static int FindInvSlot()
+        {
+            for (int i = 0; i < MAX_INV_SLOTS; i++)
+            {
                 if (Inventory[i] == -1) return i;
             }
 
             return -1;
         }
 
-        private static bool CanDrop(int invSlot) {
+        private static bool CanDrop(int invSlot)
+        {
             if (Inventory[invSlot] == -1) return false;
             return true;
         }
 
-        private static bool CanUse(int invSlot) {
+        private static bool CanUse(int invSlot)
+        {
             if (Inventory[invSlot] == -1) return false;
             return true;
         }
 
-        private static bool CanThrow(int invSlot) {
+        private static bool CanThrow(int invSlot)
+        {
             if (Inventory[invSlot] == -1) return false;
             return true;
         }
 
-        public static bool DirBlocked(Direction8 dir, ActiveChar character) {
+        public static bool DirBlocked(Direction8 dir, ActiveChar character)
+        {
             return DirBlocked(dir, character, false);
         }
 
-        public static bool DirBlocked(Direction8 dir, ActiveChar character, bool inAir) {
+        public static bool DirBlocked(Direction8 dir, ActiveChar character, bool inAir)
+        {
             return DirBlocked(dir, character, inAir, 1);
         }
 
-        public static bool DirBlocked(Direction8 dir, ActiveChar character, bool inAir, int distance) {
+        public static bool DirBlocked(Direction8 dir, ActiveChar character, bool inAir, int distance)
+        {
             return DirBlocked(dir, character, character.CharLoc, inAir, distance);
         }
 
-        public static bool DirBlocked(Direction8 dir, ActiveChar character, Loc2D loc, bool inAir, int distance) {
+        public static bool DirBlocked(Direction8 dir, ActiveChar character, Loc2D loc, bool inAir, int distance)
+        {
             if (character == FocusedCharacter && Intangible)
             {
                 Operations.MoveInDirection8(ref loc, dir, 1);
@@ -909,12 +1004,12 @@ namespace PMDToolkit.Logic.Gameplay {
             }
 
             Enums.WalkMode walkMode = Enums.WalkMode.Normal;
-            
+
             if (inAir)
                 walkMode = Enums.WalkMode.Air;
 
-            for (int i = 0; i < distance; i++) {
-
+            for (int i = 0; i < distance; i++)
+            {
                 Operations.MoveInDirection8(ref loc, dir, 1);
 
                 if (IsBlocked(loc, walkMode))
@@ -922,38 +1017,40 @@ namespace PMDToolkit.Logic.Gameplay {
             }
 
             return false;
-
         }
 
-        public static bool IsBlocked(Loc2D loc) {
+        public static bool IsBlocked(Loc2D loc)
+        {
             return IsBlocked(loc, Enums.WalkMode.Normal);
         }
 
-        public static bool IsBlocked(Loc2D loc, Enums.WalkMode walkMode) {
+        public static bool IsBlocked(Loc2D loc, Enums.WalkMode walkMode)
+        {
             //jumping ignores all short obstacles
 
             if (TileBlocked(loc, walkMode)) return true;
 
-            if (walkMode < Enums.WalkMode.Air) {
+            if (walkMode < Enums.WalkMode.Air)
+            {
                 foreach (Player player in Players)
                 {
                     if (!player.dead && player.CharLoc == loc)
                         return true;
                 }
-                foreach (Npc npc in Npcs) {
+                foreach (Npc npc in Npcs)
+                {
                     if (!npc.dead && npc.CharLoc == loc)
                         return true;
                 }
             }
-            
+
             //map object blocking
 
             return false;
         }
 
-
-
-        public static bool MoveBlocked(Loc2D loc, Direction8 dir) {
+        public static bool MoveBlocked(Loc2D loc, Direction8 dir)
+        {
             Enums.WalkMode walkMode = Enums.WalkMode.Air;
 
             Operations.MoveInDirection8(ref loc, dir, 1);
@@ -962,39 +1059,46 @@ namespace PMDToolkit.Logic.Gameplay {
                 return true;
 
             return false;
-
         }
 
-        public static bool CanItemLand(Loc2D loc) {
+        public static bool CanItemLand(Loc2D loc)
+        {
             if (TileBlocked(loc))
                 return false;
 
             return (CurrentMap.GetItem(loc) == -1);
         }
-        
-        public static bool TileBlocked(Loc2D loc) {
+
+        public static bool TileBlocked(Loc2D loc)
+        {
             return TileBlocked(loc, Enums.WalkMode.Normal);
         }
-        
-        public static bool TileBlocked(Loc2D loc, Enums.WalkMode walkMode) {
-            if (!Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, loc.X, loc.Y)) {
+
+        public static bool TileBlocked(Loc2D loc, Enums.WalkMode walkMode)
+        {
+            if (!Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, loc.X, loc.Y))
+            {
                 return true;
             }
-            if (CurrentMap.MapArray[loc.X, loc.Y].Data.Type == Enums.TileType.Blocked) {
+            if (CurrentMap.MapArray[loc.X, loc.Y].Data.Type == Enums.TileType.Blocked)
+            {
                 return true;
             }
-            if (CurrentMap.MapArray[loc.X, loc.Y].Data.Type == Enums.TileType.Water) {
+            if (CurrentMap.MapArray[loc.X, loc.Y].Data.Type == Enums.TileType.Water)
+            {
                 return (walkMode > 0);
             }
             return false;
         }
 
-        public static int CharIndex(ActiveChar character) {
+        public static int CharIndex(ActiveChar character)
+        {
             if (character is Player) return (Array.IndexOf(Players, character) - MAX_TEAM_SLOTS);
             return Array.IndexOf(Npcs, character);
         }
 
-        public static ActiveChar CharOfIndex(int charIndex) {
+        public static ActiveChar CharOfIndex(int charIndex)
+        {
             if (charIndex < 0)
                 return Players[charIndex + MAX_TEAM_SLOTS];
             return Npcs[charIndex];
@@ -1005,7 +1109,6 @@ namespace PMDToolkit.Logic.Gameplay {
             character.CharData = data;
             Display.Screen.AddResult(new Results.SpawnCharacter(character, CharIndex(character)));
         }
-
 
         public static void Print()
         {
@@ -1080,7 +1183,7 @@ namespace PMDToolkit.Logic.Gameplay {
                             }
                         }
                         bool containsPlayer = false;
-                        foreach(Player player in Players)
+                        foreach (Player player in Players)
                         {
                             if (player.CharLoc == loc)
                             {
@@ -1135,7 +1238,5 @@ namespace PMDToolkit.Logic.Gameplay {
             }
             return returnString;
         }
-
-
     }
 }

@@ -21,17 +21,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Logs;
+using System.IO;
+using System.Xml;
 
 namespace PMDToolkit.Data
 {
-    public class ItemEntry {
-
-
+    public class ItemEntry
+    {
         public string Name { get; set; }
         public string Desc { get; set; }
         public Enums.ItemType Type { get; set; }
@@ -57,13 +55,14 @@ namespace PMDToolkit.Data
         public int Throw2 { get; set; }
         public int Throw3 { get; set; }
 
-        public ItemEntry() {
+        public ItemEntry()
+        {
             Name = "";
             Desc = "";
         }
 
-        public ItemEntry(ItemEntry copy) {
-
+        public ItemEntry(ItemEntry copy)
+        {
             Name = copy.Name;
             Desc = copy.Desc;
             Type = copy.Type;
@@ -88,92 +87,115 @@ namespace PMDToolkit.Data
             Throw1 = copy.Throw1;
             Throw2 = copy.Throw2;
             Throw3 = copy.Throw3;
-
         }
 
-
-        public void Load(int itemNum) {
-            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "Item\\" + itemNum + ".xml")) {
-                while (reader.Read()) {
-                    if (reader.IsStartElement()) {
-                        switch (reader.Name) {
-                            case "Name": {
+        public void Load(int itemNum)
+        {
+            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "Item\\" + itemNum + ".xml"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "Name":
+                                {
                                     Name = reader.ReadString();
                                     break;
                                 }
-                            case "Description": {
+                            case "Description":
+                                {
                                     Desc = reader.ReadString();
                                     break;
                                 }
-                            case "ItemType": {
+                            case "ItemType":
+                                {
                                     Type = reader.ReadString().ToEnum<Enums.ItemType>();
                                     break;
                                 }
-                            case "Price": {
+                            case "Price":
+                                {
                                     Price = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Rarity": {
+                            case "Rarity":
+                                {
                                     Rarity = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Sprite": {
+                            case "Sprite":
+                                {
                                     Sprite = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Requirement": {
+                            case "Requirement":
+                                {
                                     Req = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Req1": {
+                            case "Req1":
+                                {
                                     Req1 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Req2": {
+                            case "Req2":
+                                {
                                     Req2 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Req3": {
+                            case "Req3":
+                                {
                                     Req3 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Req4": {
+                            case "Req4":
+                                {
                                     Req4 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Req5": {
+                            case "Req5":
+                                {
                                     Req5 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect": {
+                            case "Effect":
+                                {
                                     Effect = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect1": {
+                            case "Effect1":
+                                {
                                     Effect1 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect2": {
+                            case "Effect2":
+                                {
                                     Effect2 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect3": {
+                            case "Effect3":
+                                {
                                     Effect3 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "ThrowEffect": {
+                            case "ThrowEffect":
+                                {
                                     ThrowEffect = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Throw1": {
+                            case "Throw1":
+                                {
                                     Throw1 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Throw2": {
+                            case "Throw2":
+                                {
                                     Throw2 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Throw3": {
+                            case "Throw3":
+                                {
                                     Throw3 = reader.ReadString().ToInt();
                                     break;
                                 }
@@ -183,15 +205,17 @@ namespace PMDToolkit.Data
             }
         }
 
-
-        public void Save(int itemNum) {
+        public void Save(int itemNum)
+        {
             if (!Directory.Exists(Paths.DataPath + "Item"))
                 Directory.CreateDirectory(Paths.DataPath + "Item");
-            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Item\\" + itemNum + ".xml", Logger.XmlWriterSettings)) {
+            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Item\\" + itemNum + ".xml", Logger.XmlWriterSettings))
+            {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("ItemEntry");
 
                 #region Basic data
+
                 writer.WriteStartElement("General");
                 writer.WriteElementString("Name", Name);
                 writer.WriteElementString("Description", Desc);
@@ -214,12 +238,12 @@ namespace PMDToolkit.Data
                 writer.WriteElementString("Throw2", Throw2.ToString());
                 writer.WriteElementString("Throw3", Throw3.ToString());
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Basic data
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
         }
-
     }
 }

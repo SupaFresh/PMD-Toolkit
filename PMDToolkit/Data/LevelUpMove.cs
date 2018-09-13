@@ -21,8 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-
 namespace PMDToolkit.Data
 {
     public class LevelUpMove
@@ -30,7 +28,8 @@ namespace PMDToolkit.Data
         public int Level { get; set; }
         public int Move { get; set; }
 
-        public LevelUpMove(int name, int level) {
+        public LevelUpMove(int name, int level)
+        {
             Move = name;
             Level = level;
         }

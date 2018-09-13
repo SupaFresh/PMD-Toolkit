@@ -21,27 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PMDToolkit.Data {
-    public class NpcPreset {
-
-
+namespace PMDToolkit.Data
+{
+    public class NpcPreset
+    {
         public int SpawnX { get; set; }
         public int SpawnY { get; set; }
-
 
         public int NpcNum { get; set; }
 
         public int MinLevel { get; set; }
         public int MaxLevel { get; set; }
 
-        public NpcPreset() {
-            
+        public NpcPreset()
+        {
             NpcNum = 0;
             SpawnX = -1;
             SpawnY = -1;

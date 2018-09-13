@@ -21,121 +21,156 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PMDToolkit.Core
 {
     public static class Extensions
     {
-        public static byte ToByte(this string str) {
+        public static byte ToByte(this string str)
+        {
             byte result = 0;
-            if (!string.IsNullOrEmpty(str) && byte.TryParse(str, out result)) {
+            if (!string.IsNullOrEmpty(str) && byte.TryParse(str, out result))
+            {
                 return result;
-            } else
+            }
+            else
                 return 0;
         }
 
-        public static byte ToByte(this string str, byte defaultVal) {
+        public static byte ToByte(this string str, byte defaultVal)
+        {
             byte result = 0;
-            if (str != null && byte.TryParse(str, out result) == true) {
+            if (str != null && byte.TryParse(str, out result) == true)
+            {
                 return result;
-            } else
+            }
+            else
                 return defaultVal;
         }
 
-        public static int ToInt(this string str) {
+        public static int ToInt(this string str)
+        {
             int result = 0;
-            if (!string.IsNullOrEmpty(str) && int.TryParse(str, out result)) {
+            if (!string.IsNullOrEmpty(str) && int.TryParse(str, out result))
+            {
                 return result;
-            } else
+            }
+            else
                 return 0;
         }
 
-        public static int ToInt(this string str, int defaultVal) {
+        public static int ToInt(this string str, int defaultVal)
+        {
             int result = 0;
-            if (str != null && int.TryParse(str, out result) == true) {
+            if (str != null && int.TryParse(str, out result) == true)
+            {
                 return result;
-            } else
+            }
+            else
                 return defaultVal;
         }
 
-        public static double ToDbl(this string str) {
+        public static double ToDbl(this string str)
+        {
             double result = 0;
-            if (str != null && double.TryParse(str, out result) == true) {
+            if (str != null && double.TryParse(str, out result) == true)
+            {
                 return result;
-            } else
+            }
+            else
                 return 0;
         }
 
-        public static double ToDbl(this string str, double defaultVal) {
+        public static double ToDbl(this string str, double defaultVal)
+        {
             double result = 0;
-            if (str != null && double.TryParse(str, out result) == true) {
+            if (str != null && double.TryParse(str, out result) == true)
+            {
                 return result;
-            } else
+            }
+            else
                 return defaultVal;
         }
 
-        public static string ToIntString(this bool boolval) {
+        public static string ToIntString(this bool boolval)
+        {
             if (boolval == true)
                 return "1";
             else
                 return "0";
         }
 
-        public static int ToInt(this bool boolval) {
+        public static int ToInt(this bool boolval)
+        {
             if (boolval == true)
                 return 1;
             else
                 return 0;
         }
 
-        public static bool IsNumeric(this string str) {
+        public static bool IsNumeric(this string str)
+        {
             int result;
             return int.TryParse(str, out result);
         }
 
-        public static ulong ToUlng(this string str) {
+        public static ulong ToUlng(this string str)
+        {
             ulong result = 0;
-            if (ulong.TryParse(str, out result) == true) {
+            if (ulong.TryParse(str, out result) == true)
+            {
                 return result;
-            } else
+            }
+            else
                 return 0;
         }
 
-        public static bool ToBool(this string str) {
-            if (string.IsNullOrEmpty(str)) {
+        public static bool ToBool(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
                 return false;
             }
-            switch (str.ToLower()) {
+            switch (str.ToLower())
+            {
                 case "true":
                     return true;
+
                 case "false":
                     return false;
+
                 case "1":
                     return true;
+
                 case "0":
                     return false;
+
                 default:
                     return false;
             }
         }
 
-        public static bool ToBool(this string str, bool defaultValue) {
-            if (string.IsNullOrEmpty(str)) {
+        public static bool ToBool(this string str, bool defaultValue)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
                 return false;
             }
-            switch (str.ToLower()) {
+            switch (str.ToLower())
+            {
                 case "true":
                     return true;
+
                 case "false":
                     return false;
+
                 case "1":
                     return true;
+
                 case "0":
                     return false;
+
                 default:
                     return defaultValue;
             }
@@ -151,24 +186,31 @@ namespace PMDToolkit.Core
             return (T)Enum.Parse(typeof(T), enumString, true);
         }
 
-        public static DateTime? ToDate(this string date) {
+        public static DateTime? ToDate(this string date)
+        {
             DateTime tmpDate;
-            if (DateTime.TryParse(date, out tmpDate)) {
+            if (DateTime.TryParse(date, out tmpDate))
+            {
                 return tmpDate;
-            } else {
+            }
+            else
+            {
                 return null;
             }
         }
 
-        public static string ToHex(this System.Drawing.Color color) {
+        public static string ToHex(this System.Drawing.Color color)
+        {
             return String.Format("#{0:x2}{1:x2}{2:x2}{3:x2}", color.A, color.R, color.G, color.B);
         }
 
-        public static System.Drawing.Color ToColor(this string hexString) {
+        public static System.Drawing.Color ToColor(this string hexString)
+        {
             return HexStringToColor(hexString);
         }
 
-        private static System.Drawing.Color HexStringToColor(string hex) {
+        private static System.Drawing.Color HexStringToColor(string hex)
+        {
             hex = hex.Replace("#", "");
 
             if (hex.Length != 8)
@@ -187,7 +229,8 @@ namespace PMDToolkit.Core
                                                  HexStringToBase10Int(b));
         }
 
-        private static int HexStringToBase10Int(string hex) {
+        private static int HexStringToBase10Int(string hex)
+        {
             int base10value = 0;
 
             try { base10value = System.Convert.ToInt32(hex, 16); } catch { base10value = 0; }

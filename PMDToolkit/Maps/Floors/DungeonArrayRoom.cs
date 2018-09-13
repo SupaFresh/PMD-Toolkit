@@ -21,17 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace PMDToolkit.Maps.Floors
 {
-    public class DungeonArrayRoom {
-
-        public enum RoomState {
+    public class DungeonArrayRoom
+    {
+        public enum RoomState
+        {
             Closed,
             Hall,
             Open
@@ -44,12 +39,12 @@ namespace PMDToolkit.Maps.Floors
         public int EndX { get; set; }
         public int EndY { get; set; }
 
-        public DungeonArrayRoom() {
+        public DungeonArrayRoom()
+        {
             StartX = -1;
             StartY = -1;
             EndX = -1;
             EndY = -1;
         }
-
     }
 }

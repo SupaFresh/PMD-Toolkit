@@ -21,13 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
 using System.Collections.Generic;
 
 namespace PMDToolkit.Maps
 {
-
     public enum Direction4
     {
         All = -3,
@@ -70,7 +68,6 @@ namespace PMDToolkit.Maps
         DiagBack = 3
     };
 
-
     public enum Direction3D
     {
         All = -3,
@@ -94,7 +91,6 @@ namespace PMDToolkit.Maps
 
     public static class Operations
     {
-
         public static void MoveInDirection4(ref Loc2D loc, Direction4 dir, int length)
         {
             MoveInDirection4(ref loc.X, ref loc.Y, dir, length);
@@ -109,11 +105,13 @@ namespace PMDToolkit.Maps
                         y += length;
                     }
                     break;
+
                 case Direction4.Up:
                     {
                         y -= length;
                     }
                     break;
+
                 default: break;
             }
 
@@ -124,16 +122,16 @@ namespace PMDToolkit.Maps
                         x -= length;
                     }
                     break;
+
                 case Direction4.Right:
                     {
                         x += length;
                     }
                     break;
+
                 default: break;
             }
-
         }
-
 
         public static void MoveInDirection8(ref Loc2D loc, Direction8 dir, int length)
         {
@@ -151,6 +149,7 @@ namespace PMDToolkit.Maps
                         y += length;
                     }
                     break;
+
                 case Direction8.Up:
                 case Direction8.UpLeft:
                 case Direction8.UpRight:
@@ -158,6 +157,7 @@ namespace PMDToolkit.Maps
                         y -= length;
                     }
                     break;
+
                 default: break;
             }
 
@@ -170,6 +170,7 @@ namespace PMDToolkit.Maps
                         x -= length;
                     }
                     break;
+
                 case Direction8.Right:
                 case Direction8.UpRight:
                 case Direction8.DownRight:
@@ -177,9 +178,9 @@ namespace PMDToolkit.Maps
                         x += length;
                     }
                     break;
+
                 default: break;
             }
-
         }
 
         public static void MoveInDirection3D(ref Loc3D loc, Direction3D dir, int length)
@@ -196,11 +197,13 @@ namespace PMDToolkit.Maps
                         y += length;
                     }
                     break;
+
                 case Direction3D.Up:
                     {
                         y -= length;
                     }
                     break;
+
                 default: break;
             }
 
@@ -211,11 +214,13 @@ namespace PMDToolkit.Maps
                         x -= length;
                     }
                     break;
+
                 case Direction3D.Right:
                     {
                         x += length;
                     }
                     break;
+
                 default: break;
             }
 
@@ -226,23 +231,22 @@ namespace PMDToolkit.Maps
                         z -= length;
                     }
                     break;
+
                 case Direction3D.Back:
                     {
                         z += length;
                     }
                     break;
+
                 default: break;
             }
-
         }
 
         public static bool CheckCollide(int x1, int y1, int w1, int h1,
             int x2, int y2, int w2, int h2)
         {
-
             return (x1 + w1 >= x2 && x1 <= x2 + w2 &&
                 y1 + h1 >= y2 && y1 <= y2 + h2);
-
         }
 
         public static Direction4 GetDirection4(Loc2D loc1, Loc2D loc2)
@@ -425,7 +429,6 @@ namespace PMDToolkit.Maps
             {
                 throw new Exception("Invalid coordinates");
             }
-
         }
 
         public static Orientation4 GetOrientation4(Direction4 dir)
@@ -435,9 +438,11 @@ namespace PMDToolkit.Maps
                 case Direction4.Down:
                 case Direction4.Up:
                     return Orientation4.Vert;
+
                 case Direction4.Left:
                 case Direction4.Right:
                     return Orientation4.Horiz;
+
                 default:
                     return Orientation4.None;
             }
@@ -456,15 +461,19 @@ namespace PMDToolkit.Maps
                 case Direction8.Down:
                 case Direction8.Up:
                     return Orientation8.Vert;
+
                 case Direction8.Left:
                 case Direction8.Right:
                     return Orientation8.Horiz;
+
                 case Direction8.DownLeft:
                 case Direction8.UpRight:
                     return Orientation8.DiagForth;
+
                 case Direction8.UpLeft:
                 case Direction8.DownRight:
                     return Orientation8.DiagBack;
+
                 default:
                     return Orientation8.None;
             }
@@ -477,12 +486,15 @@ namespace PMDToolkit.Maps
                 case Direction3D.Down:
                 case Direction3D.Up:
                     return Orientation3D.Vert;
+
                 case Direction3D.Left:
                 case Direction3D.Right:
                     return Orientation3D.Horiz;
+
                 case Direction3D.Forth:
                 case Direction3D.Back:
                     return Orientation3D.Depth;
+
                 default:
                     return Orientation3D.None;
             }
@@ -525,7 +537,6 @@ namespace PMDToolkit.Maps
             {
                 return (Direction8)(((int)dir1 + (int)dir2) % 8 + ((int)dir1 + (int)dir2) / 8 * 4);
             }
-
         }
 
         public static Direction3D ReverseDir3D(Direction3D dir)
@@ -658,12 +669,14 @@ namespace PMDToolkit.Maps
                         moveY = true;
                     }
                     break;
+
                 case Direction4.Up:
                     {
                         dy = py - y;
                         moveY = true;
                     }
                     break;
+
                 default: break;
             }
 
@@ -675,12 +688,14 @@ namespace PMDToolkit.Maps
                         moveX = true;
                     }
                     break;
+
                 case Direction4.Right:
                     {
                         dx = (x + w) - px - 1;
                         moveX = true;
                     }
                     break;
+
                 default: break;
             }
 
@@ -810,21 +825,25 @@ namespace PMDToolkit.Maps
                         return y2 - y1;
                     }
                     break;
+
                 case Direction4.Left:
                     {
                         return x1 - x2;
                     }
                     break;
+
                 case Direction4.Up:
                     {
                         return y1 - y2;
                     }
                     break;
+
                 case Direction4.Right:
                     {
                         return x2 - x1;
                     }
                     break;
+
                 default: return 0;
             }
         }
@@ -843,31 +862,37 @@ namespace PMDToolkit.Maps
                         return y2 - y1;
                     }
                     break;
+
                 case Direction3D.Left:
                     {
                         return x1 - x2;
                     }
                     break;
+
                 case Direction3D.Up:
                     {
                         return y1 - y2;
                     }
                     break;
+
                 case Direction3D.Right:
                     {
                         return x2 - x1;
                     }
                     break;
+
                 case Direction3D.Forth:
                     {
                         return z1 - z2;
                     }
                     break;
+
                 case Direction3D.Back:
                     {
                         return z2 - z1;
                     }
                     break;
+
                 default: return 0;
             }
         }
@@ -891,6 +916,7 @@ namespace PMDToolkit.Maps
                         vert = Direction4.Down;
                     }
                     break;
+
                 case Direction8.Up:
                 case Direction8.UpLeft:
                 case Direction8.UpRight:
@@ -898,6 +924,7 @@ namespace PMDToolkit.Maps
                         vert = Direction4.Up;
                     }
                     break;
+
                 default: break;
             }
 
@@ -910,6 +937,7 @@ namespace PMDToolkit.Maps
                         horiz = Direction4.Left;
                     }
                     break;
+
                 case Direction8.Right:
                 case Direction8.UpRight:
                 case Direction8.DownRight:
@@ -917,6 +945,7 @@ namespace PMDToolkit.Maps
                         horiz = Direction4.Right;
                     }
                     break;
+
                 default: break;
             }
         }
@@ -946,7 +975,6 @@ namespace PMDToolkit.Maps
                 offset.Y = (height - array.GetLength(1));
             }
 
-
             T[,] returnArray = new T[width, height];
             for (int x = Math.Max(-offset.X, 0); x < array.GetLength(0) && x + offset.X < returnArray.GetLength(0); x++)
             {
@@ -958,7 +986,6 @@ namespace PMDToolkit.Maps
 
             array = returnArray;
         }
-
 
         public static void ResizeArray<T>(ref T[,] array, int width, int height, Direction8 dir, bool initialize) where T : new()
         {
@@ -984,7 +1011,6 @@ namespace PMDToolkit.Maps
             {
                 offset.Y = (height - array.GetLength(1));
             }
-
 
             T[,] returnArray = new T[width, height];
             if (initialize)
@@ -1027,7 +1053,7 @@ namespace PMDToolkit.Maps
 
             Loc2D center = new Loc2D();
             if (horiz == Direction4.None)
-                center.X += (width - oldWidth)/2;
+                center.X += (width - oldWidth) / 2;
             else if (horiz == Direction4.Left)
                 center.X += (width - oldWidth);
 
@@ -1039,17 +1065,12 @@ namespace PMDToolkit.Maps
             return center;
         }
 
-
-
-
-
-
         public delegate bool TileCheck(int locX, int locY);
+
         public delegate void TileOperation(int locX, int locY);
 
-
-        static void AddNextScanLine( TileCheck checkOp, TileOperation fillOp,
-            int min, int max, int range_min, int range_max, int y, bool isNext, Direction4 dir, 
+        private static void AddNextScanLine(TileCheck checkOp, TileOperation fillOp,
+            int min, int max, int range_min, int range_max, int y, bool isNext, Direction4 dir,
             Stack<Tuple<int, int, int, Direction4, bool, bool>> stack)
         {
             int rMinX = range_min;
@@ -1058,8 +1079,8 @@ namespace PMDToolkit.Maps
             for (; x <= range_max; x++)
             {
                 //// skip testing, if testing previous line within previous range
-                bool empty = (isNext || (x < min || x > max)) && checkOp(x,y);
-                
+                bool empty = (isNext || (x < min || x > max)) && checkOp(x, y);
+
                 if (!inRange && empty)
                 {
                     rMinX = x;
@@ -1067,21 +1088,19 @@ namespace PMDToolkit.Maps
                 }
                 else if (inRange && !empty)
                 {
-                    stack.Push(new Tuple<int, int, int, Direction4, bool, bool>(rMinX, x-1, y, dir, rMinX == range_min, false));
+                    stack.Push(new Tuple<int, int, int, Direction4, bool, bool>(rMinX, x - 1, y, dir, rMinX == range_min, false));
                     inRange = false;
                 }
-                
+
                 if (inRange)
-                    fillOp(x,y);
-                
+                    fillOp(x, y);
+
                 if (!isNext && x == min)
                     break;
             }
             if (inRange)
                 stack.Push(new Tuple<int, int, int, Direction4, bool, bool>(rMinX, x - 1, y, dir, rMinX == range_min, true));
-
         }
-
 
         public static void FillArray(int arrayWidth, int arrayHeight, TileCheck checkOp, TileOperation fillOp, Loc2D loc)
         {
@@ -1102,7 +1121,7 @@ namespace PMDToolkit.Maps
                 int newMinX = minX;
                 if (goLeft)
                 {
-                    while(newMinX - 1 >= 0 && checkOp(newMinX-1, y))
+                    while (newMinX - 1 >= 0 && checkOp(newMinX - 1, y))
                     {
                         newMinX--;
                         fillOp(newMinX, y);

@@ -21,31 +21,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
+using PMDToolkit.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-using PMDToolkit.Core;
-using PMDToolkit.Data;
+using System.IO;
+using System.Linq;
 
-namespace PMDToolkit.Graphics {
-    public class Conversion {
+namespace PMDToolkit.Graphics
+{
+    public class Conversion
+    {
         #region Sprites
-
 
         public static bool CompileAllSprites(string spriteRootDirectory, string spriteCacheDirectory)
         {
             if (!Directory.Exists(spriteCacheDirectory))
                 Directory.CreateDirectory(spriteCacheDirectory);
 
-            foreach(int index in GetAllNumDirs(spriteRootDirectory, "Sprite"))
+            foreach (int index in GetAllNumDirs(spriteRootDirectory, "Sprite"))
             {
                 Game.UpdateLoadMsg("Converting Sprite #" + index);
-                CompileSprite(spriteRootDirectory + "Sprite" + index + "\\", spriteCacheDirectory + "\\Sprite"+index, index);
+                CompileSprite(spriteRootDirectory + "Sprite" + index + "\\", spriteCacheDirectory + "\\Sprite" + index, index);
             }
             return true;
         }
@@ -91,17 +89,21 @@ namespace PMDToolkit.Graphics {
             }
         }
 
-        static void CompileSpriteToFile(string spriteDir, Dictionary<string, byte[]> spriteData, int num, int form, int shiny, int gender) {
+        private static void CompileSpriteToFile(string spriteDir, Dictionary<string, byte[]> spriteData, int num, int form, int shiny, int gender)
+        {
             //check to see if files exist
             string[] pngs = Directory.GetFiles(spriteDir, "*.png", SearchOption.TopDirectoryOnly);
             if (pngs.Length < 1) return;
 
             String outForm = "r";
-            if (form >= 0) {
+            if (form >= 0)
+            {
                 outForm += "-" + form;
-                if (shiny >= 0) {
+                if (shiny >= 0)
+                {
                     outForm += "-" + shiny;
-                    if (gender >= 0) {
+                    if (gender >= 0)
+                    {
                         outForm += "-" + gender;
                     }
                 }
@@ -191,15 +193,16 @@ namespace PMDToolkit.Graphics {
             {
                 throw new Exception("Error compiling sprite" + spriteDir + "\n", ex);
             }
-
         }
 
-        private static void WriteSpriteFile(string destinationPath, Dictionary<string, byte[]> spriteData) {
+        private static void WriteSpriteFile(string destinationPath, Dictionary<string, byte[]> spriteData)
+        {
             // File format:
             // [form-count(4)]
             // [form-name-size(n*4)][form-name(n*variable)][form-position(n*4)][form-size(n*4)]
             // [form-1(variable)][form-2(variable)][form-n(variable)]
-            using (FileStream stream = new FileStream(destinationPath, System.IO.FileMode.Create, System.IO.FileAccess.Write)) {
+            using (FileStream stream = new FileStream(destinationPath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            {
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
                     // Write form count
@@ -229,22 +232,26 @@ namespace PMDToolkit.Graphics {
             }
         }
 
-        private static SpriteSheet CompileSpriteInternal(string spriteRootDirectory) {
+        private static SpriteSheet CompileSpriteInternal(string spriteRootDirectory)
+        {
             Dictionary<FrameType, Dictionary<Maps.Direction8, List<Bitmap>>> frameCollection = new Dictionary<FrameType, Dictionary<Maps.Direction8, List<Bitmap>>>();
             Dictionary<FrameType, List<Bitmap>> miscFrameCollection = new Dictionary<FrameType, List<Bitmap>>();
             List<string> usedFrames = new List<string>();
             //get all frames
-            foreach (FrameType frameType in Enum.GetValues(typeof(FrameType))) {
-
-                if (!SpriteSheet.IsFrameTypeDirectionless(frameType)) {
+            foreach (FrameType frameType in Enum.GetValues(typeof(FrameType)))
+            {
+                if (!SpriteSheet.IsFrameTypeDirectionless(frameType))
+                {
                     Dictionary<Maps.Direction8, List<Bitmap>> frameTypeDirectionCollection = new Dictionary<Maps.Direction8, List<Bitmap>>();
-                    for (int j = 0; j < 8; j++) {
+                    for (int j = 0; j < 8; j++)
+                    {
                         Maps.Direction8 direction = (Maps.Direction8)j;
 
                         List<Bitmap> frameTypeCollection = new List<Bitmap>();
                         frameTypeDirectionCollection.Add(direction, frameTypeCollection);
 
-                        foreach (Tuple<string, Bitmap> frameSurface in GetAllFrames(spriteRootDirectory, frameType + "-" + direction + "-")) {
+                        foreach (Tuple<string, Bitmap> frameSurface in GetAllFrames(spriteRootDirectory, frameType + "-" + direction + "-"))
+                        {
                             frameTypeCollection.Add(frameSurface.Item2);
                             usedFrames.Add(frameSurface.Item1);
                         }
@@ -252,10 +259,9 @@ namespace PMDToolkit.Graphics {
                     }
 
                     frameCollection.Add(frameType, frameTypeDirectionCollection);
-
-
-                } else {
-
+                }
+                else
+                {
                     List<Bitmap> frameTypeCollection = new List<Bitmap>();
                     miscFrameCollection.Add(frameType, frameTypeCollection);
 
@@ -290,7 +296,7 @@ namespace PMDToolkit.Graphics {
 
                 string errorMsg = spriteRootDirectory + ": The following files do not match the naming pattern, or a preceding file is missing:";
                 for (int i = 0; i < pngs.Count; i++)
-                    errorMsg += "\n"+pngs[i].Substring(pngs[i].LastIndexOf('\\'));
+                    errorMsg += "\n" + pngs[i].Substring(pngs[i].LastIndexOf('\\'));
 
                 throw new Exception(errorMsg);
             }
@@ -300,17 +306,19 @@ namespace PMDToolkit.Graphics {
             return sprite;
         }
 
-        private static SpriteSheet BuildSpriteSurface(Dictionary<FrameType, Dictionary<Maps.Direction8, List<Bitmap>>> frameCollection, Dictionary<FrameType, List<Bitmap>> miscFrameCollection, string spriteRootDirectory) {
-
+        private static SpriteSheet BuildSpriteSurface(Dictionary<FrameType, Dictionary<Maps.Direction8, List<Bitmap>>> frameCollection, Dictionary<FrameType, List<Bitmap>> miscFrameCollection, string spriteRootDirectory)
+        {
             int frameHeight = 0;
             int frameWidth = 0;
 
             SpriteSheet sprite = new SpriteSheet();
 
             //set frame count and frame size
-            for (int i = 0; i < frameCollection.Keys.Count; i++) {
+            for (int i = 0; i < frameCollection.Keys.Count; i++)
+            {
                 Dictionary<Maps.Direction8, List<Bitmap>> frameDirectionCollection = frameCollection.Values.ElementAt(i);
-                for (int j = 0; j < 8; j++) {
+                for (int j = 0; j < 8; j++)
+                {
                     Maps.Direction8 direction = (Maps.Direction8)j;
                     int totalSurfaceWidth = 0;
                     int lastX = 0;
@@ -318,26 +326,35 @@ namespace PMDToolkit.Graphics {
                     List<Bitmap> frameList = frameDirectionCollection[direction];
                     sprite.FrameData.SetFrameCount(frameCollection.Keys.ElementAt(i), direction, frameList.Count);
 
-                    foreach (Bitmap frame in frameList) {
-                        if (frameHeight == 0) {
+                    foreach (Bitmap frame in frameList)
+                    {
+                        if (frameHeight == 0)
+                        {
                             frameHeight = frame.Height;
-                        } else if (frameHeight != frame.Height) {
-                            throw new Exception("Frameheight mismatch: " + frameCollection.Keys.ElementAt(i).ToString() + " " + direction.ToString() + " (" + frameHeight + " vs. " + frame.Height + ")" );
                         }
-                        if (frameWidth == 0) {
+                        else if (frameHeight != frame.Height)
+                        {
+                            throw new Exception("Frameheight mismatch: " + frameCollection.Keys.ElementAt(i).ToString() + " " + direction.ToString() + " (" + frameHeight + " vs. " + frame.Height + ")");
+                        }
+                        if (frameWidth == 0)
+                        {
                             frameWidth = frame.Width;
-                        } else if (frameWidth != frame.Width) {
+                        }
+                        else if (frameWidth != frame.Width)
+                        {
                             throw new Exception("Framewidth mismatch: " + frameCollection.Keys.ElementAt(i).ToString() + " " + direction.ToString() + " (" + frameWidth + " vs. " + frame.Width + ")");
                         }
                         totalSurfaceWidth += frame.Width;
                     }
 
                     TileSheet animSheet = null;
-                    if (totalSurfaceWidth > 0) {
+                    if (totalSurfaceWidth > 0)
+                    {
                         animSheet = new TileSheet();
                         animSheet.CreatePixels32(totalSurfaceWidth, frameHeight);
                     }
-                    foreach (Bitmap frame in frameList) {
+                    foreach (Bitmap frame in frameList)
+                    {
                         BitmapData frameData = frame.LockBits(new Rectangle(0, 0, frame.Width, frame.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
                         animSheet.Blit(frameData, 0, 0, frame.Width, frame.Height, lastX, 0);
                         frame.UnlockBits(frameData);
@@ -350,33 +367,43 @@ namespace PMDToolkit.Graphics {
             }
 
             //set frame count and frame size
-            for (int i = 0; i < miscFrameCollection.Count; i++) {
+            for (int i = 0; i < miscFrameCollection.Count; i++)
+            {
                 int totalSurfaceWidth = 0;
                 int lastX = 0;
 
                 List<Bitmap> frameList = miscFrameCollection.Values.ElementAt(i);
                 sprite.FrameData.SetFrameCount(miscFrameCollection.Keys.ElementAt(i), Maps.Direction8.Down, frameList.Count);
 
-                foreach (Bitmap frame in frameList) {
-                    if (frameHeight == 0) {
+                foreach (Bitmap frame in frameList)
+                {
+                    if (frameHeight == 0)
+                    {
                         frameHeight = frame.Height;
-                    } else if (frameHeight != frame.Height) {
+                    }
+                    else if (frameHeight != frame.Height)
+                    {
                         throw new Exception("Frameheight mismatch: " + frameCollection.Keys.ElementAt(i).ToString() + " (" + frameHeight + " vs. " + frame.Height + ")");
                     }
-                    if (frameWidth == 0) {
+                    if (frameWidth == 0)
+                    {
                         frameWidth = frame.Width;
-                    } else if (frameWidth != frame.Width) {
+                    }
+                    else if (frameWidth != frame.Width)
+                    {
                         throw new Exception("Framewidth mismatch: " + frameCollection.Keys.ElementAt(i).ToString() + " (" + frameWidth + " vs. " + frame.Width + ")");
                     }
                     totalSurfaceWidth += frame.Width;
                 }
 
                 TileSheet animSheet = null;
-                if (totalSurfaceWidth > 0) {
+                if (totalSurfaceWidth > 0)
+                {
                     animSheet = new TileSheet();
                     animSheet.CreatePixels32(totalSurfaceWidth, frameHeight);
                 }
-                foreach (Bitmap frame in frameList) {
+                foreach (Bitmap frame in frameList)
+                {
                     BitmapData frameData = frame.LockBits(new Rectangle(0, 0, frame.Width, frame.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
                     animSheet.Blit(frameData, 0, 0, frame.Width, frame.Height, lastX, 0);
                     frame.UnlockBits(frameData);
@@ -390,40 +417,44 @@ namespace PMDToolkit.Graphics {
             return sprite;
         }
 
-        private static IEnumerable<Tuple<string, Bitmap>> GetAllFrames(string spriteRootDirectory, string frameBaseFileName) {
+        private static IEnumerable<Tuple<string, Bitmap>> GetAllFrames(string spriteRootDirectory, string frameBaseFileName)
+        {
             int frameCount = 1;
             bool allFramesAdded = false;
 
-            while (allFramesAdded == false) {
-
+            while (allFramesAdded == false)
+            {
                 string frameFileName = frameBaseFileName + frameCount + ".png";
                 string frameFullPath = GetFrameFilePath(spriteRootDirectory, frameFileName);
 
-                if (File.Exists(frameFullPath)) {
+                if (File.Exists(frameFullPath))
+                {
                     Bitmap frameSurface = new Bitmap(frameFullPath);
 
                     yield return new Tuple<string, Bitmap>(frameFullPath, frameSurface);
 
                     frameCount++;
-                } else {
+                }
+                else
+                {
                     allFramesAdded = true;
                 }
-
             }
         }
 
-        private static string GetFrameFilePath(string spriteRootDirectory, string frameFileName) {
+        private static string GetFrameFilePath(string spriteRootDirectory, string frameFileName)
+        {
             // If there is no form specified, or there is no frame for the specified form, try to load from the global directory
-            if (File.Exists(spriteRootDirectory + "\\" + frameFileName)) {
+            if (File.Exists(spriteRootDirectory + "\\" + frameFileName))
+            {
                 return spriteRootDirectory + "\\" + frameFileName;
             }
             return null;
         }
 
-        #endregion
+        #endregion Sprites
 
         #region Portraits
-
 
         public static bool CompileAllPortraits(string spriteRootDirectory, string spriteCacheDirectory)
         {
@@ -475,11 +506,11 @@ namespace PMDToolkit.Graphics {
             }
             catch (Exception ex)
             {
-                Logs.Logger.LogError(new Exception("Error converting portrait #" + index+"\n", ex));
+                Logs.Logger.LogError(new Exception("Error converting portrait #" + index + "\n", ex));
             }
         }
 
-        static void CompilePortraitToFile(string spriteDir, Dictionary<string, byte[]> spriteData, int num, int form, int shiny, int gender)
+        private static void CompilePortraitToFile(string spriteDir, Dictionary<string, byte[]> spriteData, int num, int form, int shiny, int gender)
         {
             //check to see if files exist
             string[] pngs = Directory.GetFiles(spriteDir, "*.png", SearchOption.TopDirectoryOnly);
@@ -528,7 +559,6 @@ namespace PMDToolkit.Graphics {
                         //add the animation itself
                         if (sheetSize > 0)
                             spriteStream.Write(memStreamArray, 0, memStreamArray.Length);
-
                     }
 
                     byte[] writingBytes = spriteStream.ToArray();
@@ -537,15 +567,15 @@ namespace PMDToolkit.Graphics {
             }
             catch (Exception ex)
             {
-                throw new Exception("Error compiling portait" + spriteDir+"\n", ex);
+                throw new Exception("Error compiling portait" + spriteDir + "\n", ex);
             }
-
         }
 
-        static TileSheet CompilePortraitInternal(string spriteRootDirectory, out int totalFrames) {
+        private static TileSheet CompilePortraitInternal(string spriteRootDirectory, out int totalFrames)
+        {
             List<Bitmap> portraitCollection = new List<Bitmap>();
             List<string> usedFrames = new List<string>();
-            
+
             foreach (Tuple<string, Bitmap> frameSurface in GetAllFrames(spriteRootDirectory, ""))
             {
                 portraitCollection.Add(frameSurface.Item2);
@@ -575,12 +605,10 @@ namespace PMDToolkit.Graphics {
 
             totalFrames = usedFrames.Count;
             return BuildPortraitSurface(portraitCollection, spriteRootDirectory);
-
         }
 
         private static TileSheet BuildPortraitSurface(List<Bitmap> frameCollection, string spriteRootDirectory)
         {
-
             int frameHeight = 0;
             int frameWidth = 0;
 
@@ -627,7 +655,7 @@ namespace PMDToolkit.Graphics {
             return animSheet;
         }
 
-        #endregion
+        #endregion Portraits
 
         public static bool NeedsUpdate(string inFile, bool inDir, string outFile)
         {
@@ -664,6 +692,7 @@ namespace PMDToolkit.Graphics {
         }
 
         #region Tiles
+
         public static void CompileAllTiles(string sourceDir, string cacheDir)
         {
             if (!Directory.Exists(cacheDir))
@@ -671,8 +700,10 @@ namespace PMDToolkit.Graphics {
 
             string[] dirs = Directory.GetFiles(sourceDir, "Tiles*.png");
             //go through each sprite folder, and each form folder
-            for (int i = 0; i < dirs.Length; i++) {
-                if (dirs[i].EndsWith(".png")) {
+            for (int i = 0; i < dirs.Length; i++)
+            {
+                if (dirs[i].EndsWith(".png"))
+                {
                     int lastIndex = dirs[i].LastIndexOf('\\');
                     string outputFile = (cacheDir + "\\" + dirs[i].Substring(lastIndex + 1, dirs[i].LastIndexOf('.') - lastIndex - 1) + ".tile");
                     if (NeedsUpdate(dirs[i], false, outputFile))
@@ -683,15 +714,18 @@ namespace PMDToolkit.Graphics {
                             Bitmap tileset = new Bitmap(dirs[i]);
                             SaveTileMap(tileset, outputFile);
                             tileset.Dispose();
-                        } catch (Exception ex) {
-                            Logs.Logger.LogError(new Exception("Error converting Tiles #" + i+"\n", ex));
+                        }
+                        catch (Exception ex)
+                        {
+                            Logs.Logger.LogError(new Exception("Error converting Tiles #" + i + "\n", ex));
                         }
                     }
                 }
             }
         }
 
-        static void SaveTileMap(Bitmap bitmap, string destinationPath) {
+        private static void SaveTileMap(Bitmap bitmap, string destinationPath)
+        {
             BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             // File format:
             // [tileset-width(4)][tileset-height(4)][tile-count(4)]
@@ -716,7 +750,6 @@ namespace PMDToolkit.Graphics {
                         //cut off the corresponding piece
                         using (Texture tileTex = new Texture())
                         {
-
                             tileTex.CreatePixels32(TextureManager.TILE_SIZE, TextureManager.TILE_SIZE);
 
                             int x = i % (bitmap.Width / TextureManager.TILE_SIZE);
@@ -749,6 +782,7 @@ namespace PMDToolkit.Graphics {
                 }
             }
         }
-        #endregion
+
+        #endregion Tiles
     }
 }

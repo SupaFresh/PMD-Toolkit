@@ -21,20 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
 using PMDToolkit.Graphics;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Maps;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Display {
-
-    class TileMoveAnimation : IEmitter {
+namespace PMDToolkit.Logic.Display
+{
+    internal class TileMoveAnimation : IEmitter
+    {
         #region Constructors
 
         public TileMoveAnimation(Loc2D startLoc, int animIndex, RenderTime animTime, int loops, Enums.RangeType rangeType, Maps.Direction8 dir, int range, RenderTime stallTime)
@@ -63,11 +57,11 @@ namespace PMDToolkit.Logic.Display {
             }
         }
 
-        public int AnimationIndex {
+        public int AnimationIndex
+        {
             get;
             set;
         }
-
 
         public RenderTime StallTime
         {
@@ -88,41 +82,47 @@ namespace PMDToolkit.Logic.Display {
         }
 
         //total frames
-        
-        public int TotalLoops {
+
+        public int TotalLoops
+        {
             get;
             set;
         }
 
-        public MoveAnimationType AnimType {
+        public MoveAnimationType AnimType
+        {
             get { return MoveAnimationType.Tile; }
         }
 
-        public Loc2D StartLoc {
+        public Loc2D StartLoc
+        {
             get;
             set;
         }
 
-        public Enums.RangeType RangeType {
+        public Enums.RangeType RangeType
+        {
             get;
             set;
         }
 
-        public int Distance {
+        public int Distance
+        {
             get;
             set;
         }
 
-        public int TotalDistance {
+        public int TotalDistance
+        {
             get;
             set;
         }
 
-        public Maps.Direction8 Direction {
+        public Maps.Direction8 Direction
+        {
             get;
             set;
         }
-
 
         //public Loc2D MapLoc { get { return StartLoc * TextureManager.TILE_SIZE; } }
         public int MapHeight { get; set; }
@@ -134,26 +134,28 @@ namespace PMDToolkit.Logic.Display {
 
         public virtual void Begin()
         {
-
         }
 
-        public virtual void Process(RenderTime elapsedTime) {
+        public virtual void Process(RenderTime elapsedTime)
+        {
             ActionTime += elapsedTime;
             FrameTime += elapsedTime;
-            if (FrameTime >= StallTime && Distance < TotalDistance) {
+            if (FrameTime >= StallTime && Distance < TotalDistance)
+            {
                 FrameTime = FrameTime - StallTime;
 
                 Distance++;
                 //add new layer of animations
                 List<Loc2D> targetTiles = Gameplay.Processor.GetExclusiveTiles(StartLoc, Direction, RangeType, Distance);
-                foreach (Loc2D loc in targetTiles) {
+                foreach (Loc2D loc in targetTiles)
+                {
                     Display.Screen.Effects[Screen.EffectPriority.None].Add(new NormalMoveAnimation(loc, AnimationIndex, FrameLength, TotalLoops));
                 }
-                if (Distance >= TotalDistance) {
+                if (Distance >= TotalDistance)
+                {
                     ActionDone = true;
                 }
             }
         }
-
     }
 }

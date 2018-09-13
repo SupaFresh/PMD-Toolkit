@@ -21,23 +21,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using PMDToolkit.Maps;
-using PMDToolkit.Logic.Display;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
+using PMDToolkit.Maps;
 
 namespace PMDToolkit.Logic.Results
 {
-    public class AddItem : IResult {
-
+    public class AddItem : IResult
+    {
         //public ResultType Type { get { return ResultType.SpawnNpc; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        int itemSlot;
-        int sprite;
-        Loc2D itemLoc;
+        private int itemSlot;
+        private int sprite;
+        private Loc2D itemLoc;
 
-        public AddItem(ActiveMap map, int itemSlot) {
+        public AddItem(ActiveMap map, int itemSlot)
+        {
             this.itemSlot = itemSlot;
             Item item = map.Items[itemSlot];
             sprite = Data.GameData.ItemDex[item.ItemIndex].Sprite;
@@ -48,6 +48,5 @@ namespace PMDToolkit.Logic.Results
         {
             Screen.Items[itemSlot] = new ItemAnim(itemLoc * Graphics.TextureManager.TILE_SIZE, itemLoc * Graphics.TextureManager.TILE_SIZE, sprite, ItemAnim.ItemAnimType.None);
         }
-
     }
 }

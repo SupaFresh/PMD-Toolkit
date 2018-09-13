@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Display {
-    public class ParticleAnimation : ISpellSprite {
-
+namespace PMDToolkit.Logic.Display
+{
+    public class ParticleAnimation : ISpellSprite
+    {
         //float scale;
         //float scaleSpeed;
         //float rotation;
         //float rotationSpeed;
-
 
         public ParticleAnimation(int animationIndex, RenderTime frameLength, Loc2D newPosition, Loc2D newSpeed, Loc2D newAcceleration, Color4 newAlpha, Color4 newAlphaSpeed, RenderTime newMaxTime)
         {
@@ -31,14 +26,13 @@ namespace PMDToolkit.Logic.Display {
             TotalTime = newMaxTime;
         }
 
-
         #region Properties
 
-        public int AnimationIndex {
+        public int AnimationIndex
+        {
             get;
             set;
         }
-
 
         public RenderTime FrameTime
         {
@@ -52,18 +46,21 @@ namespace PMDToolkit.Logic.Display {
             set;
         }
 
-        public int Frame {
+        public int Frame
+        {
             get;
             set;
         }
 
         public RenderTime TotalTime { get; set; }
 
-        public MoveAnimationType AnimType {
+        public MoveAnimationType AnimType
+        {
             get { return MoveAnimationType.Particle; }
         }
 
-        public Loc2D StartLoc {
+        public Loc2D StartLoc
+        {
             get;
             set;
         }
@@ -87,30 +84,35 @@ namespace PMDToolkit.Logic.Display {
 
         public virtual void Begin()
         {
-
         }
 
-        public virtual void Process(RenderTime elapsedTime) {
+        public virtual void Process(RenderTime elapsedTime)
+        {
             ActionTime += elapsedTime;
             FrameTime += elapsedTime;
-            if (FrameTime >= FrameLength) {
+            if (FrameTime >= FrameLength)
+            {
                 FrameTime = FrameTime - FrameLength;
                 Frame++;
             }
 
-            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TotalFrames) {
+            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TotalFrames)
+            {
                 Frame = 0;
             }
 
             MapLoc = StartLoc + Speed * ActionTime.ToMillisecs() / 1000;
             Speed = StartSpeed + Acceleration * ActionTime.ToMillisecs() / 1000;
-            if (ActionTime >= TotalTime) {
+            if (ActionTime >= TotalTime)
+            {
                 ActionDone = true;
             }
         }
 
-        public virtual void Draw() {
-            if (!ActionDone) {
+        public virtual void Draw()
+        {
+            if (!ActionDone)
+            {
                 TextureManager.TextureProgram.PushModelView();
                 Loc2D drawLoc = GetStart();
                 Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
@@ -123,15 +125,16 @@ namespace PMDToolkit.Logic.Display {
             }
         }
 
-        public Loc2D GetStart() {
+        public Loc2D GetStart()
+        {
             return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileWidth / 2,
                 MapLoc.Y + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileHeight / 2 - MapHeight);
         }
 
-        public Loc2D GetEnd() {
+        public Loc2D GetEnd()
+        {
             return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileWidth / 2,
                 MapLoc.Y + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileHeight / 2 - MapHeight);
         }
-
     }
 }

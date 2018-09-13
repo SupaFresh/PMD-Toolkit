@@ -21,20 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
 using PMDToolkit.Graphics;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Display {
-
-    public enum MoveAnimationType {
+namespace PMDToolkit.Logic.Display
+{
+    public enum MoveAnimationType
+    {
         Normal,
         Arrow,
         Throw,
@@ -48,13 +41,15 @@ namespace PMDToolkit.Logic.Display {
         Particle
     }
 
-    public interface ISpellSprite : ISprite {
-        
-        MoveAnimationType AnimType {
+    public interface ISpellSprite : ISprite
+    {
+        MoveAnimationType AnimType
+        {
             get;
         }
 
-        int AnimationIndex {
+        int AnimationIndex
+        {
             get;
         }
 
@@ -63,6 +58,5 @@ namespace PMDToolkit.Logic.Display {
         Direction8 Direction { get; }
 
         RenderTime FrameLength { get; }
-
     }
 }

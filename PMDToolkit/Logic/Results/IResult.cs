@@ -21,18 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Graphics;
 
-namespace PMDToolkit.Logic.Results {
-
-
-    public interface IResult {
-
+namespace PMDToolkit.Logic.Results
+{
+    public interface IResult
+    {
         //ResultType Type { get; }
         RenderTime Delay { get; }
 

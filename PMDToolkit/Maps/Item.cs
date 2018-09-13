@@ -21,20 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
 
-namespace PMDToolkit.Maps {
-    public class Item {
-
+namespace PMDToolkit.Maps
+{
+    public class Item
+    {
         public int ItemIndex { get; set; }
         public int Amount { get; set; }
         public string Tag { get; set; }
@@ -50,7 +43,8 @@ namespace PMDToolkit.Maps {
             ItemLoc = new Loc2D();
         }
 
-        public Item(int itemIndex, int amount, string tag, bool disabled, Loc2D loc) {
+        public Item(int itemIndex, int amount, string tag, bool disabled, Loc2D loc)
+        {
             ItemIndex = itemIndex;
             Amount = amount;
             Tag = tag;
@@ -58,9 +52,10 @@ namespace PMDToolkit.Maps {
             ItemLoc = loc;
         }
 
-        public void Draw() {
-            if (ItemIndex > -1) {
-
+        public void Draw()
+        {
+            if (ItemIndex > -1)
+            {
                 Graphics.AnimSheet sheet = Graphics.TextureManager.GetItemSheet(Data.GameData.ItemDex[ItemIndex].Sprite);
 
                 TextureManager.TextureProgram.PushModelView();
@@ -72,6 +67,5 @@ namespace PMDToolkit.Maps {
                 TextureManager.TextureProgram.PopModelView();
             }
         }
-
     }
 }

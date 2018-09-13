@@ -21,14 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System.Collections.Generic;
 
 namespace PMDToolkit.Logic.Gameplay
 {
-    public struct Command {
-
-        public enum CommandType {
+    public struct Command
+    {
+        public enum CommandType
+        {
             None = -1,
             Dir = 0,
             Move = 4,
@@ -48,37 +48,46 @@ namespace PMDToolkit.Logic.Gameplay
 
         public CommandType Type;
         private List<int> args;
-        public int this[int index] {
-            get {
+
+        public int this[int index]
+        {
+            get
+            {
                 return args[index];
             }
         }
+
         public int ArgCount { get { return args.Count; } }
 
-
-        public Command(CommandType type, params int[] args) {
+        public Command(CommandType type, params int[] args)
+        {
             Type = type;
             this.args = new List<int>();
-            for (int i = 0; i < args.Length; i++) {
+            for (int i = 0; i < args.Length; i++)
+            {
                 this.args.Add(args[i]);
             }
         }
 
-        public void AddArg(int arg) {
+        public void AddArg(int arg)
+        {
             args.Add(arg);
         }
 
-        public static bool operator ==(Command command1, Command command2) {
+        public static bool operator ==(Command command1, Command command2)
+        {
             if (command1.Type != command2.Type) return false;
-            if(command1.ArgCount != command2.ArgCount) return false;
-            for (int i = 0; i < command1.ArgCount; i++) {
+            if (command1.ArgCount != command2.ArgCount) return false;
+            for (int i = 0; i < command1.ArgCount; i++)
+            {
                 if (command1[i] != command2[i]) return false;
             }
 
             return true;
         }
 
-        public static bool operator !=(Command command1, Command command2) {
+        public static bool operator !=(Command command1, Command command2)
+        {
             return !(command1 == command2);
         }
     }

@@ -21,18 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
+using PMDToolkit.Logic.Gameplay;
 
-namespace PMDToolkit.Logic.Results {
-    public class Defeated : IResult {
-
+namespace PMDToolkit.Logic.Results
+{
+    public class Defeated : IResult
+    {
         //public ResultType Type { get { return ResultType.Defeated; } }
 
         public RenderTime Delay
@@ -43,26 +39,31 @@ namespace PMDToolkit.Logic.Results {
             }
         }
 
-        int charIndex;
-        FormData charData;
-        Maps.Direction8 dir;
-        public Defeated(int charIndex, ActiveChar character) {
+        private int charIndex;
+        private FormData charData;
+        private Maps.Direction8 dir;
+
+        public Defeated(int charIndex, ActiveChar character)
+        {
             this.charIndex = charIndex;
             this.charData = character.CharData;
             this.dir = character.CharDir;
         }
 
-        public void Execute() {
+        public void Execute()
+        {
             CharSprite sprite;
-            if (charIndex < 0) {
+            if (charIndex < 0)
+            {
                 sprite = Screen.Players[charIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
-            } else {
+            }
+            else
+            {
                 sprite = Screen.Npcs[charIndex];
             }
             sprite.CurrentAction = CharSprite.ActionType.Defeated;
             sprite.ActionTime = RenderTime.Zero;
             sprite.ActionDone = false;
         }
-
     }
 }

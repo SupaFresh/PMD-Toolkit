@@ -21,49 +21,51 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
-using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Gameplay {
-    public class TargetCollection {
+namespace PMDToolkit.Logic.Gameplay
+{
+    public class TargetCollection
+    {
+        private List<Target> targets;
+        private List<TileTarget> tiles;
 
-        List<Target> targets;
-        List<TileTarget> tiles;
-
-        int self;
+        private int self;
         public int Self { get { return self; } }
-        int friends;
+        private int friends;
         public int Friends { get { return friends; } }
-        int foes;
+        private int foes;
         public int Foes { get { return foes; } }
 
         public List<Target> Targets { get { return targets; } }
         public List<TileTarget> Tiles { get { return tiles; } }
 
-        public TargetCollection() {
+        public TargetCollection()
+        {
             targets = new List<Target>();
             tiles = new List<TileTarget>();
         }
 
-        public void Add(Target target) {
-            if (target.TargetAlignment == Enums.Alignment.Self) {
+        public void Add(Target target)
+        {
+            if (target.TargetAlignment == Enums.Alignment.Self)
+            {
                 self++;
-            } else if (target.TargetAlignment == Enums.Alignment.Friend) {
+            }
+            else if (target.TargetAlignment == Enums.Alignment.Friend)
+            {
                 friends++;
-            } else if (target.TargetAlignment == Enums.Alignment.Foe) {
+            }
+            else if (target.TargetAlignment == Enums.Alignment.Foe)
+            {
                 foes++;
             }
             targets.Add(target);
         }
 
-        public void Add(TileTarget tile) {
+        public void Add(TileTarget tile)
+        {
             tiles.Add(tile);
         }
-
     }
 }

@@ -21,16 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace PMDToolkit.Logic.Gameplay {
-    public class ExtraStatus {
-
-
+namespace PMDToolkit.Logic.Gameplay
+{
+    public class ExtraStatus
+    {
         public string Name { get; set; }
 
         public int Emoticon { get; set; }
@@ -40,8 +36,5 @@ namespace PMDToolkit.Logic.Gameplay {
         public int Target { get; set; }
 
         public List<int> Args { get; set; }
-
-
-
     }
 }

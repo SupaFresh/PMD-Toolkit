@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 namespace PMDToolkit.Core
 {
     using System;
@@ -31,19 +30,21 @@ namespace PMDToolkit.Core
     {
         #region Fields
 
-        Dictionary<K, LinkedListNode<LRUCacheItem<K, V>>> cacheMap = new Dictionary<K, LinkedListNode<LRUCacheItem<K, V>>>();
-        int capacity;
-        LinkedList<LRUCacheItem<K, V>> lruList = new LinkedList<LRUCacheItem<K, V>>();
-        Object lockObject = new object();
+        private Dictionary<K, LinkedListNode<LRUCacheItem<K, V>>> cacheMap = new Dictionary<K, LinkedListNode<LRUCacheItem<K, V>>>();
+        private int capacity;
+        private LinkedList<LRUCacheItem<K, V>> lruList = new LinkedList<LRUCacheItem<K, V>>();
+        private Object lockObject = new object();
 
         #endregion Fields
 
         public delegate void ItemRemovedEvent(V value);
+
         public ItemRemovedEvent OnItemRemoved;
 
         #region Constructors
 
-        public LRUCache(int capacity) {
+        public LRUCache(int capacity)
+        {
             this.capacity = capacity;
         }
 
@@ -52,9 +53,12 @@ namespace PMDToolkit.Core
         #region Methods
 
         //[MethodImpl(MethodImplOptions.Synchronized)]
-        public void Add(K key, V val) {
-            lock (lockObject) {
-                if (cacheMap.Count >= capacity) {
+        public void Add(K key, V val)
+        {
+            lock (lockObject)
+            {
+                if (cacheMap.Count >= capacity)
+                {
                     RemoveFirst();
                 }
                 LRUCacheItem<K, V> cacheItem = new LRUCacheItem<K, V>(key, val);
@@ -65,10 +69,13 @@ namespace PMDToolkit.Core
         }
 
         //[MethodImpl(MethodImplOptions.Synchronized)]
-        public V Get(K key) {
-            lock (lockObject) {
+        public V Get(K key)
+        {
+            lock (lockObject)
+            {
                 LinkedListNode<LRUCacheItem<K, V>> node;
-                if (cacheMap.TryGetValue(key, out node)) {
+                if (cacheMap.TryGetValue(key, out node))
+                {
                     V value = node.Value.value;
 
                     lruList.Remove(node);
@@ -79,7 +86,8 @@ namespace PMDToolkit.Core
             }
         }
 
-        protected void RemoveFirst() {
+        protected void RemoveFirst()
+        {
             // Remove from LRUPriority
             LinkedListNode<LRUCacheItem<K, V>> node = lruList.First;
             lruList.RemoveFirst();
@@ -110,7 +118,8 @@ namespace PMDToolkit.Core
 
         #region Constructors
 
-        public LRUCacheItem(K k, V v) {
+        public LRUCacheItem(K k, V v)
+        {
             key = k;
             value = v;
         }

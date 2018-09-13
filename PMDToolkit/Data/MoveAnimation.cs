@@ -21,18 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Graphics;
+using System.Xml;
 
-namespace PMDToolkit.Data {
-    public class MoveAnimation {
+namespace PMDToolkit.Data
+{
+    public class MoveAnimation
+    {
         public Logic.Display.MoveAnimationType AnimType { get; set; }
         public int AnimIndex { get; set; }
         public RenderTime FrameLength { get; set; }
@@ -40,11 +36,13 @@ namespace PMDToolkit.Data {
         public int Anim2 { get; set; }
         public int Anim3 { get; set; }
 
-        public MoveAnimation() {
+        public MoveAnimation()
+        {
             AnimIndex = -1;
         }
 
-        public MoveAnimation(MoveAnimation copy) {
+        public MoveAnimation(MoveAnimation copy)
+        {
             AnimType = copy.AnimType;
             AnimIndex = copy.AnimIndex;
             FrameLength = copy.FrameLength;
@@ -53,31 +51,41 @@ namespace PMDToolkit.Data {
             Anim3 = copy.Anim3;
         }
 
-        public void Load(XmlReader reader) {
-            while (reader.Read()) {
-                if (reader.IsStartElement()) {
-                    switch (reader.Name) {
-                        case "AnimType": {
+        public void Load(XmlReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.IsStartElement())
+                {
+                    switch (reader.Name)
+                    {
+                        case "AnimType":
+                            {
                                 AnimType = reader.ReadString().ToEnum<Logic.Display.MoveAnimationType>();
                                 break;
                             }
-                        case "AnimIndex": {
+                        case "AnimIndex":
+                            {
                                 AnimIndex = reader.ReadString().ToInt();
                                 break;
                             }
-                        case "FrameLength": {
+                        case "FrameLength":
+                            {
                                 FrameLength = RenderTime.FromMillisecs(reader.ReadString().ToInt());
                                 break;
                             }
-                        case "Anim1": {
+                        case "Anim1":
+                            {
                                 Anim1 = reader.ReadString().ToInt();
                                 break;
                             }
-                        case "Anim2": {
+                        case "Anim2":
+                            {
                                 Anim2 = reader.ReadString().ToInt();
                                 break;
                             }
-                        case "Anim3": {
+                        case "Anim3":
+                            {
                                 Anim3 = reader.ReadString().ToInt();
                                 break;
                             }
@@ -86,7 +94,8 @@ namespace PMDToolkit.Data {
             }
         }
 
-        public void Save(XmlWriter writer) {
+        public void Save(XmlWriter writer)
+        {
             writer.WriteElementString("AnimType", AnimType.ToString());
             writer.WriteElementString("AnimIndex", AnimIndex.ToString());
             writer.WriteElementString("FrameLength", FrameLength.ToString());
@@ -94,6 +103,5 @@ namespace PMDToolkit.Data {
             writer.WriteElementString("Anim2", Anim2.ToString());
             writer.WriteElementString("Anim3", Anim3.ToString());
         }
-
     }
 }

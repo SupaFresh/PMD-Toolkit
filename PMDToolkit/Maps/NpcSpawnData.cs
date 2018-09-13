@@ -21,21 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Graphics;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using PMDToolkit.Logic.Gameplay;
 
-namespace PMDToolkit.Maps {
-    public class NpcSpawnData {
-
-
+namespace PMDToolkit.Maps
+{
+    public class NpcSpawnData
+    {
         public FormData Data;
 
         public int MinLevel;
@@ -57,6 +48,5 @@ namespace PMDToolkit.Maps {
                 Moves[i] = -1;
             }
         }
-
     }
 }

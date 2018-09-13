@@ -21,14 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using PMDToolkit.Logic.Gameplay;
 using System.IO;
 
 namespace PMDToolkit.Maps
 {
-    public class ActiveMap : BasicMap {
-        
+    public class ActiveMap : BasicMap
+    {
         public Item[] Items { get; set; }
         public Npc[] Npcs { get; set; }
 
@@ -87,8 +86,6 @@ namespace PMDToolkit.Maps
         public virtual void Resize(int width, int height, Maps.Direction8 dir)
         {
             base.Resize(width, height, dir);
-
-
         }
 
         public void Save(BinaryWriter writer)
@@ -118,7 +115,7 @@ namespace PMDToolkit.Maps
                 writer.Write((int)Npcs[i].CharData.Shiny);
 
                 writer.Write((int)Npcs[i].Level);
-                
+
                 writer.Write(Npcs[i].MaxHPBonus);
                 writer.Write(Npcs[i].AtkBonus);
                 writer.Write(Npcs[i].DefBonus);
@@ -132,7 +129,6 @@ namespace PMDToolkit.Maps
                     writer.Write(Npcs[i].BaseMoves[j].PPBoost);
                 }
             }
-
         }
 
         public void Load(BinaryReader reader)

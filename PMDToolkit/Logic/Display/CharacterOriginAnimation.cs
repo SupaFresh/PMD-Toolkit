@@ -21,21 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
 
 namespace PMDToolkit.Logic.Display
 {
-
-    class CharacterOriginAnimation : ISprite
+    internal class CharacterOriginAnimation : ISprite
     {
         #region Constructors
 
@@ -104,7 +96,6 @@ namespace PMDToolkit.Logic.Display
         public RenderTime ActionTime { get; set; }
         public bool ActionDone { get; set; }
 
-
         #endregion Properties
 
         public virtual void Begin()
@@ -170,6 +161,5 @@ namespace PMDToolkit.Logic.Display
             return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileWidth / 2,
                 MapLoc.Y + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TileHeight / 2 - MapHeight);
         }
-
     }
 }

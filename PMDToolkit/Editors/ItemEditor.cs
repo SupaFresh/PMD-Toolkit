@@ -21,31 +21,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
+using PMDToolkit.Data;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using PMDToolkit.Data;
 using System.IO;
+using System.Windows.Forms;
 
-namespace PMDToolkit.Editors {
-    public partial class ItemEditor : Form {
+namespace PMDToolkit.Editors
+{
+    public partial class ItemEditor : Form
+    {
+        private const int TOTAL_PICS = 5;
+        private int itemNum;
+        private List<Image> items;
+        private int chosenPic;
 
-        const int TOTAL_PICS = 5;
-        int itemNum;
-        List<Image> items;
-        int chosenPic;
-
-        public ItemEditor() {
+        public ItemEditor()
+        {
             InitializeComponent();
 
             Array arr = Enum.GetValues(typeof(Enums.ItemType));
-            for (int i = 0; i < arr.Length; i++) {
+            for (int i = 0; i < arr.Length; i++)
+            {
                 cbItemType.Items.Add(arr.GetValue(i));
             }
             cbItemType.SelectedIndex = 0;
@@ -59,13 +57,17 @@ namespace PMDToolkit.Editors {
 
             int count = 0;
             items = new List<Image>();
-            while(File.Exists(Paths.ItemsPath+count+".png")) {
+            while (File.Exists(Paths.ItemsPath + count + ".png"))
+            {
                 items.Add(new Bitmap(Paths.ItemsPath + count + ".png"));
                 count++;
             }
-            if (items.Count > TOTAL_PICS) {
+            if (items.Count > TOTAL_PICS)
+            {
                 vsItemScroll.Maximum = items.Count - TOTAL_PICS;
-            } else {
+            }
+            else
+            {
                 vsItemScroll.Enabled = false;
             }
 
@@ -93,7 +95,6 @@ namespace PMDToolkit.Editors {
             nudEffectData3.Minimum = Int32.MinValue;
             nudEffectData3.Maximum = Int32.MaxValue;
 
-
             nudThrowEffect.Minimum = -1;
             nudThrowEffect.Maximum = Int32.MaxValue;
 
@@ -105,11 +106,12 @@ namespace PMDToolkit.Editors {
             nudThrowData3.Maximum = Int32.MaxValue;
         }
 
-        private void ItemEditor_Load(object sender, EventArgs e) {
-
+        private void ItemEditor_Load(object sender, EventArgs e)
+        {
         }
 
-        public void LoadItem(int index) {
+        public void LoadItem(int index)
+        {
             itemNum = index;
             ItemEntry entry = GameData.ItemDex[index];
 
@@ -139,11 +141,10 @@ namespace PMDToolkit.Editors {
             nudThrowData1.Value = entry.Throw1;
             nudThrowData2.Value = entry.Throw2;
             nudThrowData3.Value = entry.Throw3;
-
         }
 
-        public void SaveItem() {
-
+        public void SaveItem()
+        {
             ItemEntry entry = new ItemEntry();
             entry.Name = txtName.Text;
 
@@ -175,17 +176,22 @@ namespace PMDToolkit.Editors {
             GameData.ItemDex[itemNum].Save(itemNum);
         }
 
-        void RefreshPic() {
+        private void RefreshPic()
+        {
             Image endImage = new Bitmap(picSprite.Width, picSprite.Height);
-            using (var graphics = System.Drawing.Graphics.FromImage(endImage)) {
-                for (int i = 0; i <= TOTAL_PICS; i++) {
+            using (var graphics = System.Drawing.Graphics.FromImage(endImage))
+            {
+                for (int i = 0; i <= TOTAL_PICS; i++)
+                {
                     int picIndex = i + vsItemScroll.Value;
-                    if (picIndex < items.Count) {
+                    if (picIndex < items.Count)
+                    {
                         //blit at given location
                         graphics.DrawImage(items[picIndex], new Point((picSprite.Width - items[picIndex].Width) / 2, i * Graphics.TextureManager.TILE_SIZE));
 
                         //draw red square
-                        if (chosenPic == picIndex) {
+                        if (chosenPic == picIndex)
+                        {
                             graphics.DrawRectangle(new Pen(Color.Red, 2), new Rectangle(0 + 1, i * Graphics.TextureManager.TILE_SIZE + 1,
                                 Graphics.TextureManager.TILE_SIZE - 2, Graphics.TextureManager.TILE_SIZE - 2));
                         }
@@ -203,23 +209,24 @@ namespace PMDToolkit.Editors {
             RefreshPic();
         }
 
-        private void vsItemScroll_ValueChanged(object sender, EventArgs e) {
+        private void vsItemScroll_ValueChanged(object sender, EventArgs e)
+        {
             RefreshPic();
-
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) {
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
 
-        private void btnOK_Click(object sender, EventArgs e) {
+        private void btnOK_Click(object sender, EventArgs e)
+        {
             SaveItem();
             this.Close();
         }
 
         private void vsItemScroll_Scroll(object sender, ScrollEventArgs e)
         {
-
         }
     }
 }

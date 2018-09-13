@@ -21,18 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Logs;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 
 namespace PMDToolkit.Data
 {
-    public class AlgorithmEntry {
-
+    public class AlgorithmEntry
+    {
         //begin with:
         //loading of set maps
         //floor-by-floor
@@ -44,23 +43,31 @@ namespace PMDToolkit.Data
 
         public List<Tuple<string, bool>> DungeonSettings { get; set; }
 
-        public AlgorithmEntry() {
+        public AlgorithmEntry()
+        {
             DungeonSettings = new List<Tuple<string, bool>>();
         }
 
-
-        public void Load(int algorithmNum) {
+        public void Load(int algorithmNum)
+        {
             Num = algorithmNum;
-            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "DungeonAlgorithm\\" + algorithmNum + ".xml")) {
-                while (reader.Read()) {
-                    if (reader.IsStartElement()) {
-                        switch (reader.Name) {
-                            case "Name": {
+            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "DungeonAlgorithm\\" + algorithmNum + ".xml"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "Name":
+                                {
                                     Name = reader.ReadString();
                                     break;
                                 }
-                            case "DungeonSetting": {
-                                    if (reader.Read()) {
+                            case "DungeonSetting":
+                                {
+                                    if (reader.Read())
+                                    {
                                         string settingName = reader.ReadElementString("DungeonInt");
                                         bool settingBool = reader.ReadElementString("DungeonIntBool").ToBool();
                                         DungeonSettings.Add(new Tuple<string, bool>(settingName, settingBool));
@@ -73,40 +80,52 @@ namespace PMDToolkit.Data
             }
         }
 
-        public void Save(int algorithmNum) {
+        public void Save(int algorithmNum)
+        {
             if (!Directory.Exists(Paths.DataPath + "DungeonAlgorithm"))
                 Directory.CreateDirectory(Paths.DataPath + "DungeonAlgorithm");
-            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "DungeonAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings)) {
+            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "DungeonAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings))
+            {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("AlgorithmEntry");
 
                 #region Basic data
+
                 writer.WriteStartElement("General");
                 writer.WriteElementString("Name", Name);
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Basic data
+
                 #region Dungeon Settings
+
                 writer.WriteStartElement("DungeonSettings");
-                for (int i = 0; i < DungeonSettings.Count; i++) {
+                for (int i = 0; i < DungeonSettings.Count; i++)
+                {
                     writer.WriteStartElement("DungeonSetting");
                     writer.WriteElementString("DungeonInt", DungeonSettings[i].Item1);
                     writer.WriteElementString("DungeonIntBool", DungeonSettings[i].Item2.ToString());
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Dungeon Settings
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
         }
 
-        public Maps.BasicDungeon CreateDungeon() {
-            switch (Num) {
-                case 0: {
+        public Maps.BasicDungeon CreateDungeon()
+        {
+            switch (Num)
+            {
+                case 0:
+                    {
                         return new Maps.Dungeons.FloorByFloor();
                     }
-                default: {
+                default:
+                    {
                         return null;
                     }
             }

@@ -21,17 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Graphics;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Results {
+namespace PMDToolkit.Logic.Results
+{
     public interface IResultContainer
     {
-
         int BranchCount { get; }
 
         bool Empty

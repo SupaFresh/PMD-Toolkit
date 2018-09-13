@@ -21,17 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PMDToolkit.Logic.Gameplay {
-    public class Target {
-
-
-        public Target(ActiveChar character, Enums.Alignment alignment, int distance) {
+namespace PMDToolkit.Logic.Gameplay
+{
+    public class Target
+    {
+        public Target(ActiveChar character, Enums.Alignment alignment, int distance)
+        {
             Character = character;
             TargetAlignment = alignment;
             Distance = distance;

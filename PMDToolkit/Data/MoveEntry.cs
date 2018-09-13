@@ -21,20 +21,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Logs;
+using System.IO;
+using System.Xml;
 
-namespace PMDToolkit.Data {
-    public class MoveEntry {
-
-
+namespace PMDToolkit.Data
+{
+    public class MoveEntry
+    {
         public string Name { get; set; }
         public string Desc { get; set; }
 
@@ -56,13 +51,13 @@ namespace PMDToolkit.Data {
         public int Effect2 { get; set; }
         public int Effect3 { get; set; }
 
-
         public MoveRange Range { get; set; }
 
         //note: every attack is assumed to have a different animation
         //however, some animations use the same graphics/effects on sprites
         //attack is split into user, traveling, target animations
         public MoveAnimation StartAnim { get; set; }
+
         public CharAnimation StartUserAnim { get; set; }
 
         public int StartSound { get; set; }
@@ -79,7 +74,8 @@ namespace PMDToolkit.Data {
 
         public int EndSound { get; set; }
 
-        public MoveEntry() {
+        public MoveEntry()
+        {
             Name = "";
             Desc = "";
             Range = new MoveRange();
@@ -93,7 +89,8 @@ namespace PMDToolkit.Data {
             EndTargetAnim = new CharAnimation();
         }
 
-        public MoveEntry(MoveEntry copy) {
+        public MoveEntry(MoveEntry copy)
+        {
             Name = copy.Name;
             Desc = copy.Desc;
 
@@ -131,149 +128,188 @@ namespace PMDToolkit.Data {
             EndSound = copy.EndSound;
         }
 
-
-        public void Load(int moveNum) {
-            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "Move\\" + moveNum + ".xml")) {
-                while (reader.Read()) {
-                    if (reader.IsStartElement()) {
-                        switch (reader.Name) {
-                            case "Name": {
+        public void Load(int moveNum)
+        {
+            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "Move\\" + moveNum + ".xml"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "Name":
+                                {
                                     Name = reader.ReadString();
                                     break;
                                 }
-                            case "Description": {
+                            case "Description":
+                                {
                                     Desc = reader.ReadString();
                                     break;
                                 }
-                            case "PP": {
+                            case "PP":
+                                {
                                     PP = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Type": {
+                            case "Type":
+                                {
                                     Type = reader.ReadString().ToEnum<Enums.Element>();
                                     break;
                                 }
-                            case "Category": {
+                            case "Category":
+                                {
                                     Category = reader.ReadString().ToEnum<Enums.MoveCategory>();
                                     break;
                                 }
-                            case "Contact": {
+                            case "Contact":
+                                {
                                     Contact = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "SoundBased": {
+                            case "SoundBased":
+                                {
                                     SoundBased = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "FistBased": {
+                            case "FistBased":
+                                {
                                     FistBased = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "PulseBased": {
+                            case "PulseBased":
+                                {
                                     PulseBased = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "BulletBased": {
+                            case "BulletBased":
+                                {
                                     BulletBased = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "JawBased": {
+                            case "JawBased":
+                                {
                                     JawBased = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "Power": {
+                            case "Power":
+                                {
                                     Power = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Accuracy": {
+                            case "Accuracy":
+                                {
                                     Accuracy = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect": {
+                            case "Effect":
+                                {
                                     Effect = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect1": {
+                            case "Effect1":
+                                {
                                     Effect1 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect2": {
+                            case "Effect2":
+                                {
                                     Effect2 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Effect3": {
+                            case "Effect3":
+                                {
                                     Effect3 = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "HitsSelf": {
+                            case "HitsSelf":
+                                {
                                     Range.HitsSelf = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "HitsFriend": {
+                            case "HitsFriend":
+                                {
                                     Range.HitsFriend = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "HitsFoe": {
+                            case "HitsFoe":
+                                {
                                     Range.HitsFoe = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "Range": {
+                            case "Range":
+                                {
                                     Range.RangeType = reader.ReadString().ToEnum<Enums.RangeType>();
                                     break;
                                 }
-                            case "Mobility": {
+                            case "Mobility":
+                                {
                                     Range.Mobility = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "CutsCorners": {
+                            case "CutsCorners":
+                                {
                                     Range.CutsCorners = reader.ReadString().ToBool();
                                     break;
                                 }
-                            case "Distance": {
+                            case "Distance":
+                                {
                                     Range.Distance = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "StartAnim": {
+                            case "StartAnim":
+                                {
                                     StartAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "StartUserAnim": {
+                            case "StartUserAnim":
+                                {
                                     StartUserAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "StartSound": {
+                            case "StartSound":
+                                {
                                     StartSound = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "MidAnim": {
+                            case "MidAnim":
+                                {
                                     MidAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "MidUserAnim": {
+                            case "MidUserAnim":
+                                {
                                     MidUserAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "MidTargetAnim": {
+                            case "MidTargetAnim":
+                                {
                                     MidTargetAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "MidSound": {
+                            case "MidSound":
+                                {
                                     MidSound = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "EndAnim": {
+                            case "EndAnim":
+                                {
                                     EndAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "EndUserAnim": {
+                            case "EndUserAnim":
+                                {
                                     EndUserAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "EndTargetAnim": {
+                            case "EndTargetAnim":
+                                {
                                     EndTargetAnim.Load(reader.ReadSubtree());
                                     break;
                                 }
-                            case "EndSound": {
+                            case "EndSound":
+                                {
                                     EndSound = reader.ReadString().ToInt();
                                     break;
                                 }
@@ -283,15 +319,17 @@ namespace PMDToolkit.Data {
             }
         }
 
-
-        public void Save(int moveNum) {
+        public void Save(int moveNum)
+        {
             if (!Directory.Exists(Paths.DataPath + "Move"))
                 Directory.CreateDirectory(Paths.DataPath + "Move");
-            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Move\\" + moveNum + ".xml", Logger.XmlWriterSettings)) {
+            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Move\\" + moveNum + ".xml", Logger.XmlWriterSettings))
+            {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("MoveEntry");
 
                 #region Basic data
+
                 writer.WriteStartElement("General");
                 writer.WriteElementString("Name", Name);
                 writer.WriteElementString("Description", Desc);
@@ -345,7 +383,8 @@ namespace PMDToolkit.Data {
                 writer.WriteEndElement();
                 writer.WriteElementString("EndSound", EndSound.ToString());
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Basic data
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();

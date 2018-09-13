@@ -21,8 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-
 namespace PMDToolkit.Graphics
 {
     public struct RenderTime
@@ -48,7 +46,6 @@ namespace PMDToolkit.Graphics
         {
             get { return new RenderTime(); }
         }
-
 
         public static bool operator >(RenderTime param1, RenderTime param2)
         {
@@ -105,8 +102,6 @@ namespace PMDToolkit.Graphics
             return new RenderTime(param1.Ticks % param2.Ticks);
         }
 
-
-
         public static RenderTime operator +(RenderTime param1, int param2)
         {
             return new RenderTime(param1.Ticks + param2);
@@ -126,6 +121,5 @@ namespace PMDToolkit.Graphics
         {
             return new RenderTime(param1.Ticks / param2);
         }
-
     }
 }

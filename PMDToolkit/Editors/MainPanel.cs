@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using PMDToolkit.Data;
+﻿using PMDToolkit.Data;
 using PMDToolkit.Graphics;
+using System;
 using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace PMDToolkit.Editors
 {
     public partial class MainPanel : Form
     {
-
         public static bool EditorLoaded;
 
         public static bool GameNeedWait;
@@ -31,14 +24,11 @@ namespace PMDToolkit.Editors
 
             InitializeComponent();
 
-
-
             for (int i = 0; i <= GameData.MAX_DEX; i++)
             {
                 cbDexNum.Items.Add(i + " - " + GameData.Dex[i].Name);
             }
             cbDexNum.SelectedIndex = 1;
-
 
             for (int i = 0; i < 2; i++)
             {
@@ -70,7 +60,6 @@ namespace PMDToolkit.Editors
 
             chkGrid.Checked = Logic.Display.Screen.ShowGrid;
             chkCoords.Checked = Logic.Display.Screen.ShowCoords;
-
         }
 
         private void chkShowSprites_CheckedChanged(object sender, EventArgs e)
@@ -141,7 +130,7 @@ namespace PMDToolkit.Editors
             {
                 CurrentMapLayerEditor = new MapLayerEditor();
             }
-            
+
             CurrentMapEditor.Show();
             CurrentMapLayerEditor.Show();
         }
@@ -179,7 +168,6 @@ namespace PMDToolkit.Editors
             while (MainPanel.GameWaiting)
                 Thread.Sleep(100);
         }
-
 
         private void txtTilePath_Click(object sender, EventArgs e)
         {
@@ -294,7 +282,6 @@ namespace PMDToolkit.Editors
 
         private void btnDefaultPath_Click(object sender, EventArgs e)
         {
-            
             Game.UpdateLoadMsg("Resetting all paths to default...");
             EnterLoadPhase(Game.GameLoadState.Loading);
 

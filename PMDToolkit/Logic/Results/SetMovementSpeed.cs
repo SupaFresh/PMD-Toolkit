@@ -21,38 +21,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
 
-namespace PMDToolkit.Logic.Results {
-    public class SetMovementSpeed : IResult {
-
+namespace PMDToolkit.Logic.Results
+{
+    public class SetMovementSpeed : IResult
+    {
         //public ResultType Type { get { return ResultType.MovementSpeed; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        int charIndex;
-        int speed;
+        private int charIndex;
+        private int speed;
 
-        public SetMovementSpeed(int charIndex, int speed) {
+        public SetMovementSpeed(int charIndex, int speed)
+        {
             this.charIndex = charIndex;
             this.speed = speed;
         }
 
-        public void Execute() {
+        public void Execute()
+        {
             CharSprite sprite;
-            if (charIndex < 0) {
+            if (charIndex < 0)
+            {
                 sprite = Screen.Players[charIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
-            } else {
+            }
+            else
+            {
                 sprite = Screen.Npcs[charIndex];
             }
             sprite.MovementSpeed = speed;
         }
-
     }
 }

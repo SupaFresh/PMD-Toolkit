@@ -21,13 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Logic.Display;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
 
 namespace PMDToolkit.Logic.Results
 {
@@ -36,15 +31,16 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.Statused; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        int charIndex;
-        
-        public FocusCharacter(int charIndex) {
+        private int charIndex;
+
+        public FocusCharacter(int charIndex)
+        {
             this.charIndex = charIndex;
         }
 
-        public void Execute() {
+        public void Execute()
+        {
             Screen.FocusedIndex = charIndex;
         }
-
     }
 }

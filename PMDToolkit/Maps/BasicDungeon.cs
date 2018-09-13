@@ -21,19 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace PMDToolkit.Maps {
-    public abstract class BasicDungeon {
-
+namespace PMDToolkit.Maps
+{
+    public abstract class BasicDungeon
+    {
         protected int seed;
         protected Random rand;
         public int Seed { get { return seed; } }
-        
+
         protected Data.RDungeonEntry entry;
 
         //All dungeons have precisely one entry point
@@ -44,11 +42,13 @@ namespace PMDToolkit.Maps {
         public int MapCount { get { return maps.Count; } }
 
         protected Dictionary<FloorLink, FloorLink> floorLinks;
-        
 
-        public RandomMap this[int i] {
-            get {
-                if (!maps.ContainsKey(i)) {
+        public RandomMap this[int i]
+        {
+            get
+            {
+                if (!maps.ContainsKey(i))
+                {
                     generateFloor(i);
                 }
                 if (!maps.ContainsKey(i))
@@ -58,8 +58,8 @@ namespace PMDToolkit.Maps {
             }
         }
 
-
-		public BasicDungeon() {
+        public BasicDungeon()
+        {
             maps = new Dictionary<int, RandomMap>();
             floorLinks = new Dictionary<FloorLink, FloorLink>();
         }

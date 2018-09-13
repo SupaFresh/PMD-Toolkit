@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,14 +30,15 @@ namespace PMDToolkit.Logs
 {
     public static class Logger
     {
-        static object lockObj = new object();
+        private static object lockObj = new object();
 
         private static List<string> battleLog;
         private static DateTime journeyStart;
 
         public static XmlWriterSettings XmlWriterSettings { get; private set; }
 
-        public static void Init() {
+        public static void Init()
+        {
             battleLog = new List<string>();
 
             XmlWriterSettings = new System.Xml.XmlWriterSettings();
@@ -46,7 +46,7 @@ namespace PMDToolkit.Logs
             XmlWriterSettings.IndentChars = "  ";
             XmlWriterSettings.Indent = true;
             XmlWriterSettings.NewLineChars = Environment.NewLine;
-            
+
             if (!Directory.Exists("Logs"))
                 Directory.CreateDirectory("Logs");
 #if GAME_MODE
@@ -57,22 +57,27 @@ namespace PMDToolkit.Logs
                 Directory.CreateDirectory("Logs/Error");
         }
 
-        public static void LogBattle(string msg) {
+        public static void LogBattle(string msg)
+        {
             battleLog.Add(msg);
         }
 
-        public static List<string> GetRecentBattleLog(int entries) {
-            if (entries < 0 || entries > battleLog.Count) {
+        public static List<string> GetRecentBattleLog(int entries)
+        {
+            if (entries < 0 || entries > battleLog.Count)
+            {
                 entries = battleLog.Count;
             }
             List<string> returnLog = new List<string>();
-            for (int i = 0; i < entries; i++) {
+            for (int i = 0; i < entries; i++)
+            {
                 returnLog.Insert(0, battleLog[battleLog.Count - i - 1]);
             }
             return returnLog;
         }
 
-        public static void BeginJourney(int seed) {
+        public static void BeginJourney(int seed)
+        {
 #if GAME_MODE
             journeyStart = DateTime.Now;
             try {
@@ -87,7 +92,8 @@ namespace PMDToolkit.Logs
 #endif
         }
 
-        public static void LogJourney(Logic.Gameplay.Command command) {
+        public static void LogJourney(Logic.Gameplay.Command command)
+        {
 #if GAME_MODE
             try {
                 string date = DateTime.Now.ToShortTimeString();
@@ -106,7 +112,8 @@ namespace PMDToolkit.Logs
 #endif
         }
 
-        public static void LogDebug(string msg) {
+        public static void LogDebug(string msg)
+        {
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(msg);
 #endif
@@ -114,7 +121,6 @@ namespace PMDToolkit.Logs
 
         public static void LogError(Exception exception)
         {
-
             lock (lockObj)
             {
                 LogBattle(exception.Message);
@@ -139,10 +145,8 @@ namespace PMDToolkit.Logs
 
         public static void LogInfo(string diagInfo)
         {
-
             lock (lockObj)
             {
-
                 try
                 {
                     string date = DateTime.Now.ToShortTimeString();

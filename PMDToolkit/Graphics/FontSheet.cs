@@ -21,34 +21,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Drawing.Imaging;
-using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 
-namespace PMDToolkit.Graphics {
-    public class FontSheet : AtlasSheet {
+namespace PMDToolkit.Graphics
+{
+    public class FontSheet : AtlasSheet
+    {
+        private int mCellW;
+        private int mCellH;
 
-        int mCellW;
-        int mCellH;
+        private int mRows;
+        private int mCols;
 
-        int mRows;
-        int mCols;
+        private int mCharOffset;
 
-        int mCharOffset;
-        
-        public FontSheet() {
+        public FontSheet()
+        {
             mCellW = 0;
             mCellH = 0;
             mRows = 0;
             mCols = 0;
-            
+
             mCharOffset = 0;
         }
 
@@ -56,12 +53,13 @@ namespace PMDToolkit.Graphics {
         {
             Color4 cellPixel = new Color4(0, 0, 0, 255);
             Color4 borderPixel = new Color4(255, 0, 0, 255);
-	        //Get rid of the font if it exists
-	        freeFont();
-	        //Image pixels loaded
-	        if( LoadPixelsFromFile32( path ) ) {
-		        //Get cell dimensions
-		        mCellW = 0;
+            //Get rid of the font if it exists
+            freeFont();
+            //Image pixels loaded
+            if (LoadPixelsFromFile32(path))
+            {
+                //Get cell dimensions
+                mCellW = 0;
                 for (int x = 1; x < ImageWidth; x++)
                 {
                     if (GetPixel(x, 1) == cellPixel)
@@ -80,12 +78,12 @@ namespace PMDToolkit.Graphics {
                 }
                 mCellH += 2;
                 mRows = ImageHeight / mCellH;
-                		        
-		        //Begin parsing bitmap font
+
+                //Begin parsing bitmap font
                 mCharOffset = startChar;
-		        int currentChar = startChar;
-		
-		        //Go through cell rows
+                int currentChar = startChar;
+
+                //Go through cell rows
                 for (int rows = 0; rows < mRows; rows++)
                 {
                     //Go through each cell column in the row
@@ -95,7 +93,7 @@ namespace PMDToolkit.Graphics {
                         //Set base offsets
                         int currentX = mCellW * cols;
                         int currentY = mCellH * rows;
-                        
+
                         if (GetPixel(currentX + 1, currentY + 1) == borderPixel)
                         {
                             if (currentChar == 32)
@@ -150,18 +148,18 @@ namespace PMDToolkit.Graphics {
 
                 LoadTextureFromPixels32();
                 GenerateDataBuffer(SpriteVOrigin.Top, SpriteHOrigin.Left);
-                
-	        } else {
+            }
+            else
+            {
                 throw new Exception("Could not load bitmap font image: " + path + "!");
-	        }
+            }
         }
 
-
-        private void freeFont() {
-	        //Get rid of sprite sheet
-	        FreeTexture();
+        private void freeFont()
+        {
+            //Get rid of sprite sheet
+            FreeTexture();
         }
-
 
         public void BeginRender()
         {
@@ -178,7 +176,6 @@ namespace PMDToolkit.Graphics {
             Graphics.TextureManager.TextureProgram.SetVertexPointer(VertexData.SizeInBytes, VertexData.PositionOffset);
         }
 
-
         public void EndRender()
         {
             //Disable vertex and texture coordinate arrays
@@ -186,15 +183,15 @@ namespace PMDToolkit.Graphics {
             Graphics.TextureManager.TextureProgram.DisableTexCoordPointer();
         }
 
-        public void RenderFontSprite( int sprite ) {
-	        //If there is a texture to render from
+        public void RenderFontSprite(int sprite)
+        {
+            //If there is a texture to render from
 
-	        if( TextureID != 0 ) {
+            if (TextureID != 0)
+            {
                 GL.BindBuffer(BufferTarget.ElementArrayBuffer, mIndexBuffers[sprite]);
                 GL.DrawElements(BeginMode.Quads, 4, DrawElementsType.UnsignedInt, 0);
-	        }
-
+            }
         }
-
     }
 }

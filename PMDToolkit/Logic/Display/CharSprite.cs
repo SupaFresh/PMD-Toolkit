@@ -21,25 +21,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Display {
-    public class CharSprite : ISprite {
+namespace PMDToolkit.Logic.Display
+{
+    public class CharSprite : ISprite
+    {
+        private static readonly RenderTime STATUS_FRAME_LENGTH = RenderTime.FromMillisecs(4000);
+        private static readonly RenderTime IDLE_FRAME_LENGTH = RenderTime.FromMillisecs(90);
+        private static readonly RenderTime WALK_FRAME_LENGTH = RenderTime.FromMillisecs(140);
 
-        static readonly RenderTime STATUS_FRAME_LENGTH = RenderTime.FromMillisecs(4000);
-        static readonly RenderTime IDLE_FRAME_LENGTH = RenderTime.FromMillisecs(90);
-        static readonly RenderTime WALK_FRAME_LENGTH = RenderTime.FromMillisecs(140);
-
-        public enum ActionType {
+        public enum ActionType
+        {
             None = 0,
             Idle,
             Walk,
@@ -66,17 +62,18 @@ namespace PMDToolkit.Logic.Display {
             {
                 case ActionType.None:
                     return RenderTime.FromMillisecs(1000);
+
                 case ActionType.Idle:
                     {
                         int frames = TextureManager.GetSpriteSheet(charData.Species, charData.Form, charData.Shiny, charData.Gender).FrameData.GetFrameCount(FrameType.Idle, dir);
-                        
+
                         return IDLE_FRAME_LENGTH * frames;
                     }
                 case ActionType.Walk:
                     {
                         RenderTime passTime = GetPassTime(charData, dir, actionType);
                         int frames = TextureManager.GetSpriteSheet(charData.Species, charData.Form, charData.Shiny, charData.Gender).FrameData.GetFrameCount(FrameType.Walk, dir);
-                        
+
                         if (frames == 0)
                             return GetPassTime(charData, dir, actionType);
 
@@ -91,29 +88,41 @@ namespace PMDToolkit.Logic.Display {
                 case ActionType.AttackArm:
                 case ActionType.AltAttack:
                     return RenderTime.FromMillisecs(400);
+
                 case ActionType.SpAttack:
                 case ActionType.SpAttackShoot:
                     return RenderTime.FromMillisecs(480);
+
                 case ActionType.SpAttackCharge:
                     return RenderTime.FromMillisecs(320);
+
                 case ActionType.Sleeping:
                     return RenderTime.FromMillisecs(1000);
+
                 case ActionType.Hurt:
                     return RenderTime.FromMillisecs(360);
+
                 case ActionType.Defeated:
                     return RenderTime.FromMillisecs(720);
+
                 case ActionType.Throw:
                     return RenderTime.FromMillisecs(200);
+
                 case ActionType.Item:
                     return RenderTime.FromMillisecs(200);
+
                 case ActionType.Jump:
                     return RenderTime.FromMillisecs(300);
+
                 case ActionType.JumpHit:
                     return RenderTime.FromMillisecs(600);
+
                 case ActionType.Deflect:
                     return RenderTime.FromMillisecs(600);
+
                 case ActionType.Knockback:
                     return RenderTime.FromMillisecs(80);
+
                 default:
                     return RenderTime.Zero;
             }
@@ -121,23 +130,28 @@ namespace PMDToolkit.Logic.Display {
 
         public static RenderTime GetPassTime(Gameplay.FormData charData, Direction8 dir, ActionType actionType)
         {
-
             switch (actionType)
             {
                 case ActionType.None:
                     return RenderTime.FromMillisecs(1000);
+
                 case ActionType.Idle:
                     return RenderTime.FromMillisecs(0);
+
                 case ActionType.Walk:
                     return RenderTime.FromMillisecs(200);
+
                 case ActionType.Attack:
                 case ActionType.AltAttack:
                     return RenderTime.FromMillisecs(200);
+
                 case ActionType.SpAttack:
                 case ActionType.SpAttackShoot:
                     return RenderTime.FromMillisecs(200);
+
                 case ActionType.SpAttackCharge:
                     return RenderTime.FromMillisecs(280);
+
                 case ActionType.Sleeping:
                 case ActionType.Hurt:
                 case ActionType.Defeated:
@@ -148,6 +162,7 @@ namespace PMDToolkit.Logic.Display {
                 case ActionType.Deflect:
                 case ActionType.Knockback:
                     return GetActionTime(charData, dir, actionType);
+
                 default:
                     return RenderTime.Zero;
             }
@@ -159,8 +174,9 @@ namespace PMDToolkit.Logic.Display {
 
         //determining position
         private Loc2D charLoc;
+
         public Loc2D CharLoc { get { return charLoc; } set { charLoc = value; } }
-        
+
         public Loc2D TileOffset;
         private Loc2D drawOffset;
         private byte opacity;
@@ -179,6 +195,7 @@ namespace PMDToolkit.Logic.Display {
 
         //logic-based
         public RenderTime ActionTime { get; set; }
+
         public RenderTime PrevActionTime { get; set; }
         public bool ActionDone { get; set; }
         public bool ActionLoop { get; set; }
@@ -198,7 +215,8 @@ namespace PMDToolkit.Logic.Display {
         //-CurrentAction
         //-ActionTime
         //-CharDir
-        public CharSprite(Loc2D charLoc, Direction8 charDir) {
+        public CharSprite(Loc2D charLoc, Direction8 charDir)
+        {
             this.charLoc = charLoc;
             this.CharDir = charDir;
             this.ActionDone = true;
@@ -209,7 +227,6 @@ namespace PMDToolkit.Logic.Display {
 
         public virtual void Begin()
         {
-
         }
 
         public void Process(RenderTime elapsedTime)
@@ -232,7 +249,7 @@ namespace PMDToolkit.Logic.Display {
 
             RenderTime totalActionTime = GetActionTime(CharData, CharDir, CurrentAction);
             RenderTime totalPassTime = GetPassTime(CharData, CharDir, CurrentAction);
-            
+
             if (ActionTime >= totalPassTime)
                 ActionDone = true;
 
@@ -252,6 +269,7 @@ namespace PMDToolkit.Logic.Display {
                                 CurrentAction = ActionType.Idle;
                             }
                             break;
+
                         case ActionType.Idle:
                             {
                                 if (totalActionTime > RenderTime.Zero)
@@ -260,6 +278,7 @@ namespace PMDToolkit.Logic.Display {
                                     ActionTime = RenderTime.Zero;
                             }
                             break;
+
                         default:
                             {
                                 ActionTime = RenderTime.Zero;
@@ -290,7 +309,7 @@ namespace PMDToolkit.Logic.Display {
             {
                 CharFrameType = FrameType.Walk;
                 int totalFrames = TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.GetFrameCount(CharFrameType, CharDir);
-                
+
                 if (totalFrames > 0)
                     CharFrame = ((ActionTime + PrevActionTime).Ticks / WALK_FRAME_LENGTH.Ticks) % totalFrames;
 
@@ -513,15 +532,13 @@ namespace PMDToolkit.Logic.Display {
                 TileOffset = new Loc2D();
                 MapHeight = 0;
             }
-
         }
 
-        public void Draw() {
-
+        public void Draw()
+        {
             //draw back status
 
             TextureManager.TextureProgram.PushModelView();
-
 
             Loc2D drawLoc = GetStart();
             Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
@@ -542,15 +559,15 @@ namespace PMDToolkit.Logic.Display {
             else
                 Graphics.TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).GetSheet(CharFrameType, CharDir).RenderTile(CharFrame, 0);
 
-
             Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, 255));
 
             TextureManager.TextureProgram.PopModelView();
 
             //draw front status
-            if (StatusAilment == Enums.StatusAilment.Burn) {
+            if (StatusAilment == Enums.StatusAilment.Burn)
+            {
                 TextureManager.TextureProgram.PushModelView();
-                
+
                 //draw front status; use global time
                 Loc2D frontDraw = new Loc2D(charLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(1).TileWidth / 2,
                     charLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(1).TileHeight);
@@ -563,7 +580,9 @@ namespace PMDToolkit.Logic.Display {
                 Graphics.TextureManager.GetStatusSheet(1).RenderTile(frame, 0);
 
                 TextureManager.TextureProgram.PopModelView();
-            } else if (StatusAilment == Enums.StatusAilment.Freeze) {
+            }
+            else if (StatusAilment == Enums.StatusAilment.Freeze)
+            {
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
@@ -578,7 +597,9 @@ namespace PMDToolkit.Logic.Display {
                 Graphics.TextureManager.GetStatusSheet(0).RenderTile(frame, 0);
 
                 TextureManager.TextureProgram.PopModelView();
-            } else if (StatusAilment == Enums.StatusAilment.Poison) {
+            }
+            else if (StatusAilment == Enums.StatusAilment.Poison)
+            {
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
@@ -609,6 +630,5 @@ namespace PMDToolkit.Logic.Display {
             return new Loc2D(mapLoc.X + Graphics.TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.FrameWidth / 2,
                 mapLoc.Y - MapHeight + Graphics.TextureManager.TILE_SIZE);
         }
-
     }
 }

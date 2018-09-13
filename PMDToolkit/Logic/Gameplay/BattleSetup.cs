@@ -21,23 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Data;
 using PMDToolkit.Maps;
+using System;
+using System.Collections.Generic;
 
-namespace PMDToolkit.Logic.Gameplay {
-
+namespace PMDToolkit.Logic.Gameplay
+{
     public class IntReference
     {
         public int Value { get; set; }
     }
 
-    public class BattleSetup {
-
+    public class BattleSetup
+    {
         public ActiveChar Attacker { get; set; }
         public ActiveChar Defender { get; set; }
         public Loc2D? DefenderTile { get; set; }
@@ -53,8 +50,10 @@ namespace PMDToolkit.Logic.Gameplay {
         public MoveEntry Move { get; set; }
 
         public bool Cancel { get; set; }
+
         //public int AttackerMultiplier { get; set; }
         public int Multiplier { get; set; }
+
         public IntReference TimeForHit { get; set; }
         public int TotalWaveTime { get; set; }
         public int TotalWaves { get; set; }
@@ -65,8 +64,8 @@ namespace PMDToolkit.Logic.Gameplay {
 
         public Dictionary<String, object> BattleTags { get; set; }
 
-
-        public BattleSetup() {
+        public BattleSetup()
+        {
             Attacker = null;
             Defender = null;
             DefenderTile = null;
@@ -79,7 +78,8 @@ namespace PMDToolkit.Logic.Gameplay {
             TimeForHit = new IntReference();
         }
 
-        public BattleSetup(BattleSetup copy) {
+        public BattleSetup(BattleSetup copy)
+        {
             Attacker = copy.Attacker;
             Defender = copy.Defender;
             DefenderTile = copy.DefenderTile;
@@ -95,18 +95,26 @@ namespace PMDToolkit.Logic.Gameplay {
             TotalWaves = copy.TotalWaves;
         }
 
-        public object GetBattleTag(string tag) {
-            if (BattleTags.ContainsKey(tag)) {
+        public object GetBattleTag(string tag)
+        {
+            if (BattleTags.ContainsKey(tag))
+            {
                 return BattleTags[tag];
-            } else {
+            }
+            else
+            {
                 return null;
             }
         }
 
-        public void SetBattleTag(string tag, object value) {
-            if (BattleTags.ContainsKey(tag)) {
+        public void SetBattleTag(string tag, object value)
+        {
+            if (BattleTags.ContainsKey(tag))
+            {
                 BattleTags[tag] = value;
-            } else {
+            }
+            else
+            {
                 BattleTags.Add(tag, value);
             }
         }

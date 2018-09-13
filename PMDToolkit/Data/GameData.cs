@@ -21,12 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
 using System;
 
 namespace PMDToolkit.Data
 {
-    public static class GameData {
+    public static class GameData
+    {
         public const int MAX_ITEMS = 30;
         public const int MAX_MOVES = 10;
         public const int MAX_DEX = 718;
@@ -46,16 +46,15 @@ namespace PMDToolkit.Data
 
         //algorithms
         public static RoomAlgorithm[] RoomAlgorithmDex { get; set; }
+
         public static FloorAlgorithm[] FloorAlgorithmDex { get; set; }
         public static AlgorithmEntry[] DungeonAlgorithmDex { get; set; }
 
         //random dungeons
         public static RDungeonEntry[] RDungeonDex { get; set; }
 
-
         public static void Init()
         {
-
 #if GAME_MODE
 
             ItemDex = new ItemEntry[MAX_ITEMS];
@@ -63,7 +62,7 @@ namespace PMDToolkit.Data
                 ItemDex[i] = new ItemEntry();
                 ItemDex[i].Load(i);
             }
-            
+
             MoveDex = new MoveEntry[MAX_MOVES];
             for (int i = 0; i < MAX_MOVES; i++) {
                 MoveDex[i] = new MoveEntry();
@@ -71,7 +70,7 @@ namespace PMDToolkit.Data
             }
 
 #endif
-            Dex = new DexEntry[MAX_DEX+1];
+            Dex = new DexEntry[MAX_DEX + 1];
             for (int i = 0; i <= MAX_DEX; i++)
             {
                 try
@@ -112,7 +111,8 @@ namespace PMDToolkit.Data
 #endif
         }
 
-        public static int GetMove(string moveName) {
+        public static int GetMove(string moveName)
+        {
 #if GAME_MODE
             for (int i = 0; i < MoveDex.Length; i++) {
                 if (MoveDex[i].Name == moveName) return i;
@@ -120,6 +120,5 @@ namespace PMDToolkit.Data
 #endif
             return -1;
         }
-
     }
 }

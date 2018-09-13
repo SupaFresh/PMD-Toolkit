@@ -21,17 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Gameplay {
-
-    public class Character {
-
+namespace PMDToolkit.Logic.Gameplay
+{
+    public class Character
+    {
         public string BaseName { get; set; }
 
         public FormData BaseCharData;
@@ -42,22 +37,24 @@ namespace PMDToolkit.Logic.Gameplay {
 
         //stat boosts from vitamins
         public int MaxHPBonus { get; set; }
+
         public int AtkBonus { get; set; }
         public int DefBonus { get; set; }
         public int SpAtkBonus { get; set; }
         public int SpDefBonus { get; set; }
         public int SpeedBonus { get; set; }
 
-        
-        public Character() {
+        public Character()
+        {
             BaseMoves = new Move[Processor.MAX_MOVE_SLOTS];
             for (int i = 0; i < Processor.MAX_MOVE_SLOTS; i++)
             {
                 BaseMoves[i] = new Move();
             }
         }
-        
-        public Character(Loc2D newLoc, Direction8 charDir) {
+
+        public Character(Loc2D newLoc, Direction8 charDir)
+        {
             //clean variables
             BaseMoves = new Move[Processor.MAX_MOVE_SLOTS];
             for (int i = 0; i < Processor.MAX_MOVE_SLOTS; i++)

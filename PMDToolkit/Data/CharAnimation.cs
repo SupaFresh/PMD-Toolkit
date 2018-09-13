@@ -21,28 +21,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System.Xml;
 using PMDToolkit.Core;
+using System.Xml;
 
 namespace PMDToolkit.Data
 {
-    public class CharAnimation {
+    public class CharAnimation
+    {
         public Logic.Display.CharSprite.ActionType ActionType { get; set; }
 
-        public CharAnimation() {
-
+        public CharAnimation()
+        {
         }
 
-        public CharAnimation(CharAnimation copy) {
+        public CharAnimation(CharAnimation copy)
+        {
             ActionType = copy.ActionType;
         }
 
-        public void Load(XmlReader reader) {
-            while (reader.Read()) {
-                if (reader.IsStartElement()) {
-                    switch (reader.Name) {
-                        case "ActionType": {
+        public void Load(XmlReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.IsStartElement())
+                {
+                    switch (reader.Name)
+                    {
+                        case "ActionType":
+                            {
                                 ActionType = reader.ReadString().ToEnum<Logic.Display.CharSprite.ActionType>();
                                 break;
                             }
@@ -51,7 +57,8 @@ namespace PMDToolkit.Data
             }
         }
 
-        public void Save(XmlWriter writer) {
+        public void Save(XmlWriter writer)
+        {
             writer.WriteElementString("ActionType", ActionType.ToString());
         }
     }

@@ -21,19 +21,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Logs;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml;
 
-namespace PMDToolkit.Data {
-    public class RDungeonFloor {
-
+namespace PMDToolkit.Data
+{
+    public class RDungeonFloor
+    {
         public int Algorithm { get; set; }
 
         public Dictionary<string, int> FloorSettings { get; set; }
@@ -46,7 +45,6 @@ namespace PMDToolkit.Data {
         public int Darkness { get; set; }
         public string Music { get; set; }
 
-
         public int NpcSpawnTime { get; set; }
         public int NpcMin { get; set; }
         public int NpcMax { get; set; }
@@ -55,7 +53,8 @@ namespace PMDToolkit.Data {
         public Dictionary<string, List<Tuple<NpcPreset, int>>> Npcs { get; set; }
         public Dictionary<string, List<Tuple<int, int>>> Rooms { get; set; }
 
-        public RDungeonFloor() {
+        public RDungeonFloor()
+        {
             Algorithm = -1;
             FloorSettings = new Dictionary<string, int>();
             TileLayers = new Dictionary<string, List<Maps.TileAnim>>();
@@ -66,62 +65,82 @@ namespace PMDToolkit.Data {
             Rooms = new Dictionary<string, List<Tuple<int, int>>>();
         }
 
-
-        public void LoadAlgorithmSettings() {
+        public void LoadAlgorithmSettings()
+        {
             FloorSettings.Clear();
             TileLayers.Clear();
             TileData.Clear();
             Items.Clear();
             Npcs.Clear();
             Rooms.Clear();
-            if (Algorithm > -1) {
+            if (Algorithm > -1)
+            {
                 FloorAlgorithm settingsGuide = GameData.FloorAlgorithmDex[Algorithm];
-                for (int i = 0; i < settingsGuide.FloorSettings.Count; i++) {
+                for (int i = 0; i < settingsGuide.FloorSettings.Count; i++)
+                {
                     FloorSettings.Add(settingsGuide.FloorSettings[i].Item1, 0);
                 }
-                for (int i = 0; i < settingsGuide.LayerSettings.Count; i++) {
+                for (int i = 0; i < settingsGuide.LayerSettings.Count; i++)
+                {
                     TileLayers.Add(settingsGuide.LayerSettings[i], new List<Maps.TileAnim>());
                 }
-                for (int i = 0; i < settingsGuide.TileSettings.Count; i++) {
+                for (int i = 0; i < settingsGuide.TileSettings.Count; i++)
+                {
                     TileData.Add(settingsGuide.TileSettings[i], new List<Maps.TileData>());
                 }
-                for (int i = 0; i < settingsGuide.ItemGroups.Count; i++) {
+                for (int i = 0; i < settingsGuide.ItemGroups.Count; i++)
+                {
                     Items.Add(settingsGuide.ItemGroups[i], new List<Tuple<ItemPreset, int>>());
                 }
-                for (int i = 0; i < settingsGuide.NpcGroups.Count; i++) {
+                for (int i = 0; i < settingsGuide.NpcGroups.Count; i++)
+                {
                     Npcs.Add(settingsGuide.NpcGroups[i], new List<Tuple<NpcPreset, int>>());
                 }
-                for (int i = 0; i < settingsGuide.RoomGroups.Count; i++) {
+                for (int i = 0; i < settingsGuide.RoomGroups.Count; i++)
+                {
                     Rooms.Add(settingsGuide.RoomGroups[i], new List<Tuple<int, int>>());
                 }
             }
         }
 
-        public void Load(int rdungeonNum, int floorNum) {
-            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "RDungeon\\" + rdungeonNum.ToString() + "\\" + floorNum + ".xml")) {
-                while (reader.Read()) {
-                    if (reader.IsStartElement()) {
-                        switch (reader.Name) {
-                            case "Algorithm": {
+        public void Load(int rdungeonNum, int floorNum)
+        {
+            using (XmlReader reader = XmlReader.Create(Paths.DataPath + "RDungeon\\" + rdungeonNum.ToString() + "\\" + floorNum + ".xml"))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "Algorithm":
+                                {
                                     Algorithm = reader.ReadString().ToInt();
                                     LoadAlgorithmSettings();
                                     break;
                                 }
-                            case "FloorSettings": {
+                            case "FloorSettings":
+                                {
                                     XmlReader settingsReader = reader.ReadSubtree();
-                                    while (settingsReader.Read()) {
-                                        if (settingsReader.IsStartElement() && FloorSettings.ContainsKey(settingsReader.Name)) {
+                                    while (settingsReader.Read())
+                                    {
+                                        if (settingsReader.IsStartElement() && FloorSettings.ContainsKey(settingsReader.Name))
+                                        {
                                             FloorSettings[settingsReader.Name] = settingsReader.ReadString().ToInt();
                                         }
                                     }
                                     break;
                                 }
-                            case "TileLayers": {
+                            case "TileLayers":
+                                {
                                     XmlReader settingsReader = reader.ReadSubtree();
-                                    while (settingsReader.Read()) {
-                                        if (settingsReader.IsStartElement() && FloorSettings.ContainsKey(settingsReader.Name)) {
+                                    while (settingsReader.Read())
+                                    {
+                                        if (settingsReader.IsStartElement() && FloorSettings.ContainsKey(settingsReader.Name))
+                                        {
                                             string settingName = settingsReader.Name;
-                                            if (settingsReader.Read()) {
+                                            if (settingsReader.Read())
+                                            {
                                                 List<Maps.TileAnim> layerList = new List<Maps.TileAnim>();
                                                 while (settingsReader.Read())
                                                 {
@@ -136,14 +155,19 @@ namespace PMDToolkit.Data {
                                     }
                                     break;
                                 }
-                            case "TileData": {
+                            case "TileData":
+                                {
                                     XmlReader settingsReader = reader.ReadSubtree();
-                                    while (settingsReader.Read()) {
-                                        if (settingsReader.IsStartElement() && FloorSettings.ContainsKey(settingsReader.Name)) {
+                                    while (settingsReader.Read())
+                                    {
+                                        if (settingsReader.IsStartElement() && FloorSettings.ContainsKey(settingsReader.Name))
+                                        {
                                             string settingName = settingsReader.Name;
-                                            if (settingsReader.Read()) {
+                                            if (settingsReader.Read())
+                                            {
                                                 List<Maps.TileData> tileDataList = new List<Maps.TileData>();
-                                                while (settingsReader.Read()) {
+                                                while (settingsReader.Read())
+                                                {
                                                     Enums.TileType type = settingsReader.ReadString().ToEnum<Enums.TileType>();
                                                     int data1 = settingsReader.ReadElementString("Data1").ToInt();
                                                     int data2 = settingsReader.ReadElementString("Data2").ToInt();
@@ -157,40 +181,52 @@ namespace PMDToolkit.Data {
                                     }
                                     break;
                                 }
-                            case "Weather": {
-                                FloorWeather.Add(reader.ReadString().ToEnum<Enums.Weather>(), reader.ReadString().ToInt());
+                            case "Weather":
+                                {
+                                    FloorWeather.Add(reader.ReadString().ToEnum<Enums.Weather>(), reader.ReadString().ToInt());
                                     break;
                                 }
-                            case "Darkness": {
+                            case "Darkness":
+                                {
                                     Darkness = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Music": {
+                            case "Music":
+                                {
                                     Music = reader.ReadString();
                                     break;
                                 }
-                            case "NpcSpawnTime": {
+                            case "NpcSpawnTime":
+                                {
                                     NpcSpawnTime = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "NpcMin": {
+                            case "NpcMin":
+                                {
                                     NpcMin = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "NpcMax": {
+                            case "NpcMax":
+                                {
                                     NpcMax = reader.ReadString().ToInt();
                                     break;
                                 }
-                            case "Items": {
+                            case "Items":
+                                {
                                     XmlReader settingsReader = reader.ReadSubtree();
-                                    while (settingsReader.Read()) {
-                                        if (settingsReader.IsStartElement()) {
+                                    while (settingsReader.Read())
+                                    {
+                                        if (settingsReader.IsStartElement())
+                                        {
                                             string settingName = settingsReader.Name;
                                             settingsReader.Read();
-                                            if (settingsReader.Read()) {
+                                            if (settingsReader.Read())
+                                            {
                                                 List<Tuple<ItemPreset, int>> itemList = new List<Tuple<ItemPreset, int>>();
-                                                while (settingsReader.Read()) {
-                                                    if (settingsReader.IsStartElement() && settingsReader.Name == "Element") {
+                                                while (settingsReader.Read())
+                                                {
+                                                    if (settingsReader.IsStartElement() && settingsReader.Name == "Element")
+                                                    {
                                                         settingsReader.Read();
                                                         ItemPreset preset = new ItemPreset();
                                                         preset.ItemNum = settingsReader.ReadElementString("ItemNum").ToInt();
@@ -212,16 +248,22 @@ namespace PMDToolkit.Data {
                                     }
                                     break;
                                 }
-                            case "Npcs": {
+                            case "Npcs":
+                                {
                                     XmlReader settingsReader = reader.ReadSubtree();
-                                    while (settingsReader.Read()) {
-                                        if (settingsReader.IsStartElement()) {
+                                    while (settingsReader.Read())
+                                    {
+                                        if (settingsReader.IsStartElement())
+                                        {
                                             string settingName = settingsReader.Name;
                                             settingsReader.Read();
-                                            if (settingsReader.Read()) {
+                                            if (settingsReader.Read())
+                                            {
                                                 List<Tuple<NpcPreset, int>> npcList = new List<Tuple<NpcPreset, int>>();
-                                                while (settingsReader.Read()) {
-                                                    if (settingsReader.IsStartElement() && settingsReader.Name == "Element") {
+                                                while (settingsReader.Read())
+                                                {
+                                                    if (settingsReader.IsStartElement() && settingsReader.Name == "Element")
+                                                    {
                                                         settingsReader.Read();
                                                         NpcPreset preset = new NpcPreset();
                                                         preset.NpcNum = settingsReader.ReadElementString("NpcNum").ToInt();
@@ -239,16 +281,22 @@ namespace PMDToolkit.Data {
                                     }
                                     break;
                                 }
-                            case "Rooms": {
+                            case "Rooms":
+                                {
                                     XmlReader settingsReader = reader.ReadSubtree();
-                                    while (settingsReader.Read()) {
-                                        if (settingsReader.IsStartElement()) {
+                                    while (settingsReader.Read())
+                                    {
+                                        if (settingsReader.IsStartElement())
+                                        {
                                             string settingName = settingsReader.Name;
                                             settingsReader.Read();
-                                            if (settingsReader.Read()) {
+                                            if (settingsReader.Read())
+                                            {
                                                 List<Tuple<int, int>> roomList = new List<Tuple<int, int>>();
-                                                while (settingsReader.Read()) {
-                                                    if (settingsReader.IsStartElement() && settingsReader.Name == "Element") {
+                                                while (settingsReader.Read())
+                                                {
+                                                    if (settingsReader.IsStartElement() && settingsReader.Name == "Element")
+                                                    {
                                                         settingsReader.Read();
                                                         int num = settingsReader.ReadElementString("RoomNum").ToInt();
                                                         int appearanceRate = settingsReader.ReadElementString("AppearanceRate").ToInt();
@@ -267,13 +315,17 @@ namespace PMDToolkit.Data {
             }
         }
 
-        public void Save(int rdungeonNum, int floorNum) {
+        public void Save(int rdungeonNum, int floorNum)
+        {
             if (!Directory.Exists(Paths.DataPath + "RDungeon\\" + rdungeonNum))
                 Directory.CreateDirectory(Paths.DataPath + "RDungeon\\" + rdungeonNum);
-            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "RDungeon\\" + rdungeonNum + "\\" + floorNum + ".xml", Logger.XmlWriterSettings)) {
+            using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "RDungeon\\" + rdungeonNum + "\\" + floorNum + ".xml", Logger.XmlWriterSettings))
+            {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("FloorEntry");
+
                 #region Basic data
+
                 writer.WriteStartElement("General");
                 writer.WriteElementString("Algorithm", Algorithm.ToString());
                 writer.WriteElementString("Darkness", Darkness.ToString());
@@ -282,22 +334,31 @@ namespace PMDToolkit.Data {
                 writer.WriteElementString("NpcMin", NpcMin.ToString());
                 writer.WriteElementString("NpcMax", NpcMax.ToString());
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Basic data
+
                 #region FloorSettings
+
                 writer.WriteStartElement("FloorSettings");
-                for (int i = 0; i < FloorSettings.Count; i++) {
+                for (int i = 0; i < FloorSettings.Count; i++)
+                {
                     string key = FloorSettings.Keys.ElementAt(i);
                     writer.WriteElementString(key, FloorSettings[key].ToString());
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion FloorSettings
+
                 #region TileLayers
+
                 writer.WriteStartElement("TileLayers");
-                for (int i = 0; i < TileLayers.Count; i++) {
+                for (int i = 0; i < TileLayers.Count; i++)
+                {
                     string key = TileLayers.Keys.ElementAt(i);
                     List<Maps.TileAnim> layers = TileLayers[key];
                     writer.WriteStartElement(key);
-                    for (int j = 0; j < layers.Count; j++) {
+                    for (int j = 0; j < layers.Count; j++)
+                    {
                         writer.WriteStartElement("Element");
                         writer.WriteElementString("TextureX", layers[j].Frames[0].Texture.X.ToString());
                         writer.WriteElementString("TextureY", layers[j].Frames[0].Texture.Y.ToString());
@@ -307,14 +368,19 @@ namespace PMDToolkit.Data {
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion TileLayers
+
                 #region TileData
+
                 writer.WriteStartElement("TileData");
-                for (int i = 0; i < TileData.Count; i++) {
+                for (int i = 0; i < TileData.Count; i++)
+                {
                     string key = TileData.Keys.ElementAt(i);
                     List<Maps.TileData> data = TileData[key];
                     writer.WriteStartElement(key);
-                    for (int j = 0; j < data.Count; j++) {
+                    for (int j = 0; j < data.Count; j++)
+                    {
                         writer.WriteStartElement("Element");
                         writer.WriteElementString("Type", data[j].Type.ToString());
                         writer.WriteElementString("Data1", data[j].Data1.ToString());
@@ -326,24 +392,33 @@ namespace PMDToolkit.Data {
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion TileData
+
                 #region Weather
+
                 writer.WriteStartElement("FloorWeather");
-                for (int i = 0; i < FloorWeather.Count; i++) {
+                for (int i = 0; i < FloorWeather.Count; i++)
+                {
                     writer.WriteStartElement("Weather");
                     Enums.Weather key = FloorWeather.Keys.ElementAt(i);
                     writer.WriteElementString(key.ToString(), FloorWeather[key].ToString());
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Weather
+
                 #region Items
+
                 writer.WriteStartElement("Items");
-                for (int i = 0; i < Items.Count; i++) {
+                for (int i = 0; i < Items.Count; i++)
+                {
                     string key = Items.Keys.ElementAt(i);
                     List<Tuple<ItemPreset, int>> data = Items[key];
                     writer.WriteStartElement(key);
-                    for (int j = 0; j < data.Count; j++) {
+                    for (int j = 0; j < data.Count; j++)
+                    {
                         writer.WriteStartElement("Element");
                         writer.WriteElementString("ItemNum", data[j].Item1.ItemNum.ToString());
                         writer.WriteElementString("MinAmount", data[j].Item1.MinAmount.ToString());
@@ -360,14 +435,19 @@ namespace PMDToolkit.Data {
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Items
+
                 #region Npcs
+
                 writer.WriteStartElement("Npcs");
-                for (int i = 0; i < Npcs.Count; i++) {
+                for (int i = 0; i < Npcs.Count; i++)
+                {
                     string key = Npcs.Keys.ElementAt(i);
                     List<Tuple<NpcPreset, int>> data = Npcs[key];
                     writer.WriteStartElement(key);
-                    for (int j = 0; j < data.Count; j++) {
+                    for (int j = 0; j < data.Count; j++)
+                    {
                         writer.WriteStartElement("Element");
                         writer.WriteElementString("NpcNum", data[j].Item1.NpcNum.ToString());
                         writer.WriteElementString("SpawnX", data[j].Item1.SpawnX.ToString());
@@ -380,14 +460,19 @@ namespace PMDToolkit.Data {
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Npcs
+
                 #region Rooms
+
                 writer.WriteStartElement("Rooms");
-                for (int i = 0; i < Rooms.Count; i++) {
+                for (int i = 0; i < Rooms.Count; i++)
+                {
                     string key = Rooms.Keys.ElementAt(i);
                     List<Tuple<int, int>> data = Rooms[key];
                     writer.WriteStartElement(key);
-                    for (int j = 0; j < data.Count; j++) {
+                    for (int j = 0; j < data.Count; j++)
+                    {
                         writer.WriteStartElement("Element");
                         writer.WriteElementString("RoomNum", data[j].Item1.ToString());
                         writer.WriteElementString("AppearanceRate", data[j].Item2.ToString());
@@ -396,7 +481,8 @@ namespace PMDToolkit.Data {
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
-                #endregion
+
+                #endregion Rooms
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();

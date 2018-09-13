@@ -21,23 +21,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace PMDToolkit.Maps {
-    public abstract class MapGroup {
-
+namespace PMDToolkit.Maps
+{
+    public abstract class MapGroup
+    {
         protected Dictionary<string, ActiveMap> maps;
 
         public int MapCount { get { return maps.Count; } }
-        
 
-        public ActiveMap this[string id] {
-            get {
-                if (!maps.ContainsKey(id)) {
+        public ActiveMap this[string id]
+        {
+            get
+            {
+                if (!maps.ContainsKey(id))
+                {
                     maps.Add(id, loadMap(id));
                 }
                 if (!maps.ContainsKey(id))
@@ -46,7 +45,6 @@ namespace PMDToolkit.Maps {
                 return maps[id];
             }
         }
-
 
         public MapGroup()
         {
@@ -68,6 +66,5 @@ namespace PMDToolkit.Maps {
             UnloadMap(id);
             loadMap(id);
         }
-
     }
 }

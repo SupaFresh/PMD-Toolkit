@@ -21,20 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using OpenTK;
 
-namespace PMDToolkit.Graphics {
-    struct VertexData {
+namespace PMDToolkit.Graphics
+{
+    internal struct VertexData
+    {
         public Vector2 position;
         public Vector2 texCoord;
 
-
-        public VertexData(float x, float y, float s, float t) {
+        public VertexData(float x, float y, float s, float t)
+        {
             position = new Vector2(x, y);
             texCoord = new Vector2(s, t);
         }

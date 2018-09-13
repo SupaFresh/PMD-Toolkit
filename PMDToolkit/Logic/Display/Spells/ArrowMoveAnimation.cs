@@ -21,20 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Display {
-
-    class ArrowMoveAnimation : ISpellSprite {
+namespace PMDToolkit.Logic.Display
+{
+    internal class ArrowMoveAnimation : ISpellSprite
+    {
         #region Constructors
 
         public ArrowMoveAnimation(Loc2D startLoc, int animIndex, RenderTime animTime, Maps.Direction8 dir, int distance, int speed)
@@ -44,7 +38,7 @@ namespace PMDToolkit.Logic.Display {
             FrameLength = animTime;
             Direction = dir;
             TotalWaves = distance;
-            TotalDistance = distance*TextureManager.TILE_SIZE;
+            TotalDistance = distance * TextureManager.TILE_SIZE;
             TravelSpeed = speed;
         }
 
@@ -66,61 +60,69 @@ namespace PMDToolkit.Logic.Display {
             private set;
         }
 
-        public int AnimationIndex {
-            get;
-            set;
-        }
-        
-
-        public RenderTime FrameTime {
+        public int AnimationIndex
+        {
             get;
             set;
         }
 
-        public RenderTime FrameLength {
+        public RenderTime FrameTime
+        {
             get;
             set;
         }
 
-        public int Frame {
+        public RenderTime FrameLength
+        {
+            get;
+            set;
+        }
+
+        public int Frame
+        {
             get;
             set;
         }
 
         //total frames
 
-        public MoveAnimationType AnimType {
+        public MoveAnimationType AnimType
+        {
             get { return MoveAnimationType.Arrow; }
         }
 
-        public Loc2D StartLoc {
+        public Loc2D StartLoc
+        {
             get;
             set;
         }
 
-        public int TravelSpeed {
+        public int TravelSpeed
+        {
             get;
             set;
         }
 
-        public int Distance {
+        public int Distance
+        {
             get;
             set;
         }
 
-        public int TotalDistance {
+        public int TotalDistance
+        {
             get;
             set;
         }
 
-        public Maps.Direction8 Direction {
+        public Maps.Direction8 Direction
+        {
             get;
             set;
         }
 
         public Loc2D MapLoc { get; set; }
         public int MapHeight { get { return TextureManager.TILE_SIZE / 2; } }
-
 
         public RenderTime ActionTime { get; set; }
         public bool ActionDone { get; set; }
@@ -129,34 +131,41 @@ namespace PMDToolkit.Logic.Display {
 
         public virtual void Begin()
         {
-
         }
 
-        public virtual void Process(RenderTime elapsedTime) {
+        public virtual void Process(RenderTime elapsedTime)
+        {
             ActionTime += elapsedTime;
             FrameTime += elapsedTime;
-            if (FrameTime >= FrameLength) {
+            if (FrameTime >= FrameLength)
+            {
                 FrameTime = FrameTime - FrameLength;
                 Frame++;
             }
 
-            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Arrow, AnimationIndex).TotalFrames) {
+            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Arrow, AnimationIndex).TotalFrames)
+            {
                 Frame = 0;
             }
 
             Distance = ActionTime.ToMillisecs() * TravelSpeed / 1000;
 
-            if (Distance >= TotalDistance) {
+            if (Distance >= TotalDistance)
+            {
                 ActionDone = true;
-            } else {
+            }
+            else
+            {
                 Loc2D mapLoc = new Loc2D(StartLoc.X * TextureManager.TILE_SIZE, StartLoc.Y * TextureManager.TILE_SIZE);
                 Operations.MoveInDirection8(ref mapLoc, Direction, Distance);
                 MapLoc = mapLoc;
             }
         }
 
-        public virtual void Draw() {
-            if (!ActionDone) {
+        public virtual void Draw()
+        {
+            if (!ActionDone)
+            {
                 TextureManager.TextureProgram.PushModelView();
                 Loc2D drawLoc = GetStart();
 
@@ -170,15 +179,16 @@ namespace PMDToolkit.Logic.Display {
             }
         }
 
-        public Loc2D GetStart() {
+        public Loc2D GetStart()
+        {
             return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Arrow, AnimationIndex).TileWidth / 2,
                 MapLoc.Y + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Arrow, AnimationIndex).TileHeight / 2 - MapHeight);
         }
 
-        public Loc2D GetEnd() {
+        public Loc2D GetEnd()
+        {
             return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Arrow, AnimationIndex).TileWidth / 2,
                 MapLoc.Y + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Arrow, AnimationIndex).TileHeight / 2 - MapHeight);
         }
-
     }
 }

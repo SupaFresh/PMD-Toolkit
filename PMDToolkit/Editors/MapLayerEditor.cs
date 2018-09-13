@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using PMDToolkit.Logic.Gameplay;
+using System;
 using System.Windows.Forms;
-using PMDToolkit.Logic.Gameplay;
 
 namespace PMDToolkit.Editors
 {
     public partial class MapLayerEditor : Form
     {
-
         public MapLayerEditor()
         {
             InitializeComponent();
 
-            
             LoadLayers();
         }
 
@@ -51,7 +43,6 @@ namespace PMDToolkit.Editors
 
         private void MapLayerEditor_Load(object sender, EventArgs e)
         {
-
         }
 
         private void MapLayerEditor_FormClosed(object sender, FormClosedEventArgs e)
@@ -61,12 +52,10 @@ namespace PMDToolkit.Editors
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-
         }
 
         private void chklbLayers_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,7 +63,7 @@ namespace PMDToolkit.Editors
             GetLayerInfoFromIndex(chklbLayers.SelectedIndex, ref MapEditor.chosenEditLayer, ref MapEditor.chosenLayer);
         }
 
-        void GetLayerInfoFromIndex(int index, ref MapEditor.EditLayer layerType, ref int layer)
+        private void GetLayerInfoFromIndex(int index, ref MapEditor.EditLayer layerType, ref int layer)
         {
             if (Logic.Gameplay.Processor.CurrentMap.FringeLayers.Count > index)
             {
@@ -111,8 +100,7 @@ namespace PMDToolkit.Editors
             layer = 0;
         }
 
-
-        int GetIndexFromLayerInfo(MapEditor.EditLayer layerType, int layer)
+        private int GetIndexFromLayerInfo(MapEditor.EditLayer layerType, int layer)
         {
             int layerIndex = 0;
             if (layerType == MapEditor.EditLayer.Fringe)
@@ -134,7 +122,6 @@ namespace PMDToolkit.Editors
             if (layerType == MapEditor.EditLayer.Data)
                 return layerIndex;
 
-            
             return -1;
         }
 

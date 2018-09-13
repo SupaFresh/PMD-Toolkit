@@ -21,21 +21,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using System.IO;
 using PMDToolkit.Core;
 using PMDToolkit.Data;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
-namespace PMDToolkit.Graphics {
-    public static class TextureManager {
-        public enum SpellAnimType {
+namespace PMDToolkit.Graphics
+{
+    public static class TextureManager
+    {
+        public enum SpellAnimType
+        {
             Spell,
             Arrow,
             Beam
@@ -49,22 +49,22 @@ namespace PMDToolkit.Graphics {
         public const int BITS_PER_PIX = 32;
         public const int FPS_CAP = 60;
 
-        const int SPRITE_CACHE_SIZE = 200;
-        const int MUGSHOT_CACHE_SIZE = 100;
-        const int SPELL_CACHE_SIZE = 100;
-        const int STATUS_CACHE_SIZE = 100;
-        const int ITEM_CACHE_SIZE = 100;
-        const int OBJECT_CACHE_SIZE = 100;
-        const int TILE_CACHE_SIZE = 1000;
-        const int TOTAL_TILE_SHEETS = 11;
+        private const int SPRITE_CACHE_SIZE = 200;
+        private const int MUGSHOT_CACHE_SIZE = 100;
+        private const int SPELL_CACHE_SIZE = 100;
+        private const int STATUS_CACHE_SIZE = 100;
+        private const int ITEM_CACHE_SIZE = 100;
+        private const int OBJECT_CACHE_SIZE = 100;
+        private const int TILE_CACHE_SIZE = 1000;
+        private const int TOTAL_TILE_SHEETS = 11;
 
-        static MultiNameLRUCache<string, SpriteSheet> spriteCache;
-        static MultiNameLRUCache<string, TileSheet> mugshotCache;
-        static LRUCache<string, AnimSheet> spellCache;
-        static LRUCache<int, AnimSheet> statusCache;
-        static LRUCache<int, AnimSheet> itemCache;
-        static LRUCache<int, AnimSheet> objectCache;
-        static LRUCache<string, Texture> tileCache;
+        private static MultiNameLRUCache<string, SpriteSheet> spriteCache;
+        private static MultiNameLRUCache<string, TileSheet> mugshotCache;
+        private static LRUCache<string, AnimSheet> spellCache;
+        private static LRUCache<int, AnimSheet> statusCache;
+        private static LRUCache<int, AnimSheet> itemCache;
+        private static LRUCache<int, AnimSheet> objectCache;
+        private static LRUCache<string, Texture> tileCache;
 
         #endregion Fields
 
@@ -72,13 +72,12 @@ namespace PMDToolkit.Graphics {
 
         public static Graphics.TextureProgram TextureProgram { get; set; }
 
-
         public static AnimSheet ErrorTexture { get; set; }
         public static Texture BlankTexture { get; set; }
 
         public static Font SingleFont { get; set; }
 
-        static TileMetadata[] tileData;
+        private static TileMetadata[] tileData;
 
         public static TileSheet MenuBack { get; set; }
 
@@ -96,7 +95,6 @@ namespace PMDToolkit.Graphics {
 
         public static void InitBase()
         {
-
             //initialize clear color
             GL.ClearColor(Color4.Black);
 
@@ -124,7 +122,7 @@ namespace PMDToolkit.Graphics {
 
             //load font
             SingleFont = new Font();
-            string[] dirs = Directory.GetFiles(Paths.BaseGFXPath+"Font", "pmd-*.png", SearchOption.TopDirectoryOnly);
+            string[] dirs = Directory.GetFiles(Paths.BaseGFXPath + "Font", "pmd-*.png", SearchOption.TopDirectoryOnly);
             for (int i = 0; i < dirs.Length; i++)
             {
                 int startLength = (Paths.BaseGFXPath + "Font\\" + "pmd-").Length;
@@ -147,7 +145,7 @@ namespace PMDToolkit.Graphics {
             Game.UpdateLoadMsg("Loading Base Textures");
             //load error texture
             ErrorTexture = new AnimSheet();
-            ErrorTexture.LoadPixelsFromFile32(Paths.BaseGFXPath+"Error.png");
+            ErrorTexture.LoadPixelsFromFile32(Paths.BaseGFXPath + "Error.png");
 
             //load blank texture
             BlankTexture = new Texture();
@@ -159,7 +157,6 @@ namespace PMDToolkit.Graphics {
 
             Picker = new TileSheet();
             Picker.LoadPixelsFromFile32(Paths.BaseGFXPath + "UI\\Picker.png");
-
 
             Game.UpdateLoadMsg("Loading Caches");
             //initialize caches
@@ -202,7 +199,7 @@ namespace PMDToolkit.Graphics {
         {
             Picker.Dispose();
             MenuBack.Dispose();
-            
+
             tileCache.Clear();
             objectCache.Clear();
             itemCache.Clear();
@@ -266,8 +263,8 @@ namespace PMDToolkit.Graphics {
             NeedItemReload = false;
         }
 
-
-        public static SpriteSheet GetSpriteSheet(int num, int form, Enums.Coloration shiny, Enums.Gender gender) {
+        public static SpriteSheet GetSpriteSheet(int num, int form, Enums.Coloration shiny, Enums.Gender gender)
+        {
             string formString = "r";
 
             if (form >= 0)
@@ -284,7 +281,7 @@ namespace PMDToolkit.Graphics {
             }
 
             SpriteSheet sheet = spriteCache.Get(num + formString);
-            
+
             if (sheet != null)
                 return sheet;
 
@@ -293,7 +290,6 @@ namespace PMDToolkit.Graphics {
                 // If we are still here, that means the sprite wasn't in the cache
                 if (System.IO.File.Exists(Paths.CachedGFXPath + "Sprite\\Sprite" + num + ".sprite"))
                 {
-
                     sheet = new SpriteSheet();
                     string changedFormString = formString;
 
@@ -370,7 +366,7 @@ namespace PMDToolkit.Graphics {
             }
             catch (Exception ex)
             {
-                Logs.Logger.LogError(new Exception("Error retrieving sprite " + num + " " + formString+"\n", ex));
+                Logs.Logger.LogError(new Exception("Error retrieving sprite " + num + " " + formString + "\n", ex));
             }
 
             //add error sheet
@@ -379,21 +375,26 @@ namespace PMDToolkit.Graphics {
             return sheet;
         }
 
-        public static AnimSheet GetSpellSheet(SpellAnimType animType, int num) {
+        public static AnimSheet GetSpellSheet(SpellAnimType animType, int num)
+        {
             AnimSheet cacheSheet = spellCache.Get(animType.ToString() + num);
             if (cacheSheet != null) return cacheSheet;
 
-            if (System.IO.File.Exists(Paths.EffectsPath + animType.ToString() + "-" + num + ".png")) {
+            if (System.IO.File.Exists(Paths.EffectsPath + animType.ToString() + "-" + num + ".png"))
+            {
                 AnimSheet sheet = new AnimSheet();
                 sheet.LoadPixelsFromFile32(Paths.EffectsPath + animType.ToString() + "-" + num + ".png");
                 sheet.LoadTextureFromPixels32();
-                switch (animType) {
+                switch (animType)
+                {
                     case SpellAnimType.Spell:
                         sheet.GenerateDataBuffer(1, 1);
                         break;
+
                     case SpellAnimType.Arrow:
                         sheet.GenerateDataBuffer(8, 1);
                         break;
+
                     case SpellAnimType.Beam:
                         sheet.GenerateDataBuffer(8, 4);
                         break;
@@ -423,11 +424,13 @@ namespace PMDToolkit.Graphics {
             return ErrorTexture;
         }
 
-        public static AnimSheet GetItemSheet(int num) {
+        public static AnimSheet GetItemSheet(int num)
+        {
             AnimSheet cacheSheet = itemCache.Get(num);
             if (cacheSheet != null) return cacheSheet;
 
-            if (System.IO.File.Exists(Paths.ItemsPath + num + ".png")) {
+            if (System.IO.File.Exists(Paths.ItemsPath + num + ".png"))
+            {
                 AnimSheet sheet = new AnimSheet();
                 sheet.LoadPixelsFromFile32(Paths.ItemsPath + num + ".png");
                 sheet.LoadTextureFromPixels32();
@@ -439,11 +442,13 @@ namespace PMDToolkit.Graphics {
             return ErrorTexture;
         }
 
-        public static AnimSheet GetObjectSheet(int num) {
+        public static AnimSheet GetObjectSheet(int num)
+        {
             AnimSheet cacheSheet = objectCache.Get(num);
             if (cacheSheet != null) return cacheSheet;
 
-            if (System.IO.File.Exists(Paths.DataPath + "Graphics\\Object\\Object-" + num + ".png")) {
+            if (System.IO.File.Exists(Paths.DataPath + "Graphics\\Object\\Object-" + num + ".png"))
+            {
                 AnimSheet sheet = new AnimSheet();
                 sheet.LoadPixelsFromFile32(Paths.DataPath + "Graphics\\Object\\Object-" + num + ".png");
                 sheet.LoadTextureFromPixels32();
@@ -455,7 +460,6 @@ namespace PMDToolkit.Graphics {
             objectCache.Add(num, ErrorTexture);
             return ErrorTexture;
         }
-
 
         public static TileSheet GetMugshot(int num, int form, Enums.Coloration shiny, Enums.Gender gender)
         {
@@ -484,7 +488,6 @@ namespace PMDToolkit.Graphics {
                 // If we are still here, that means the sprite wasn't in the cache
                 if (System.IO.File.Exists(Paths.CachedGFXPath + "Portrait\\Portrait" + num + ".portrait"))
                 {
-
                     sheet = new TileSheet();
                     string changedFormString = formString;
 
@@ -640,9 +643,8 @@ namespace PMDToolkit.Graphics {
             obj.Dispose();
         }
 
-
-        public static void SetViewport(int x, int y, int width, int height) {
-
+        public static void SetViewport(int x, int y, int width, int height)
+        {
             GL.Viewport(x, y, width, height);
 
             //Bind basic shader program
@@ -653,6 +655,5 @@ namespace PMDToolkit.Graphics {
         }
 
         #endregion Methods
-
     }
 }

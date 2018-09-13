@@ -21,20 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
-using PMDToolkit.Logic.Results;
-using PMDToolkit.Core;
 using System.IO;
 
-namespace PMDToolkit.Maps {
-    public class BasicMap {
-
+namespace PMDToolkit.Maps
+{
+    public class BasicMap
+    {
         public const int MAX_NPC_SLOTS = 30;
         public const int MAX_ITEM_SLOTS = 30;
 
@@ -96,7 +89,6 @@ namespace PMDToolkit.Maps {
             FringeLayers.Add(layer);
             layer = new MapLayer("Fringe2", Width, Height);
             FringeLayers.Add(layer);
-            
         }
 
         public virtual void Resize(int width, int height, Maps.Direction8 dir)

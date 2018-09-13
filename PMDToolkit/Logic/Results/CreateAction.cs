@@ -21,31 +21,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Logic.Gameplay;
-using PMDToolkit.Logic.Display;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using PMDToolkit.Graphics;
+using PMDToolkit.Logic.Display;
+using PMDToolkit.Logic.Gameplay;
 
-namespace PMDToolkit.Logic.Results {
-    public class CreateAction : IResult {
+namespace PMDToolkit.Logic.Results
+{
+    public class CreateAction : IResult
+    {
         //an animation performed by a character as though in a spell
         //differs from hurt or defeat in that it can contain those animations, but is not limited to them
         //may require attack, throw, and jump to be removed (they are solely used in battle context)
         //public ResultType Type { get { return ResultType.CreateAction; } }
 
         public RenderTime Delay { get { return InstantPass ? RenderTime.Zero : CharSprite.GetPassTime(charData, dir, Action); } }
-        
-        int charIndex;
-        FormData charData;
-        Maps.Direction8 dir;
+
+        private int charIndex;
+        private FormData charData;
+        private Maps.Direction8 dir;
         public CharSprite.ActionType Action { get; set; }
         public bool Looping { get; set; }
         public bool InPlace { get; set; }
@@ -71,12 +64,15 @@ namespace PMDToolkit.Logic.Results {
             this.InPlace = inPlace;
         }
 
-
-        public void Execute() {
+        public void Execute()
+        {
             CharSprite sprite;
-            if (charIndex < 0) {
+            if (charIndex < 0)
+            {
                 sprite = Screen.Players[charIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
-            } else {
+            }
+            else
+            {
                 sprite = Screen.Npcs[charIndex];
             }
             if (sprite.CurrentAction == Action)
@@ -89,6 +85,5 @@ namespace PMDToolkit.Logic.Results {
             sprite.ActionLoop = Looping;
             sprite.MoveInPlace = InPlace;
         }
-
     }
 }

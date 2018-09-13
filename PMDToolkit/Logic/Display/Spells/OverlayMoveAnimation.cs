@@ -21,20 +21,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
 
-namespace PMDToolkit.Logic.Display {
-
-    class OverlayMoveAnimation : ISpellSprite {
+namespace PMDToolkit.Logic.Display
+{
+    internal class OverlayMoveAnimation : ISpellSprite
+    {
         #region Constructors
 
         public OverlayMoveAnimation(int animIndex, RenderTime animTime, int loops, byte transparency)
@@ -55,24 +50,28 @@ namespace PMDToolkit.Logic.Display {
             set;
         }
 
-        public RenderTime FrameTime {
+        public RenderTime FrameTime
+        {
             get;
             set;
         }
 
-        public RenderTime FrameLength {
+        public RenderTime FrameLength
+        {
             get;
             set;
         }
 
-        public int Frame {
+        public int Frame
+        {
             get;
             set;
         }
 
         //total frames
 
-        public int Loops {
+        public int Loops
+        {
             get;
             set;
         }
@@ -100,39 +99,45 @@ namespace PMDToolkit.Logic.Display {
         public RenderTime ActionTime { get; set; }
         public bool ActionDone { get; set; }
 
-
         #endregion Properties
 
         public virtual void Begin()
         {
-
         }
 
-        public virtual void Process(RenderTime elapsedTime) {
+        public virtual void Process(RenderTime elapsedTime)
+        {
             ActionTime += elapsedTime;
             FrameTime += elapsedTime;
-            if (FrameTime >= FrameLength) {
+            if (FrameTime >= FrameLength)
+            {
                 FrameTime = FrameTime - FrameLength;
                 Frame++;
             }
 
-            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TotalFrames) {
+            if (Frame >= TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex).TotalFrames)
+            {
                 Loops++;
                 Frame = 0;
             }
 
-            if (Loops >= TotalLoops) {
+            if (Loops >= TotalLoops)
+            {
                 ActionDone = true;
             }
         }
 
-        public virtual void Draw() {
-            if (!ActionDone) {
+        public virtual void Draw()
+        {
+            if (!ActionDone)
+            {
                 AnimSheet sheet = TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex);
                 TextureManager.TextureProgram.PushModelView();
                 TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, Alpha));
-                for (int y = 0; y < Graphics.TextureManager.SCREEN_HEIGHT; y += sheet.TileHeight) {
-                    for (int x = 0; x < Graphics.TextureManager.SCREEN_WIDTH; x += sheet.TileWidth) {
+                for (int y = 0; y < Graphics.TextureManager.SCREEN_HEIGHT; y += sheet.TileHeight)
+                {
+                    for (int x = 0; x < Graphics.TextureManager.SCREEN_WIDTH; x += sheet.TileWidth)
+                    {
                         Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
                         Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(x, y, 0));
                         Graphics.TextureManager.TextureProgram.UpdateModelView();
@@ -144,13 +149,14 @@ namespace PMDToolkit.Logic.Display {
             }
         }
 
-        public Loc2D GetStart() {
+        public Loc2D GetStart()
+        {
             return new Loc2D();
         }
 
-        public Loc2D GetEnd() {
+        public Loc2D GetEnd()
+        {
             return new Loc2D();
         }
-
     }
 }

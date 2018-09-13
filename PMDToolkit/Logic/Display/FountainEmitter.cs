@@ -21,20 +21,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PMDToolkit.Maps;
-using PMDToolkit.Graphics;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using PMDToolkit.Graphics;
+using PMDToolkit.Maps;
+using System;
 
-namespace PMDToolkit.Logic.Display {
-
-    public class FountainEmitter : IEmitter {
+namespace PMDToolkit.Logic.Display
+{
+    public class FountainEmitter : IEmitter
+    {
         #region Constructors
 
         public FountainEmitter(Loc2D startLoc, int animIndex, int grainsPerBurst, RenderTime burstTime, int bursts, RenderTime animTime, int startDistance, int speed, RenderTime totalTime)
@@ -54,12 +50,14 @@ namespace PMDToolkit.Logic.Display {
 
         #region Properties
 
-        public int AnimationIndex {
+        public int AnimationIndex
+        {
             get;
             set;
         }
-        
-        public RenderTime FrameLength {
+
+        public RenderTime FrameLength
+        {
             get;
             set;
         }
@@ -70,15 +68,16 @@ namespace PMDToolkit.Logic.Display {
             set;
         }
 
-
-        public Loc2D StartLoc {
+        public Loc2D StartLoc
+        {
             get;
             set;
         }
 
         public int StartDistance { get; set; }
 
-        public int Speed {
+        public int Speed
+        {
             get;
             set;
         }
@@ -90,34 +89,33 @@ namespace PMDToolkit.Logic.Display {
         public int Bursts { get; set; }
         public int TotalBursts { get; set; }
 
-
         public RenderTime ActionTime { get; set; }
         public bool ActionDone { get; set; }
 
         #endregion Properties
 
-
-        public virtual void Process(RenderTime elapsedTime) {
+        public virtual void Process(RenderTime elapsedTime)
+        {
             ActionTime += elapsedTime;
             CurrentBurstTime += elapsedTime;
-            if (CurrentBurstTime >= BurstTime) {
+            if (CurrentBurstTime >= BurstTime)
+            {
                 CurrentBurstTime -= BurstTime;
-                for (int i = 0; i < GrainsPerBurst; i++) {
+                for (int i = 0; i < GrainsPerBurst; i++)
+                {
                     double angle = Logic.Display.Screen.Rand.NextDouble() * MathHelper.TwoPi;
                     Loc2D particleSpeed = new Loc2D((int)(Math.Cos(angle) * Speed), (int)(Math.Sin(angle) * Speed));
                     int dist = Logic.Display.Screen.Rand.Next(StartDistance + 1);
                     Loc2D startDelta = new Loc2D((int)(Math.Cos(angle) * dist), (int)(Math.Sin(angle) * dist));
-                    Display.Screen.Effects[Screen.EffectPriority.None].Add(new ParticleAnimation(AnimationIndex, FrameLength, StartLoc + startDelta, particleSpeed, new Loc2D(), Color4.White, Color4.Gray, TotalTime ));
+                    Display.Screen.Effects[Screen.EffectPriority.None].Add(new ParticleAnimation(AnimationIndex, FrameLength, StartLoc + startDelta, particleSpeed, new Loc2D(), Color4.White, Color4.Gray, TotalTime));
                 }
                 Bursts++;
             }
 
-
-            if (Bursts >= TotalBursts) {
+            if (Bursts >= TotalBursts)
+            {
                 ActionDone = true;
             }
         }
-
-
     }
 }
