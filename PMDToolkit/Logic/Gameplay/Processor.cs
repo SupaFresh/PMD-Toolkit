@@ -475,19 +475,19 @@ namespace PMDToolkit.Logic.Gameplay
             {
                 if (CurrentInput[Input.InputType.S] && !PrevInput[Input.InputType.S])
                 {
-                    command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 0);
+                    command = new Command(Command.CommandType.Spell, 0);
                 }
                 else if (CurrentInput[Input.InputType.D] && !PrevInput[Input.InputType.D])
                 {
-                    command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 1);
+                    command = new Command(Command.CommandType.Spell, 1);
                 }
                 else if (CurrentInput[Input.InputType.X] && !PrevInput[Input.InputType.X])
                 {
-                    command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 2);
+                    command = new Command(Command.CommandType.Spell, 2);
                 }
                 else if (CurrentInput[Input.InputType.C] && !PrevInput[Input.InputType.C])
                 {
-                    command = new Logic.Gameplay.Command(Logic.Gameplay.Command.CommandType.Spell, 3);
+                    command = new Command(Command.CommandType.Spell, 3);
                 }
                 else
                 {

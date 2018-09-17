@@ -824,25 +824,21 @@ namespace PMDToolkit.Maps
                     {
                         return y2 - y1;
                     }
-                    break;
 
                 case Direction4.Left:
                     {
                         return x1 - x2;
                     }
-                    break;
 
                 case Direction4.Up:
                     {
                         return y1 - y2;
                     }
-                    break;
 
                 case Direction4.Right:
                     {
                         return x2 - x1;
                     }
-                    break;
 
                 default: return 0;
             }
@@ -861,37 +857,31 @@ namespace PMDToolkit.Maps
                     {
                         return y2 - y1;
                     }
-                    break;
 
                 case Direction3D.Left:
                     {
                         return x1 - x2;
                     }
-                    break;
 
                 case Direction3D.Up:
                     {
                         return y1 - y2;
                     }
-                    break;
 
                 case Direction3D.Right:
                     {
                         return x2 - x1;
                     }
-                    break;
 
                 case Direction3D.Forth:
                     {
                         return z1 - z2;
                     }
-                    break;
 
                 case Direction3D.Back:
                     {
                         return z2 - z1;
                     }
-                    break;
 
                 default: return 0;
             }

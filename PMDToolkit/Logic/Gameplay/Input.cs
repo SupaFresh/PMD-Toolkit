@@ -43,8 +43,6 @@ namespace PMDToolkit.Logic.Gameplay
 
         private bool[] inputStates = new bool[9];
 
-        private Direction8 dir = Maps.Direction8.None;
-
         public bool this[InputType i]
         {
             get
@@ -55,13 +53,7 @@ namespace PMDToolkit.Logic.Gameplay
 
         public int TotalInputs { get { return inputStates.Length; } }
 
-        public Direction8 Direction
-        {
-            get
-            {
-                return dir;
-            }
-        }
+        public Direction8 Direction { get; } = Direction8.None;
 
         public bool LeftMouse { get; set; }
         public bool RightMouse { get; set; }
@@ -79,7 +71,7 @@ namespace PMDToolkit.Logic.Gameplay
 
         public Input()
         {
-            dir = Direction8.None;
+            Direction = Direction8.None;
         }
 
         public Input(KeyboardDevice keyboard, MouseDevice mouse)
@@ -103,7 +95,7 @@ namespace PMDToolkit.Logic.Gameplay
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Right, 1);
             }
 
-            dir = Operations.GetDirection8(new Loc2D(), dirLoc);
+            Direction = Operations.GetDirection8(new Loc2D(), dirLoc);
 
             inputStates[(int)InputType.X] = keyboard[Key.X];
             inputStates[(int)InputType.Z] = keyboard[Key.Z];

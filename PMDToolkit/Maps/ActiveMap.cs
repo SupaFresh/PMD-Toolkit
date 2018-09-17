@@ -88,7 +88,7 @@ namespace PMDToolkit.Maps
             base.Resize(width, height, dir);
         }
 
-        public void Save(BinaryWriter writer)
+        public new void Save(BinaryWriter writer)
         {
             base.Save(writer);
             //write to memory stream
@@ -131,7 +131,7 @@ namespace PMDToolkit.Maps
             }
         }
 
-        public void Load(BinaryReader reader)
+        public new void Load(BinaryReader reader)
         {
             base.Load(reader);
             //read from memory stream

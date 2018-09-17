@@ -61,27 +61,24 @@ namespace PMDToolkit.Logic.Gameplay
                     {
                         return hitSelf;
                     }
-                    break;
 
                 case Enums.Alignment.Friend:
                     {
                         return hitFriend;
                     }
-                    break;
 
                 case Enums.Alignment.Foe:
                     {
                         return hitFoe;
                     }
-                    break;
             }
             return false;
         }
 
         public static bool IsInAreaRange(int range, Loc2D loc1, Loc2D loc2)
         {
-            int DistanceX = System.Math.Abs(loc1.X - loc2.X);
-            int DistanceY = System.Math.Abs(loc1.Y - loc2.Y);
+            int DistanceX = Math.Abs(loc1.X - loc2.X);
+            int DistanceY = Math.Abs(loc1.Y - loc2.Y);
 
             // Are they in range?
             if (DistanceX <= range && DistanceY <= range)
@@ -277,7 +274,6 @@ namespace PMDToolkit.Logic.Gameplay
                         #region FrontOfUserUntil
 
                         Loc2D targetLoc = userLoc;
-                        bool stopattile = false;
                         for (int r = 0; r <= range.Distance; r++)
                         {
                             for (int i = 0; i < MAX_TEAM_SLOTS; i++)
@@ -285,7 +281,6 @@ namespace PMDToolkit.Logic.Gameplay
                                 if (IsTargeted(user, Players[i], range.HitsSelf, range.HitsFriend, range.HitsFoe) && targetLoc == Players[i].CharLoc)
                                 {
                                     targetlist.Add(new Target(Players[i], GetMatchup(user, Players[i]), r));
-                                    stopattile = true;
                                 }
                             }
                             for (int i = 0; i < BasicMap.MAX_NPC_SLOTS; i++)
@@ -293,7 +288,6 @@ namespace PMDToolkit.Logic.Gameplay
                                 if (IsTargeted(user, Npcs[i], range.HitsSelf, range.HitsFriend, range.HitsFoe) && targetLoc == Npcs[i].CharLoc)
                                 {
                                     targetlist.Add(new Target(Npcs[i], GetMatchup(user, Npcs[i]), r));
-                                    stopattile = true;
                                 }
                             }
 
@@ -1264,7 +1258,7 @@ namespace PMDToolkit.Logic.Gameplay
                         setup.Move.MidAnim.AnimIndex = Data.GameData.ItemDex[itemIndex].Sprite;
                         setup.Move.MidAnim.FrameLength = RenderTime.FromMillisecs(4);
                         setup.Move.MidAnim.Anim1 = 6;
-                        setup.Move.EndAnim.AnimType = Logic.Display.MoveAnimationType.Normal;
+                        setup.Move.EndAnim.AnimType = Display.MoveAnimationType.Normal;
                         setup.Move.EndAnim.AnimIndex = 30;
                         setup.Move.EndAnim.FrameLength = RenderTime.FromMillisecs(8);
                         setup.Move.EndAnim.Anim1 = 1;

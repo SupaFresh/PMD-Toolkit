@@ -86,7 +86,7 @@ namespace PMDToolkit.Maps.Floors
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    MapArray[x, y] = new Tile(PMDToolkit.Enums.TileType.Walkable, 0, 0, 0);
+                    MapArray[x, y] = new Tile(Enums.TileType.Walkable, 0, 0, 0);
                     GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                 }
             }

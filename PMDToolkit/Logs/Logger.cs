@@ -41,7 +41,7 @@ namespace PMDToolkit.Logs
         {
             battleLog = new List<string>();
 
-            XmlWriterSettings = new System.Xml.XmlWriterSettings();
+            XmlWriterSettings = new XmlWriterSettings();
             XmlWriterSettings.OmitXmlDeclaration = false;
             XmlWriterSettings.IndentChars = "  ";
             XmlWriterSettings.Indent = true;
