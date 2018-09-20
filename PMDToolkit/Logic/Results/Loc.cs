@@ -32,7 +32,7 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.Loc; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int charIndex;
+        private readonly int charIndex;
         private Loc2D newLoc;
 
         public Loc(int charIndex, Loc2D newLoc)

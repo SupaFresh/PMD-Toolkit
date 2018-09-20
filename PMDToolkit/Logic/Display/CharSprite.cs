@@ -172,15 +172,12 @@ namespace PMDToolkit.Logic.Display
 
         public Enums.StatusAilment StatusAilment { get; set; }
 
-        //determining position
-        private Loc2D charLoc;
-
-        public Loc2D CharLoc { get { return charLoc; } set { charLoc = value; } }
+        public Loc2D CharLoc { get; set; }
 
         public Loc2D TileOffset;
         private Loc2D drawOffset;
         private byte opacity;
-        public Loc2D MapLoc { get { return new Loc2D(charLoc.X * TextureManager.TILE_SIZE + TileOffset.X + drawOffset.X, charLoc.Y * TextureManager.TILE_SIZE + TileOffset.Y + drawOffset.Y); } }
+        public Loc2D MapLoc { get { return new Loc2D(CharLoc.X * TextureManager.TILE_SIZE + TileOffset.X + drawOffset.X, CharLoc.Y * TextureManager.TILE_SIZE + TileOffset.Y + drawOffset.Y); } }
         public int MapHeight { get; set; }
 
         public bool Dead { get; set; }
@@ -206,7 +203,7 @@ namespace PMDToolkit.Logic.Display
 
         public CharSprite()
         {
-            charLoc = new Loc2D();
+            CharLoc = new Loc2D();
             ActionDone = true;
             Dead = true;
         }
@@ -217,9 +214,9 @@ namespace PMDToolkit.Logic.Display
         //-CharDir
         public CharSprite(Loc2D charLoc, Direction8 charDir)
         {
-            this.charLoc = charLoc;
-            this.CharDir = charDir;
-            this.ActionDone = true;
+            CharLoc = charLoc;
+            CharDir = charDir;
+            ActionDone = true;
             //everything else at default values
             //CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender is 0 for now
             CharData = new Gameplay.FormData();
@@ -569,8 +566,8 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
-                Loc2D frontDraw = new Loc2D(charLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(1).TileWidth / 2,
-                    charLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(1).TileHeight);
+                Loc2D frontDraw = new Loc2D(CharLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(1).TileWidth / 2,
+                    CharLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(1).TileHeight);
 
                 Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
                 Graphics.TextureManager.TextureProgram.UpdateModelView();
@@ -586,8 +583,8 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
-                Loc2D frontDraw = new Loc2D(charLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(0).TileWidth / 2,
-                    charLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(0).TileHeight);
+                Loc2D frontDraw = new Loc2D(CharLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(0).TileWidth / 2,
+                    CharLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(0).TileHeight);
 
                 Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
                 Graphics.TextureManager.TextureProgram.UpdateModelView();
@@ -603,8 +600,8 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
-                Loc2D frontDraw = new Loc2D(charLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(2).TileWidth / 2,
-                    charLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(2).TileHeight);
+                Loc2D frontDraw = new Loc2D(CharLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(2).TileWidth / 2,
+                    CharLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(2).TileHeight);
 
                 Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
                 Graphics.TextureManager.TextureProgram.UpdateModelView();

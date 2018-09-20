@@ -32,8 +32,8 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.SpawnNpc; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int itemSlot;
-        private int sprite;
+        private readonly int itemSlot;
+        private readonly int sprite;
         private Loc2D itemLoc;
 
         public AddItem(ActiveMap map, int itemSlot)

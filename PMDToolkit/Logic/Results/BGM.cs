@@ -33,8 +33,8 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.BGM; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private string newBGM;
-        private bool fade;
+        private readonly string newBGM;
+        private readonly bool fade;
 
         public BGM(string newBGM, bool fade)
         {

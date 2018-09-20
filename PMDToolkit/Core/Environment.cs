@@ -42,7 +42,7 @@ namespace PMDToolkit.Core
         {
             get
             {
-                return System.IO.Path.GetDirectoryName(StartupPath);
+                return Path.GetDirectoryName(StartupPath);
             }
         }
 
@@ -83,7 +83,7 @@ namespace PMDToolkit.Core
             const int linkerTimestampOffset = 8;
 
             byte[] peHeader = new byte[2048];
-            using (FileStream fileStream = new FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 fileStream.Read(peHeader, 0, 2048);
             }

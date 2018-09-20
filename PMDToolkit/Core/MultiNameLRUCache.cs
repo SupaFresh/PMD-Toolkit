@@ -32,8 +32,8 @@ namespace PMDToolkit.Core
 
         private Dictionary<K, ValueItem<K, V>> names = new Dictionary<K, ValueItem<K, V>>();
         private LinkedList<ValueItem<K, V>> values = new LinkedList<ValueItem<K, V>>();
-        private int capacity;
-        private Object lockObject = new object();
+        private readonly int capacity;
+        private readonly object lockObject = new object();
 
         #endregion Fields
 
@@ -73,9 +73,8 @@ namespace PMDToolkit.Core
         {
             lock (lockObject)
             {
-                ValueItem<K, V> node;
                 //make sure key exists
-                if (names.TryGetValue(oldKey, out node))
+                if (names.TryGetValue(oldKey, out ValueItem<K, V> node))
                 {
                     node.keys.AddLast(newKey);
                     names.Add(newKey, node);
@@ -87,9 +86,8 @@ namespace PMDToolkit.Core
         {
             lock (lockObject)
             {
-                ValueItem<K, V> node;
                 //make sure key exists
-                if (names.TryGetValue(aliasKey, out node))
+                if (names.TryGetValue(aliasKey, out ValueItem<K, V> node))
                 {
                     return node.keys.First.Value;
                 }
@@ -109,8 +107,7 @@ namespace PMDToolkit.Core
         {
             lock (lockObject)
             {
-                ValueItem<K, V> node;
-                if (names.TryGetValue(key, out node))
+                if (names.TryGetValue(key, out ValueItem<K, V> node))
                 {
                     V value = node.value;
 

@@ -29,68 +29,32 @@ namespace PMDToolkit.Core
     {
         public static byte ToByte(this string str)
         {
-            byte result = 0;
-            if (!string.IsNullOrEmpty(str) && byte.TryParse(str, out result))
-            {
-                return result;
-            }
-            else
-                return 0;
+            return !string.IsNullOrEmpty(str) && byte.TryParse(str, out byte result) ? result : (byte)0;
         }
 
         public static byte ToByte(this string str, byte defaultVal)
         {
-            byte result = 0;
-            if (str != null && byte.TryParse(str, out result) == true)
-            {
-                return result;
-            }
-            else
-                return defaultVal;
+            return str != null && byte.TryParse(str, out byte result) == true ? result : defaultVal;
         }
 
         public static int ToInt(this string str)
         {
-            int result = 0;
-            if (!string.IsNullOrEmpty(str) && int.TryParse(str, out result))
-            {
-                return result;
-            }
-            else
-                return 0;
+            return !string.IsNullOrEmpty(str) && int.TryParse(str, out int result) ? result : 0;
         }
 
         public static int ToInt(this string str, int defaultVal)
         {
-            int result = 0;
-            if (str != null && int.TryParse(str, out result) == true)
-            {
-                return result;
-            }
-            else
-                return defaultVal;
+            return str != null && int.TryParse(str, out int result) == true ? result : defaultVal;
         }
 
         public static double ToDbl(this string str)
         {
-            double result = 0;
-            if (str != null && double.TryParse(str, out result) == true)
-            {
-                return result;
-            }
-            else
-                return 0;
+            return str != null && double.TryParse(str, out double result) == true ? result : 0;
         }
 
         public static double ToDbl(this string str, double defaultVal)
         {
-            double result = 0;
-            if (str != null && double.TryParse(str, out result) == true)
-            {
-                return result;
-            }
-            else
-                return defaultVal;
+            return str != null && double.TryParse(str, out double result) == true ? result : defaultVal;
         }
 
         public static string ToIntString(this bool boolval)
@@ -111,19 +75,12 @@ namespace PMDToolkit.Core
 
         public static bool IsNumeric(this string str)
         {
-            int result;
-            return int.TryParse(str, out result);
+            return int.TryParse(str, out int result);
         }
 
         public static ulong ToUlng(this string str)
         {
-            ulong result = 0;
-            if (ulong.TryParse(str, out result) == true)
-            {
-                return result;
-            }
-            else
-                return 0;
+            return ulong.TryParse(str, out ulong result) == true ? result : 0;
         }
 
         public static bool ToBool(this string str)
@@ -188,15 +145,7 @@ namespace PMDToolkit.Core
 
         public static DateTime? ToDate(this string date)
         {
-            DateTime tmpDate;
-            if (DateTime.TryParse(date, out tmpDate))
-            {
-                return tmpDate;
-            }
-            else
-            {
-                return null;
-            }
+            return DateTime.TryParse(date, out DateTime tmpDate) ? (DateTime?)tmpDate : null;
         }
 
         public static string ToHex(this System.Drawing.Color color)

@@ -33,7 +33,7 @@ namespace PMDToolkit.Logic.Results
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
         private ISprite anim;
-        private Display.Screen.EffectPriority priority;
+        private readonly Screen.EffectPriority priority;
 
         public CreateAnim(ISprite anim, Display.Screen.EffectPriority priority)
         {

@@ -32,7 +32,7 @@ namespace PMDToolkit.Logic.Results
 
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private IEmitter emitter;
+        private readonly IEmitter emitter;
 
         public CreateEmitter(IEmitter emitter)
         {

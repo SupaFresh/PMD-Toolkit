@@ -31,7 +31,7 @@ namespace PMDToolkit.Logic.Results
 
         public RenderTime Delay { get { return Display.Screen.TOTAL_FADE_TIME; } }
 
-        private Display.Screen.FadeType fadeType;
+        private readonly Display.Screen.FadeType fadeType;
 
         public Fade(Display.Screen.FadeType fadeType)
         {

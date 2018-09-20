@@ -36,44 +36,43 @@ namespace PMDToolkit.Logic.Results
 
         public RenderTime Delay { get { return InstantPass ? RenderTime.Zero : CharSprite.GetPassTime(charData, dir, Action); } }
 
-        private int charIndex;
         private FormData charData;
-        private Maps.Direction8 dir;
+        private readonly Maps.Direction8 dir;
         public CharSprite.ActionType Action { get; set; }
         public bool Looping { get; set; }
         public bool InPlace { get; set; }
         public bool InstantPass { get; set; }
 
-        public int CharIndex { get { return charIndex; } }
+        public int CharIndex { get; }
 
         public CreateAction(int charIndex, ActiveChar character, CharSprite.ActionType action)
         {
-            this.charIndex = charIndex;
-            this.Action = action;
-            this.charData = character.CharData;
-            this.dir = character.CharDir;
+            CharIndex = charIndex;
+            Action = action;
+            charData = character.CharData;
+            dir = character.CharDir;
         }
 
         public CreateAction(int charIndex, ActiveChar character, CharSprite.ActionType action, bool looping, bool inPlace)
         {
-            this.charIndex = charIndex;
-            this.Action = action;
-            this.charData = character.CharData;
-            this.dir = character.CharDir;
-            this.Looping = looping;
-            this.InPlace = inPlace;
+            CharIndex = charIndex;
+            Action = action;
+            charData = character.CharData;
+            dir = character.CharDir;
+            Looping = looping;
+            InPlace = inPlace;
         }
 
         public void Execute()
         {
             CharSprite sprite;
-            if (charIndex < 0)
+            if (CharIndex < 0)
             {
-                sprite = Screen.Players[charIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
+                sprite = Screen.Players[CharIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
             }
             else
             {
-                sprite = Screen.Npcs[charIndex];
+                sprite = Screen.Npcs[CharIndex];
             }
             if (sprite.CurrentAction == Action)
                 sprite.PrevActionTime += sprite.ActionTime;

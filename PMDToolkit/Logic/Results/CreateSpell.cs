@@ -32,8 +32,8 @@ namespace PMDToolkit.Logic.Results
 
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private ISpellSprite spell;
-        private Display.Screen.EffectPriority priority;
+        private readonly ISpellSprite spell;
+        private readonly Screen.EffectPriority priority;
 
         public CreateSpell(ISpellSprite spell, Display.Screen.EffectPriority priority)
         {

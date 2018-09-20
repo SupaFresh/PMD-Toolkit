@@ -74,7 +74,7 @@ namespace PMDToolkit.Graphics
         public virtual void Dispose()
         {
             //Free VBO and IBO if needed
-            freeVBO();
+            FreeVBO();
             //Free texture data if needed
             FreeTexture();
         }
@@ -138,7 +138,7 @@ namespace PMDToolkit.Graphics
                 }
 
                 //Generate VBO
-                initVBO();
+                InitVBO();
             }
             else
             {
@@ -344,7 +344,7 @@ namespace PMDToolkit.Graphics
             }
         }
 
-        private void initVBO()
+        private void InitVBO()
         {
             //If texture is loaded and VBO does not already exist
             if (mTextureID != 0 && mVBOID == 0)
@@ -371,7 +371,7 @@ namespace PMDToolkit.Graphics
             }
         }
 
-        private void freeVBO()
+        private void FreeVBO()
         {
             //Free VBO and IBO
             if (mVBOID != 0)

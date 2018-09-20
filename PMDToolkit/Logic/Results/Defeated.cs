@@ -39,15 +39,15 @@ namespace PMDToolkit.Logic.Results
             }
         }
 
-        private int charIndex;
+        private readonly int charIndex;
         private FormData charData;
-        private Maps.Direction8 dir;
+        private readonly Maps.Direction8 dir;
 
         public Defeated(int charIndex, ActiveChar character)
         {
             this.charIndex = charIndex;
-            this.charData = character.CharData;
-            this.dir = character.CharDir;
+            charData = character.CharData;
+            dir = character.CharDir;
         }
 
         public void Execute()

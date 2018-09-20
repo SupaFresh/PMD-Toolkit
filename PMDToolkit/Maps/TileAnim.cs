@@ -50,8 +50,10 @@ namespace PMDToolkit.Maps
 
         public TileAnim(Loc2D texture, int sheet)
         {
-            Frames = new List<TileTexture>();
-            Frames.Add(new TileTexture(texture, sheet));
+            Frames = new List<TileTexture>
+            {
+                new TileTexture(texture, sheet)
+            };
             FrameLength = RenderTime.FromMillisecs(1);
         }
 

@@ -23,7 +23,6 @@ THE SOFTWARE.
 
 namespace PMDToolkit.Core
 {
-    using System;
     using System.Collections.Generic;
 
     public class LRUCache<K, V>
@@ -31,9 +30,9 @@ namespace PMDToolkit.Core
         #region Fields
 
         private Dictionary<K, LinkedListNode<LRUCacheItem<K, V>>> cacheMap = new Dictionary<K, LinkedListNode<LRUCacheItem<K, V>>>();
-        private int capacity;
+        private readonly int capacity;
         private LinkedList<LRUCacheItem<K, V>> lruList = new LinkedList<LRUCacheItem<K, V>>();
-        private Object lockObject = new object();
+        private readonly object lockObject = new object();
 
         #endregion Fields
 
@@ -73,8 +72,7 @@ namespace PMDToolkit.Core
         {
             lock (lockObject)
             {
-                LinkedListNode<LRUCacheItem<K, V>> node;
-                if (cacheMap.TryGetValue(key, out node))
+                if (cacheMap.TryGetValue(key, out LinkedListNode<LRUCacheItem<K, V>> node))
                 {
                     V value = node.Value.value;
 

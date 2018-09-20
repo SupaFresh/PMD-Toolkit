@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.BattleMsg; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private string msg;
+        private readonly string msg;
 
         public BattleMsg(string msg)
         {

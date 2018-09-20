@@ -88,10 +88,10 @@ namespace PMDToolkit.Logic.Display
         public static GameZoom Zoom { get; set; }
 
         private static Results.IResultContainer currentContainer;
-        private static Queue<Results.IResultContainer> resultContainers { get; set; }
+        private static Queue<Results.IResultContainer> ResultContainers { get; set; }
         private static Results.IResultContainer outContainer;
 
-        private static List<Results.IResult> miscResults { get; set; }
+        private static List<Results.IResult> MiscResults { get; set; }
 
         public static readonly RenderTime TOTAL_FADE_TIME = RenderTime.FromMillisecs(1000);
         public static RenderTime FadeTime { get; set; }
@@ -145,8 +145,8 @@ namespace PMDToolkit.Logic.Display
 
         public static void Init()
         {
-            miscResults = new List<Logic.Results.IResult>();
-            resultContainers = new Queue<Results.IResultContainer>();
+            MiscResults = new List<Logic.Results.IResult>();
+            ResultContainers = new Queue<Results.IResultContainer>();
             outContainer = new Results.ResultContainer();
             Map = new DisplayMap();
             Players = new PlayerSprite[Gameplay.Processor.MAX_TEAM_SLOTS];
@@ -194,7 +194,7 @@ namespace PMDToolkit.Logic.Display
             {
                 Results.ResultContainer container = new Results.ResultContainer();
                 container.AddResult(result);
-                resultContainers.Enqueue(container);
+                ResultContainers.Enqueue(container);
             }
         }
 
@@ -204,7 +204,7 @@ namespace PMDToolkit.Logic.Display
             {
                 if (!currentContainer.Empty)
                 {
-                    resultContainers.Enqueue(currentContainer);
+                    ResultContainers.Enqueue(currentContainer);
                 }
                 currentContainer = null;
             }
@@ -230,8 +230,7 @@ namespace PMDToolkit.Logic.Display
         public static void SwitchConcurrentBranch(int id)
         {
             //do this only if in run mode
-            Results.MotionResultContainer container = currentContainer as Results.MotionResultContainer;
-            if (container != null)
+            if (currentContainer is Results.MotionResultContainer container)
             {
                 container.OpenBranch(id);
             }
@@ -240,8 +239,7 @@ namespace PMDToolkit.Logic.Display
         public static void SwitchConcurrentBranch()
         {
             //do this only if not in run mode
-            Results.ResultContainer container = currentContainer as Results.ResultContainer;
-            if (container != null)
+            if (currentContainer is Results.ResultContainer container)
             {
                 if (!container.IsBranchEmpty())
                     container.OpenNewBranch();
@@ -282,7 +280,7 @@ namespace PMDToolkit.Logic.Display
 
         public static void ForceReady()
         {
-            while (!outContainer.IsFinished() || resultContainers.Count > 0)
+            while (!outContainer.IsFinished() || ResultContainers.Count > 0)
             {
                 ProcessActions(RenderTime.FromMillisecs(1000));
                 ProcessTaskQueue(false);
@@ -376,12 +374,12 @@ namespace PMDToolkit.Logic.Display
             if (outContainer.IsFinished())
             {
                 //if no choices are queued
-                if (resultContainers.Count == 0 && askUp)
+                if (ResultContainers.Count == 0 && askUp)
                     Logic.Gameplay.Processor.Process();
 
                 //then do actual choice queue processing (if choices are now queued)
-                if (resultContainers.Count > 0)
-                    outContainer = resultContainers.Dequeue();
+                if (ResultContainers.Count > 0)
+                    outContainer = ResultContainers.Dequeue();
             }
 
             DelegateResultContainers();
@@ -407,8 +405,8 @@ namespace PMDToolkit.Logic.Display
 
                     //in the end, due to all elements potentially being zero-frame results,
                     //outContainer may be empty with the screen still ReadyForResults, and require another enqueue
-                    if (resultContainers.Count > 0)
-                        outContainer = resultContainers.Dequeue();
+                    if (ResultContainers.Count > 0)
+                        outContainer = ResultContainers.Dequeue();
 
                     //after re-enqueue, the outContainer may or may not be empty now
                     //if so, it means the choice queue has exhausted all and must wait until the next call

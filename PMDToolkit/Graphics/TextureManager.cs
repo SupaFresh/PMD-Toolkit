@@ -160,20 +160,34 @@ namespace PMDToolkit.Graphics
 
             Game.UpdateLoadMsg("Loading Caches");
             //initialize caches
-            spriteCache = new MultiNameLRUCache<string, SpriteSheet>(SPRITE_CACHE_SIZE);
-            spriteCache.OnItemRemoved = DisposeCachedObject;
-            mugshotCache = new MultiNameLRUCache<string, TileSheet>(MUGSHOT_CACHE_SIZE);
-            mugshotCache.OnItemRemoved = DisposeCachedObject;
-            spellCache = new LRUCache<string, AnimSheet>(SPELL_CACHE_SIZE);
-            spellCache.OnItemRemoved = DisposeCachedObject;
-            statusCache = new LRUCache<int, AnimSheet>(STATUS_CACHE_SIZE);
-            statusCache.OnItemRemoved = DisposeCachedObject;
-            itemCache = new LRUCache<int, AnimSheet>(ITEM_CACHE_SIZE);
-            itemCache.OnItemRemoved = DisposeCachedObject;
-            objectCache = new LRUCache<int, AnimSheet>(OBJECT_CACHE_SIZE);
-            objectCache.OnItemRemoved = DisposeCachedObject;
-            tileCache = new LRUCache<string, Texture>(TILE_CACHE_SIZE);
-            tileCache.OnItemRemoved = DisposeCachedObject;
+            spriteCache = new MultiNameLRUCache<string, SpriteSheet>(SPRITE_CACHE_SIZE)
+            {
+                OnItemRemoved = DisposeCachedObject
+            };
+            mugshotCache = new MultiNameLRUCache<string, TileSheet>(MUGSHOT_CACHE_SIZE)
+            {
+                OnItemRemoved = DisposeCachedObject
+            };
+            spellCache = new LRUCache<string, AnimSheet>(SPELL_CACHE_SIZE)
+            {
+                OnItemRemoved = DisposeCachedObject
+            };
+            statusCache = new LRUCache<int, AnimSheet>(STATUS_CACHE_SIZE)
+            {
+                OnItemRemoved = DisposeCachedObject
+            };
+            itemCache = new LRUCache<int, AnimSheet>(ITEM_CACHE_SIZE)
+            {
+                OnItemRemoved = DisposeCachedObject
+            };
+            objectCache = new LRUCache<int, AnimSheet>(OBJECT_CACHE_SIZE)
+            {
+                OnItemRemoved = DisposeCachedObject
+            };
+            tileCache = new LRUCache<string, Texture>(TILE_CACHE_SIZE)
+            {
+                OnItemRemoved = DisposeCachedObject
+            };
 
             //load metadata
             tileData = new TileMetadata[TOTAL_TILE_SHEETS];
@@ -288,7 +302,7 @@ namespace PMDToolkit.Graphics
             try
             {
                 // If we are still here, that means the sprite wasn't in the cache
-                if (System.IO.File.Exists(Paths.CachedGFXPath + "Sprite\\Sprite" + num + ".sprite"))
+                if (File.Exists(Paths.CachedGFXPath + "Sprite\\Sprite" + num + ".sprite"))
                 {
                     sheet = new SpriteSheet();
                     string changedFormString = formString;
@@ -380,7 +394,7 @@ namespace PMDToolkit.Graphics
             AnimSheet cacheSheet = spellCache.Get(animType.ToString() + num);
             if (cacheSheet != null) return cacheSheet;
 
-            if (System.IO.File.Exists(Paths.EffectsPath + animType.ToString() + "-" + num + ".png"))
+            if (File.Exists(Paths.EffectsPath + animType.ToString() + "-" + num + ".png"))
             {
                 AnimSheet sheet = new AnimSheet();
                 sheet.LoadPixelsFromFile32(Paths.EffectsPath + animType.ToString() + "-" + num + ".png");
@@ -411,7 +425,7 @@ namespace PMDToolkit.Graphics
             AnimSheet cacheSheet = statusCache.Get(num);
             if (cacheSheet != null) return cacheSheet;
 
-            if (System.IO.File.Exists(Paths.DataPath + "\\Graphics\\Status\\Status-" + num + ".png"))
+            if (File.Exists(Paths.DataPath + "\\Graphics\\Status\\Status-" + num + ".png"))
             {
                 AnimSheet sheet = new AnimSheet();
                 sheet.LoadPixelsFromFile32(Paths.DataPath + "\\Graphics\\Status\\Status-" + num + ".png");
@@ -429,7 +443,7 @@ namespace PMDToolkit.Graphics
             AnimSheet cacheSheet = itemCache.Get(num);
             if (cacheSheet != null) return cacheSheet;
 
-            if (System.IO.File.Exists(Paths.ItemsPath + num + ".png"))
+            if (File.Exists(Paths.ItemsPath + num + ".png"))
             {
                 AnimSheet sheet = new AnimSheet();
                 sheet.LoadPixelsFromFile32(Paths.ItemsPath + num + ".png");
@@ -447,7 +461,7 @@ namespace PMDToolkit.Graphics
             AnimSheet cacheSheet = objectCache.Get(num);
             if (cacheSheet != null) return cacheSheet;
 
-            if (System.IO.File.Exists(Paths.DataPath + "Graphics\\Object\\Object-" + num + ".png"))
+            if (File.Exists(Paths.DataPath + "Graphics\\Object\\Object-" + num + ".png"))
             {
                 AnimSheet sheet = new AnimSheet();
                 sheet.LoadPixelsFromFile32(Paths.DataPath + "Graphics\\Object\\Object-" + num + ".png");
@@ -486,7 +500,7 @@ namespace PMDToolkit.Graphics
             try
             {
                 // If we are still here, that means the sprite wasn't in the cache
-                if (System.IO.File.Exists(Paths.CachedGFXPath + "Portrait\\Portrait" + num + ".portrait"))
+                if (File.Exists(Paths.CachedGFXPath + "Portrait\\Portrait" + num + ".portrait"))
                 {
                     sheet = new TileSheet();
                     string changedFormString = formString;

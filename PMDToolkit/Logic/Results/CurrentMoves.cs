@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.CurrentMoves; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int[] moves;
+        private readonly int[] moves;
 
         public CurrentMoves(Gameplay.MoveState[] moves)
         {
