@@ -23,7 +23,7 @@ THE SOFTWARE.
 
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using PMDToolkit.Data;
 using System;
 using System.Collections.Generic;

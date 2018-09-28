@@ -30,7 +30,7 @@ namespace PMDToolkit.Logs
 {
     public static class Logger
     {
-        private static object lockObj = new object();
+        private static readonly object lockObj = new object();
 
         private static List<string> battleLog;
         private static DateTime journeyStart;
@@ -41,11 +41,13 @@ namespace PMDToolkit.Logs
         {
             battleLog = new List<string>();
 
-            XmlWriterSettings = new XmlWriterSettings();
-            XmlWriterSettings.OmitXmlDeclaration = false;
-            XmlWriterSettings.IndentChars = "  ";
-            XmlWriterSettings.Indent = true;
-            XmlWriterSettings.NewLineChars = Environment.NewLine;
+            XmlWriterSettings = new XmlWriterSettings
+            {
+                OmitXmlDeclaration = false,
+                IndentChars = "  ",
+                Indent = true,
+                NewLineChars = Environment.NewLine
+            };
 
             if (!Directory.Exists("Logs"))
                 Directory.CreateDirectory("Logs");
