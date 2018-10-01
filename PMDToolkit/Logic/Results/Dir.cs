@@ -32,26 +32,25 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.Dir; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int charIndex;
-        private Direction8 newDir;
+        private readonly Direction8 newDir;
 
-        public int CharIndex { get { return charIndex; } }
+        public int CharIndex { get; }
 
         public Dir(int charIndex, Direction8 newDir)
         {
-            this.charIndex = charIndex;
+            this.CharIndex = charIndex;
             this.newDir = newDir;
         }
 
         public void Execute()
         {
-            if (charIndex < 0)
+            if (CharIndex < 0)
             {
-                Screen.Players[charIndex + Gameplay.Processor.MAX_TEAM_SLOTS].CharDir = newDir;
+                Screen.Players[CharIndex + Gameplay.Processor.MAX_TEAM_SLOTS].CharDir = newDir;
             }
             else
             {
-                Screen.Npcs[charIndex].CharDir = newDir;
+                Screen.Npcs[CharIndex].CharDir = newDir;
             }
         }
     }

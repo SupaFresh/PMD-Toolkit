@@ -367,10 +367,10 @@ namespace PMDToolkit.Logic.Gameplay
             if (CurrentInput.MouseWheel != PrevInput.MouseWheel)
             {
                 int diff = CurrentInput.MouseWheel - PrevInput.MouseWheel;
-                if (diff > Int32.MaxValue / 2)
-                    diff = (PrevInput.MouseWheel - Int32.MinValue) + (Int32.MaxValue - CurrentInput.MouseWheel);
-                else if (diff < Int32.MinValue / 2)
-                    diff = (CurrentInput.MouseWheel - Int32.MinValue) + (Int32.MaxValue - PrevInput.MouseWheel);
+                if (diff > int.MaxValue / 2)
+                    diff = (PrevInput.MouseWheel - int.MinValue) + (int.MaxValue - CurrentInput.MouseWheel);
+                else if (diff < int.MinValue / 2)
+                    diff = (CurrentInput.MouseWheel - int.MinValue) + (int.MaxValue - PrevInput.MouseWheel);
 
                 Display.Screen.Zoom -= diff;
                 if (Display.Screen.Zoom < Display.Screen.GameZoom.x8Near)
@@ -1119,7 +1119,7 @@ namespace PMDToolkit.Logic.Gameplay
                 Console.SetCursorPosition(0, 0);
                 string topString = "";
                 string turnString = "Turn #" + (turnCount + 1);
-                topString += String.Format("{0,-82}", turnString);
+                topString += string.Format("{0,-82}", turnString);
                 topString += '\n';
                 for (int i = 0; i < 32 + CurrentMap.Width + 1; i++)
                 {
@@ -1141,7 +1141,7 @@ namespace PMDToolkit.Logic.Gameplay
                     {
                         invString += "Empty";
                     }
-                    statString += String.Format("{0,-32}", invString);
+                    statString += string.Format("{0,-32}", invString);
                     statString += '\n';
                 }
                 statString += "--------------------------------\n";
@@ -1163,7 +1163,7 @@ namespace PMDToolkit.Logic.Gameplay
                     {
                         moveString += "Empty";
                     }
-                    statString += String.Format("{0,-32}", moveString);
+                    statString += string.Format("{0,-32}", moveString);
                     statString += '\n';
                 }
 
@@ -1214,7 +1214,7 @@ namespace PMDToolkit.Logic.Gameplay
                 List<string> recentMsgs = Logs.Logger.GetRecentBattleLog(6);
                 for (int i = 0; i < recentMsgs.Count; i++)
                 {
-                    finalString += String.Format("{0,-64}", recentMsgs[i]);
+                    finalString += string.Format("{0,-64}", recentMsgs[i]);
                     finalString += '\n';
                 }
                 Console.Write(finalString);

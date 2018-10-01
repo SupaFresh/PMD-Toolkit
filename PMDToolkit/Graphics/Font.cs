@@ -64,10 +64,10 @@ namespace PMDToolkit.Graphics
         public virtual void Dispose()
         {
             //Clear sprite sheet data
-            freeFont();
+            FreeFont();
         }
 
-        private void freeFont()
+        private void FreeFont()
         {
             //Get rid of sprite sheet
 
@@ -156,8 +156,8 @@ namespace PMDToolkit.Graphics
                 //Space
                 if (text[i] == ' ')
                 {
-                    Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(mSpace, 0, 0));
-                    Graphics.TextureManager.TextureProgram.UpdateModelView();
+                    TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(mSpace, 0, 0));
+                    TextureManager.TextureProgram.UpdateModelView();
                     dX += mSpace;
                 }
                 //Newline
@@ -185,8 +185,8 @@ namespace PMDToolkit.Graphics
                             }
                             break;
                     }
-                    Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(targetX - dX, lineSpace, 0));
-                    Graphics.TextureManager.TextureProgram.UpdateModelView();
+                    TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(targetX - dX, lineSpace, 0));
+                    TextureManager.TextureProgram.UpdateModelView();
                     dY += lineSpace;
                     dX += targetX - dX;
                 }
@@ -197,7 +197,7 @@ namespace PMDToolkit.Graphics
                     if (mCharToVertIndexMap.ContainsKey(text[i]))
                     {
                         //Update position matrix in program
-                        Graphics.TextureManager.TextureProgram.UpdateModelView();
+                        TextureManager.TextureProgram.UpdateModelView();
 
                         //Get ASCII code's index in the font array
                         Tuple<int, int> texture_char = mCharToVertIndexMap[text[i]];
@@ -215,23 +215,23 @@ namespace PMDToolkit.Graphics
                         mFontSheets[texture_char.Item1].RenderFontSprite(texture_char.Item2);
 
                         //Move over
-                        Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(char_rect.Width, 0, 0));
-                        Graphics.TextureManager.TextureProgram.UpdateModelView();
+                        TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(char_rect.Width, 0, 0));
+                        TextureManager.TextureProgram.UpdateModelView();
 
                         dX += char_rect.Width;
                     }
-                    Graphics.TextureManager.TextureProgram.UpdateModelView();
+                    TextureManager.TextureProgram.UpdateModelView();
                 }
             }
 
             if (currentTexture != -1)
                 mFontSheets[currentTexture].EndRender();
 
-            Graphics.TextureManager.TextureProgram.PopModelView();
-            Graphics.TextureManager.TextureProgram.UpdateModelView();
+            TextureManager.TextureProgram.PopModelView();
+            TextureManager.TextureProgram.UpdateModelView();
         }
 
-        private Rectangle getStringArea(string text, int lineSpace)
+        private Rectangle GetStringArea(string text, int lineSpace)
         {
             //Initialize area
             float subWidth = 0;

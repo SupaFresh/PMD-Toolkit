@@ -54,7 +54,7 @@ namespace PMDToolkit.Graphics
             Color4 cellPixel = new Color4(0, 0, 0, 255);
             Color4 borderPixel = new Color4(255, 0, 0, 255);
             //Get rid of the font if it exists
-            freeFont();
+            FreeFont();
             //Image pixels loaded
             if (LoadPixelsFromFile32(path))
             {
@@ -155,7 +155,7 @@ namespace PMDToolkit.Graphics
             }
         }
 
-        private void freeFont()
+        private void FreeFont()
         {
             //Get rid of sprite sheet
             FreeTexture();
@@ -166,21 +166,21 @@ namespace PMDToolkit.Graphics
             //Set texture
             GL.BindTexture(TextureTarget.Texture2D, TextureID);
             //Enable vertex and texture coordinate arrays
-            Graphics.TextureManager.TextureProgram.EnableVertexPointer();
-            Graphics.TextureManager.TextureProgram.EnableTexCoordPointer();
+            TextureManager.TextureProgram.EnableVertexPointer();
+            TextureManager.TextureProgram.EnableTexCoordPointer();
             //Bind vertex data
             GL.BindBuffer(BufferTarget.ArrayBuffer, mVertexDataBuffer);
             //Set texture coordinate data
-            Graphics.TextureManager.TextureProgram.SetTexCoordPointer(VertexData.SizeInBytes, VertexData.TexCoordOffset);
+            TextureManager.TextureProgram.SetTexCoordPointer(VertexData.SizeInBytes, VertexData.TexCoordOffset);
             //Set vertex data
-            Graphics.TextureManager.TextureProgram.SetVertexPointer(VertexData.SizeInBytes, VertexData.PositionOffset);
+            TextureManager.TextureProgram.SetVertexPointer(VertexData.SizeInBytes, VertexData.PositionOffset);
         }
 
         public void EndRender()
         {
             //Disable vertex and texture coordinate arrays
-            Graphics.TextureManager.TextureProgram.DisableVertexPointer();
-            Graphics.TextureManager.TextureProgram.DisableTexCoordPointer();
+            TextureManager.TextureProgram.DisableVertexPointer();
+            TextureManager.TextureProgram.DisableTexCoordPointer();
         }
 
         public void RenderFontSprite(int sprite)

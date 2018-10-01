@@ -74,52 +74,52 @@ namespace PMDToolkit.Logic.Gameplay
             Direction = Direction8.None;
         }
 
-        public Input(KeyboardDevice Key, MouseDevice mouse)
+        public Input(KeyboardDevice Keyboard, MouseDevice Mouse)
         {
             Loc2D dirLoc = new Loc2D();
 
-            if (Key[Key.Down])
+            if (Keyboard[Key.Down])
             {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Down, 1);
             }
-            if (Key[Key.Left])
+            if (Keyboard[Key.Left])
             {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Left, 1);
             }
-            if (Key[Key.Up])
+            if (Keyboard[Key.Up])
             {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Up, 1);
             }
-            if (Key[Key.Right])
+            if (Keyboard[Key.Right])
             {
                 Operations.MoveInDirection8(ref dirLoc, Direction8.Right, 1);
             }
 
             Direction = Operations.GetDirection8(new Loc2D(), dirLoc);
 
-            inputStates[(int)InputType.X] = Key[Key.X];
-            inputStates[(int)InputType.Z] = Key[Key.Z];
-            inputStates[(int)InputType.C] = Key[Key.C];
-            inputStates[(int)InputType.A] = Key[Key.A];
-            inputStates[(int)InputType.S] = Key[Key.S];
-            inputStates[(int)InputType.D] = Key[Key.D];
-            inputStates[(int)InputType.Q] = Key[Key.Q];
-            inputStates[(int)InputType.W] = Key[Key.W];
+            inputStates[(int)InputType.X] = Keyboard[Key.X];
+            inputStates[(int)InputType.Z] = Keyboard[Key.Z];
+            inputStates[(int)InputType.C] = Keyboard[Key.C];
+            inputStates[(int)InputType.A] = Keyboard[Key.A];
+            inputStates[(int)InputType.S] = Keyboard[Key.S];
+            inputStates[(int)InputType.D] = Keyboard[Key.D];
+            inputStates[(int)InputType.Q] = Keyboard[Key.Q];
+            inputStates[(int)InputType.W] = Keyboard[Key.W];
 
-            inputStates[(int)InputType.Enter] = (Key[Key.Enter]);
+            inputStates[(int)InputType.Enter] = (Keyboard[Key.Enter]);
 
-            LeftMouse = mouse[MouseButton.Left];
-            RightMouse = mouse[MouseButton.Right];
+            LeftMouse = Mouse[MouseButton.Left];
+            RightMouse = Mouse[MouseButton.Right];
 
-            MouseWheel = mouse.Wheel;
+            MouseWheel = Mouse.Wheel;
 
-            MouseLoc = new Loc2D(mouse.X, mouse.Y);
+            MouseLoc = new Loc2D(Mouse.X, Mouse.Y);
 
-            Shift = Key[Key.ShiftLeft] || Key[Key.ShiftRight];
+            Shift = Keyboard[Key.ShiftLeft] || Keyboard[Key.ShiftRight];
 
-            ShowDebug = Key[Key.F1];
-            SpeedDown = Key[Key.F2];
-            SpeedUp = Key[Key.F3];
+            ShowDebug = Keyboard[Key.F1];
+            SpeedDown = Keyboard[Key.F2];
+            SpeedUp = Keyboard[Key.F3];
 #if GAME_MODE
             Intangible = keyboard[Key.F4];
             Print = keyboard[Key.F5];
@@ -142,6 +142,21 @@ namespace PMDToolkit.Logic.Gameplay
         public static bool operator !=(Input input1, Input input2)
         {
             return !(input1 == input2);
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

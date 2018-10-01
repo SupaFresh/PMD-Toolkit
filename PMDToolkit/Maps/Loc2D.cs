@@ -80,5 +80,20 @@ namespace PMDToolkit.Maps
         {
             return param1.X * param2.X + param1.Y * param2.Y;
         }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

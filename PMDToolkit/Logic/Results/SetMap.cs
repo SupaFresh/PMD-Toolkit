@@ -33,13 +33,15 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.SetMap; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private DisplayMap map;
-        private int floor;
+        private readonly DisplayMap map;
+        private readonly int floor;
 
         public SetMap(ActiveMap map, int floor)
         {
-            this.map = new DisplayMap();
-            this.map.MapArray = new Tile[map.Width, map.Height];
+            this.map = new DisplayMap
+            {
+                MapArray = new Tile[map.Width, map.Height]
+            };
             for (int y = 0; y < map.Height; y++)
             {
                 for (int x = 0; x < map.Width; x++)

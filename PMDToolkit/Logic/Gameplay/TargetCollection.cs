@@ -27,45 +27,39 @@ namespace PMDToolkit.Logic.Gameplay
 {
     public class TargetCollection
     {
-        private List<Target> targets;
-        private List<TileTarget> tiles;
+        public int Self { get; private set; }
+        public int Friends { get; private set; }
+        public int Foes { get; private set; }
 
-        private int self;
-        public int Self { get { return self; } }
-        private int friends;
-        public int Friends { get { return friends; } }
-        private int foes;
-        public int Foes { get { return foes; } }
-
-        public List<Target> Targets { get { return targets; } }
-        public List<TileTarget> Tiles { get { return tiles; } }
+        public List<Target> Targets { get; }
+        public List<TileTarget> Tiles { get; }
 
         public TargetCollection()
         {
-            targets = new List<Target>();
-            tiles = new List<TileTarget>();
+            Targets = new List<Target>();
+            Tiles = new List<TileTarget>();
         }
 
         public void Add(Target target)
         {
             if (target.TargetAlignment == Enums.Alignment.Self)
             {
-                self++;
+                Self++;
             }
             else if (target.TargetAlignment == Enums.Alignment.Friend)
             {
-                friends++;
+                Friends++;
             }
             else if (target.TargetAlignment == Enums.Alignment.Foe)
             {
-                foes++;
+                Foes++;
             }
-            targets.Add(target);
+            Targets.Add(target);
         }
 
         public void Add(TileTarget tile)
         {
-            tiles.Add(tile);
+            Tiles.Add(tile);
         }
     }
 }

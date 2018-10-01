@@ -532,8 +532,7 @@ namespace PMDToolkit.Graphics
 
             try
             {
-                int totalFrames;
-                TileSheet sprite = CompilePortraitInternal(spriteDir, out totalFrames);
+                TileSheet sprite = CompilePortraitInternal(spriteDir, out int totalFrames);
 
                 using (MemoryStream spriteStream = new MemoryStream())
                 {

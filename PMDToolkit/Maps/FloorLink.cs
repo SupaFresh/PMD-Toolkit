@@ -34,6 +34,21 @@ namespace PMDToolkit.Maps
             EntranceIndex = entranceIndex;
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         public static bool operator ==(FloorLink link1, FloorLink link2)
         {
             return ((link1.FloorNum == link2.FloorNum) && (link1.EntranceIndex == link2.EntranceIndex));

@@ -34,7 +34,7 @@ namespace PMDToolkit.Logic.Results
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
         private Loc2D loc;
-        private Tile tile;
+        private readonly Tile tile;
         public List<TileAnim> groundLayers;
         public List<TileAnim> propBackLayers;
         public List<TileAnim> propFrontLayers;

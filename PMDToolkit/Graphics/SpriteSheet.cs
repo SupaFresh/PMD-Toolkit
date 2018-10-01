@@ -45,48 +45,40 @@ namespace PMDToolkit.Graphics
 
     public class FrameData
     {
-        #region Fields
 
-        private int frameWidth;
-        private int frameHeight;
+        #region Fields
 
         #endregion Fields
 
         #region Properties
 
-        public int FrameWidth
-        {
-            get { return frameWidth; }
-        }
+        public int FrameWidth { get; private set; }
 
-        public int FrameHeight
-        {
-            get { return frameHeight; }
-        }
+        public int FrameHeight { get; private set; }
 
-        private Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, int>> frameCount;
+        private Dictionary<FrameType, Dictionary<Maps.Direction8, int>> frameCount;
 
         #endregion Properties
 
         public FrameData()
         {
-            frameCount = new Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, int>>();
+            frameCount = new Dictionary<FrameType, Dictionary<Maps.Direction8, int>>();
         }
 
         #region Methods
 
         public void SetFrameSize(int animWidth, int animHeight, int frames)
         {
-            frameWidth = animWidth / frames;
+            FrameWidth = animWidth / frames;
 
-            frameHeight = animHeight;
+            FrameHeight = animHeight;
         }
 
-        public void SetFrameCount(FrameType type, PMDToolkit.Maps.Direction8 dir, int count)
+        public void SetFrameCount(FrameType type, Maps.Direction8 dir, int count)
         {
             if (frameCount.ContainsKey(type) == false)
             {
-                frameCount.Add(type, new Dictionary<PMDToolkit.Maps.Direction8, int>());
+                frameCount.Add(type, new Dictionary<Maps.Direction8, int>());
             }
             if (frameCount[type].ContainsKey(dir) == false)
             {
@@ -98,13 +90,11 @@ namespace PMDToolkit.Graphics
             }
         }
 
-        public int GetFrameCount(FrameType type, PMDToolkit.Maps.Direction8 dir)
+        public int GetFrameCount(FrameType type, Maps.Direction8 dir)
         {
-            Dictionary<PMDToolkit.Maps.Direction8, int> dirs = null;
-            if (frameCount.TryGetValue(type, out dirs))
+            if (frameCount.TryGetValue(type, out Dictionary<Maps.Direction8, int> dirs))
             {
-                int value = 0;
-                if (dirs.TryGetValue(dir, out value))
+                if (dirs.TryGetValue(dir, out int value))
                 {
                     return value;
                 }
@@ -118,11 +108,8 @@ namespace PMDToolkit.Graphics
 
     public class SpriteSheet : IDisposable
     {
+
         #region Fields
-
-        private FrameData frameData;
-
-        private int sizeInBytes;
 
         #endregion Fields
 
@@ -130,37 +117,33 @@ namespace PMDToolkit.Graphics
 
         public SpriteSheet()
         {
-            frameData = new FrameData();
-            animations = new Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, TileSheet>>();
+            FrameData = new FrameData();
+            animations = new Dictionary<FrameType, Dictionary<Maps.Direction8, TileSheet>>();
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public int BytesUsed
-        {
-            get { return sizeInBytes; }
-        }
+        public int BytesUsed { get; private set; }
 
-        public FrameData FrameData
-        {
-            get { return frameData; }
-        }
+        public FrameData FrameData { get; }
 
-        private Dictionary<FrameType, Dictionary<PMDToolkit.Maps.Direction8, TileSheet>> animations;
+        private Dictionary<FrameType, Dictionary<Maps.Direction8, TileSheet>> animations;
 
         #endregion Properties
 
         #region Methods
 
-        public Rectangle GetFrameBounds(FrameType frameType, PMDToolkit.Maps.Direction8 direction, int frameNum)
+        public Rectangle GetFrameBounds(FrameType frameType, Maps.Direction8 direction, int frameNum)
         {
-            Rectangle rec = new Rectangle();
-            rec.X = frameNum * frameData.FrameWidth;
-            rec.Y = 0;
-            rec.Width = frameData.FrameWidth;
-            rec.Height = frameData.FrameHeight;
+            Rectangle rec = new Rectangle
+            {
+                X = frameNum * FrameData.FrameWidth,
+                Y = 0,
+                Width = FrameData.FrameWidth,
+                Height = FrameData.FrameHeight
+            };
 
             return rec;
         }
@@ -175,7 +158,7 @@ namespace PMDToolkit.Graphics
                     {
                         Maps.Direction8 dir = (Maps.Direction8)i;
                         int frameCount = reader.ReadInt32();
-                        frameData.SetFrameCount(frameType, dir, frameCount);
+                        FrameData.SetFrameCount(frameType, dir, frameCount);
                         int size = reader.ReadInt32();
                         if (size > 0)
                         {
@@ -198,14 +181,14 @@ namespace PMDToolkit.Graphics
                             }
                             AddSheet(frameType, dir, sheetSurface);
 
-                            frameData.SetFrameSize(sheetSurface.ImageWidth, sheetSurface.ImageHeight, frameCount);
+                            FrameData.SetFrameSize(sheetSurface.ImageWidth, sheetSurface.ImageHeight, frameCount);
                         }
                     }
                 }
                 else
                 {
                     int frameCount = reader.ReadInt32();
-                    frameData.SetFrameCount(frameType, PMDToolkit.Maps.Direction8.Down, frameCount);
+                    FrameData.SetFrameCount(frameType, Maps.Direction8.Down, frameCount);
                     int size = reader.ReadInt32();
                     if (size > 0)
                     {
@@ -225,21 +208,21 @@ namespace PMDToolkit.Graphics
                             }
                         }
                         sheetSurface.GenerateDataBuffer(sheetSurface.ImageWidth / frameCount, sheetSurface.ImageHeight);
-                        AddSheet(frameType, PMDToolkit.Maps.Direction8.Down, sheetSurface);
+                        AddSheet(frameType, Maps.Direction8.Down, sheetSurface);
 
-                        frameData.SetFrameSize(sheetSurface.ImageWidth, sheetSurface.ImageHeight, frameCount);
+                        FrameData.SetFrameSize(sheetSurface.ImageWidth, sheetSurface.ImageHeight, frameCount);
                     }
                 }
             }
 
-            this.sizeInBytes = totalByteSize;
+            this.BytesUsed = totalByteSize;
         }
 
-        public TileSheet GetSheet(FrameType type, PMDToolkit.Maps.Direction8 dir)
+        public TileSheet GetSheet(FrameType type, Maps.Direction8 dir)
         {
             if (IsFrameTypeDirectionless(type))
             {
-                dir = PMDToolkit.Maps.Direction8.Down;
+                dir = Maps.Direction8.Down;
             }
             if (animations.ContainsKey(type))
             {
@@ -252,11 +235,11 @@ namespace PMDToolkit.Graphics
             return TextureManager.ErrorTexture;
         }
 
-        public void AddSheet(FrameType type, PMDToolkit.Maps.Direction8 dir, TileSheet surface)
+        public void AddSheet(FrameType type, Maps.Direction8 dir, TileSheet surface)
         {
             if (!animations.ContainsKey(type))
             {
-                animations.Add(type, new Dictionary<PMDToolkit.Maps.Direction8, TileSheet>());
+                animations.Add(type, new Dictionary<Maps.Direction8, TileSheet>());
             }
             if (animations[type].ContainsKey(dir) == false)
             {

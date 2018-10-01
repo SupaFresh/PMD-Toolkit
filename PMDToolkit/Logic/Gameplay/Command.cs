@@ -74,6 +74,21 @@ namespace PMDToolkit.Logic.Gameplay
             args.Add(arg);
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         public static bool operator ==(Command command1, Command command2)
         {
             if (command1.Type != command2.Type) return false;

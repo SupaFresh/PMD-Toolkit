@@ -31,8 +31,8 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.Statused; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int charIndex;
-        private Enums.StatusAilment ailment;
+        private readonly int charIndex;
+        private readonly Enums.StatusAilment ailment;
 
         public SetStatus(int charIndex, Enums.StatusAilment ailment)
         {

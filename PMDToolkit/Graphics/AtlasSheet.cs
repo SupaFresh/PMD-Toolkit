@@ -183,13 +183,13 @@ namespace PMDToolkit.Graphics
                     }
 
                     //Top left
-                    vertexData[spriteIndices[0]] = new VertexData(vLeft, vTop, ((float)mClips[i].Left) / tW, ((float)mClips[i].Top) / tH);
+                    vertexData[spriteIndices[0]] = new VertexData(vLeft, vTop, mClips[i].Left / tW, mClips[i].Top / tH);
                     //Top right
-                    vertexData[spriteIndices[1]] = new VertexData(vRight, vTop, ((float)mClips[i].Right) / tW, ((float)mClips[i].Top) / tH);
+                    vertexData[spriteIndices[1]] = new VertexData(vRight, vTop, mClips[i].Right / tW, mClips[i].Top / tH);
                     //Bottom right
-                    vertexData[spriteIndices[2]] = new VertexData(vRight, vBottom, ((float)mClips[i].Right) / tW, ((float)mClips[i].Bottom) / tH);
+                    vertexData[spriteIndices[2]] = new VertexData(vRight, vBottom, mClips[i].Right / tW, mClips[i].Bottom / tH);
                     //Bottom left
-                    vertexData[spriteIndices[3]] = new VertexData(vLeft, vBottom, ((float)mClips[i].Left) / tW, ((float)mClips[i].Bottom) / tH);
+                    vertexData[spriteIndices[3]] = new VertexData(vLeft, vBottom, mClips[i].Left / tW, mClips[i].Bottom / tH);
 
                     //Bind sprite index buffer data
                     GL.BindBuffer(BufferTarget.ElementArrayBuffer, mIndexBuffers[i]);

@@ -174,12 +174,14 @@ namespace PMDToolkit.Logic.Gameplay
 
             if (!character.VolatileStatus.ContainsKey(name))
             {
-                ExtraStatus newStatus = new ExtraStatus();
-                newStatus.Name = name;
-                newStatus.Emoticon = -1;
-                newStatus.Counter = counter;
-                newStatus.Target = target;
-                newStatus.Args = tag;
+                ExtraStatus newStatus = new ExtraStatus
+                {
+                    Name = name,
+                    Emoticon = -1,
+                    Counter = counter,
+                    Target = target,
+                    Args = tag
+                };
                 character.VolatileStatus.Add(name, newStatus);
 
                 //announce to map

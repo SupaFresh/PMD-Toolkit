@@ -33,10 +33,6 @@ namespace PMDToolkit.Graphics
     public class Texture : IDisposable
     {
         protected static TextureProgram mTextureProgram;
-
-        //Texture name
-        private int mTextureID;
-
         private Bitmap mBitmap;
 
         //VBO IDs
@@ -47,7 +43,7 @@ namespace PMDToolkit.Graphics
         //Current pixels
         public BitmapData ImgData { get; set; }
 
-        public int TextureID { get { return mTextureID; } }
+        public int TextureID { get; private set; }
         public int ImageWidth { get { return mBitmap.Width; } }
         public int ImageHeight { get { return mBitmap.Height; } }
         public System.Drawing.Imaging.PixelFormat PixelFormat { get { return mBitmap.PixelFormat; } }
@@ -61,7 +57,7 @@ namespace PMDToolkit.Graphics
         public Texture()
         {
             //Initialize textureID
-            mTextureID = 0;
+            TextureID = 0;
 
             mBitmap = null;
             ImgData = null;
@@ -92,7 +88,7 @@ namespace PMDToolkit.Graphics
             }
         }
 
-        public bool LoadPixelsFromBytes(System.IO.Stream stream)
+        public bool LoadPixelsFromBytes(Stream stream)
         {
             //Deallocate texture data
             FreeTexture();
@@ -107,11 +103,11 @@ namespace PMDToolkit.Graphics
         public void LoadTextureFromPixels32()
         {
             //There is loaded pixels
-            if (mTextureID == 0 && ImgData != null)
+            if (TextureID == 0 && ImgData != null)
             {
-                mTextureID = GL.GenTexture();
+                TextureID = GL.GenTexture();
 
-                GL.BindTexture(TextureTarget.Texture2D, mTextureID);
+                GL.BindTexture(TextureTarget.Texture2D, TextureID);
 
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, ImgData.Width, ImgData.Height, 0,
                     OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, ImgData.Scan0);
@@ -143,7 +139,7 @@ namespace PMDToolkit.Graphics
             else
             {
                 //Texture already exists
-                if (mTextureID != 0)
+                if (TextureID != 0)
                 {
                     throw new Exception("A texture is already loaded!");
                 }
@@ -261,10 +257,10 @@ namespace PMDToolkit.Graphics
         public virtual void FreeTexture()
         {
             //Delete texture
-            if (mTextureID != 0)
+            if (TextureID != 0)
             {
-                GL.DeleteTexture(mTextureID);
-                mTextureID = 0;
+                GL.DeleteTexture(TextureID);
+                TextureID = 0;
             }
             //Delete pixels
             if (ImgData != null)
@@ -281,7 +277,7 @@ namespace PMDToolkit.Graphics
 
         public void Render(Rectangle? rect)
         {
-            if (mTextureID != 0)
+            if (TextureID != 0)
             {
                 //Texture coordinates
                 float texTop = 0;
@@ -315,7 +311,7 @@ namespace PMDToolkit.Graphics
                 };
 
                 //Set texture ID
-                GL.BindTexture(TextureTarget.Texture2D, mTextureID);
+                GL.BindTexture(TextureTarget.Texture2D, TextureID);
 
                 //Enable vertex and texture coordinate arrays
                 mTextureProgram.EnableVertexPointer();
@@ -347,7 +343,7 @@ namespace PMDToolkit.Graphics
         private void InitVBO()
         {
             //If texture is loaded and VBO does not already exist
-            if (mTextureID != 0 && mVBOID == 0)
+            if (TextureID != 0 && mVBOID == 0)
             {
                 //Vertex data
                 VertexData[] vData = new VertexData[4];

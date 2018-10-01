@@ -45,8 +45,8 @@ namespace PMDToolkit.Logic.Gameplay
 
         //AttackerLevel (may not be needed)
 
-        public int moveSlot { get; set; }
-        public int moveIndex { get; set; }
+        public int MoveSlot { get; set; }
+        public int MoveIndex { get; set; }
         public MoveEntry Move { get; set; }
 
         public bool Cancel { get; set; }
@@ -62,7 +62,7 @@ namespace PMDToolkit.Logic.Gameplay
         //public bool KnockedOut { get; set; }
         //public ulong ExpGained { get; set; }
 
-        public Dictionary<String, object> BattleTags { get; set; }
+        public Dictionary<string, object> BattleTags { get; set; }
 
         public BattleSetup()
         {
@@ -70,11 +70,11 @@ namespace PMDToolkit.Logic.Gameplay
             Defender = null;
             DefenderTile = null;
             AllTargets = new TargetCollection();
-            moveSlot = -1;
-            moveIndex = -1;
+            MoveSlot = -1;
+            MoveIndex = -1;
             Move = null;
             Multiplier = 1000;
-            BattleTags = new Dictionary<String, object>();
+            BattleTags = new Dictionary<string, object>();
             TimeForHit = new IntReference();
         }
 
@@ -84,8 +84,8 @@ namespace PMDToolkit.Logic.Gameplay
             Defender = copy.Defender;
             DefenderTile = copy.DefenderTile;
             AllTargets = copy.AllTargets;
-            moveSlot = copy.moveSlot;
-            moveIndex = copy.moveIndex;
+            MoveSlot = copy.MoveSlot;
+            MoveIndex = copy.MoveIndex;
             Move = new MoveEntry(copy.Move);
             Cancel = copy.Cancel;
             Multiplier = copy.Multiplier;

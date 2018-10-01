@@ -33,7 +33,7 @@ namespace PMDToolkit.Logs
         private static readonly object lockObj = new object();
 
         private static List<string> battleLog;
-        private static DateTime journeyStart;
+        private static readonly DateTime journeyStart;
 
         public static XmlWriterSettings XmlWriterSettings { get; private set; }
 

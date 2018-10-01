@@ -31,8 +31,8 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.MovementSpeed; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int charIndex;
-        private int speed;
+        private readonly int charIndex;
+        private readonly int speed;
 
         public SetMovementSpeed(int charIndex, int speed)
         {

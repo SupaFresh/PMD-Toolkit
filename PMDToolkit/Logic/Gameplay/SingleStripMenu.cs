@@ -28,17 +28,10 @@ namespace PMDToolkit.Logic.Gameplay
 {
     public abstract class SingleStripMenu : MenuBase
     {
-        private int currentChoice;
-        public int CurrentChoice { get { return currentChoice; } }
+        public int CurrentChoice { get; private set; }
 
-        public override Loc2D PickerPos
-        {
-            get
-            {
-                return new Loc2D(Start.X + TextureManager.MenuBack.TileWidth * 2 - TextureManager.Picker.ImageWidth,
-              Start.Y + TextureManager.MenuBack.TileHeight + currentChoice * 10);
-            }
-        }
+        public override Loc2D PickerPos => new Loc2D(Start.X + (TextureManager.MenuBack.TileWidth * 2) - TextureManager.Picker.ImageWidth,
+              Start.Y + TextureManager.MenuBack.TileHeight + CurrentChoice * 10);
 
         protected void Initialize(Loc2D start, int width, string[] choices, int defaultChoice)
         {
@@ -50,7 +43,7 @@ namespace PMDToolkit.Logic.Gameplay
                 Choices.Add(new MenuText(choices[i], start + new Loc2D(TextureManager.MenuBack.TileWidth * 2, TextureManager.MenuBack.TileHeight + vertSpace * i)));
             }
             End = Start + new Loc2D(horizSpace, choices.Length * vertSpace + TextureManager.MenuBack.TileHeight * 2);
-            currentChoice = defaultChoice;
+            CurrentChoice = defaultChoice;
         }
 
         public override void Process(Input input, ActiveChar character, ref bool moveMade)
@@ -75,11 +68,11 @@ namespace PMDToolkit.Logic.Gameplay
                 bool prevUp = (Processor.PrevInput.Direction == Direction8.Up || Processor.PrevInput.Direction == Direction8.UpLeft || Processor.PrevInput.Direction == Direction8.UpRight);
                 if (chooseDown && (!prevDown || Processor.InputTime >= RenderTime.FromMillisecs(40)))
                 {
-                    currentChoice = (currentChoice + 1) % Choices.Count;
+                    CurrentChoice = (CurrentChoice + 1) % Choices.Count;
                 }
                 else if (chooseUp && (!prevUp || Processor.InputTime >= RenderTime.FromMillisecs(40)))
                 {
-                    currentChoice = (currentChoice + Choices.Count - 1) % Choices.Count;
+                    CurrentChoice = (CurrentChoice + Choices.Count - 1) % Choices.Count;
                 }
             }
         }

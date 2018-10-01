@@ -588,10 +588,12 @@ namespace PMDToolkit.Logic.Gameplay
 
         public static void Attack(ActiveChar character, ref bool moveMade)
         {
-            BattleSetup setup = new BattleSetup();
-            setup.Attacker = character;
-            setup.moveSlot = -1;
-            setup.moveIndex = 0;
+            BattleSetup setup = new BattleSetup
+            {
+                Attacker = character,
+                MoveSlot = -1,
+                MoveIndex = 0
+            };
             HandleAttack(setup, ref moveMade);
         }
 
@@ -601,9 +603,11 @@ namespace PMDToolkit.Logic.Gameplay
 
         public static void UseMove(ActiveChar character, int moveSlot, ref bool moveMade)
         {
-            BattleSetup setup = new BattleSetup();
-            setup.Attacker = character;
-            setup.moveSlot = moveSlot;
+            BattleSetup setup = new BattleSetup
+            {
+                Attacker = character,
+                MoveSlot = moveSlot
+            };
 
             HandleAttack(setup, ref moveMade);
         }
@@ -634,13 +638,13 @@ namespace PMDToolkit.Logic.Gameplay
             }
 
             //this is the place to assign move and move index
-            if (setup.moveSlot > -1)
+            if (setup.MoveSlot > -1)
             {
-                setup.moveIndex = setup.Attacker.Moves[setup.moveSlot].MoveNum;
+                setup.MoveIndex = setup.Attacker.Moves[setup.MoveSlot].MoveNum;
             }
-            if (setup.moveIndex > -1)
+            if (setup.MoveIndex > -1)
             {
-                setup.Move = new Data.MoveEntry(Data.GameData.MoveDex[setup.moveIndex]);
+                setup.Move = new Data.MoveEntry(Data.GameData.MoveDex[setup.MoveIndex]);
                 setup.Move.Name = setup.Attacker.Name + " used " + setup.Move.Name + "!";
             }
 
@@ -698,11 +702,13 @@ namespace PMDToolkit.Logic.Gameplay
         {
             Display.Screen.ForceReady();
 
-            BattleSetup setup = new BattleSetup();
-            setup.Attacker = FocusedCharacter;
-            setup.moveSlot = -1;
-            setup.moveIndex = -1;
-            setup.Move = new Data.MoveEntry(entry);
+            BattleSetup setup = new BattleSetup
+            {
+                Attacker = FocusedCharacter,
+                MoveSlot = -1,
+                MoveIndex = -1,
+                Move = new Data.MoveEntry(entry)
+            };
             setup.Move.Name = setup.Attacker.Name + " used " + setup.Move.Name + "!";
 
             ProcessStartAnim(setup);
@@ -1239,9 +1245,11 @@ namespace PMDToolkit.Logic.Gameplay
             {
                 case 1:
                     {//hits for damage
-                        BattleSetup setup = new BattleSetup();
-                        setup.Attacker = character;
-                        setup.Move = new Data.MoveEntry();
+                        BattleSetup setup = new BattleSetup
+                        {
+                            Attacker = character,
+                            Move = new Data.MoveEntry()
+                        };
                         setup.Move.Name = character.Name + " threw the " + item.Name + "!";
                         //setup.Move.Power = 0;
                         setup.Move.Effect = 4;
@@ -1269,9 +1277,11 @@ namespace PMDToolkit.Logic.Gameplay
 
                 case 2:
                     {//explosive splash damage
-                        BattleSetup setup = new BattleSetup();
-                        setup.Attacker = character;
-                        setup.Move = new Data.MoveEntry();
+                        BattleSetup setup = new BattleSetup
+                        {
+                            Attacker = character,
+                            Move = new Data.MoveEntry()
+                        };
                         setup.Move.Name = character.Name + " threw the " + item.Name + "!";
                         setup.Move.Effect = 5;
                         setup.Move.Effect1 = itemIndex;

@@ -48,6 +48,21 @@ namespace PMDToolkit.Maps
             return new Loc2D(X, Y);
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         public static bool operator ==(Loc3D param1, Loc3D param2)
         {
             return (param1.X == param2.X && param1.Y == param2.Y && param1.Z == param2.Z);

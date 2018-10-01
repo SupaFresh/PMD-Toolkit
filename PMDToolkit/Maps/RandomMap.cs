@@ -62,13 +62,13 @@ namespace PMDToolkit.Maps
 
         public abstract void Generate(int seed, Data.RDungeonFloor entry, List<FloorBorder> floorBorders, Dictionary<int, List<int>> borderLinks);
 
-        public void Save(BinaryWriter writer)
+        public new void Save(BinaryWriter writer)
         {
             base.Save(writer);
             //write to memory stream
         }
 
-        public void Load(BinaryReader reader)
+        public new void Load(BinaryReader reader)
         {
             base.Load(reader);
             //read from memory stream

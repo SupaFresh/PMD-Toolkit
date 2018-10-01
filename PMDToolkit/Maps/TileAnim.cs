@@ -93,6 +93,21 @@ namespace PMDToolkit.Maps
             }
         }
 
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public static bool operator ==(TileAnim param1, TileAnim param2)
         {
             if (param1.FrameLength != param2.FrameLength)

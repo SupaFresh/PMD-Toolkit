@@ -25,7 +25,7 @@ namespace PMDToolkit.Logic.Gameplay
 {
     public class ItemChosenMenu : SingleStripMenu
     {
-        private int invSlot;
+        private readonly int invSlot;
 
         public ItemChosenMenu(int invSlot)
         {

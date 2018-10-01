@@ -42,6 +42,21 @@ namespace PMDToolkit.Graphics
             return new RenderTime(millisecs * TextureManager.FPS_CAP);
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
         public static RenderTime Zero
         {
             get { return new RenderTime(); }

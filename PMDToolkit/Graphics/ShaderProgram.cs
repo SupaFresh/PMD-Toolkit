@@ -67,10 +67,8 @@ namespace PMDToolkit.Graphics
             //Compile shader source
             GL.CompileShader(shaderID);
             //Check shader for errors
-            string info;
-            int status_code;
-            GL.GetShaderInfoLog(shaderID, out info);
-            GL.GetShader(shaderID, ShaderParameter.CompileStatus, out status_code);
+            GL.GetShaderInfoLog(shaderID, out string info);
+            GL.GetShader(shaderID, ShaderParameter.CompileStatus, out int status_code);
 
             if (status_code != 1)
                 throw new ApplicationException(info);
@@ -86,7 +84,7 @@ namespace PMDToolkit.Graphics
             ErrorCode ec = GL.GetError();
             if (ec != 0)
             {
-                throw new System.Exception(ec.ToString());
+                throw new Exception(ec.ToString());
             }
         }
 
@@ -99,14 +97,13 @@ namespace PMDToolkit.Graphics
         {
         }
 
-        protected string printProgramLog(int program)
+        protected string PrintProgramLog(int program)
         {
             //Make sure name is shader
             if (GL.IsProgram(program))
             {
                 //Get info log
-                string infoLog;
-                GL.GetProgramInfoLog(program, out infoLog);
+                GL.GetProgramInfoLog(program, out string infoLog);
                 return infoLog;
             }
             else

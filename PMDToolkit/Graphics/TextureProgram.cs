@@ -23,7 +23,7 @@ THE SOFTWARE.
 
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using PMDToolkit.Data;
 using System;
 using System.Collections.Generic;
@@ -81,11 +81,10 @@ namespace PMDToolkit.Graphics
             //Link program
             GL.LinkProgram(mProgramID);
             //Check for errors
-            int status_code;
-            GL.GetProgram(mProgramID, ProgramParameter.LinkStatus, out status_code);
+            GL.GetProgram(mProgramID, ProgramParameter.LinkStatus, out int status_code);
             if (status_code != 1)
             {
-                string log = printProgramLog(mProgramID);
+                string log = PrintProgramLog(mProgramID);
                 GL.DeleteProgram(mProgramID);
                 mProgramID = 0;
                 throw new Exception("Error linking program " + mProgramID + ": " + log);

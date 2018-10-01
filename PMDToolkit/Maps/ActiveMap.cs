@@ -83,7 +83,7 @@ namespace PMDToolkit.Maps
             return -1;
         }
 
-        public virtual void Resize(int width, int height, Maps.Direction8 dir)
+        public virtual void Resize(int width, int height, Direction8 dir)
         {
             base.Resize(width, height, dir);
         }

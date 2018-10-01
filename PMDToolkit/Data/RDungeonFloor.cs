@@ -228,10 +228,12 @@ namespace PMDToolkit.Data
                                                     if (settingsReader.IsStartElement() && settingsReader.Name == "Element")
                                                     {
                                                         settingsReader.Read();
-                                                        ItemPreset preset = new ItemPreset();
-                                                        preset.ItemNum = settingsReader.ReadElementString("ItemNum").ToInt();
-                                                        preset.MinAmount = settingsReader.ReadElementString("MinAmount").ToInt();
-                                                        preset.MaxAmount = settingsReader.ReadElementString("MaxAmount").ToInt();
+                                                        ItemPreset preset = new ItemPreset
+                                                        {
+                                                            ItemNum = settingsReader.ReadElementString("ItemNum").ToInt(),
+                                                            MinAmount = settingsReader.ReadElementString("MinAmount").ToInt(),
+                                                            MaxAmount = settingsReader.ReadElementString("MaxAmount").ToInt()
+                                                        };
                                                         int appearanceRate = settingsReader.ReadElementString("AppearanceRate").ToInt();
                                                         preset.StickyRate = settingsReader.ReadElementString("StickyRate").ToInt();
                                                         preset.Tag = settingsReader.ReadElementString("Tag");
@@ -265,12 +267,14 @@ namespace PMDToolkit.Data
                                                     if (settingsReader.IsStartElement() && settingsReader.Name == "Element")
                                                     {
                                                         settingsReader.Read();
-                                                        NpcPreset preset = new NpcPreset();
-                                                        preset.NpcNum = settingsReader.ReadElementString("NpcNum").ToInt();
-                                                        preset.SpawnX = settingsReader.ReadElementString("SpawnX").ToInt();
-                                                        preset.SpawnY = settingsReader.ReadElementString("SpawnY").ToInt();
-                                                        preset.MinLevel = settingsReader.ReadElementString("MinLevel").ToInt();
-                                                        preset.MaxLevel = settingsReader.ReadElementString("MaxLevel").ToInt();
+                                                        NpcPreset preset = new NpcPreset
+                                                        {
+                                                            NpcNum = settingsReader.ReadElementString("NpcNum").ToInt(),
+                                                            SpawnX = settingsReader.ReadElementString("SpawnX").ToInt(),
+                                                            SpawnY = settingsReader.ReadElementString("SpawnY").ToInt(),
+                                                            MinLevel = settingsReader.ReadElementString("MinLevel").ToInt(),
+                                                            MaxLevel = settingsReader.ReadElementString("MaxLevel").ToInt()
+                                                        };
                                                         int appearanceRate = settingsReader.ReadElementString("AppearanceRate").ToInt();
                                                         npcList.Add(new Tuple<NpcPreset, int>(preset, appearanceRate));
                                                     }

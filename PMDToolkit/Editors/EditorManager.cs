@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-using System;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -31,11 +30,11 @@ namespace PMDToolkit.Editors
     {
         private static Thread editThread;
 
-        private static object lockObj = new object();
+        private static readonly object lockObj = new object();
 
-        private static void openEditor(Object data)
+        private static void OpenEditor(object data)
         {
-            System.Windows.Forms.Application.Run((Form)data);
+            Application.Run((Form)data);
             editThread = null;
         }
 
@@ -52,13 +51,13 @@ namespace PMDToolkit.Editors
                         entries[i] = Data.GameData.ItemDex[i].Name;
                     }
                     choices.AddEntries(entries);
-                    System.Windows.Forms.Application.Run(choices);
+                    Application.Run(choices);
 
                     if (choices.ChosenEntry > -1)
                     {
-                        currentEditor = new Editors.ItemEditor();
+                        currentEditor = new ItemEditor();
                         ((ItemEditor)currentEditor).LoadItem(choices.ChosenEntry);
-                        editThread = new Thread(new ParameterizedThreadStart(openEditor));
+                        editThread = new Thread(new ParameterizedThreadStart(OpenEditor));
                         editThread.Start(currentEditor);
                     }
                 }
@@ -78,13 +77,13 @@ namespace PMDToolkit.Editors
                         entries[i] = Data.GameData.MoveDex[i].Name;
                     }
                     choices.AddEntries(entries);
-                    System.Windows.Forms.Application.Run(choices);
+                    Application.Run(choices);
 
                     if (choices.ChosenEntry > -1)
                     {
-                        currentEditor = new Editors.SpellEditor();
+                        currentEditor = new SpellEditor();
                         ((SpellEditor)currentEditor).LoadSpell(choices.ChosenEntry);
-                        editThread = new Thread(new ParameterizedThreadStart(openEditor));
+                        editThread = new Thread(new ParameterizedThreadStart(OpenEditor));
                         editThread.Start(currentEditor);
                     }
                 }
@@ -104,13 +103,13 @@ namespace PMDToolkit.Editors
                         entries[i] = Data.GameData.RDungeonDex[i].Name;
                     }
                     choices.AddEntries(entries);
-                    System.Windows.Forms.Application.Run(choices);
+                    Application.Run(choices);
 
                     if (choices.ChosenEntry > -1)
                     {
-                        currentEditor = new Editors.RDungeonEditor();
+                        currentEditor = new RDungeonEditor();
                         ((RDungeonEditor)currentEditor).LoadRDungeon(choices.ChosenEntry);
-                        editThread = new Thread(new ParameterizedThreadStart(openEditor));
+                        editThread = new Thread(new ParameterizedThreadStart(OpenEditor));
                         editThread.Start(currentEditor);
                     }
                 }

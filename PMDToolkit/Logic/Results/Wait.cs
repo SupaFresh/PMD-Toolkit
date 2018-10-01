@@ -28,13 +28,11 @@ namespace PMDToolkit.Logic.Results
     public class Wait : IResult
     {
         //public ResultType Type { get { return ResultType.Wait; } }
-        public RenderTime Delay { get { return time; } }
-
-        private RenderTime time;
+        public RenderTime Delay { get; }
 
         public Wait(RenderTime time)
         {
-            this.time = time;
+            this.Delay = time;
         }
 
         public void Execute()

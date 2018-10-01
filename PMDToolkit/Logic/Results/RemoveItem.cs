@@ -31,7 +31,7 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.RemoveNpc; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int itemIndex;
+        private readonly int itemIndex;
 
         public RemoveItem(int itemIndex)
         {

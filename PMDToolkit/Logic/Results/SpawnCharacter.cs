@@ -33,9 +33,9 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.SpawnNpc; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int charIndex;
+        private readonly int charIndex;
         private Loc2D charLoc;
-        private Direction8 charDir;
+        private readonly Direction8 charDir;
         private FormData form;
 
         public SpawnCharacter(ActiveChar character, int charIndex)

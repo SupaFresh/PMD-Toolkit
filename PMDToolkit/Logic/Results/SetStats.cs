@@ -31,11 +31,11 @@ namespace PMDToolkit.Logic.Results
         //public ResultType Type { get { return ResultType.SetStats; } }
         public RenderTime Delay { get { return RenderTime.Zero; } }
 
-        private int hp;
-        private int hpMax;
-        private int pp;
-        private int ppMax;
-        private int gold;
+        private readonly int hp;
+        private readonly int hpMax;
+        private readonly int pp;
+        private readonly int ppMax;
+        private readonly int gold;
 
         public SetStats(int hp, int hpMax, int pp, int ppMax, int gold)
         {
