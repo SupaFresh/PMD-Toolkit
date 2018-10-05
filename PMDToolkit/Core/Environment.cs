@@ -75,7 +75,7 @@ namespace PMDToolkit.Core
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://www.codinghorror.com/blog/2005/04/determining-build-date-the-hard-way.html</remarks>
-        private static System.DateTime RetrieveLinkerTimestamp()
+        private static DateTime RetrieveLinkerTimestamp()
         {
             string filePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
@@ -87,7 +87,7 @@ namespace PMDToolkit.Core
             {
                 fileStream.Read(peHeader, 0, 2048);
             }
-            DateTime dt = new System.DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(System.BitConverter.ToInt32(peHeader, System.BitConverter.ToInt32(peHeader, peHeaderOffset) + linkerTimestampOffset));
+            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(BitConverter.ToInt32(peHeader, BitConverter.ToInt32(peHeader, peHeaderOffset) + linkerTimestampOffset));
             return dt;
         }
     }

@@ -233,7 +233,7 @@ namespace PMDToolkit.Editors {
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -243,7 +243,7 @@ namespace PMDToolkit.Editors {
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // txtName
             // 
@@ -1521,7 +1521,7 @@ namespace PMDToolkit.Editors {
             this.btnTest.TabIndex = 42;
             this.btnTest.Text = "Test";
             this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            this.btnTest.Click += new System.EventHandler(this.BtnTest_Click);
             // 
             // chkAutoTest
             // 

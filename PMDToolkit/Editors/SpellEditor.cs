@@ -90,89 +90,89 @@ namespace PMDToolkit.Editors
             }
             cbEndTarget.SelectedIndex = 0;
 
-            nudEffect.Maximum = Int32.MaxValue;
+            nudEffect.Maximum = int.MaxValue;
 
-            nudEffect1.Minimum = Int32.MinValue;
-            nudEffect1.Maximum = Int32.MaxValue;
+            nudEffect1.Minimum = int.MinValue;
+            nudEffect1.Maximum = int.MaxValue;
 
-            nudEffect2.Minimum = Int32.MinValue;
-            nudEffect2.Maximum = Int32.MaxValue;
+            nudEffect2.Minimum = int.MinValue;
+            nudEffect2.Maximum = int.MaxValue;
 
-            nudEffect3.Minimum = Int32.MinValue;
-            nudEffect3.Maximum = Int32.MaxValue;
+            nudEffect3.Minimum = int.MinValue;
+            nudEffect3.Maximum = int.MaxValue;
 
-            nudMobility.Maximum = Int32.MaxValue;
+            nudMobility.Maximum = int.MaxValue;
 
-            nudStartIndex.Maximum = Int32.MaxValue;
-            nudStartLength.Maximum = Int32.MaxValue;
+            nudStartIndex.Maximum = int.MaxValue;
+            nudStartLength.Maximum = int.MaxValue;
 
-            nudStartData1.Minimum = Int32.MinValue;
-            nudStartData1.Maximum = Int32.MaxValue;
-            nudStartData2.Minimum = Int32.MinValue;
-            nudStartData2.Maximum = Int32.MaxValue;
-            nudStartData3.Minimum = Int32.MinValue;
-            nudStartData3.Maximum = Int32.MaxValue;
+            nudStartData1.Minimum = int.MinValue;
+            nudStartData1.Maximum = int.MaxValue;
+            nudStartData2.Minimum = int.MinValue;
+            nudStartData2.Maximum = int.MaxValue;
+            nudStartData3.Minimum = int.MinValue;
+            nudStartData3.Maximum = int.MaxValue;
 
-            nudStartUser1.Minimum = Int32.MinValue;
-            nudStartUser1.Maximum = Int32.MaxValue;
-            nudStartUser2.Minimum = Int32.MinValue;
-            nudStartUser2.Maximum = Int32.MaxValue;
-            nudStartUser3.Minimum = Int32.MinValue;
-            nudStartUser3.Maximum = Int32.MaxValue;
+            nudStartUser1.Minimum = int.MinValue;
+            nudStartUser1.Maximum = int.MaxValue;
+            nudStartUser2.Minimum = int.MinValue;
+            nudStartUser2.Maximum = int.MaxValue;
+            nudStartUser3.Minimum = int.MinValue;
+            nudStartUser3.Maximum = int.MaxValue;
 
-            nudStartSound.Maximum = Int32.MaxValue;
+            nudStartSound.Maximum = int.MaxValue;
 
-            nudMidIndex.Maximum = Int32.MaxValue;
-            nudMidLength.Maximum = Int32.MaxValue;
+            nudMidIndex.Maximum = int.MaxValue;
+            nudMidLength.Maximum = int.MaxValue;
 
-            nudMidData1.Minimum = Int32.MinValue;
-            nudMidData1.Maximum = Int32.MaxValue;
-            nudMidData2.Minimum = Int32.MinValue;
-            nudMidData2.Maximum = Int32.MaxValue;
-            nudMidData3.Minimum = Int32.MinValue;
-            nudMidData3.Maximum = Int32.MaxValue;
+            nudMidData1.Minimum = int.MinValue;
+            nudMidData1.Maximum = int.MaxValue;
+            nudMidData2.Minimum = int.MinValue;
+            nudMidData2.Maximum = int.MaxValue;
+            nudMidData3.Minimum = int.MinValue;
+            nudMidData3.Maximum = int.MaxValue;
 
-            nudMidUser1.Minimum = Int32.MinValue;
-            nudMidUser1.Maximum = Int32.MaxValue;
-            nudMidUser2.Minimum = Int32.MinValue;
-            nudMidUser2.Maximum = Int32.MaxValue;
-            nudMidUser3.Minimum = Int32.MinValue;
-            nudMidUser3.Maximum = Int32.MaxValue;
+            nudMidUser1.Minimum = int.MinValue;
+            nudMidUser1.Maximum = int.MaxValue;
+            nudMidUser2.Minimum = int.MinValue;
+            nudMidUser2.Maximum = int.MaxValue;
+            nudMidUser3.Minimum = int.MinValue;
+            nudMidUser3.Maximum = int.MaxValue;
 
-            nudMidTarget1.Minimum = Int32.MinValue;
-            nudMidTarget1.Maximum = Int32.MaxValue;
-            nudMidTarget2.Minimum = Int32.MinValue;
-            nudMidTarget2.Maximum = Int32.MaxValue;
-            nudMidTarget3.Minimum = Int32.MinValue;
-            nudMidTarget3.Maximum = Int32.MaxValue;
+            nudMidTarget1.Minimum = int.MinValue;
+            nudMidTarget1.Maximum = int.MaxValue;
+            nudMidTarget2.Minimum = int.MinValue;
+            nudMidTarget2.Maximum = int.MaxValue;
+            nudMidTarget3.Minimum = int.MinValue;
+            nudMidTarget3.Maximum = int.MaxValue;
 
-            nudMidSound.Maximum = Int32.MaxValue;
+            nudMidSound.Maximum = int.MaxValue;
 
-            nudEndIndex.Maximum = Int32.MaxValue;
-            nudEndLength.Maximum = Int32.MaxValue;
+            nudEndIndex.Maximum = int.MaxValue;
+            nudEndLength.Maximum = int.MaxValue;
 
-            nudEndData1.Minimum = Int32.MinValue;
-            nudEndData1.Maximum = Int32.MaxValue;
-            nudEndData2.Minimum = Int32.MinValue;
-            nudEndData2.Maximum = Int32.MaxValue;
-            nudEndData3.Minimum = Int32.MinValue;
-            nudEndData3.Maximum = Int32.MaxValue;
+            nudEndData1.Minimum = int.MinValue;
+            nudEndData1.Maximum = int.MaxValue;
+            nudEndData2.Minimum = int.MinValue;
+            nudEndData2.Maximum = int.MaxValue;
+            nudEndData3.Minimum = int.MinValue;
+            nudEndData3.Maximum = int.MaxValue;
 
-            nudEndUser1.Minimum = Int32.MinValue;
-            nudEndUser1.Maximum = Int32.MaxValue;
-            nudEndUser2.Minimum = Int32.MinValue;
-            nudEndUser2.Maximum = Int32.MaxValue;
-            nudEndUser3.Minimum = Int32.MinValue;
-            nudEndUser3.Maximum = Int32.MaxValue;
+            nudEndUser1.Minimum = int.MinValue;
+            nudEndUser1.Maximum = int.MaxValue;
+            nudEndUser2.Minimum = int.MinValue;
+            nudEndUser2.Maximum = int.MaxValue;
+            nudEndUser3.Minimum = int.MinValue;
+            nudEndUser3.Maximum = int.MaxValue;
 
-            nudEndTarget1.Minimum = Int32.MinValue;
-            nudEndTarget1.Maximum = Int32.MaxValue;
-            nudEndTarget2.Minimum = Int32.MinValue;
-            nudEndTarget2.Maximum = Int32.MaxValue;
-            nudEndTarget3.Minimum = Int32.MinValue;
-            nudEndTarget3.Maximum = Int32.MaxValue;
+            nudEndTarget1.Minimum = int.MinValue;
+            nudEndTarget1.Maximum = int.MaxValue;
+            nudEndTarget2.Minimum = int.MinValue;
+            nudEndTarget2.Maximum = int.MaxValue;
+            nudEndTarget3.Minimum = int.MinValue;
+            nudEndTarget3.Maximum = int.MaxValue;
 
-            nudEndSound.Maximum = Int32.MaxValue;
+            nudEndSound.Maximum = int.MaxValue;
         }
 
         public void LoadSpell(int index)
@@ -247,26 +247,27 @@ namespace PMDToolkit.Editors
 
         private MoveEntry GetEntry()
         {
-            MoveEntry entry = new MoveEntry();
+            MoveEntry entry = new MoveEntry
+            {
+                Name = txtName.Text,
+                Power = (int)nudPower.Value,
+                Accuracy = (int)nudAccuracy.Value,
+                Desc = txtDescription.Text,
 
-            entry.Name = txtName.Text;
-            entry.Power = (int)nudPower.Value;
-            entry.Accuracy = (int)nudAccuracy.Value;
-            entry.Desc = txtDescription.Text;
+                Type = (Enums.Element)cbType.SelectedIndex,
+                Category = (Enums.MoveCategory)cbCategory.SelectedIndex,
+                Effect = (int)nudEffect.Value,
+                Effect1 = (int)nudEffect1.Value,
+                Effect2 = (int)nudEffect2.Value,
+                Effect3 = (int)nudEffect3.Value,
 
-            entry.Type = (Enums.Element)cbType.SelectedIndex;
-            entry.Category = (Enums.MoveCategory)cbCategory.SelectedIndex;
-            entry.Effect = (int)nudEffect.Value;
-            entry.Effect1 = (int)nudEffect1.Value;
-            entry.Effect2 = (int)nudEffect2.Value;
-            entry.Effect3 = (int)nudEffect3.Value;
-
-            entry.Contact = chkContact.Checked;
-            entry.SoundBased = chkSound.Checked;
-            entry.FistBased = chkFist.Checked;
-            entry.PulseBased = chkPulse.Checked;
-            entry.BulletBased = chkBullet.Checked;
-            entry.JawBased = chkJaw.Checked;
+                Contact = chkContact.Checked,
+                SoundBased = chkSound.Checked,
+                FistBased = chkFist.Checked,
+                PulseBased = chkPulse.Checked,
+                BulletBased = chkBullet.Checked,
+                JawBased = chkJaw.Checked
+            };
 
             entry.Range.RangeType = (Enums.RangeType)cbRange.SelectedIndex;
             entry.Range.Distance = (int)nudDistance.Value;
@@ -324,22 +325,22 @@ namespace PMDToolkit.Editors
             GameData.MoveDex[spellNum].Save(spellNum);
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             SaveSpell();
-            this.Close();
+            Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void btnTest_Click(object sender, EventArgs e)
+        private void BtnTest_Click(object sender, EventArgs e)
         {
             MoveEntry entry = GetEntry();
 
-            PMDToolkit.Logic.Gameplay.Processor.MockAttack(entry);
+            Logic.Gameplay.Processor.MockAttack(entry);
         }
 
         private void Anim_Changed(object sender, EventArgs e)
@@ -347,7 +348,7 @@ namespace PMDToolkit.Editors
             if (chkAutoTest.Checked)
             {
                 MoveEntry entry = GetEntry();
-                PMDToolkit.Logic.Gameplay.Processor.MockAttack(entry);
+                Logic.Gameplay.Processor.MockAttack(entry);
             }
         }
     }

@@ -46,8 +46,10 @@ namespace PMDToolkit.Editors
 
         private void TextBox_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbdPath = new FolderBrowserDialog();
-            fbdPath.SelectedPath = Path.GetFullPath(Text);
+            FolderBrowserDialog fbdPath = new FolderBrowserDialog
+            {
+                SelectedPath = Path.GetFullPath(Text)
+            };
             if (fbdPath.ShowDialog() == DialogResult.OK)
             {
                 Text = fbdPath.SelectedPath.EndsWith("\\") ? fbdPath.SelectedPath : fbdPath.SelectedPath + "\\";

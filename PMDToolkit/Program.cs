@@ -51,7 +51,7 @@ namespace PMDToolkit
         public static GameLoadState GameLoaded;
 
         private static string loadMessage;
-        private static object lockObj = new object();
+        private static readonly object lockObj = new object();
 
         public static void UpdateLoadMsg(string loadMsg)
         {
@@ -61,7 +61,7 @@ namespace PMDToolkit
 
         private int errorCount;
 
-        private static void openGame()
+        private static void OpenGame()
         {
             try
             {
@@ -69,7 +69,7 @@ namespace PMDToolkit
                 using (Game game = new Game())
                 {
                     game.Icon = PMDToolkit.Properties.Resources.Icon;
-                    game.Run(Graphics.TextureManager.FPS_CAP, Graphics.TextureManager.FPS_CAP);
+                    game.Run(TextureManager.FPS_CAP, TextureManager.FPS_CAP);
                 }
                 Environment.Exit(0);
             }
@@ -82,7 +82,7 @@ namespace PMDToolkit
 
         /// <summary>Creates a 800x600 window with the specified title.</summary>
         public Game()
-            : base(Graphics.TextureManager.SCREEN_WIDTH, Graphics.TextureManager.SCREEN_HEIGHT, GraphicsMode.Default, "PMD Toolkit")
+            : base(TextureManager.SCREEN_WIDTH, TextureManager.SCREEN_HEIGHT, GraphicsMode.Default, "PMD Toolkit")
         {
             VSync = VSyncMode.On;
             string version = GL.GetString(StringName.Version);
@@ -95,8 +95,8 @@ namespace PMDToolkit
 
             string[] extensionsList = extensions.Split(' ');
 
-            int major = (int)version[0];
-            int minor = (int)version[2];
+            int major = version[0];
+            int minor = version[2];
             if (major < 2 || major == 2 && minor < 1)
                 throw new System.Exception("OpenGL 2.1 not supported!  Current version: " + version);
             if (!extensions.Contains("GL_ARB_texture_non_power_of_two"))
@@ -113,15 +113,17 @@ namespace PMDToolkit
         {
             base.OnLoad(e);
 
-            Graphics.TextureManager.InitBase();
+            TextureManager.InitBase();
 
             GameLoaded = GameLoadState.Loading;
 
             Thread thread = new Thread(() =>
             {
                 AsyncLoad();
-            });
-            thread.IsBackground = true;
+            })
+            {
+                IsBackground = true
+            };
             thread.Start();
         }
 
@@ -133,7 +135,7 @@ namespace PMDToolkit
                 Data.Paths.Init();
 
                 UpdateLoadMsg("Loading Textures");
-                Graphics.TextureManager.Init();
+                TextureManager.Init();
 
                 UpdateLoadMsg("Loading Game Data");
                 Data.GameData.Init();
@@ -158,7 +160,7 @@ namespace PMDToolkit
                 Thread.Sleep(100);
 
             AudioManager.Exit();
-            Graphics.TextureManager.Exit();
+            TextureManager.Exit();
 
             base.OnUnload(e);
         }
@@ -173,7 +175,7 @@ namespace PMDToolkit
         {
             base.OnResize(e);
 
-            Graphics.TextureManager.SetViewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
+            TextureManager.SetViewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
         }
 
         /// <summary>
@@ -200,7 +202,7 @@ namespace PMDToolkit
                 GameLoaded = GameLoadState.Finalizing;
             else if (GameLoaded == GameLoadState.Finalizing)
             {
-                Graphics.TextureManager.PostInit();
+                TextureManager.PostInit();
 
                 Logic.Gameplay.MenuManager.Init();
                 Logic.Gameplay.Processor.Init();
@@ -218,9 +220,9 @@ namespace PMDToolkit
             {
                 try
                 {
-                    Graphics.TextureManager.Update();
+                    TextureManager.Update();
 
-                    RenderTime elapsedTime = new RenderTime((int)(e.Time * Graphics.TextureManager.FPS_CAP * 1000));
+                    RenderTime elapsedTime = new RenderTime((int)(e.Time * TextureManager.FPS_CAP * 1000));
 
                     //set this frame's input
                     Logic.Gameplay.Input input = new Logic.Gameplay.Input();
@@ -249,14 +251,14 @@ namespace PMDToolkit
                 //Clear color AND stencil buffer
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.StencilBufferBit);
 
-                Graphics.TextureManager.TextureProgram.SetTextureColor(Color4.White);
+                TextureManager.TextureProgram.SetTextureColor(Color4.White);
                 //Move to rendering point
-                Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
-                Graphics.TextureManager.TextureProgram.UpdateModelView();
+                TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
+                TextureManager.TextureProgram.UpdateModelView();
 
                 lock (lockObj)
-                    Graphics.TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH / 2, TextureManager.SCREEN_HEIGHT / 2,
-                        loadMessage, null, Graphics.AtlasSheet.SpriteVOrigin.Center, Graphics.AtlasSheet.SpriteHOrigin.Center, 0);
+                    TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH / 2, TextureManager.SCREEN_HEIGHT / 2,
+                        loadMessage, null, AtlasSheet.SpriteVOrigin.Center, AtlasSheet.SpriteHOrigin.Center, 0);
 
                 SwapBuffers();
             }
@@ -267,10 +269,10 @@ namespace PMDToolkit
                     //Clear color AND stencil buffer
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.StencilBufferBit);
 
-                    Graphics.TextureManager.TextureProgram.SetTextureColor(Color4.White);
+                    TextureManager.TextureProgram.SetTextureColor(Color4.White);
                     //Move to rendering point
-                    Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
-                    Graphics.TextureManager.TextureProgram.UpdateModelView();
+                    TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
+                    TextureManager.TextureProgram.UpdateModelView();
 
                     Logic.Display.Screen.Draw((int)Math.Round(RenderFrequency));
                     //Update screen
@@ -279,6 +281,7 @@ namespace PMDToolkit
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     Logs.Logger.LogError(ex);
                     errorCount += 2;
                 }
@@ -291,15 +294,15 @@ namespace PMDToolkit
                 //Clear color AND stencil buffer
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.StencilBufferBit);
 
-                Graphics.TextureManager.TextureProgram.SetTextureColor(Color4.White);
+                TextureManager.TextureProgram.SetTextureColor(Color4.White);
                 //Move to rendering point
-                Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
-                Graphics.TextureManager.TextureProgram.UpdateModelView();
+                TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
+                TextureManager.TextureProgram.UpdateModelView();
 
                 lock (lockObj)
-                    Graphics.TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH / 2, TextureManager.SCREEN_HEIGHT / 2,
+                    TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH / 2, TextureManager.SCREEN_HEIGHT / 2,
                         "The program has encountered too many errors and needs to close.\nView the Error Logs for more details.",
-                        null, Graphics.AtlasSheet.SpriteVOrigin.Center, Graphics.AtlasSheet.SpriteHOrigin.Center, 12);
+                        null, AtlasSheet.SpriteVOrigin.Center, AtlasSheet.SpriteHOrigin.Center, 12);
 
                 SwapBuffers();
             }
@@ -323,11 +326,11 @@ namespace PMDToolkit
             openGame();
 
 #else
-            Thread gameThread = new Thread(openGame);
+            Thread gameThread = new Thread(OpenGame);
             gameThread.Start();
 
             Editors.MainPanel panel = new Editors.MainPanel();
-            System.Windows.Forms.Application.Run((Form)panel);
+            Application.Run(panel);
 #endif
         }
     }

@@ -77,66 +77,66 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             Width = (int)nudWidth.Value;
             Height = (int)nudHeight.Value;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void btnTopLeft_Click(object sender, EventArgs e)
+        private void BtnTopLeft_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.UpLeft;
             RefreshResizeDir();
         }
 
-        private void btnTop_Click(object sender, EventArgs e)
+        private void BtnTop_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.Up;
             RefreshResizeDir();
         }
 
-        private void btnTopRight_Click(object sender, EventArgs e)
+        private void BtnTopRight_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.UpRight;
             RefreshResizeDir();
         }
 
-        private void btnLeft_Click(object sender, EventArgs e)
+        private void BtnLeft_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.Left;
             RefreshResizeDir();
         }
 
-        private void btnCenter_Click(object sender, EventArgs e)
+        private void BtnCenter_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.None;
             RefreshResizeDir();
         }
 
-        private void btnRight_Click(object sender, EventArgs e)
+        private void BtnRight_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.Right;
             RefreshResizeDir();
         }
 
-        private void btnBottomLeft_Click(object sender, EventArgs e)
+        private void BtnBottomLeft_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.DownLeft;
             RefreshResizeDir();
         }
 
-        private void btnBottom_Click(object sender, EventArgs e)
+        private void BtnBottom_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.Down;
             RefreshResizeDir();
         }
 
-        private void btnBottomRight_Click(object sender, EventArgs e)
+        private void BtnBottomRight_Click(object sender, EventArgs e)
         {
             ResizeDir = Maps.Direction8.DownRight;
             RefreshResizeDir();

@@ -16,24 +16,24 @@ namespace PMDToolkit.Editors
         public void LoadLayers()
         {
             chklbLayers.Items.Clear();
-            for (int i = Logic.Gameplay.Processor.CurrentMap.FringeLayers.Count - 1; i >= 0; i--)
+            for (int i = Processor.CurrentMap.FringeLayers.Count - 1; i >= 0; i--)
             {
-                chklbLayers.Items.Add("[Fringe] " + Logic.Gameplay.Processor.CurrentMap.FringeLayers[i].Name, MapEditor.showFringeLayer[i]);
+                chklbLayers.Items.Add("[Fringe] " + Processor.CurrentMap.FringeLayers[i].Name, MapEditor.showFringeLayer[i]);
             }
 
-            for (int i = Logic.Gameplay.Processor.CurrentMap.PropFrontLayers.Count - 1; i >= 0; i--)
+            for (int i = Processor.CurrentMap.PropFrontLayers.Count - 1; i >= 0; i--)
             {
-                chklbLayers.Items.Add("[Front] " + Logic.Gameplay.Processor.CurrentMap.PropFrontLayers[i].Name, MapEditor.showPropFrontLayer[i]);
+                chklbLayers.Items.Add("[Front] " + Processor.CurrentMap.PropFrontLayers[i].Name, MapEditor.showPropFrontLayer[i]);
             }
 
-            for (int i = Logic.Gameplay.Processor.CurrentMap.PropBackLayers.Count - 1; i >= 0; i--)
+            for (int i = Processor.CurrentMap.PropBackLayers.Count - 1; i >= 0; i--)
             {
-                chklbLayers.Items.Add("[Back] " + Logic.Gameplay.Processor.CurrentMap.PropBackLayers[i].Name, MapEditor.showPropBackLayer[i]);
+                chklbLayers.Items.Add("[Back] " + Processor.CurrentMap.PropBackLayers[i].Name, MapEditor.showPropBackLayer[i]);
             }
 
-            for (int i = Logic.Gameplay.Processor.CurrentMap.GroundLayers.Count - 1; i >= 0; i--)
+            for (int i = Processor.CurrentMap.GroundLayers.Count - 1; i >= 0; i--)
             {
-                chklbLayers.Items.Add("[Ground] " + Logic.Gameplay.Processor.CurrentMap.GroundLayers[i].Name, MapEditor.showGroundLayer[i]);
+                chklbLayers.Items.Add("[Ground] " + Processor.CurrentMap.GroundLayers[i].Name, MapEditor.showGroundLayer[i]);
             }
 
             //chklbLayers.Items.Add("[Data]", MapEditor.showDataLayer);
@@ -50,49 +50,49 @@ namespace PMDToolkit.Editors
             MainPanel.CurrentMapLayerEditor = null;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
+        private void BtnRemove_Click(object sender, EventArgs e)
         {
         }
 
-        private void chklbLayers_SelectedIndexChanged(object sender, EventArgs e)
+        private void ChklbLayers_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetLayerInfoFromIndex(chklbLayers.SelectedIndex, ref MapEditor.chosenEditLayer, ref MapEditor.chosenLayer);
         }
 
         private void GetLayerInfoFromIndex(int index, ref MapEditor.EditLayer layerType, ref int layer)
         {
-            if (Logic.Gameplay.Processor.CurrentMap.FringeLayers.Count > index)
+            if (Processor.CurrentMap.FringeLayers.Count > index)
             {
                 layerType = MapEditor.EditLayer.Fringe;
-                layer = Logic.Gameplay.Processor.CurrentMap.FringeLayers.Count - index - 1;
+                layer = Processor.CurrentMap.FringeLayers.Count - index - 1;
                 return;
             }
-            index -= Logic.Gameplay.Processor.CurrentMap.FringeLayers.Count;
+            index -= Processor.CurrentMap.FringeLayers.Count;
 
-            if (Logic.Gameplay.Processor.CurrentMap.PropFrontLayers.Count > index)
+            if (Processor.CurrentMap.PropFrontLayers.Count > index)
             {
                 layerType = MapEditor.EditLayer.PropFront;
-                layer = Logic.Gameplay.Processor.CurrentMap.PropFrontLayers.Count - index - 1;
+                layer = Processor.CurrentMap.PropFrontLayers.Count - index - 1;
                 return;
             }
-            index -= Logic.Gameplay.Processor.CurrentMap.PropFrontLayers.Count;
+            index -= Processor.CurrentMap.PropFrontLayers.Count;
 
-            if (Logic.Gameplay.Processor.CurrentMap.PropBackLayers.Count > index)
+            if (Processor.CurrentMap.PropBackLayers.Count > index)
             {
                 layerType = MapEditor.EditLayer.PropBack;
-                layer = Logic.Gameplay.Processor.CurrentMap.PropBackLayers.Count - index - 1;
+                layer = Processor.CurrentMap.PropBackLayers.Count - index - 1;
                 return;
             }
-            index -= Logic.Gameplay.Processor.CurrentMap.PropBackLayers.Count;
+            index -= Processor.CurrentMap.PropBackLayers.Count;
 
-            if (Logic.Gameplay.Processor.CurrentMap.GroundLayers.Count > index)
+            if (Processor.CurrentMap.GroundLayers.Count > index)
             {
                 layerType = MapEditor.EditLayer.Ground;
-                layer = Logic.Gameplay.Processor.CurrentMap.GroundLayers.Count - index - 1;
+                layer = Processor.CurrentMap.GroundLayers.Count - index - 1;
                 return;
             }
 
@@ -106,26 +106,26 @@ namespace PMDToolkit.Editors
             if (layerType == MapEditor.EditLayer.Fringe)
                 return layerIndex + Processor.CurrentMap.FringeLayers.Count - 1 - layer;
 
-            layerIndex += Logic.Gameplay.Processor.CurrentMap.FringeLayers.Count;
+            layerIndex += Processor.CurrentMap.FringeLayers.Count;
             if (layerType == MapEditor.EditLayer.PropFront)
                 return layerIndex + Processor.CurrentMap.PropFrontLayers.Count - 1 - layer;
 
-            layerIndex += Logic.Gameplay.Processor.CurrentMap.PropFrontLayers.Count;
+            layerIndex += Processor.CurrentMap.PropFrontLayers.Count;
             if (layerType == MapEditor.EditLayer.PropBack)
                 return layerIndex + Processor.CurrentMap.PropBackLayers.Count - 1 - layer;
 
-            layerIndex += Logic.Gameplay.Processor.CurrentMap.PropBackLayers.Count;
+            layerIndex += Processor.CurrentMap.PropBackLayers.Count;
             if (layerType == MapEditor.EditLayer.Ground)
-                return layerIndex + Logic.Gameplay.Processor.CurrentMap.GroundLayers.Count - 1 - layer;
+                return layerIndex + Processor.CurrentMap.GroundLayers.Count - 1 - layer;
 
-            layerIndex += Logic.Gameplay.Processor.CurrentMap.GroundLayers.Count;
+            layerIndex += Processor.CurrentMap.GroundLayers.Count;
             if (layerType == MapEditor.EditLayer.Data)
                 return layerIndex;
 
             return -1;
         }
 
-        private void chklbLayers_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void ChklbLayers_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             MapEditor.EditLayer layerType = MapEditor.EditLayer.Data;
             int layerNum = -1;

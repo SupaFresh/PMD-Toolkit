@@ -140,28 +140,28 @@ namespace PMDToolkit.Editors
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -179,14 +179,14 @@ namespace PMDToolkit.Editors
             this.resizeMapToolStripMenuItem.Name = "resizeMapToolStripMenuItem";
             this.resizeMapToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.resizeMapToolStripMenuItem.Text = "Resize Map";
-            this.resizeMapToolStripMenuItem.Click += new System.EventHandler(this.resizeMapToolStripMenuItem_Click);
+            this.resizeMapToolStripMenuItem.Click += new System.EventHandler(this.ResizeMapToolStripMenuItem_Click);
             // 
             // clearLayerToolStripMenuItem
             // 
             this.clearLayerToolStripMenuItem.Name = "clearLayerToolStripMenuItem";
             this.clearLayerToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.clearLayerToolStripMenuItem.Text = "Clear Layer";
-            this.clearLayerToolStripMenuItem.Click += new System.EventHandler(this.clearLayerToolStripMenuItem_Click);
+            this.clearLayerToolStripMenuItem.Click += new System.EventHandler(this.ClearLayerToolStripMenuItem_Click);
             // 
             // undoToolStripMenuItem
             // 
@@ -215,7 +215,7 @@ namespace PMDToolkit.Editors
             this.layersToolStripMenuItem.Name = "layersToolStripMenuItem";
             this.layersToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.layersToolStripMenuItem.Text = "Layers";
-            this.layersToolStripMenuItem.Click += new System.EventHandler(this.layersToolStripMenuItem_Click);
+            this.layersToolStripMenuItem.Click += new System.EventHandler(this.LayersToolStripMenuItem_Click);
             // 
             // picTileset
             // 
@@ -224,7 +224,7 @@ namespace PMDToolkit.Editors
             this.picTileset.Size = new System.Drawing.Size(480, 416);
             this.picTileset.TabIndex = 1;
             this.picTileset.TabStop = false;
-            this.picTileset.Click += new System.EventHandler(this.picTileset_Click);
+            this.picTileset.Click += new System.EventHandler(this.PicTileset_Click);
             // 
             // hScroll
             // 
@@ -232,7 +232,7 @@ namespace PMDToolkit.Editors
             this.hScroll.Name = "hScroll";
             this.hScroll.Size = new System.Drawing.Size(480, 17);
             this.hScroll.TabIndex = 2;
-            this.hScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScroll_Scroll);
+            this.hScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.HScroll_Scroll);
             // 
             // vScroll
             // 
@@ -240,7 +240,7 @@ namespace PMDToolkit.Editors
             this.vScroll.Name = "vScroll";
             this.vScroll.Size = new System.Drawing.Size(17, 416);
             this.vScroll.TabIndex = 1;
-            this.vScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScroll_Scroll);
+            this.vScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScroll_Scroll);
             // 
             // chkTexEyeDropper
             // 
@@ -251,7 +251,7 @@ namespace PMDToolkit.Editors
             this.chkTexEyeDropper.TabIndex = 4;
             this.chkTexEyeDropper.Text = "Eye Dropper";
             this.chkTexEyeDropper.UseVisualStyleBackColor = true;
-            this.chkTexEyeDropper.CheckedChanged += new System.EventHandler(this.chkTexEyeDropper_CheckedChanged);
+            this.chkTexEyeDropper.CheckedChanged += new System.EventHandler(this.ChkTexEyeDropper_CheckedChanged);
             // 
             // openFileDialog
             // 
@@ -307,7 +307,7 @@ namespace PMDToolkit.Editors
             this.lbxFrames.Name = "lbxFrames";
             this.lbxFrames.Size = new System.Drawing.Size(120, 95);
             this.lbxFrames.TabIndex = 29;
-            this.lbxFrames.SelectedIndexChanged += new System.EventHandler(this.lbxFrames_SelectedIndexChanged);
+            this.lbxFrames.SelectedIndexChanged += new System.EventHandler(this.LbxFrames_SelectedIndexChanged);
             // 
             // btnRemoveFrame
             // 
@@ -317,7 +317,7 @@ namespace PMDToolkit.Editors
             this.btnRemoveFrame.TabIndex = 28;
             this.btnRemoveFrame.Text = "Remove";
             this.btnRemoveFrame.UseVisualStyleBackColor = true;
-            this.btnRemoveFrame.Click += new System.EventHandler(this.btnRemoveFrame_Click);
+            this.btnRemoveFrame.Click += new System.EventHandler(this.BtnRemoveFrame_Click);
             // 
             // btnAddFrame
             // 
@@ -327,7 +327,7 @@ namespace PMDToolkit.Editors
             this.btnAddFrame.TabIndex = 27;
             this.btnAddFrame.Text = "Add";
             this.btnAddFrame.UseVisualStyleBackColor = true;
-            this.btnAddFrame.Click += new System.EventHandler(this.btnAddFrame_Click);
+            this.btnAddFrame.Click += new System.EventHandler(this.BtnAddFrame_Click);
             // 
             // nudFrameLength
             // 
@@ -345,7 +345,7 @@ namespace PMDToolkit.Editors
             0,
             0,
             0});
-            this.nudFrameLength.TextChanged += new System.EventHandler(this.nudFrameLength_TextChanged);
+            this.nudFrameLength.TextChanged += new System.EventHandler(this.NudFrameLength_TextChanged);
             // 
             // lblTileInfo
             // 
@@ -373,7 +373,7 @@ namespace PMDToolkit.Editors
             this.chkAnimationMode.TabIndex = 20;
             this.chkAnimationMode.Text = "Animations";
             this.chkAnimationMode.UseVisualStyleBackColor = true;
-            this.chkAnimationMode.CheckedChanged += new System.EventHandler(this.chkAnimationMode_CheckedChanged);
+            this.chkAnimationMode.CheckedChanged += new System.EventHandler(this.ChkAnimationMode_CheckedChanged);
             // 
             // chkFill
             // 
@@ -384,7 +384,7 @@ namespace PMDToolkit.Editors
             this.chkFill.TabIndex = 19;
             this.chkFill.Text = "Fill";
             this.chkFill.UseVisualStyleBackColor = true;
-            this.chkFill.CheckedChanged += new System.EventHandler(this.chkFill_CheckedChanged);
+            this.chkFill.CheckedChanged += new System.EventHandler(this.ChkFill_CheckedChanged);
             // 
             // btnReloadTiles
             // 
@@ -394,7 +394,7 @@ namespace PMDToolkit.Editors
             this.btnReloadTiles.TabIndex = 18;
             this.btnReloadTiles.Text = "Reload Tiles";
             this.btnReloadTiles.UseVisualStyleBackColor = true;
-            this.btnReloadTiles.Click += new System.EventHandler(this.btnReloadTiles_Click);
+            this.btnReloadTiles.Click += new System.EventHandler(this.BtnReloadTiles_Click);
             // 
             // lblTileset
             // 
@@ -414,7 +414,7 @@ namespace PMDToolkit.Editors
             this.tbTileset.Size = new System.Drawing.Size(480, 45);
             this.tbTileset.TabIndex = 16;
             this.tbTileset.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.tbTileset.Scroll += new System.EventHandler(this.tbTileset_Scroll);
+            this.tbTileset.Scroll += new System.EventHandler(this.TbTileset_Scroll);
             // 
             // lblFrames
             // 
@@ -465,7 +465,7 @@ namespace PMDToolkit.Editors
             this.chkIndoors.TabIndex = 13;
             this.chkIndoors.Text = "Indoors";
             this.chkIndoors.UseVisualStyleBackColor = true;
-            this.chkIndoors.CheckedChanged += new System.EventHandler(this.chkIndoors_CheckedChanged);
+            this.chkIndoors.CheckedChanged += new System.EventHandler(this.ChkIndoors_CheckedChanged);
             // 
             // lblTime
             // 
@@ -484,7 +484,7 @@ namespace PMDToolkit.Editors
             this.cbWeather.Name = "cbWeather";
             this.cbWeather.Size = new System.Drawing.Size(324, 21);
             this.cbWeather.TabIndex = 8;
-            this.cbWeather.SelectedIndexChanged += new System.EventHandler(this.cbWeather_SelectedIndexChanged);
+            this.cbWeather.SelectedIndexChanged += new System.EventHandler(this.CbWeather_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -501,7 +501,7 @@ namespace PMDToolkit.Editors
             this.txtMapName.Name = "txtMapName";
             this.txtMapName.Size = new System.Drawing.Size(324, 20);
             this.txtMapName.TabIndex = 6;
-            this.txtMapName.TextChanged += new System.EventHandler(this.txtMapName_TextChanged);
+            this.txtMapName.TextChanged += new System.EventHandler(this.TxtMapName_TextChanged);
             // 
             // btnReloadSongs
             // 
@@ -511,7 +511,7 @@ namespace PMDToolkit.Editors
             this.btnReloadSongs.TabIndex = 5;
             this.btnReloadSongs.Text = "Reload Music Folder";
             this.btnReloadSongs.UseVisualStyleBackColor = true;
-            this.btnReloadSongs.Click += new System.EventHandler(this.btnReloadSongs_Click);
+            this.btnReloadSongs.Click += new System.EventHandler(this.BtnReloadSongs_Click);
             // 
             // lblMapName
             // 
@@ -538,7 +538,7 @@ namespace PMDToolkit.Editors
             this.nudTimeLimit.Name = "nudTimeLimit";
             this.nudTimeLimit.Size = new System.Drawing.Size(324, 20);
             this.nudTimeLimit.TabIndex = 11;
-            this.nudTimeLimit.TextChanged += new System.EventHandler(this.nudTimeLimit_TextChanged);
+            this.nudTimeLimit.TextChanged += new System.EventHandler(this.NudTimeLimit_TextChanged);
             // 
             // nudDarkness
             // 
@@ -556,7 +556,7 @@ namespace PMDToolkit.Editors
             this.nudDarkness.Name = "nudDarkness";
             this.nudDarkness.Size = new System.Drawing.Size(324, 20);
             this.nudDarkness.TabIndex = 10;
-            this.nudDarkness.TextChanged += new System.EventHandler(this.nudDarkness_TextChanged);
+            this.nudDarkness.TextChanged += new System.EventHandler(this.NudDarkness_TextChanged);
             // 
             // lbxMusic
             // 
@@ -565,7 +565,7 @@ namespace PMDToolkit.Editors
             this.lbxMusic.Name = "lbxMusic";
             this.lbxMusic.Size = new System.Drawing.Size(237, 251);
             this.lbxMusic.TabIndex = 0;
-            this.lbxMusic.SelectedIndexChanged += new System.EventHandler(this.lbxMusic_SelectedIndexChanged);
+            this.lbxMusic.SelectedIndexChanged += new System.EventHandler(this.LbxMusic_SelectedIndexChanged);
             // 
             // lblMusic
             // 

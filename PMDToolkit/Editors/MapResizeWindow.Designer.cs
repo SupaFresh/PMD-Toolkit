@@ -82,7 +82,7 @@ namespace PMDToolkit.Editors
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -93,7 +93,7 @@ namespace PMDToolkit.Editors
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // label1
             // 
@@ -164,7 +164,7 @@ namespace PMDToolkit.Editors
             this.btnTopLeft.Size = new System.Drawing.Size(32, 32);
             this.btnTopLeft.TabIndex = 6;
             this.btnTopLeft.UseVisualStyleBackColor = true;
-            this.btnTopLeft.Click += new System.EventHandler(this.btnTopLeft_Click);
+            this.btnTopLeft.Click += new System.EventHandler(this.BtnTopLeft_Click);
             // 
             // btnTopRight
             // 
@@ -173,7 +173,7 @@ namespace PMDToolkit.Editors
             this.btnTopRight.Size = new System.Drawing.Size(32, 32);
             this.btnTopRight.TabIndex = 7;
             this.btnTopRight.UseVisualStyleBackColor = true;
-            this.btnTopRight.Click += new System.EventHandler(this.btnTopRight_Click);
+            this.btnTopRight.Click += new System.EventHandler(this.BtnTopRight_Click);
             // 
             // btnRight
             // 
@@ -182,7 +182,7 @@ namespace PMDToolkit.Editors
             this.btnRight.Size = new System.Drawing.Size(32, 80);
             this.btnRight.TabIndex = 9;
             this.btnRight.UseVisualStyleBackColor = true;
-            this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
+            this.btnRight.Click += new System.EventHandler(this.BtnRight_Click);
             // 
             // btnLeft
             // 
@@ -191,7 +191,7 @@ namespace PMDToolkit.Editors
             this.btnLeft.Size = new System.Drawing.Size(32, 80);
             this.btnLeft.TabIndex = 8;
             this.btnLeft.UseVisualStyleBackColor = true;
-            this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
+            this.btnLeft.Click += new System.EventHandler(this.BtnLeft_Click);
             // 
             // btnTop
             // 
@@ -200,7 +200,7 @@ namespace PMDToolkit.Editors
             this.btnTop.Size = new System.Drawing.Size(80, 32);
             this.btnTop.TabIndex = 10;
             this.btnTop.UseVisualStyleBackColor = true;
-            this.btnTop.Click += new System.EventHandler(this.btnTop_Click);
+            this.btnTop.Click += new System.EventHandler(this.BtnTop_Click);
             // 
             // btnCenter
             // 
@@ -209,7 +209,7 @@ namespace PMDToolkit.Editors
             this.btnCenter.Size = new System.Drawing.Size(80, 80);
             this.btnCenter.TabIndex = 11;
             this.btnCenter.UseVisualStyleBackColor = true;
-            this.btnCenter.Click += new System.EventHandler(this.btnCenter_Click);
+            this.btnCenter.Click += new System.EventHandler(this.BtnCenter_Click);
             // 
             // btnBottomLeft
             // 
@@ -218,7 +218,7 @@ namespace PMDToolkit.Editors
             this.btnBottomLeft.Size = new System.Drawing.Size(32, 32);
             this.btnBottomLeft.TabIndex = 12;
             this.btnBottomLeft.UseVisualStyleBackColor = true;
-            this.btnBottomLeft.Click += new System.EventHandler(this.btnBottomLeft_Click);
+            this.btnBottomLeft.Click += new System.EventHandler(this.BtnBottomLeft_Click);
             // 
             // btnBottomRight
             // 
@@ -227,7 +227,7 @@ namespace PMDToolkit.Editors
             this.btnBottomRight.Size = new System.Drawing.Size(32, 32);
             this.btnBottomRight.TabIndex = 13;
             this.btnBottomRight.UseVisualStyleBackColor = true;
-            this.btnBottomRight.Click += new System.EventHandler(this.btnBottomRight_Click);
+            this.btnBottomRight.Click += new System.EventHandler(this.BtnBottomRight_Click);
             // 
             // btnBottom
             // 
@@ -236,7 +236,7 @@ namespace PMDToolkit.Editors
             this.btnBottom.Size = new System.Drawing.Size(80, 32);
             this.btnBottom.TabIndex = 14;
             this.btnBottom.UseVisualStyleBackColor = true;
-            this.btnBottom.Click += new System.EventHandler(this.btnBottom_Click);
+            this.btnBottom.Click += new System.EventHandler(this.BtnBottom_Click);
             // 
             // label3
             // 

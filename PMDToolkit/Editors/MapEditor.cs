@@ -89,16 +89,16 @@ namespace PMDToolkit.Editors
 
             tbTileset.Value = 0;
 
-            nudTimeLimit.Maximum = Int32.MaxValue;
+            nudTimeLimit.Maximum = int.MaxValue;
 
             for (int i = 0; i < 12; i++)
             {
                 cbWeather.Items.Add(((Enums.Weather)i).ToString());
             }
 
-            nudDarkness.Maximum = Int32.MaxValue;
+            nudDarkness.Maximum = int.MaxValue;
 
-            nudFrameLength.Maximum = Int32.MaxValue;
+            nudFrameLength.Maximum = int.MaxValue;
 
             RefreshTileset();
             RefreshAnimControls();
@@ -108,12 +108,12 @@ namespace PMDToolkit.Editors
             LoadMapProperties();
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Game.UpdateLoadMsg("Loading Map...");
             MainPanel.EnterLoadPhase(Game.GameLoadState.Loading);
 
-            Logic.Gameplay.Processor.StartMap("", Logic.Gameplay.Processor.Seed);
+            Processor.StartMap("", Processor.Seed);
             Logic.Display.Screen.ForceReady();
             RefreshTitle();
             LoadMapProperties();
@@ -124,17 +124,17 @@ namespace PMDToolkit.Editors
             MainPanel.EnterLoadPhase(Game.GameLoadState.Loaded);
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog.ShowDialog();
 
-            if (result == System.Windows.Forms.DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 Game.UpdateLoadMsg("Loading Map...");
                 MainPanel.EnterLoadPhase(Game.GameLoadState.Loading);
 
                 fileName = openFileDialog.FileName;
-                Logic.Gameplay.Processor.StartMap(fileName, Logic.Gameplay.Processor.Seed);
+                Processor.StartMap(fileName, Processor.Seed);
                 Logic.Display.Screen.ForceReady();
                 RefreshTitle();
                 LoadMapProperties();
@@ -146,14 +146,14 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = saveFileDialog.ShowDialog();
 
-            if (result == System.Windows.Forms.DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 fileName = saveFileDialog.FileName;
-                Maps.BasicMap map = Logic.Gameplay.Processor.CurrentMap;
+                BasicMap map = Processor.CurrentMap;
 
                 using (FileStream fileStream = File.Create(fileName))
                 {
@@ -166,16 +166,16 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (fileName == "")
             {
                 DialogResult result = saveFileDialog.ShowDialog();
 
-                if (result == System.Windows.Forms.DialogResult.OK)
+                if (result == DialogResult.OK)
                 {
                     fileName = saveFileDialog.FileName;
-                    Maps.BasicMap map = Logic.Gameplay.Processor.CurrentMap;
+                    BasicMap map = Processor.CurrentMap;
 
                     using (FileStream fileStream = File.Create(fileName))
                     {
@@ -189,7 +189,7 @@ namespace PMDToolkit.Editors
             }
             else
             {
-                Maps.BasicMap map = Logic.Gameplay.Processor.CurrentMap;
+                BasicMap map = Processor.CurrentMap;
 
                 using (FileStream fileStream = File.Create(fileName))
                 {
@@ -203,15 +203,15 @@ namespace PMDToolkit.Editors
 
         private void RefreshTitle()
         {
-            if (String.IsNullOrWhiteSpace(fileName))
+            if (string.IsNullOrWhiteSpace(fileName))
                 fileName = "";
 
             if (fileName == "")
-                this.Text = "New Map";
+                Text = "New Map";
             else
             {
                 string[] fileEnd = fileName.Split('\\');
-                this.Text = fileEnd[fileEnd.Length - 1];
+                Text = fileEnd[fileEnd.Length - 1];
             }
         }
 
@@ -226,11 +226,10 @@ namespace PMDToolkit.Editors
 
         private void RefreshPic()
         {
-            int picX = picTileset.Size.Width / Graphics.TextureManager.TILE_SIZE;
-            int picY = picTileset.Size.Height / Graphics.TextureManager.TILE_SIZE;
+            int picX = picTileset.Size.Width / TextureManager.TILE_SIZE;
+            int picY = picTileset.Size.Height / TextureManager.TILE_SIZE;
 
-            int tileX, tileY;
-            TextureManager.GetTilesetTileDimensions(currentTileset, out tileX, out tileY);
+            TextureManager.GetTilesetTileDimensions(currentTileset, out int tileX, out int tileY);
 
             UpdatePreviewTile(false);
 
@@ -248,7 +247,7 @@ namespace PMDToolkit.Editors
                 lock (drawLock)
                 {
                     graphics.DrawImage(tiles[currentTileset], 0, 0,
-                        new Rectangle(hScroll.Value * Graphics.TextureManager.TILE_SIZE, vScroll.Value * Graphics.TextureManager.TILE_SIZE, width * Graphics.TextureManager.TILE_SIZE, height * Graphics.TextureManager.TILE_SIZE), GraphicsUnit.Pixel);
+                        new Rectangle(hScroll.Value * TextureManager.TILE_SIZE, vScroll.Value * TextureManager.TILE_SIZE, width * TextureManager.TILE_SIZE, height * TextureManager.TILE_SIZE), GraphicsUnit.Pixel);
                 }
 
                 //draw red square
@@ -256,9 +255,9 @@ namespace PMDToolkit.Editors
                     chosenTile.X >= hScroll.Value && chosenTile.X < hScroll.Value + width &&
                     chosenTile.Y >= vScroll.Value && chosenTile.Y < vScroll.Value + height)
                 {
-                    graphics.DrawRectangle(new Pen(Color.Red, 2), new Rectangle((chosenTile.X - hScroll.Value) * Graphics.TextureManager.TILE_SIZE + 1,
-                        (chosenTile.Y - vScroll.Value) * Graphics.TextureManager.TILE_SIZE + 1,
-                        Graphics.TextureManager.TILE_SIZE - 2, Graphics.TextureManager.TILE_SIZE - 2));
+                    graphics.DrawRectangle(new Pen(Color.Red, 2), new Rectangle((chosenTile.X - hScroll.Value) * TextureManager.TILE_SIZE + 1,
+                        (chosenTile.Y - vScroll.Value) * TextureManager.TILE_SIZE + 1,
+                        TextureManager.TILE_SIZE - 2, TextureManager.TILE_SIZE - 2));
                 }
             }
             picTileset.Image = endImage;
@@ -273,8 +272,8 @@ namespace PMDToolkit.Editors
 
             RefreshScrollMaximums();
 
-            int picX = picTileset.Size.Width / Graphics.TextureManager.TILE_SIZE;
-            int picY = picTileset.Size.Height / Graphics.TextureManager.TILE_SIZE;
+            int picX = picTileset.Size.Width / TextureManager.TILE_SIZE;
+            int picY = picTileset.Size.Height / TextureManager.TILE_SIZE;
 
             bool refreshedPic = false;
 
@@ -302,11 +301,10 @@ namespace PMDToolkit.Editors
 
         private void RefreshScrollMaximums()
         {
-            int picX = picTileset.Size.Width / Graphics.TextureManager.TILE_SIZE;
-            int picY = picTileset.Size.Height / Graphics.TextureManager.TILE_SIZE;
+            int picX = picTileset.Size.Width / TextureManager.TILE_SIZE;
+            int picY = picTileset.Size.Height / TextureManager.TILE_SIZE;
 
-            int tileX, tileY;
-            TextureManager.GetTilesetTileDimensions(currentTileset, out tileX, out tileY);
+            TextureManager.GetTilesetTileDimensions(currentTileset, out int tileX, out int tileY);
 
             if (tileX - picX <= 0)
             {
@@ -346,20 +344,20 @@ namespace PMDToolkit.Editors
 
         private void LoadMapProperties()
         {
-            txtMapName.Text = Logic.Gameplay.Processor.CurrentMap.Title;
+            txtMapName.Text = Processor.CurrentMap.Title;
 
-            nudTimeLimit.Value = Logic.Gameplay.Processor.CurrentMap.TimeLimit;
+            nudTimeLimit.Value = Processor.CurrentMap.TimeLimit;
 
-            cbWeather.SelectedIndex = (int)Logic.Gameplay.Processor.CurrentMap.Weather;
+            cbWeather.SelectedIndex = (int)Processor.CurrentMap.Weather;
 
-            nudDarkness.Value = Logic.Gameplay.Processor.CurrentMap.Darkness;
+            nudDarkness.Value = Processor.CurrentMap.Darkness;
 
-            chkIndoors.Checked = Logic.Gameplay.Processor.CurrentMap.Indoors;
+            chkIndoors.Checked = Processor.CurrentMap.Indoors;
 
             for (int i = 0; i < lbxMusic.Items.Count; i++)
             {
                 string song = (string)lbxMusic.Items[i];
-                if (song == Logic.Gameplay.Processor.CurrentMap.Music)
+                if (song == Processor.CurrentMap.Music)
                 {
                     lbxMusic.SelectedIndex = i;
                     break;
@@ -392,12 +390,12 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void vScroll_Scroll(object sender, ScrollEventArgs e)
+        private void VScroll_Scroll(object sender, ScrollEventArgs e)
         {
             RefreshPic();
         }
 
-        private void hScroll_Scroll(object sender, ScrollEventArgs e)
+        private void HScroll_Scroll(object sender, ScrollEventArgs e)
         {
             RefreshPic();
         }
@@ -429,15 +427,14 @@ namespace PMDToolkit.Editors
             mapEditing = false;
         }
 
-        private void picTileset_Click(object sender, EventArgs e)
+        private void PicTileset_Click(object sender, EventArgs e)
         {
             MouseEventArgs args = e as MouseEventArgs;
 
-            int tileX, tileY;
-            TextureManager.GetTilesetTileDimensions(currentTileset, out tileX, out tileY);
+            TextureManager.GetTilesetTileDimensions(currentTileset, out int tileX, out int tileY);
 
-            int clickedX = args.X / Graphics.TextureManager.TILE_SIZE + hScroll.Value;
-            int clickedY = args.Y / Graphics.TextureManager.TILE_SIZE + vScroll.Value;
+            int clickedX = args.X / TextureManager.TILE_SIZE + hScroll.Value;
+            int clickedY = args.Y / TextureManager.TILE_SIZE + vScroll.Value;
 
             if (clickedX < tileX && clickedY < tileY)
             {
@@ -457,7 +454,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void tbTileset_Scroll(object sender, EventArgs e)
+        private void TbTileset_Scroll(object sender, EventArgs e)
         {
             if (tbTileset.Value == currentTileset)
                 return;
@@ -466,19 +463,19 @@ namespace PMDToolkit.Editors
             RefreshTileset();
         }
 
-        private void btnReloadSongs_Click(object sender, EventArgs e)
+        private void BtnReloadSongs_Click(object sender, EventArgs e)
         {
             ReloadMusic();
         }
 
-        private void txtMapName_TextChanged(object sender, EventArgs e)
+        private void TxtMapName_TextChanged(object sender, EventArgs e)
         {
-            Logic.Gameplay.Processor.CurrentMap.Title = txtMapName.Text;
+            Processor.CurrentMap.Title = txtMapName.Text;
         }
 
-        private void nudTimeLimit_TextChanged(object sender, EventArgs e)
+        private void NudTimeLimit_TextChanged(object sender, EventArgs e)
         {
-            SetIntFromNumeric(ref Logic.Gameplay.Processor.CurrentMap.TimeLimit, nudTimeLimit);
+            SetIntFromNumeric(ref Processor.CurrentMap.TimeLimit, nudTimeLimit);
         }
 
         private void SetIntFromNumeric(ref int setInt, IntNumericUpDown nud)
@@ -490,31 +487,31 @@ namespace PMDToolkit.Editors
                 setInt = (int)nud.Value;
         }
 
-        private void cbWeather_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbWeather_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Logic.Gameplay.Processor.CurrentMap.Weather = (Enums.Weather)cbWeather.SelectedIndex;
+            Processor.CurrentMap.Weather = (Enums.Weather)cbWeather.SelectedIndex;
         }
 
-        private void nudDarkness_TextChanged(object sender, EventArgs e)
+        private void NudDarkness_TextChanged(object sender, EventArgs e)
         {
-            SetIntFromNumeric(ref Logic.Gameplay.Processor.CurrentMap.Darkness, nudDarkness);
+            SetIntFromNumeric(ref Processor.CurrentMap.Darkness, nudDarkness);
         }
 
-        private void chkIndoors_CheckedChanged(object sender, EventArgs e)
+        private void ChkIndoors_CheckedChanged(object sender, EventArgs e)
         {
-            Logic.Gameplay.Processor.CurrentMap.Indoors = chkIndoors.Checked;
+            Processor.CurrentMap.Indoors = chkIndoors.Checked;
         }
 
-        private void lbxMusic_SelectedIndexChanged(object sender, EventArgs e)
+        private void LbxMusic_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbxMusic.SelectedIndex <= 0)
             {
-                Logic.Gameplay.Processor.CurrentMap.Music = "";
+                Processor.CurrentMap.Music = "";
             }
             else
             {
                 string fileName = (string)lbxMusic.Items[lbxMusic.SelectedIndex];
-                Logic.Gameplay.Processor.CurrentMap.Music = fileName;
+                Processor.CurrentMap.Music = fileName;
             }
             MainPanel.GameNeedWait = true;
             while (!MainPanel.GameWaiting)
@@ -527,11 +524,11 @@ namespace PMDToolkit.Editors
                 Thread.Sleep(100);
         }
 
-        private void resizeMapToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ResizeMapToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MapResizeWindow window = new MapResizeWindow(Processor.CurrentMap.Width, Processor.CurrentMap.Height);
 
-            if (window.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (window.ShowDialog() == DialogResult.OK)
             {
                 Game.UpdateLoadMsg("Resizing Map...");
                 MainPanel.EnterLoadPhase(Game.GameLoadState.Loading);
@@ -557,7 +554,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void layersToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LayersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.CurrentMapLayerEditor == null)
             {
@@ -566,7 +563,7 @@ namespace PMDToolkit.Editors
             MainPanel.CurrentMapLayerEditor.Show();
         }
 
-        private void chkTexEyeDropper_CheckedChanged(object sender, EventArgs e)
+        private void ChkTexEyeDropper_CheckedChanged(object sender, EventArgs e)
         {
             if (chkTexEyeDropper.Checked)
             {
@@ -579,7 +576,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void chkFill_CheckedChanged(object sender, EventArgs e)
+        private void ChkFill_CheckedChanged(object sender, EventArgs e)
         {
             if (chkFill.Checked)
             {
@@ -733,7 +730,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void chkAnimationMode_CheckedChanged(object sender, EventArgs e)
+        private void ChkAnimationMode_CheckedChanged(object sender, EventArgs e)
         {
             if (inAnimMode != chkAnimationMode.Checked)
             {
@@ -872,7 +869,7 @@ namespace PMDToolkit.Editors
             ChangeAnimationTimer();
         }
 
-        private void nudFrameLength_TextChanged(object sender, EventArgs e)
+        private void NudFrameLength_TextChanged(object sender, EventArgs e)
         {
             int millisecs = 0;
             SetIntFromNumeric(ref millisecs, nudFrameLength);
@@ -880,7 +877,7 @@ namespace PMDToolkit.Editors
             ChangeAnimationTimer();
         }
 
-        private void btnAddFrame_Click(object sender, EventArgs e)
+        private void BtnAddFrame_Click(object sender, EventArgs e)
         {
             lock (drawLock)
             {
@@ -892,7 +889,7 @@ namespace PMDToolkit.Editors
             UpdateAnimFrames();
         }
 
-        private void btnRemoveFrame_Click(object sender, EventArgs e)
+        private void BtnRemoveFrame_Click(object sender, EventArgs e)
         {
             lock (drawLock)
             {
@@ -909,7 +906,7 @@ namespace PMDToolkit.Editors
             UpdateAnimFrames();
         }
 
-        private void lbxFrames_SelectedIndexChanged(object sender, EventArgs e)
+        private void LbxFrames_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbxFrames.SelectedIndex > -1)
             {
@@ -920,7 +917,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void btnReloadTiles_Click(object sender, EventArgs e)
+        private void BtnReloadTiles_Click(object sender, EventArgs e)
         {
             Game.UpdateLoadMsg("Reloading Tiles...");
             MainPanel.EnterLoadPhase(Game.GameLoadState.Loading);
@@ -941,7 +938,7 @@ namespace PMDToolkit.Editors
             MainPanel.EnterLoadPhase(Game.GameLoadState.Loaded);
         }
 
-        private void clearLayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearLayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MapLayer layer = GetChosenEditLayer();
             layer = new MapLayer(layer.Name, layer.Tiles.GetLength(0), layer.Tiles.GetLength(1));

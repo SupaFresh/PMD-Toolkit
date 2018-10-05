@@ -67,7 +67,7 @@ namespace PMDToolkit.Editors
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Visible = false;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // btnRemove
             // 
@@ -78,7 +78,7 @@ namespace PMDToolkit.Editors
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Visible = false;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // chklbLayers
             // 
@@ -87,8 +87,8 @@ namespace PMDToolkit.Editors
             this.chklbLayers.Name = "chklbLayers";
             this.chklbLayers.Size = new System.Drawing.Size(225, 124);
             this.chklbLayers.TabIndex = 3;
-            this.chklbLayers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chklbLayers_ItemCheck);
-            this.chklbLayers.SelectedIndexChanged += new System.EventHandler(this.chklbLayers_SelectedIndexChanged);
+            this.chklbLayers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ChklbLayers_ItemCheck);
+            this.chklbLayers.SelectedIndexChanged += new System.EventHandler(this.ChklbLayers_SelectedIndexChanged);
             // 
             // MapLayerEditor
             // 
