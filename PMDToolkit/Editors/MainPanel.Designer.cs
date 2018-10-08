@@ -117,7 +117,7 @@ namespace PMDToolkit.Editors
             this.chkCoords.TabIndex = 2;
             this.chkCoords.Text = "Show Coordinates";
             this.chkCoords.UseVisualStyleBackColor = true;
-            this.chkCoords.CheckedChanged += new System.EventHandler(this.chkCoords_CheckedChanged);
+            this.chkCoords.CheckedChanged += new System.EventHandler(this.ChkCoords_CheckedChanged);
             // 
             // chkGrid
             // 
@@ -128,7 +128,7 @@ namespace PMDToolkit.Editors
             this.chkGrid.TabIndex = 1;
             this.chkGrid.Text = "Show Grid";
             this.chkGrid.UseVisualStyleBackColor = true;
-            this.chkGrid.CheckedChanged += new System.EventHandler(this.chkGrid_CheckedChanged);
+            this.chkGrid.CheckedChanged += new System.EventHandler(this.ChkGrid_CheckedChanged);
             // 
             // btnMapEditor
             // 
@@ -138,7 +138,7 @@ namespace PMDToolkit.Editors
             this.btnMapEditor.TabIndex = 0;
             this.btnMapEditor.Text = "Open Map Editor";
             this.btnMapEditor.UseVisualStyleBackColor = true;
-            this.btnMapEditor.Click += new System.EventHandler(this.btnMapEditor_Click);
+            this.btnMapEditor.Click += new System.EventHandler(this.BtnMapEditor_Click);
             // 
             // tabOptions
             // 
@@ -183,7 +183,7 @@ namespace PMDToolkit.Editors
             this.btnLoop.TabIndex = 13;
             this.btnLoop.Text = "Loop";
             this.btnLoop.UseVisualStyleBackColor = true;
-            this.btnLoop.Click += new System.EventHandler(this.btnLoop_Click);
+            this.btnLoop.Click += new System.EventHandler(this.BtnLoop_Click);
             // 
             // cbAnim
             // 
@@ -202,7 +202,7 @@ namespace PMDToolkit.Editors
             this.cbGender.Name = "cbGender";
             this.cbGender.Size = new System.Drawing.Size(88, 21);
             this.cbGender.TabIndex = 8;
-            this.cbGender.SelectedValueChanged += new System.EventHandler(this.cbGender_SelectedIndexChanged);
+            this.cbGender.SelectedValueChanged += new System.EventHandler(this.CbGender_SelectedIndexChanged);
             // 
             // cbShiny
             // 
@@ -212,7 +212,7 @@ namespace PMDToolkit.Editors
             this.cbShiny.Name = "cbShiny";
             this.cbShiny.Size = new System.Drawing.Size(88, 21);
             this.cbShiny.TabIndex = 6;
-            this.cbShiny.SelectedIndexChanged += new System.EventHandler(this.cbShiny_SelectedIndexChanged);
+            this.cbShiny.SelectedIndexChanged += new System.EventHandler(this.CbShiny_SelectedIndexChanged);
             // 
             // cbForme
             // 
@@ -222,7 +222,7 @@ namespace PMDToolkit.Editors
             this.cbForme.Name = "cbForme";
             this.cbForme.Size = new System.Drawing.Size(188, 21);
             this.cbForme.TabIndex = 4;
-            this.cbForme.SelectedIndexChanged += new System.EventHandler(this.cbForme_SelectedIndexChanged);
+            this.cbForme.SelectedIndexChanged += new System.EventHandler(this.CbForme_SelectedIndexChanged);
             // 
             // cbDexNum
             // 
@@ -232,7 +232,7 @@ namespace PMDToolkit.Editors
             this.cbDexNum.Name = "cbDexNum";
             this.cbDexNum.Size = new System.Drawing.Size(188, 21);
             this.cbDexNum.TabIndex = 2;
-            this.cbDexNum.SelectedIndexChanged += new System.EventHandler(this.cbDexNum_SelectedIndexChanged);
+            this.cbDexNum.SelectedIndexChanged += new System.EventHandler(this.CbDexNum_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -251,7 +251,7 @@ namespace PMDToolkit.Editors
             this.btnAnimate.TabIndex = 10;
             this.btnAnimate.Text = "Animate";
             this.btnAnimate.UseVisualStyleBackColor = true;
-            this.btnAnimate.Click += new System.EventHandler(this.btnAnimate_Click);
+            this.btnAnimate.Click += new System.EventHandler(this.BtnAnimate_Click);
             // 
             // label4
             // 
@@ -297,7 +297,7 @@ namespace PMDToolkit.Editors
             this.btnReloadSprites.TabIndex = 1;
             this.btnReloadSprites.Text = "Reload Sprites";
             this.btnReloadSprites.UseVisualStyleBackColor = true;
-            this.btnReloadSprites.Click += new System.EventHandler(this.btnReloadSprites_Click);
+            this.btnReloadSprites.Click += new System.EventHandler(this.BtnReloadSprites_Click);
             // 
             // chkShowSprites
             // 
@@ -308,7 +308,7 @@ namespace PMDToolkit.Editors
             this.chkShowSprites.TabIndex = 0;
             this.chkShowSprites.Text = "Show Sprites";
             this.chkShowSprites.UseVisualStyleBackColor = true;
-            this.chkShowSprites.CheckedChanged += new System.EventHandler(this.chkShowSprites_CheckedChanged);
+            this.chkShowSprites.CheckedChanged += new System.EventHandler(this.ChkShowSprites_CheckedChanged);
             // 
             // tabPath
             // 
@@ -343,7 +343,7 @@ namespace PMDToolkit.Editors
             this.btnDefaultPath.TabIndex = 20;
             this.btnDefaultPath.Text = "Reset Defaults";
             this.btnDefaultPath.UseVisualStyleBackColor = true;
-            this.btnDefaultPath.Click += new System.EventHandler(this.btnDefaultPath_Click);
+            this.btnDefaultPath.Click += new System.EventHandler(this.BtnDefaultPath_Click);
             // 
             // label12
             // 
@@ -417,7 +417,7 @@ namespace PMDToolkit.Editors
             this.txtSoundPath.ReadOnly = true;
             this.txtSoundPath.Size = new System.Drawing.Size(143, 20);
             this.txtSoundPath.TabIndex = 27;
-            this.txtSoundPath.Click += new System.EventHandler(this.txtSoundPath_Click);
+            this.txtSoundPath.Click += new System.EventHandler(this.TxtSoundPath_Click);
             // 
             // txtMusicPath
             // 
@@ -428,7 +428,7 @@ namespace PMDToolkit.Editors
             this.txtMusicPath.ReadOnly = true;
             this.txtMusicPath.Size = new System.Drawing.Size(143, 20);
             this.txtMusicPath.TabIndex = 26;
-            this.txtMusicPath.Click += new System.EventHandler(this.txtMusicPath_Click);
+            this.txtMusicPath.Click += new System.EventHandler(this.TxtMusicPath_Click);
             // 
             // txtItemPath
             // 
@@ -439,7 +439,7 @@ namespace PMDToolkit.Editors
             this.txtItemPath.ReadOnly = true;
             this.txtItemPath.Size = new System.Drawing.Size(143, 20);
             this.txtItemPath.TabIndex = 25;
-            this.txtItemPath.Click += new System.EventHandler(this.txtItemPath_Click);
+            this.txtItemPath.Click += new System.EventHandler(this.TxtItemPath_Click);
             // 
             // txtEffectPath
             // 
@@ -450,7 +450,7 @@ namespace PMDToolkit.Editors
             this.txtEffectPath.ReadOnly = true;
             this.txtEffectPath.Size = new System.Drawing.Size(143, 20);
             this.txtEffectPath.TabIndex = 24;
-            this.txtEffectPath.Click += new System.EventHandler(this.txtEffectPath_Click);
+            this.txtEffectPath.Click += new System.EventHandler(this.TxtEffectPath_Click);
             // 
             // txtPortraitPath
             // 
@@ -461,7 +461,7 @@ namespace PMDToolkit.Editors
             this.txtPortraitPath.ReadOnly = true;
             this.txtPortraitPath.Size = new System.Drawing.Size(143, 20);
             this.txtPortraitPath.TabIndex = 23;
-            this.txtPortraitPath.Click += new System.EventHandler(this.txtPortraitPath_Click);
+            this.txtPortraitPath.Click += new System.EventHandler(this.TxtPortraitPath_Click);
             // 
             // txtSpritePath
             // 
@@ -472,7 +472,7 @@ namespace PMDToolkit.Editors
             this.txtSpritePath.ReadOnly = true;
             this.txtSpritePath.Size = new System.Drawing.Size(143, 20);
             this.txtSpritePath.TabIndex = 22;
-            this.txtSpritePath.Click += new System.EventHandler(this.txtSpritePath_Click);
+            this.txtSpritePath.Click += new System.EventHandler(this.TxtSpritePath_Click);
             // 
             // txtTilePath
             // 
@@ -483,7 +483,7 @@ namespace PMDToolkit.Editors
             this.txtTilePath.ReadOnly = true;
             this.txtTilePath.Size = new System.Drawing.Size(143, 20);
             this.txtTilePath.TabIndex = 21;
-            this.txtTilePath.Click += new System.EventHandler(this.txtTilePath_Click);
+            this.txtTilePath.Click += new System.EventHandler(this.TxtTilePath_Click);
             // 
             // MainPanel
             // 

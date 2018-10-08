@@ -36,12 +36,12 @@ namespace PMDToolkit.Editors
 
         public PathTextBox()
         {
-            this.ReadOnly = true;
-            this.BackColor = Color.White;
-            this.Click += TextBox_Click;
-            this.Enter += TextBox_Enter;
+            ReadOnly = true;
+            BackColor = Color.White;
+            Click += TextBox_Click;
+            Enter += TextBox_Enter;
             //this.GotFocus += TextBox_GotFocus;
-            this.Cursor = Cursors.Arrow; // mouse cursor like in other controls
+            Cursor = Cursors.Arrow; // mouse cursor like in other controls
         }
 
         private void TextBox_Click(object sender, EventArgs e)

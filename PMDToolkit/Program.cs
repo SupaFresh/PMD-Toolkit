@@ -98,12 +98,12 @@ namespace PMDToolkit
             int major = version[0];
             int minor = version[2];
             if (major < 2 || major == 2 && minor < 1)
-                throw new System.Exception("OpenGL 2.1 not supported!  Current version: " + version);
+                throw new Exception("OpenGL 2.1 not supported!  Current version: " + version);
             if (!extensions.Contains("GL_ARB_texture_non_power_of_two"))
             {
-                throw new System.Exception("Non-Power of 2 Textures not supported!");
+                throw new Exception("Non-Power of 2 Textures not supported!");
             }
-            WindowBorder = OpenTK.WindowBorder.Fixed;
+            WindowBorder = WindowBorder.Fixed;
             loadMessage = "";
             errorCount = 0;
         }

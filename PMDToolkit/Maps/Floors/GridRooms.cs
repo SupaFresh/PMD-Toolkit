@@ -17,8 +17,8 @@ namespace PMDToolkit.Maps.Floors
             Water
         };
 
-        private int minNpcsPerRoom = 0;
-        private int maxNpcsPerRoom = 4;
+        private readonly int minNpcsPerRoom = 0;
+        private readonly int maxNpcsPerRoom = 4;
 
         private Loc2D StartRoom { get; set; }
         private Loc2D EndRoom { get; set; }
@@ -128,7 +128,7 @@ namespace PMDToolkit.Maps.Floors
                             prevDir = Operations.ReverseDir(nextDir);
                             if (sample.X >= 0 && sample.X < entry.FloorSettings["CellX"] && sample.Y >= 0 && sample.Y < entry.FloorSettings["CellY"])
                             {// a is the room to be checked after making a move between rooms
-                                openHallBetween(wanderer, sample);
+                                OpenHallBetween(wanderer, sample);
                                 wanderer = sample;
                                 working = false;
                             }
@@ -188,7 +188,7 @@ namespace PMDToolkit.Maps.Floors
                 {
                     if (Rooms[i, j].Opened != DungeonArrayRoom.RoomState.Closed)
                     {
-                        createRoom(i, j);
+                        CreateRoom(i, j);
                     }
                 }
             }
@@ -199,7 +199,7 @@ namespace PMDToolkit.Maps.Floors
                 {
                     if (Rooms[i, j].Opened != DungeonArrayRoom.RoomState.Closed)
                     {
-                        drawRoom(i, j);
+                        DrawRoom(i, j);
                     }
                 }
             }
@@ -210,7 +210,7 @@ namespace PMDToolkit.Maps.Floors
                 {
                     if (Rooms[i, j].Opened != DungeonArrayRoom.RoomState.Closed)
                     {
-                        padSingleRoom(i, j);
+                        PadSingleRoom(i, j);
                     }
                 }
             }
@@ -221,7 +221,7 @@ namespace PMDToolkit.Maps.Floors
                 {
                     if (VHalls[i, j].Open)
                     {
-                        createVHall(i, j);
+                        CreateVHall(i, j);
                     }
                 }
             }
@@ -232,7 +232,7 @@ namespace PMDToolkit.Maps.Floors
                 {
                     if (HHalls[i, j].Open)
                     {
-                        createHHall(i, j);
+                        CreateHHall(i, j);
                     }
                 }
             }
@@ -259,8 +259,8 @@ namespace PMDToolkit.Maps.Floors
                 }
             }
 
-            addSEpos(StartRoom, true);
-            addSEpos(EndRoom, false);
+            AddSEpos(StartRoom, true);
+            AddSEpos(EndRoom, false);
 
             //texturing
             MapLayer ground = new MapLayer(Width, Height);
@@ -271,12 +271,12 @@ namespace PMDToolkit.Maps.Floors
                 {
                     if (GridArray[x, y] == GridType.End)
                     {
-                        MapArray[x, y] = new Tile(PMDToolkit.Enums.TileType.ChangeFloor, 1, 0, 0);
+                        MapArray[x, y] = new Tile(Enums.TileType.ChangeFloor, 1, 0, 0);
                         GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(47, 0), 0);
                     }
                     else if (GridArray[x, y] == GridType.Blocked)
                     {
-                        MapArray[x, y] = new Tile(PMDToolkit.Enums.TileType.Blocked, 0, 0, 0);
+                        MapArray[x, y] = new Tile(Enums.TileType.Blocked, 0, 0, 0);
 
                         bool[] blockedDirs = new bool[8];
                         for (int n = 0; n < 8; n++)
@@ -403,7 +403,7 @@ namespace PMDToolkit.Maps.Floors
             SpawnNpcs();
         }
 
-        private void addSEpos(Loc2D point, bool isStart)
+        private void AddSEpos(Loc2D point, bool isStart)
         {
             int x = 0, y = 0, u = 0, v = 0;
             bool end = !isStart;
@@ -454,7 +454,7 @@ namespace PMDToolkit.Maps.Floors
             }
         }
 
-        private void createRoom(int roomX, int roomY)
+        private void CreateRoom(int roomX, int roomY)
         {
             if (Rooms[roomX, roomY].StartX > -1)
             {
@@ -462,7 +462,7 @@ namespace PMDToolkit.Maps.Floors
             }
 
             int x = 0, y = 0, u, v, w, l; // variables used for position
-            convertRoomToXY(roomX, roomY, ref x, ref y);
+            ConvertRoomToXY(roomX, roomY, ref x, ref y);
 
             //Determine room length/width
             if (Rooms[roomX, roomY].Opened == DungeonArrayRoom.RoomState.Hall)
@@ -502,7 +502,7 @@ namespace PMDToolkit.Maps.Floors
             // done
         }
 
-        private void drawRoom(int roomX, int roomY)
+        private void DrawRoom(int roomX, int roomY)
         {
             int x, y, u, v;
 
@@ -525,7 +525,7 @@ namespace PMDToolkit.Maps.Floors
             }
         }
 
-        private void padSingleRoom(int roomX, int roomY)
+        private void PadSingleRoom(int roomX, int roomY)
         {
             int x, y, u, v;
 
@@ -560,7 +560,7 @@ namespace PMDToolkit.Maps.Floors
             }
         }
 
-        private void createHHall(int hallX, int hallY)
+        private void CreateHHall(int hallX, int hallY)
         {
             DungeonArrayRoom startRoom = Rooms[hallX, hallY];
             DungeonArrayRoom endRoom = Rooms[hallX + 1, hallY];
@@ -649,7 +649,7 @@ namespace PMDToolkit.Maps.Floors
             //addHorizHall(x, y, 6, mapArray);
         }
 
-        private void createVHall(int hallX, int hallY)
+        private void CreateVHall(int hallX, int hallY)
         {
             DungeonArrayRoom startRoom = Rooms[hallX, hallY];
             DungeonArrayRoom endRoom = Rooms[hallX, hallY + 1];
@@ -817,13 +817,13 @@ namespace PMDToolkit.Maps.Floors
             }
         }
 
-        private void convertRoomToXY(int roomX, int roomY, ref int x, ref int y)
+        private void ConvertRoomToXY(int roomX, int roomY, ref int x, ref int y)
         {
             x = 1 + roomX * entry.FloorSettings["CellWidth"];
             y = 1 + roomY * entry.FloorSettings["CellHeight"];
         }
 
-        private void openHallBetween(Loc2D room1, Loc2D room2)
+        private void OpenHallBetween(Loc2D room1, Loc2D room2)
         {
             if (room1.X == room2.X)
             {
@@ -863,28 +863,28 @@ namespace PMDToolkit.Maps.Floors
             //}
         }
 
-        private static int getRoomUp(int room)
+        private static int GetRoomUp(int room)
         {
             if (room < 4)
                 return -1;
             return room - 4;
         }
 
-        private static int getRoomDown(int room)
+        private static int GetRoomDown(int room)
         {
             if (room > 11)
                 return -1;
             return room + 4;
         }
 
-        private static int getRoomLeft(int room)
+        private static int GetRoomLeft(int room)
         {
             if (room % 4 == 0)
                 return -1;
             return room - 1;
         }
 
-        private static int getRoomRight(int room)
+        private static int GetRoomRight(int room)
         {
             if (room % 4 == 3)
                 return -1;
@@ -936,7 +936,7 @@ namespace PMDToolkit.Maps.Floors
         {
             //spawn NPCs
 
-            for (int i = 0; i < BasicMap.MAX_NPC_SLOTS; i++)
+            for (int i = 0; i < MAX_NPC_SLOTS; i++)
             {
                 Npcs[i] = new Npc();
             }
@@ -964,10 +964,10 @@ namespace PMDToolkit.Maps.Floors
             {
                 for (int x = room.StartX; x <= room.EndX; x++)
                 {
-                    if (MapArray[x, y].Data.Type == PMDToolkit.Enums.TileType.Walkable && StartPoint != new Loc2D(x, y))
+                    if (MapArray[x, y].Data.Type == Enums.TileType.Walkable && StartPoint != new Loc2D(x, y))
                     {
                         bool placeHere = true;
-                        for (int n = 0; n < BasicMap.MAX_NPC_SLOTS; n++)
+                        for (int n = 0; n < MAX_NPC_SLOTS; n++)
                         {
                             if (!Npcs[n].dead && Npcs[n].CharLoc == new Loc2D(x, y))
                             {

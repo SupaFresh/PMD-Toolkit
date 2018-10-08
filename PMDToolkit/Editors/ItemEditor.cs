@@ -51,7 +51,7 @@ namespace PMDToolkit.Editors
             nudRarity.Minimum = 0;
             nudRarity.Maximum = 10;
             nudPrice.Minimum = 0;
-            nudPrice.Maximum = Int32.MaxValue;
+            nudPrice.Maximum = int.MaxValue;
 
             picSprite.BackColor = Color.Black;
 
@@ -72,38 +72,38 @@ namespace PMDToolkit.Editors
             }
 
             nudRequirement.Minimum = -1;
-            nudRequirement.Maximum = Int32.MaxValue;
+            nudRequirement.Maximum = int.MaxValue;
 
-            nudReqData1.Minimum = Int32.MinValue;
-            nudReqData1.Maximum = Int32.MaxValue;
-            nudReqData2.Minimum = Int32.MinValue;
-            nudReqData2.Maximum = Int32.MaxValue;
-            nudReqData3.Minimum = Int32.MinValue;
-            nudReqData3.Maximum = Int32.MaxValue;
-            nudReqData4.Minimum = Int32.MinValue;
-            nudReqData4.Maximum = Int32.MaxValue;
-            nudReqData5.Minimum = Int32.MinValue;
-            nudReqData5.Maximum = Int32.MaxValue;
+            nudReqData1.Minimum = int.MinValue;
+            nudReqData1.Maximum = int.MaxValue;
+            nudReqData2.Minimum = int.MinValue;
+            nudReqData2.Maximum = int.MaxValue;
+            nudReqData3.Minimum = int.MinValue;
+            nudReqData3.Maximum = int.MaxValue;
+            nudReqData4.Minimum = int.MinValue;
+            nudReqData4.Maximum = int.MaxValue;
+            nudReqData5.Minimum = int.MinValue;
+            nudReqData5.Maximum = int.MaxValue;
 
             nudEffect.Minimum = -1;
-            nudEffect.Maximum = Int32.MaxValue;
+            nudEffect.Maximum = int.MaxValue;
 
-            nudEffectData1.Minimum = Int32.MinValue;
-            nudEffectData1.Maximum = Int32.MaxValue;
-            nudEffectData2.Minimum = Int32.MinValue;
-            nudEffectData2.Maximum = Int32.MaxValue;
-            nudEffectData3.Minimum = Int32.MinValue;
-            nudEffectData3.Maximum = Int32.MaxValue;
+            nudEffectData1.Minimum = int.MinValue;
+            nudEffectData1.Maximum = int.MaxValue;
+            nudEffectData2.Minimum = int.MinValue;
+            nudEffectData2.Maximum = int.MaxValue;
+            nudEffectData3.Minimum = int.MinValue;
+            nudEffectData3.Maximum = int.MaxValue;
 
             nudThrowEffect.Minimum = -1;
-            nudThrowEffect.Maximum = Int32.MaxValue;
+            nudThrowEffect.Maximum = int.MaxValue;
 
-            nudThrowData1.Minimum = Int32.MinValue;
-            nudThrowData1.Maximum = Int32.MaxValue;
-            nudThrowData2.Minimum = Int32.MinValue;
-            nudThrowData2.Maximum = Int32.MaxValue;
-            nudThrowData3.Minimum = Int32.MinValue;
-            nudThrowData3.Maximum = Int32.MaxValue;
+            nudThrowData1.Minimum = int.MinValue;
+            nudThrowData1.Maximum = int.MaxValue;
+            nudThrowData2.Minimum = int.MinValue;
+            nudThrowData2.Maximum = int.MaxValue;
+            nudThrowData3.Minimum = int.MinValue;
+            nudThrowData3.Maximum = int.MaxValue;
         }
 
         private void ItemEditor_Load(object sender, EventArgs e)
@@ -145,32 +145,34 @@ namespace PMDToolkit.Editors
 
         public void SaveItem()
         {
-            ItemEntry entry = new ItemEntry();
-            entry.Name = txtName.Text;
+            ItemEntry entry = new ItemEntry
+            {
+                Name = txtName.Text,
 
-            entry.Type = (Enums.ItemType)cbItemType.SelectedIndex;
-            entry.Rarity = (int)nudRarity.Value;
-            entry.Price = (int)nudPrice.Value;
-            entry.Desc = txtDescription.Text;
+                Type = (Enums.ItemType)cbItemType.SelectedIndex,
+                Rarity = (int)nudRarity.Value,
+                Price = (int)nudPrice.Value,
+                Desc = txtDescription.Text,
 
-            entry.Sprite = chosenPic;
+                Sprite = chosenPic,
 
-            entry.Req = (int)nudRequirement.Value;
-            entry.Req1 = (int)nudReqData1.Value;
-            entry.Req2 = (int)nudReqData2.Value;
-            entry.Req3 = (int)nudReqData3.Value;
-            entry.Req4 = (int)nudReqData4.Value;
-            entry.Req5 = (int)nudReqData5.Value;
+                Req = (int)nudRequirement.Value,
+                Req1 = (int)nudReqData1.Value,
+                Req2 = (int)nudReqData2.Value,
+                Req3 = (int)nudReqData3.Value,
+                Req4 = (int)nudReqData4.Value,
+                Req5 = (int)nudReqData5.Value,
 
-            entry.Effect = (int)nudEffect.Value;
-            entry.Effect1 = (int)nudEffectData1.Value;
-            entry.Effect2 = (int)nudEffectData2.Value;
-            entry.Effect3 = (int)nudEffectData3.Value;
+                Effect = (int)nudEffect.Value,
+                Effect1 = (int)nudEffectData1.Value,
+                Effect2 = (int)nudEffectData2.Value,
+                Effect3 = (int)nudEffectData3.Value,
 
-            entry.ThrowEffect = (int)nudThrowEffect.Value;
-            entry.Throw1 = (int)nudThrowData1.Value;
-            entry.Throw2 = (int)nudThrowData2.Value;
-            entry.Throw3 = (int)nudThrowData3.Value;
+                ThrowEffect = (int)nudThrowEffect.Value,
+                Throw1 = (int)nudThrowData1.Value,
+                Throw2 = (int)nudThrowData2.Value,
+                Throw3 = (int)nudThrowData3.Value
+            };
 
             GameData.ItemDex[itemNum] = entry;
             GameData.ItemDex[itemNum].Save(itemNum);
@@ -201,7 +203,7 @@ namespace PMDToolkit.Editors
             picSprite.Image = endImage;
         }
 
-        private void picSprite_Click(object sender, EventArgs e)
+        private void PicSprite_Click(object sender, EventArgs e)
         {
             int picIndex = ((MouseEventArgs)e).Y / Graphics.TextureManager.TILE_SIZE + vsItemScroll.Value;
             if (picIndex < items.Count)
@@ -209,23 +211,23 @@ namespace PMDToolkit.Editors
             RefreshPic();
         }
 
-        private void vsItemScroll_ValueChanged(object sender, EventArgs e)
+        private void VsItemScroll_ValueChanged(object sender, EventArgs e)
         {
             RefreshPic();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             SaveItem();
-            this.Close();
+            Close();
         }
 
-        private void vsItemScroll_Scroll(object sender, ScrollEventArgs e)
+        private void VsItemScroll_Scroll(object sender, ScrollEventArgs e)
         {
         }
     }

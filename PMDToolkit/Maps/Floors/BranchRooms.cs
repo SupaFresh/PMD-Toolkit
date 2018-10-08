@@ -31,13 +31,13 @@ namespace PMDToolkit.Maps.Floors
 {
     public class BranchRooms : RandomMap
     {
-        private int minLineSize = 8;
-        private int maxLineSize = 16;
-        private int minPassageSize = 0;
-        private int maxPassageSize = 3;
-        private int minSizeChangePeriod = 3;
-        private int maxSizeChangePeriod = 7;
-        private double mainFreedom = 0.5;
+        private readonly int minLineSize = 8;
+        private readonly int maxLineSize = 16;
+        private readonly int minPassageSize = 0;
+        private readonly int maxPassageSize = 3;
+        private readonly int minSizeChangePeriod = 3;
+        private readonly int maxSizeChangePeriod = 7;
+        private readonly double mainFreedom = 0.5;
 
         private Loc2D StartPoint { get { return BorderPoints[0]; } }
 
@@ -100,7 +100,7 @@ namespace PMDToolkit.Maps.Floors
                 {
                     if (AgeArray[x, y] != -1)
                     {
-                        MapArray[x, y] = new Tile(PMDToolkit.Enums.TileType.Blocked, 0, 0, 0);
+                        MapArray[x, y] = new Tile(Enums.TileType.Blocked, 0, 0, 0);
 
                         bool[] blockedDirs = new bool[8];
                         for (int n = 0; n < 8; n++)
@@ -217,7 +217,7 @@ namespace PMDToolkit.Maps.Floors
                     }
                     else
                     {
-                        MapArray[x, y] = new Tile(PMDToolkit.Enums.TileType.Walkable, 0, 0, 0);
+                        MapArray[x, y] = new Tile(Enums.TileType.Walkable, 0, 0, 0);
                         GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(47, 0), 0);
                     }
                 }
@@ -416,7 +416,7 @@ namespace PMDToolkit.Maps.Floors
             }
 
             Loc2D diff = Operations.GetResizeOffset(AgeArray.GetLength(0), AgeArray.GetLength(1), size.X, size.Y, dir);
-            Operations.ResizeArray<int>(ref AgeArray, size.X, size.Y, dir);
+            Operations.ResizeArray(ref AgeArray, size.X, size.Y, dir);
 
             TopLeft -= diff;
         }
@@ -546,17 +546,18 @@ namespace PMDToolkit.Maps.Floors
             DrawTile(loc2);
         }
 
-        public List<System.Drawing.PointF> CreateSpline(List<Loc2D> controlPoints)
+        public List<PointF> CreateSpline(List<Loc2D> controlPoints)
         {
-            List<System.Drawing.PointF> pointfs = new List<System.Drawing.PointF>();
-
-            pointfs.Add(new System.Drawing.PointF(controlPoints[0].X, controlPoints[0].Y));
+            List<PointF> pointfs = new List<PointF>
+            {
+                new PointF(controlPoints[0].X, controlPoints[0].Y)
+            };
             for (int i = 1; i < controlPoints.Count - 1; i++)
             {
                 //create the vector of the direction of the surrounding points
                 Loc2D diff = controlPoints[i + 1] - controlPoints[i - 1];
                 float length = (float)Math.Sqrt(diff.X * diff.X + diff.Y * diff.Y);
-                System.Drawing.PointF unitDiff = new System.Drawing.PointF((float)diff.X / length, (float)diff.Y / length);
+                PointF unitDiff = new PointF(diff.X / length, diff.Y / length);
 
                 //create vectors for each control point
                 Loc2D prevDiff = controlPoints[i - 1] - controlPoints[i];
@@ -565,17 +566,17 @@ namespace PMDToolkit.Maps.Floors
                 float prevDiffDot = prevDiff.X * unitDiff.X + prevDiff.Y * unitDiff.Y;
                 float postDiffDot = postDiff.X * unitDiff.X + postDiff.Y * unitDiff.Y;
 
-                System.Drawing.PointF point = new System.Drawing.PointF(controlPoints[i].X, controlPoints[i].Y);
+                PointF point = new PointF(controlPoints[i].X, controlPoints[i].Y);
 
-                System.Drawing.PointF prevPoint = new System.Drawing.PointF(point.X + unitDiff.X * prevDiffDot, point.Y + unitDiff.Y * prevDiffDot);
-                System.Drawing.PointF postPoint = new System.Drawing.PointF(point.X + unitDiff.X * postDiffDot, point.Y + unitDiff.Y * postDiffDot);
+                PointF prevPoint = new PointF(point.X + unitDiff.X * prevDiffDot, point.Y + unitDiff.Y * prevDiffDot);
+                PointF postPoint = new PointF(point.X + unitDiff.X * postDiffDot, point.Y + unitDiff.Y * postDiffDot);
 
                 pointfs.Add(prevPoint);
                 pointfs.Add(point);
                 pointfs.Add(postPoint);
             }
 
-            pointfs.Add(new System.Drawing.PointF(controlPoints[controlPoints.Count - 1].X, controlPoints[controlPoints.Count - 1].Y));
+            pointfs.Add(new PointF(controlPoints[controlPoints.Count - 1].X, controlPoints[controlPoints.Count - 1].Y));
 
             pointfs.Insert(1, pointfs[1]);
             pointfs.Insert(pointfs.Count - 1, pointfs[pointfs.Count - 1]);
@@ -681,10 +682,10 @@ namespace PMDToolkit.Maps.Floors
             {
                 for (int x = room.StartX; x <= room.EndX; x++)
                 {
-                    if (MapArray[x, y].Data.Type == PMDToolkit.Enums.TileType.Walkable && StartPoint != new Loc2D(x, y))
+                    if (MapArray[x, y].Data.Type == Enums.TileType.Walkable && StartPoint != new Loc2D(x, y))
                     {
                         bool placeHere = true;
-                        for (int n = 0; n < BasicMap.MAX_NPC_SLOTS; n++)
+                        for (int n = 0; n < MAX_NPC_SLOTS; n++)
                         {
                             if (!Npcs[n].dead && Npcs[n].CharLoc == new Loc2D(x, y))
                             {
@@ -710,7 +711,7 @@ namespace PMDToolkit.Maps.Floors
 
         public void SpawnNpc(Loc2D loc)
         {
-            for (int i = 0; i < BasicMap.MAX_NPC_SLOTS; i++)
+            for (int i = 0; i < MAX_NPC_SLOTS; i++)
             {
                 if (Npcs[i].dead)
                 {

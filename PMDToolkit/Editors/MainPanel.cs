@@ -62,12 +62,12 @@ namespace PMDToolkit.Editors
             chkCoords.Checked = Logic.Display.Screen.ShowCoords;
         }
 
-        private void chkShowSprites_CheckedChanged(object sender, EventArgs e)
+        private void ChkShowSprites_CheckedChanged(object sender, EventArgs e)
         {
             Logic.Display.Screen.ShowSprites = chkShowSprites.Checked;
         }
 
-        private void cbDexNum_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbDexNum_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbForme.Items.Clear();
             for (int i = 0; i < GameData.Dex[cbDexNum.SelectedIndex].Forms.Count; i++)
@@ -78,17 +78,17 @@ namespace PMDToolkit.Editors
             UpdateSprite();
         }
 
-        private void cbForme_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbForme_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSprite();
         }
 
-        private void cbShiny_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbShiny_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSprite();
         }
 
-        private void cbGender_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbGender_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSprite();
         }
@@ -98,7 +98,7 @@ namespace PMDToolkit.Editors
             Logic.Gameplay.Processor.ChangeAppearance(Logic.Gameplay.Processor.Players[0], new Logic.Gameplay.FormData(cbDexNum.SelectedIndex, cbForme.SelectedIndex, (Enums.Gender)cbGender.SelectedIndex, (Enums.Coloration)cbShiny.SelectedIndex));
         }
 
-        private void btnReloadSprites_Click(object sender, EventArgs e)
+        private void BtnReloadSprites_Click(object sender, EventArgs e)
         {
             Game.UpdateLoadMsg("Reloading Sprites...");
             EnterLoadPhase(Game.GameLoadState.Loading);
@@ -109,18 +109,18 @@ namespace PMDToolkit.Editors
             EnterLoadPhase(Game.GameLoadState.Loaded);
         }
 
-        private void btnAnimate_Click(object sender, EventArgs e)
+        private void BtnAnimate_Click(object sender, EventArgs e)
         {
             Logic.Gameplay.Processor.MockAnim((Logic.Display.CharSprite.ActionType)cbAnim.SelectedIndex, false, false);
         }
 
-        private void btnLoop_Click(object sender, EventArgs e)
+        private void BtnLoop_Click(object sender, EventArgs e)
         {
             Logic.Display.CharSprite.ActionType action = (Logic.Display.CharSprite.ActionType)cbAnim.SelectedIndex;
             Logic.Gameplay.Processor.MockAnim(action, true, action == Logic.Display.CharSprite.ActionType.Walk);
         }
 
-        private void btnMapEditor_Click(object sender, EventArgs e)
+        private void BtnMapEditor_Click(object sender, EventArgs e)
         {
             if (CurrentMapEditor == null)
             {
@@ -135,12 +135,12 @@ namespace PMDToolkit.Editors
             CurrentMapLayerEditor.Show();
         }
 
-        private void chkGrid_CheckedChanged(object sender, EventArgs e)
+        private void ChkGrid_CheckedChanged(object sender, EventArgs e)
         {
             Logic.Display.Screen.ShowGrid = chkGrid.Checked;
         }
 
-        private void chkCoords_CheckedChanged(object sender, EventArgs e)
+        private void ChkCoords_CheckedChanged(object sender, EventArgs e)
         {
             Logic.Display.Screen.ShowCoords = chkCoords.Checked;
         }
@@ -158,18 +158,18 @@ namespace PMDToolkit.Editors
 
         public static void EnterLoadPhase(Game.GameLoadState loadState)
         {
-            MainPanel.GameNeedWait = true;
-            while (!MainPanel.GameWaiting)
+            GameNeedWait = true;
+            while (!GameWaiting)
                 Thread.Sleep(100);
 
             Game.GameLoaded = loadState;
 
-            MainPanel.GameNeedWait = false;
-            while (MainPanel.GameWaiting)
+            GameNeedWait = false;
+            while (GameWaiting)
                 Thread.Sleep(100);
         }
 
-        private void txtTilePath_Click(object sender, EventArgs e)
+        private void TxtTilePath_Click(object sender, EventArgs e)
         {
             if (Path.GetFullPath(Paths.TilesPath) != Path.GetFullPath(txtTilePath.Text))
             {
@@ -186,7 +186,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void txtSpritePath_Click(object sender, EventArgs e)
+        private void TxtSpritePath_Click(object sender, EventArgs e)
         {
             if (Path.GetFullPath(Paths.SpritesPath) != Path.GetFullPath(txtSpritePath.Text))
             {
@@ -203,7 +203,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void txtPortraitPath_Click(object sender, EventArgs e)
+        private void TxtPortraitPath_Click(object sender, EventArgs e)
         {
             if (Path.GetFullPath(Paths.PortraitsPath) != Path.GetFullPath(txtPortraitPath.Text))
             {
@@ -220,7 +220,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void txtEffectPath_Click(object sender, EventArgs e)
+        private void TxtEffectPath_Click(object sender, EventArgs e)
         {
             if (Path.GetFullPath(Paths.EffectsPath) != Path.GetFullPath(txtEffectPath.Text))
             {
@@ -235,7 +235,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void txtItemPath_Click(object sender, EventArgs e)
+        private void TxtItemPath_Click(object sender, EventArgs e)
         {
             if (Path.GetFullPath(Paths.ItemsPath) != Path.GetFullPath(txtItemPath.Text))
             {
@@ -250,7 +250,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void txtMusicPath_Click(object sender, EventArgs e)
+        private void TxtMusicPath_Click(object sender, EventArgs e)
         {
             if (Path.GetFullPath(Paths.MusicPath) != Path.GetFullPath(txtMusicPath.Text))
             {
@@ -265,7 +265,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void txtSoundPath_Click(object sender, EventArgs e)
+        private void TxtSoundPath_Click(object sender, EventArgs e)
         {
             if (Path.GetFullPath(Paths.SoundsPath) != Path.GetFullPath(txtSoundPath.Text))
             {
@@ -280,7 +280,7 @@ namespace PMDToolkit.Editors
             }
         }
 
-        private void btnDefaultPath_Click(object sender, EventArgs e)
+        private void BtnDefaultPath_Click(object sender, EventArgs e)
         {
             Game.UpdateLoadMsg("Resetting all paths to default...");
             EnterLoadPhase(Game.GameLoadState.Loading);

@@ -94,7 +94,7 @@
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -104,7 +104,7 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // picSprite
             // 
@@ -113,7 +113,7 @@
             this.picSprite.Size = new System.Drawing.Size(64, 360);
             this.picSprite.TabIndex = 2;
             this.picSprite.TabStop = false;
-            this.picSprite.Click += new System.EventHandler(this.picSprite_Click);
+            this.picSprite.Click += new System.EventHandler(this.PicSprite_Click);
             // 
             // vsItemScroll
             // 
@@ -122,8 +122,8 @@
             this.vsItemScroll.Name = "vsItemScroll";
             this.vsItemScroll.Size = new System.Drawing.Size(17, 360);
             this.vsItemScroll.TabIndex = 3;
-            this.vsItemScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vsItemScroll_Scroll);
-            this.vsItemScroll.ValueChanged += new System.EventHandler(this.vsItemScroll_ValueChanged);
+            this.vsItemScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VsItemScroll_Scroll);
+            this.vsItemScroll.ValueChanged += new System.EventHandler(this.VsItemScroll_ValueChanged);
             // 
             // txtName
             // 
