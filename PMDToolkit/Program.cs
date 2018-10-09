@@ -68,7 +68,7 @@ namespace PMDToolkit
                 // The 'using' idiom guarantees proper resource cleanup.
                 using (Game game = new Game())
                 {
-                    game.Icon = PMDToolkit.Properties.Resources.Icon;
+                    game.Icon = Properties.Resources.Icon;
                     game.Run(TextureManager.FPS_CAP, TextureManager.FPS_CAP);
                 }
                 Environment.Exit(0);

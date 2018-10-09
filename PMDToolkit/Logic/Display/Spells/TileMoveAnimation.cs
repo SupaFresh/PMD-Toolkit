@@ -149,7 +149,7 @@ namespace PMDToolkit.Logic.Display
                 List<Loc2D> targetTiles = Gameplay.Processor.GetExclusiveTiles(StartLoc, Direction, RangeType, Distance);
                 foreach (Loc2D loc in targetTiles)
                 {
-                    Display.Screen.Effects[Screen.EffectPriority.None].Add(new NormalMoveAnimation(loc, AnimationIndex, FrameLength, TotalLoops));
+                    Screen.Effects[Screen.EffectPriority.None].Add(new NormalMoveAnimation(loc, AnimationIndex, FrameLength, TotalLoops));
                 }
                 if (Distance >= TotalDistance)
                 {

@@ -1475,7 +1475,7 @@ namespace PMDToolkit.Logic.Gameplay
             int maxStallTime = 0;
 
             //declare attack
-            if (!String.IsNullOrWhiteSpace(setup.Move.Name))
+            if (!string.IsNullOrWhiteSpace(setup.Move.Name))
             {
                 Display.Screen.AddResult(new Results.BattleMsg(setup.Move.Name));
             }

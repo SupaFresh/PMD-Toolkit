@@ -182,7 +182,7 @@ namespace PMDToolkit.Core
         {
             int base10value = 0;
 
-            try { base10value = System.Convert.ToInt32(hex, 16); } catch { base10value = 0; }
+            try { base10value = Convert.ToInt32(hex, 16); } catch { base10value = 0; }
 
             return base10value;
         }

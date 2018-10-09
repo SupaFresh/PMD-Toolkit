@@ -68,7 +68,7 @@ namespace PMDToolkit.Logic.Results
             CharSprite sprite;
             if (CharIndex < 0)
             {
-                sprite = Screen.Players[CharIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
+                sprite = Screen.Players[CharIndex + Processor.MAX_TEAM_SLOTS];
             }
             else
             {

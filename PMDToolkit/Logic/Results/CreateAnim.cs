@@ -35,7 +35,7 @@ namespace PMDToolkit.Logic.Results
         private ISprite anim;
         private readonly Screen.EffectPriority priority;
 
-        public CreateAnim(ISprite anim, Display.Screen.EffectPriority priority)
+        public CreateAnim(ISprite anim, Screen.EffectPriority priority)
         {
             this.anim = anim;
             this.priority = priority;

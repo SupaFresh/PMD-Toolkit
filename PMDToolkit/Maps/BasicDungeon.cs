@@ -49,7 +49,7 @@ namespace PMDToolkit.Maps
             {
                 if (!maps.ContainsKey(i))
                 {
-                    generateFloor(i);
+                    GenerateFloor(i);
                 }
                 if (!maps.ContainsKey(i))
                     return null;
@@ -67,7 +67,7 @@ namespace PMDToolkit.Maps
         //dungeon structure is always decided upon before the details
         public abstract void Generate(int seed, Data.RDungeonEntry entry);
 
-        protected abstract void generateFloor(int floor);
+        protected abstract void GenerateFloor(int floor);
 
         //if given an exit from a floor, returns the entrance of the floor it will wind up in
         public FloorLink GetFloorLink(int floor, int exit)

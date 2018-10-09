@@ -134,13 +134,13 @@ namespace PMDToolkit.Logic.Display
                 AnimSheet sheet = TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Spell, AnimationIndex);
                 TextureManager.TextureProgram.PushModelView();
                 TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, Alpha));
-                for (int y = 0; y < Graphics.TextureManager.SCREEN_HEIGHT; y += sheet.TileHeight)
+                for (int y = 0; y < TextureManager.SCREEN_HEIGHT; y += sheet.TileHeight)
                 {
-                    for (int x = 0; x < Graphics.TextureManager.SCREEN_WIDTH; x += sheet.TileWidth)
+                    for (int x = 0; x < TextureManager.SCREEN_WIDTH; x += sheet.TileWidth)
                     {
-                        Graphics.TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
-                        Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(x, y, 0));
-                        Graphics.TextureManager.TextureProgram.UpdateModelView();
+                        TextureManager.TextureProgram.SetModelView(Matrix4.Identity);
+                        TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(x, y, 0));
+                        TextureManager.TextureProgram.UpdateModelView();
                         sheet.RenderAnim(Frame, 0, 0);
                     }
                 }

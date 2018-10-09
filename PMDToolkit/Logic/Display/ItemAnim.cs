@@ -144,8 +144,8 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.TextureProgram.PushModelView();
                 Loc2D drawLoc = GetStart();
 
-                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
-                Graphics.TextureManager.TextureProgram.UpdateModelView();
+                TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
+                TextureManager.TextureProgram.UpdateModelView();
 
                 AnimSheet sheet = TextureManager.GetItemSheet(Sprite);
                 sheet.RenderAnim(Frame, 0, 0);
@@ -156,14 +156,14 @@ namespace PMDToolkit.Logic.Display
 
         public Loc2D GetStart()
         {
-            return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetItemSheet(Sprite).TileWidth / 2,
-                MapLoc.Y + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetItemSheet(Sprite).TileHeight / 2 - MapHeight);
+            return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 - TextureManager.GetItemSheet(Sprite).TileWidth / 2,
+                MapLoc.Y + TextureManager.TILE_SIZE / 2 - TextureManager.GetItemSheet(Sprite).TileHeight / 2 - MapHeight);
         }
 
         public Loc2D GetEnd()
         {
-            return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetItemSheet(Sprite).TileWidth / 2,
-                MapLoc.Y + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetItemSheet(Sprite).TileHeight / 2 - MapHeight);
+            return new Loc2D(MapLoc.X + TextureManager.TILE_SIZE / 2 + TextureManager.GetItemSheet(Sprite).TileWidth / 2,
+                MapLoc.Y + TextureManager.TILE_SIZE / 2 + TextureManager.GetItemSheet(Sprite).TileHeight / 2 - MapHeight);
         }
     }
 }

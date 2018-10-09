@@ -56,10 +56,10 @@ namespace PMDToolkit.Maps
         {
             if (ItemIndex > -1)
             {
-                Graphics.AnimSheet sheet = Graphics.TextureManager.GetItemSheet(Data.GameData.ItemDex[ItemIndex].Sprite);
+                AnimSheet sheet = TextureManager.GetItemSheet(Data.GameData.ItemDex[ItemIndex].Sprite);
 
                 TextureManager.TextureProgram.PushModelView();
-                TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation((Graphics.TextureManager.TILE_SIZE - sheet.TileWidth) / 2, (Graphics.TextureManager.TILE_SIZE - sheet.TileHeight) / 2, 0));
+                TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation((TextureManager.TILE_SIZE - sheet.TileWidth) / 2, (TextureManager.TILE_SIZE - sheet.TileHeight) / 2, 0));
                 TextureManager.TextureProgram.UpdateModelView();
 
                 sheet.RenderTile(0, 0);

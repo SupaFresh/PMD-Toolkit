@@ -37,7 +37,7 @@ namespace PMDToolkit.Core
         public static int RoundToMultiple(int number, int multiple)
         {
             double d = number / multiple;
-            d = System.Math.Round(d, 0);
+            d = Math.Round(d, 0);
             return Convert.ToInt32(d * multiple);
         }
 

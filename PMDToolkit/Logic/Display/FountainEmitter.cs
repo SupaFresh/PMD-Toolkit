@@ -103,11 +103,11 @@ namespace PMDToolkit.Logic.Display
                 CurrentBurstTime -= BurstTime;
                 for (int i = 0; i < GrainsPerBurst; i++)
                 {
-                    double angle = Logic.Display.Screen.Rand.NextDouble() * MathHelper.TwoPi;
+                    double angle = Screen.Rand.NextDouble() * MathHelper.TwoPi;
                     Loc2D particleSpeed = new Loc2D((int)(Math.Cos(angle) * Speed), (int)(Math.Sin(angle) * Speed));
-                    int dist = Logic.Display.Screen.Rand.Next(StartDistance + 1);
+                    int dist = Screen.Rand.Next(StartDistance + 1);
                     Loc2D startDelta = new Loc2D((int)(Math.Cos(angle) * dist), (int)(Math.Sin(angle) * dist));
-                    Display.Screen.Effects[Screen.EffectPriority.None].Add(new ParticleAnimation(AnimationIndex, FrameLength, StartLoc + startDelta, particleSpeed, new Loc2D(), Color4.White, Color4.Gray, TotalTime));
+                    Screen.Effects[Screen.EffectPriority.None].Add(new ParticleAnimation(AnimationIndex, FrameLength, StartLoc + startDelta, particleSpeed, new Loc2D(), Color4.White, Color4.Gray, TotalTime));
                 }
                 Bursts++;
             }

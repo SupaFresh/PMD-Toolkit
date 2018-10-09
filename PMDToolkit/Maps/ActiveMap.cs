@@ -33,13 +33,13 @@ namespace PMDToolkit.Maps
 
         public ActiveMap()
         {
-            Items = new Item[BasicMap.MAX_ITEM_SLOTS];
-            for (int i = 0; i < BasicMap.MAX_ITEM_SLOTS; i++)
+            Items = new Item[MAX_ITEM_SLOTS];
+            for (int i = 0; i < MAX_ITEM_SLOTS; i++)
             {
                 Items[i] = new Item();
             }
-            Npcs = new Npc[BasicMap.MAX_NPC_SLOTS];
-            for (int i = 0; i < BasicMap.MAX_NPC_SLOTS; i++)
+            Npcs = new Npc[MAX_NPC_SLOTS];
+            for (int i = 0; i < MAX_NPC_SLOTS; i++)
             {
                 Npcs[i] = new Npc();
             }
@@ -47,7 +47,7 @@ namespace PMDToolkit.Maps
 
         public int AddItem(Item item)
         {
-            for (int i = 0; i < BasicMap.MAX_ITEM_SLOTS; i++)
+            for (int i = 0; i < MAX_ITEM_SLOTS; i++)
             {
                 if (Items[i].ItemIndex == -1)
                 {
@@ -60,7 +60,7 @@ namespace PMDToolkit.Maps
 
         public int GetItem(Loc2D loc)
         {
-            for (int i = 0; i < BasicMap.MAX_ITEM_SLOTS; i++)
+            for (int i = 0; i < MAX_ITEM_SLOTS; i++)
             {
                 if (Items[i].ItemIndex != -1 && Items[i].ItemLoc == loc)
                 {
@@ -72,7 +72,7 @@ namespace PMDToolkit.Maps
 
         public int AddNpc(Npc npc)
         {
-            for (int i = 0; i < BasicMap.MAX_NPC_SLOTS; i++)
+            for (int i = 0; i < MAX_NPC_SLOTS; i++)
             {
                 if (Npcs[i].dead)
                 {

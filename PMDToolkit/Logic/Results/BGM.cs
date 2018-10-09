@@ -24,7 +24,6 @@ THE SOFTWARE.
 using DragonOgg.MediaPlayer;
 using PMDToolkit.Data;
 using PMDToolkit.Graphics;
-using System;
 
 namespace PMDToolkit.Logic.Results
 {
@@ -50,7 +49,7 @@ namespace PMDToolkit.Logic.Results
                 {
                     //do nothing, and watch it tick down
                 }
-                else if (!String.IsNullOrEmpty(AudioManager.BGM.CurrentFile) || !fade)
+                else if (!string.IsNullOrEmpty(AudioManager.BGM.CurrentFile) || !fade)
                 {
                     //otherwise, set up the tick-down
                     Display.Screen.MusicFadeTime = Display.Screen.MUSIC_FADE_TOTAL;

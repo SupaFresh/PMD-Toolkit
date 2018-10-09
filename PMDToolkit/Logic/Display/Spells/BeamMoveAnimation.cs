@@ -164,10 +164,10 @@ namespace PMDToolkit.Logic.Display
             {
                 TextureManager.TextureProgram.PushModelView();
                 Loc2D drawLoc = new Loc2D(StartLoc.X * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileWidth / 2,
-                    StartLoc.Y * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileHeight / 2 - MapHeight);
+                    StartLoc.Y * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileHeight / 2 - MapHeight);
 
-                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
-                Graphics.TextureManager.TextureProgram.UpdateModelView();
+                TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
+                TextureManager.TextureProgram.UpdateModelView();
 
                 AnimSheet sheet = TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex);
                 Loc2D diff = new Loc2D();
@@ -193,8 +193,8 @@ namespace PMDToolkit.Logic.Display
                     {
                         sheet.RenderAnim(Frame, (int)Direction, 1);
                     }
-                    Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(diff.X, diff.Y, 0));
-                    Graphics.TextureManager.TextureProgram.UpdateModelView();
+                    TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(diff.X, diff.Y, 0));
+                    TextureManager.TextureProgram.UpdateModelView();
                 }
 
                 TextureManager.TextureProgram.PopModelView();
@@ -207,8 +207,8 @@ namespace PMDToolkit.Logic.Display
             Operations.MoveInDirection8(ref endLoc, Direction, Distance);
             Loc2D topLeftLoc = new Loc2D(Math.Min(StartLoc.X, endLoc.X), Math.Min(StartLoc.Y, endLoc.Y));
 
-            return new Loc2D(topLeftLoc.X * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileWidth / 2,
-                    topLeftLoc.Y * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileHeight / 2 - MapHeight);
+            return new Loc2D(topLeftLoc.X * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileWidth / 2,
+                    topLeftLoc.Y * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileHeight / 2 - MapHeight);
         }
 
         public Loc2D GetEnd()
@@ -217,8 +217,8 @@ namespace PMDToolkit.Logic.Display
             Operations.MoveInDirection8(ref endLoc, Direction, Distance);
             Loc2D bottomRightLoc = new Loc2D(Math.Max(StartLoc.X, endLoc.X), Math.Max(StartLoc.Y, endLoc.Y));
 
-            return new Loc2D(bottomRightLoc.X * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileWidth / 2,
-                    bottomRightLoc.Y * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileHeight / 2 - MapHeight);
+            return new Loc2D(bottomRightLoc.X * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 + TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileWidth / 2,
+                    bottomRightLoc.Y * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 + TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TileHeight / 2 - MapHeight);
         }
     }
 }

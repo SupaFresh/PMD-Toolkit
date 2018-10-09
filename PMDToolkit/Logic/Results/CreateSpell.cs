@@ -35,7 +35,7 @@ namespace PMDToolkit.Logic.Results
         private readonly ISpellSprite spell;
         private readonly Screen.EffectPriority priority;
 
-        public CreateSpell(ISpellSprite spell, Display.Screen.EffectPriority priority)
+        public CreateSpell(ISpellSprite spell, Screen.EffectPriority priority)
         {
             this.spell = spell;
             this.priority = priority;

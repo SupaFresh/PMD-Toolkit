@@ -55,23 +55,23 @@ namespace PMDToolkit.Graphics
                 using (BinaryReader reader = new BinaryReader(fileStream))
                 {
                     // Read tileset width
-                    this.size.Width = reader.ReadInt32();
+                    size.Width = reader.ReadInt32();
                     // Read tileset height
-                    this.size.Height = reader.ReadInt32();
+                    size.Height = reader.ReadInt32();
 
                     int tileCount = (size.Width / TextureManager.TILE_SIZE) * (size.Height / TextureManager.TILE_SIZE);
 
                     // Prepare tile information cache
-                    this.tilePositions = new long[tileCount];
-                    this.TileSizes = new int[tileCount];
+                    tilePositions = new long[tileCount];
+                    TileSizes = new int[tileCount];
 
                     // Load tile information
                     for (int i = 0; i < tileCount; i++)
                     {
                         // Read tile position data
-                        this.tilePositions[i] = reader.ReadInt64();
+                        tilePositions[i] = reader.ReadInt64();
                         // Read tile size data
-                        this.TileSizes[i] = reader.ReadInt32();
+                        TileSizes[i] = reader.ReadInt32();
                     }
                     headerSize = fileStream.Position;
                 }

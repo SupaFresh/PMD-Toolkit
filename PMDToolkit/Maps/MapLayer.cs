@@ -55,9 +55,9 @@ namespace PMDToolkit.Maps
             }
         }
 
-        public void Resize(int width, int height, Maps.Direction8 dir)
+        public void Resize(int width, int height, Direction8 dir)
         {
-            Operations.ResizeArray<TileAnim>(ref Tiles, width, height, dir, true);
+            Operations.ResizeArray(ref Tiles, width, height, dir, true);
         }
     }
 }

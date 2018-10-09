@@ -38,7 +38,7 @@ namespace PMDToolkit.Logic.Results
 
         public Dir(int charIndex, Direction8 newDir)
         {
-            this.CharIndex = charIndex;
+            CharIndex = charIndex;
             this.newDir = newDir;
         }
 

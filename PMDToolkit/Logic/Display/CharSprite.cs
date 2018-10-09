@@ -313,7 +313,7 @@ namespace PMDToolkit.Logic.Display
                 if (!MoveInPlace)
                 {
                     if (ActionTime.Ticks <= totalPassTime.Ticks)
-                        Operations.MoveInDirection8(ref TileOffset, CharDir, ActionTime.Ticks * Graphics.TextureManager.TILE_SIZE / totalPassTime.Ticks);
+                        Operations.MoveInDirection8(ref TileOffset, CharDir, ActionTime.Ticks * TextureManager.TILE_SIZE / totalPassTime.Ticks);
                 }
             }
             else if (CurrentAction == ActionType.Attack)
@@ -325,8 +325,8 @@ namespace PMDToolkit.Logic.Display
 
                 if (!MoveInPlace)
                 {
-                    int pullback_distance = Graphics.TextureManager.TILE_SIZE / 8;
-                    int farthest_distance = Graphics.TextureManager.TILE_SIZE * 3 / 4;
+                    int pullback_distance = TextureManager.TILE_SIZE / 8;
+                    int farthest_distance = TextureManager.TILE_SIZE * 3 / 4;
                     int hold_point = totalActionTime.Ticks / 8;
                     int rush_point = totalActionTime.Ticks * 2 / 8;
                     int hit_point = totalActionTime.Ticks * 4 / 8;
@@ -352,8 +352,8 @@ namespace PMDToolkit.Logic.Display
 
                 if (!MoveInPlace)
                 {
-                    int pullback_distance = Graphics.TextureManager.TILE_SIZE / 8;
-                    int farthest_distance = Graphics.TextureManager.TILE_SIZE * 3 / 4;
+                    int pullback_distance = TextureManager.TILE_SIZE / 8;
+                    int farthest_distance = TextureManager.TILE_SIZE * 3 / 4;
                     int hold_point = totalActionTime.Ticks / 8;
                     int rush_point = totalActionTime.Ticks * 2 / 8;
                     int hit_point = totalActionTime.Ticks * 4 / 8;
@@ -378,8 +378,8 @@ namespace PMDToolkit.Logic.Display
 
                 if (!MoveInPlace)
                 {
-                    int pullback_distance = Graphics.TextureManager.TILE_SIZE / 8;
-                    int farthest_distance = Graphics.TextureManager.TILE_SIZE * 3 / 4;
+                    int pullback_distance = TextureManager.TILE_SIZE / 8;
+                    int farthest_distance = TextureManager.TILE_SIZE * 3 / 4;
                     int hold_point = totalActionTime.Ticks / 8;
                     int rush_point = totalActionTime.Ticks * 2 / 8;
                     int hit_point = totalActionTime.Ticks * 4 / 8;
@@ -410,8 +410,8 @@ namespace PMDToolkit.Logic.Display
 
                 if (!MoveInPlace)
                 {
-                    int pullback_distance = Graphics.TextureManager.TILE_SIZE / 8;
-                    int farthest_distance = Graphics.TextureManager.TILE_SIZE / 8;
+                    int pullback_distance = TextureManager.TILE_SIZE / 8;
+                    int farthest_distance = TextureManager.TILE_SIZE / 8;
                     int hold_point = totalActionTime.Ticks / 8;
                     int rush_point = totalActionTime.Ticks * 3 / 8;
                     int hit_point = totalActionTime.Ticks * 4 / 8;
@@ -519,7 +519,7 @@ namespace PMDToolkit.Logic.Display
                 CharFrameType = FrameType.Hurt;
                 CharFrame = 0;
                 TileOffset = new Loc2D();
-                Operations.MoveInDirection8(ref TileOffset, Operations.ReverseDir(CharDir), ActionTime.Ticks * Graphics.TextureManager.TILE_SIZE / totalActionTime.Ticks);
+                Operations.MoveInDirection8(ref TileOffset, Operations.ReverseDir(CharDir), ActionTime.Ticks * TextureManager.TILE_SIZE / totalActionTime.Ticks);
                 MapHeight = 0;
             }
             else
@@ -538,25 +538,25 @@ namespace PMDToolkit.Logic.Display
             TextureManager.TextureProgram.PushModelView();
 
             Loc2D drawLoc = GetStart();
-            Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
-            Graphics.TextureManager.TextureProgram.UpdateModelView();
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
+            TextureManager.TextureProgram.UpdateModelView();
 
             int curFrame = CharFrame;
 
             if (MovementSpeed < 0)
-                Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(128, 128, 255, opacity));
+                TextureManager.TextureProgram.SetTextureColor(new Color4(128, 128, 255, opacity));
             else if (MovementSpeed > 0)
-                Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(255, 128, 128, opacity));
+                TextureManager.TextureProgram.SetTextureColor(new Color4(255, 128, 128, opacity));
             else
-                Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, opacity));
+                TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, opacity));
 
             //draw sprite at current frame
             if (StatusAilment == Enums.StatusAilment.Freeze)
-                Graphics.TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).GetSheet(Graphics.FrameType.Hurt, CharDir).RenderTile(0, 0);
+                TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).GetSheet(FrameType.Hurt, CharDir).RenderTile(0, 0);
             else
-                Graphics.TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).GetSheet(CharFrameType, CharDir).RenderTile(CharFrame, 0);
+                TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).GetSheet(CharFrameType, CharDir).RenderTile(CharFrame, 0);
 
-            Graphics.TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, 255));
+            TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, 255));
 
             TextureManager.TextureProgram.PopModelView();
 
@@ -566,15 +566,15 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
-                Loc2D frontDraw = new Loc2D(CharLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(1).TileWidth / 2,
-                    CharLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(1).TileHeight);
+                Loc2D frontDraw = new Loc2D(CharLoc.X * TextureManager.TILE_SIZE + TileOffset.X + TextureManager.TILE_SIZE / 2 - TextureManager.GetStatusSheet(1).TileWidth / 2,
+                    CharLoc.Y * TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + TextureManager.TILE_SIZE - TextureManager.GetStatusSheet(1).TileHeight);
 
-                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
-                Graphics.TextureManager.TextureProgram.UpdateModelView();
+                TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
+                TextureManager.TextureProgram.UpdateModelView();
 
-                int frame = (int)(Display.Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)Graphics.TextureManager.GetStatusSheet(1).MaxX);
+                int frame = (int)(Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)TextureManager.GetStatusSheet(1).MaxX);
 
-                Graphics.TextureManager.GetStatusSheet(1).RenderTile(frame, 0);
+                TextureManager.GetStatusSheet(1).RenderTile(frame, 0);
 
                 TextureManager.TextureProgram.PopModelView();
             }
@@ -583,13 +583,13 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
-                Loc2D frontDraw = new Loc2D(CharLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(0).TileWidth / 2,
-                    CharLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(0).TileHeight);
+                Loc2D frontDraw = new Loc2D(CharLoc.X * TextureManager.TILE_SIZE + TileOffset.X + TextureManager.TILE_SIZE / 2 - TextureManager.GetStatusSheet(0).TileWidth / 2,
+                    CharLoc.Y * TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + TextureManager.TILE_SIZE - TextureManager.GetStatusSheet(0).TileHeight);
 
-                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
-                Graphics.TextureManager.TextureProgram.UpdateModelView();
+                TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
+                TextureManager.TextureProgram.UpdateModelView();
 
-                int frame = (int)(Display.Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)Graphics.TextureManager.GetStatusSheet(0).MaxX);
+                int frame = (int)(Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)TextureManager.GetStatusSheet(0).MaxX);
 
                 Graphics.TextureManager.GetStatusSheet(0).RenderTile(frame, 0);
 
@@ -600,13 +600,13 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.TextureProgram.PushModelView();
 
                 //draw front status; use global time
-                Loc2D frontDraw = new Loc2D(CharLoc.X * Graphics.TextureManager.TILE_SIZE + TileOffset.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetStatusSheet(2).TileWidth / 2,
-                    CharLoc.Y * Graphics.TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetStatusSheet(2).TileHeight);
+                Loc2D frontDraw = new Loc2D(CharLoc.X * TextureManager.TILE_SIZE + TileOffset.X + TextureManager.TILE_SIZE / 2 - TextureManager.GetStatusSheet(2).TileWidth / 2,
+                    CharLoc.Y * TextureManager.TILE_SIZE + TileOffset.Y - MapHeight + TextureManager.TILE_SIZE - TextureManager.GetStatusSheet(2).TileHeight);
 
-                Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
-                Graphics.TextureManager.TextureProgram.UpdateModelView();
+                TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(frontDraw.X, frontDraw.Y, 0));
+                TextureManager.TextureProgram.UpdateModelView();
 
-                int frame = (int)(Display.Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)Graphics.TextureManager.GetStatusSheet(2).MaxX);
+                int frame = (int)(Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)TextureManager.GetStatusSheet(2).MaxX);
 
                 Graphics.TextureManager.GetStatusSheet(2).RenderTile(frame, 0);
 
@@ -617,15 +617,15 @@ namespace PMDToolkit.Logic.Display
         public Loc2D GetStart()
         {
             Loc2D mapLoc = MapLoc;
-            return new Loc2D(mapLoc.X + Graphics.TextureManager.TILE_SIZE / 2 - Graphics.TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.FrameWidth / 2,
-                mapLoc.Y - MapHeight + Graphics.TextureManager.TILE_SIZE - Graphics.TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.FrameHeight);
+            return new Loc2D(mapLoc.X + TextureManager.TILE_SIZE / 2 - TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.FrameWidth / 2,
+                mapLoc.Y - MapHeight + TextureManager.TILE_SIZE - TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.FrameHeight);
         }
 
         public Loc2D GetEnd()
         {
             Loc2D mapLoc = MapLoc;
-            return new Loc2D(mapLoc.X + Graphics.TextureManager.TILE_SIZE / 2 + Graphics.TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.FrameWidth / 2,
-                mapLoc.Y - MapHeight + Graphics.TextureManager.TILE_SIZE);
+            return new Loc2D(mapLoc.X + TextureManager.TILE_SIZE / 2 + TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.FrameWidth / 2,
+                mapLoc.Y - MapHeight + TextureManager.TILE_SIZE);
         }
     }
 }

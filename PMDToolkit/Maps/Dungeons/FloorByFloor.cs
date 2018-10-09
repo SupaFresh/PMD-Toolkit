@@ -46,17 +46,21 @@ namespace PMDToolkit.Maps.Dungeons
         }
 
         //re-call-able floor getting methods, caching where needed
-        protected override void generateFloor(int floor)
+        protected override void GenerateFloor(int floor)
         {
             //borders are orders to the floor generator for entrance/exit data: requirements of where they need to be, and which direction they are
-            List<FloorBorder> borders = new List<FloorBorder>();
-            borders.Add(new FloorBorder(null, Direction3D.Forth));
-            borders.Add(new FloorBorder(null, Direction3D.Back));
+            List<FloorBorder> borders = new List<FloorBorder>
+            {
+                new FloorBorder(null, Direction3D.Forth),
+                new FloorBorder(null, Direction3D.Back)
+            };
 
             //borderLinks are orders to the floor generator for entrance/exit data: requirements of which nodes must connect to each other
             Dictionary<int, List<int>> borderLinks = new Dictionary<int, List<int>>();
-            List<int> ends = new List<int>();
-            ends.Add(1);
+            List<int> ends = new List<int>
+            {
+                1
+            };
             borderLinks.Add(0, ends);
 
             RandomMap map = GameData.FloorAlgorithmDex[entry.Floors[floor].Algorithm].CreateFloor();

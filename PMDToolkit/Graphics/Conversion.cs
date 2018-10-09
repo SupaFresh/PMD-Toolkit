@@ -95,7 +95,7 @@ namespace PMDToolkit.Graphics
             string[] pngs = Directory.GetFiles(spriteDir, "*.png", SearchOption.TopDirectoryOnly);
             if (pngs.Length < 1) return;
 
-            String outForm = "r";
+            string outForm = "r";
             if (form >= 0)
             {
                 outForm += "-" + form;
@@ -138,7 +138,7 @@ namespace PMDToolkit.Graphics
                                     {
                                         using (MemoryStream memoryStream = new MemoryStream())
                                         {
-                                            anim.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                                            anim.Save(memoryStream, ImageFormat.Png);
                                             memStreamArray = memoryStream.ToArray();
                                             sheetSize = memStreamArray.Length;
                                         }
@@ -201,7 +201,7 @@ namespace PMDToolkit.Graphics
             // [form-count(4)]
             // [form-name-size(n*4)][form-name(n*variable)][form-position(n*4)][form-size(n*4)]
             // [form-1(variable)][form-2(variable)][form-n(variable)]
-            using (FileStream stream = new FileStream(destinationPath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            using (FileStream stream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write))
             {
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
@@ -725,12 +725,12 @@ namespace PMDToolkit.Graphics
 
         private static void SaveTileMap(Bitmap bitmap, string destinationPath)
         {
-            BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
             // File format:
             // [tileset-width(4)][tileset-height(4)][tile-count(4)]
             // [tileposition-1(4)][tilesize-1(4)][tileposition-2(4)][tilesize-2(4)][tileposition-n(n*4)][tilesize-n(n*4)]
             // [tile-1(variable)][tile-2(variable)][tile-n(variable)]
-            using (System.IO.FileStream spriteStream = new System.IO.FileStream(destinationPath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            using (FileStream spriteStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write))
             {
                 using (BinaryWriter writer = new BinaryWriter(spriteStream))
                 {
@@ -756,9 +756,9 @@ namespace PMDToolkit.Graphics
                             tileTex.Blit(data, x * TextureManager.TILE_SIZE, y * TextureManager.TILE_SIZE, TextureManager.TILE_SIZE, TextureManager.TILE_SIZE, 0, 0);
 
                             //save as a PNG to a stream
-                            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                            using (MemoryStream ms = new MemoryStream())
                             {
-                                tileTex.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                tileTex.Save(ms, ImageFormat.Png);
                                 byte[] bytes = ms.ToArray();
 
                                 tiles.Add(bytes);

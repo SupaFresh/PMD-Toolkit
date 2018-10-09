@@ -46,7 +46,7 @@ namespace PMDToolkit.Logic.Results
 
         public void Execute()
         {
-            Screen.Items[itemSlot] = new ItemAnim(itemLoc * Graphics.TextureManager.TILE_SIZE, itemLoc * Graphics.TextureManager.TILE_SIZE, sprite, ItemAnim.ItemAnimType.None);
+            Screen.Items[itemSlot] = new ItemAnim(itemLoc * TextureManager.TILE_SIZE, itemLoc * TextureManager.TILE_SIZE, sprite, ItemAnim.ItemAnimType.None);
         }
     }
 }

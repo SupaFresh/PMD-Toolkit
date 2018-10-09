@@ -216,10 +216,10 @@ namespace PMDToolkit.Graphics
             int copyW, copyH;
 
             targetStartX = Math.Max(destX, 0);
-            targetEndX = Math.Min(destX + srcW, this.ImgData.Width);
+            targetEndX = Math.Min(destX + srcW, ImgData.Width);
 
             targetStartY = Math.Max(destY, 0);
-            targetEndY = Math.Min(destY + srcH, this.ImgData.Height);
+            targetEndY = Math.Min(destY + srcH, ImgData.Height);
 
             copyW = targetEndX - targetStartX;
             copyH = targetEndY - targetStartY;
@@ -240,11 +240,11 @@ namespace PMDToolkit.Graphics
             unsafe
             {
                 byte* sourcePtr = (byte*)(source.Scan0);
-                byte* targetPtr = (byte*)(this.ImgData.Scan0);
+                byte* targetPtr = (byte*)(ImgData.Scan0);
 
-                byte* targetY = targetPtr + targetStartY * this.ImgData.Stride;
+                byte* targetY = targetPtr + targetStartY * ImgData.Stride;
                 byte* sourceY = sourcePtr + sourceStartY * source.Stride;
-                for (int y = 0; y < copyH; y++, targetY += this.ImgData.Stride, sourceY += source.Stride)
+                for (int y = 0; y < copyH; y++, targetY += ImgData.Stride, sourceY += source.Stride)
                 {
                     byte* targetOffset = targetY + targetStartX * bpp;
                     byte* sourceOffset = sourceY + sourceStartX * bpp;
@@ -298,8 +298,8 @@ namespace PMDToolkit.Graphics
                     texTop = (float)clip.Top / ImageHeight;
                     texBottom = (float)clip.Bottom / ImageHeight;
                     //Vertex coordinates
-                    quadWidth = (float)clip.Width;
-                    quadHeight = (float)clip.Height;
+                    quadWidth = clip.Width;
+                    quadHeight = clip.Height;
                 }
 
                 //Set vertex data

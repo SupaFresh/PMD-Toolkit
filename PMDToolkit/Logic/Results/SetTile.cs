@@ -43,7 +43,7 @@ namespace PMDToolkit.Logic.Results
         public SetTile(BasicMap map, Loc2D loc)
         {
             this.loc = loc;
-            this.tile = new Tile(map.MapArray[loc.X, loc.Y]);
+            tile = new Tile(map.MapArray[loc.X, loc.Y]);
             groundLayers = new List<TileAnim>();
             for (int i = 0; i < map.GroundLayers.Count; i++)
             {

@@ -82,15 +82,15 @@ namespace PMDToolkit.Graphics
 
         public void RenderText(float x, float y, string text, Rectangle? area, AtlasSheet.SpriteVOrigin vOrigin, AtlasSheet.SpriteHOrigin hOrigin, int lineSpace, Color4 color)
         {
-            Graphics.TextureManager.TextureProgram.SetTextureColor(color);
+            TextureManager.TextureProgram.SetTextureColor(color);
             RenderText(x, y, text, area, vOrigin, hOrigin, lineSpace);
-            Graphics.TextureManager.TextureProgram.SetTextureColor(Color4.White);
+            TextureManager.TextureProgram.SetTextureColor(Color4.White);
         }
 
         public void RenderText(float x, float y, string text, Rectangle? area, AtlasSheet.SpriteVOrigin vOrigin, AtlasSheet.SpriteHOrigin hOrigin, int lineSpace)
         {
             //If there is a texture to render from
-            Graphics.TextureManager.TextureProgram.PushModelView();
+            TextureManager.TextureProgram.PushModelView();
 
             //Draw positions
             float dX = x;
@@ -146,7 +146,7 @@ namespace PMDToolkit.Graphics
             }
 
             //Move to draw position
-            Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(dX, dY, 0));
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(dX, dY, 0));
 
             int currentTexture = -1;
 
@@ -235,7 +235,7 @@ namespace PMDToolkit.Graphics
         {
             //Initialize area
             float subWidth = 0;
-            Rectangle area = new Rectangle(0, 0, (int)subWidth, (int)mCharHeight);
+            Rectangle area = new Rectangle(0, 0, (int)subWidth, mCharHeight);
             //Go through string
             for (int i = 0; i < text.Length; ++i)
             {
@@ -248,7 +248,7 @@ namespace PMDToolkit.Graphics
                 else if (text[i] == '\n')
                 {
                     //Add another line
-                    area.Height += (int)mCharHeight;
+                    area.Height += mCharHeight;
                     //Check for max width
                     if (subWidth > area.Width)
                     {

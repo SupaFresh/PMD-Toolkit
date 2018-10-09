@@ -32,7 +32,7 @@ namespace PMDToolkit.Logic.Results
 
         public Wait(RenderTime time)
         {
-            this.Delay = time;
+            Delay = time;
         }
 
         public void Execute()

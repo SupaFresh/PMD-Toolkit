@@ -38,7 +38,7 @@ namespace PMDToolkit.Maps.Dungeons
         public void Generate(int seed, string fileName)
         {
             this.seed = seed;
-            this.entry = null;
+            entry = null;
 
             this.fileName = fileName;
             rand = new Random(seed);
@@ -47,7 +47,7 @@ namespace PMDToolkit.Maps.Dungeons
         }
 
         //re-call-able floor getting methods, caching where needed
-        protected override void generateFloor(int floor)
+        protected override void GenerateFloor(int floor)
         {
             if (floor == 0)
             {

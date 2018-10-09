@@ -71,9 +71,9 @@ namespace PMDToolkit.Logic.Display
         {
             TextureManager.TextureProgram.PushModelView();
             Loc2D drawLoc = GetStart();
-            Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
-            Graphics.TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(NUM_SCALE, NUM_SCALE, 0));
-            Graphics.TextureManager.TextureProgram.UpdateModelView();
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateTranslation(drawLoc.X, drawLoc.Y, 0));
+            TextureManager.TextureProgram.LeftMultModelView(Matrix4.CreateScale(NUM_SCALE, NUM_SCALE, 0));
+            TextureManager.TextureProgram.UpdateModelView();
 
             TextureManager.SingleFont.RenderText(0, 0, Text, null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color);
 
@@ -82,14 +82,14 @@ namespace PMDToolkit.Logic.Display
 
         public Loc2D GetStart()
         {
-            return new Loc2D(EffectLoc.X * Graphics.TextureManager.TILE_SIZE + Graphics.TextureManager.TILE_SIZE / 2 - (int)TextureManager.SingleFont.SubstringWidth(Text) * NUM_SCALE / 2,
-                EffectLoc.Y * Graphics.TextureManager.TILE_SIZE - MapHeight + Graphics.TextureManager.TILE_SIZE / 2 - (int)TextureManager.SingleFont.StringHeight(Text, 0) * NUM_SCALE / 2);
+            return new Loc2D(EffectLoc.X * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 - TextureManager.SingleFont.SubstringWidth(Text) * NUM_SCALE / 2,
+                EffectLoc.Y * TextureManager.TILE_SIZE - MapHeight + TextureManager.TILE_SIZE / 2 - TextureManager.SingleFont.StringHeight(Text, 0) * NUM_SCALE / 2);
         }
 
         public Loc2D GetEnd()
         {
-            return new Loc2D(EffectLoc.X * Graphics.TextureManager.TILE_SIZE + Graphics.TextureManager.TILE_SIZE / 2 + (int)TextureManager.SingleFont.SubstringWidth(Text) * NUM_SCALE / 2,
-                EffectLoc.Y * Graphics.TextureManager.TILE_SIZE - MapHeight + Graphics.TextureManager.TILE_SIZE / 2 + (int)TextureManager.SingleFont.StringHeight(Text, 0) * NUM_SCALE / 2);
+            return new Loc2D(EffectLoc.X * TextureManager.TILE_SIZE + TextureManager.TILE_SIZE / 2 + TextureManager.SingleFont.SubstringWidth(Text) * NUM_SCALE / 2,
+                EffectLoc.Y * TextureManager.TILE_SIZE - MapHeight + TextureManager.TILE_SIZE / 2 + TextureManager.SingleFont.StringHeight(Text, 0) * NUM_SCALE / 2);
         }
     }
 }

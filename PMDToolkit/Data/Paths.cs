@@ -70,7 +70,7 @@ namespace PMDToolkit.Data
                 }
                 catch (Exception ex)
                 {
-                    Logs.Logger.LogError(new Exception("Error loading Paths file.\n", ex));
+                    Logger.LogError(new Exception("Error loading Paths file.\n", ex));
                 }
             }
             CreateDefaultPaths();
