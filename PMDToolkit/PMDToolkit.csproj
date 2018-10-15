@@ -280,6 +280,7 @@
     <Compile Include="Maps\BasicMap.cs" />
     <Compile Include="Maps\GeneratorOptions.cs" />
     <Compile Include="Maps\MapLayer.cs" />
+    <Compile Include="Maps\StackItem.cs" />
     <Compile Include="Maps\TileTexture.cs" />
     <Compile Include="Maps\TileAnim.cs" />
     <Compile Include="Maps\Loc2D.cs" />

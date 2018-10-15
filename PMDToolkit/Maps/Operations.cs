@@ -1061,7 +1061,7 @@ namespace PMDToolkit.Maps
 
         private static void AddNextScanLine(TileCheck checkOp, TileOperation fillOp,
             int min, int max, int range_min, int range_max, int y, bool isNext, Direction4 dir,
-            Stack<Tuple<int, int, int, Direction4, bool, bool>> stack)
+            Stack<StackItem> stack)
         {
             int rMinX = range_min;
             bool inRange = false;
@@ -1078,7 +1078,7 @@ namespace PMDToolkit.Maps
                 }
                 else if (inRange && !empty)
                 {
-                    stack.Push(new Tuple<int, int, int, Direction4, bool, bool>(rMinX, x - 1, y, dir, rMinX == range_min, false));
+                    stack.Push(new StackItem(rMinX, x - 1, y, dir, rMinX == range_min, false));
                     inRange = false;
                 }
 
@@ -1089,24 +1089,24 @@ namespace PMDToolkit.Maps
                     break;
             }
             if (inRange)
-                stack.Push(new Tuple<int, int, int, Direction4, bool, bool>(rMinX, x - 1, y, dir, rMinX == range_min, true));
+                stack.Push(new StackItem(rMinX, x - 1, y, dir, rMinX == range_min, true));
         }
 
         public static void FillArray(int arrayWidth, int arrayHeight, TileCheck checkOp, TileOperation fillOp, Loc2D loc)
         {
-            Stack<Tuple<int, int, int, Direction4, bool, bool>> stack = new Stack<Tuple<int, int, int, Direction4, bool, bool>>();
-            stack.Push(new Tuple<int, int, int, Direction4, bool, bool>(loc.X, loc.X, loc.Y, Direction4.None, true, true));
+            var stack = new Stack<StackItem>();
+            stack.Push(new StackItem(loc.X, loc.X, loc.Y, Direction4.None, true, true));
             fillOp(loc.X, loc.Y);
 
             while (stack.Count > 0)
             {
-                Tuple<int, int, int, Direction4, bool, bool> this_should_really_be_a_class = stack.Pop();
-                Direction4 dir = this_should_really_be_a_class.Item4;
-                int minX = this_should_really_be_a_class.Item1;
-                int maxX = this_should_really_be_a_class.Item2;
-                int y = this_should_really_be_a_class.Item3;
-                bool goLeft = this_should_really_be_a_class.Item5;
-                bool goRight = this_should_really_be_a_class.Item6;
+                var item = stack.Pop();
+                int minX = item.MinX;
+                int maxX = item.MaxX;
+                int y = item.Y;
+                Direction4 dir = item.Direction;
+                bool goLeft = item.GoLeft;
+                bool goRight = item.GoRight;
 
                 int newMinX = minX;
                 if (goLeft)
