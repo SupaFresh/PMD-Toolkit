@@ -114,7 +114,7 @@ namespace PMDToolkit.Maps
                 writer.Write((int)Npcs[i].CharData.Gender);
                 writer.Write((int)Npcs[i].CharData.Shiny);
 
-                writer.Write((int)Npcs[i].Level);
+                writer.Write(Npcs[i].Level);
 
                 writer.Write(Npcs[i].MaxHPBonus);
                 writer.Write(Npcs[i].AtkBonus);

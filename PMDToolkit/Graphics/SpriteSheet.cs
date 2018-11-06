@@ -46,10 +46,6 @@ namespace PMDToolkit.Graphics
     public class FrameData
     {
 
-        #region Fields
-
-        #endregion Fields
-
         #region Properties
 
         public int FrameWidth { get; private set; }
@@ -108,10 +104,6 @@ namespace PMDToolkit.Graphics
 
     public class SpriteSheet : IDisposable
     {
-
-        #region Fields
-
-        #endregion Fields
 
         #region Constructors
 

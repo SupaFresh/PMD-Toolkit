@@ -70,7 +70,7 @@ namespace PMDToolkit.Graphics
 
         #region Properties
 
-        public static Graphics.TextureProgram TextureProgram { get; set; }
+        public static TextureProgram TextureProgram { get; set; }
 
         public static AnimSheet ErrorTexture { get; set; }
         public static Texture BlankTexture { get; set; }
@@ -604,8 +604,8 @@ namespace PMDToolkit.Graphics
                 tileData[sheetNum] = new TileMetadata();
                 tileData[sheetNum].Load(Paths.CachedGFXPath + "Tile\\Tiles" + sheetNum + ".tile");
             }
-            x = Graphics.TextureManager.tileData[sheetNum].Size.Width / Graphics.TextureManager.TILE_SIZE;
-            y = Graphics.TextureManager.tileData[sheetNum].Size.Height / Graphics.TextureManager.TILE_SIZE;
+            x = tileData[sheetNum].Size.Width / TILE_SIZE;
+            y = tileData[sheetNum].Size.Height / TILE_SIZE;
         }
 
         public static Texture GetTile(int sheetNum, Maps.Loc2D tileLoc)

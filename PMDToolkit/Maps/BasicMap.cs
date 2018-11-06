@@ -94,7 +94,7 @@ namespace PMDToolkit.Maps
         public virtual void Resize(int width, int height, Maps.Direction8 dir)
         {
             Loc2D diff = Operations.GetResizeOffset(MapArray.GetLength(0), MapArray.GetLength(1), width, height, dir);
-            Operations.ResizeArray<Tile>(ref MapArray, width, height, dir, true);
+            Operations.ResizeArray(ref MapArray, width, height, dir, true);
             for (int i = 0; i < GroundLayers.Count; i++)
             {
                 Game.UpdateLoadMsg("Resizing Map... (Layer " + GroundLayers[i].Name + ")");
