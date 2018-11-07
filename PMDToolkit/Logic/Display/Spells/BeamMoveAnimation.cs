@@ -32,7 +32,7 @@ namespace PMDToolkit.Logic.Display
     {
         #region Constructors
 
-        public BeamMoveAnimation(Loc2D startLoc, int animIndex, RenderTime animTime, Maps.Direction8 dir, int distance, RenderTime lastingTime)
+        public BeamMoveAnimation(Loc2D startLoc, int animIndex, RenderTime animTime, Direction8 dir, int distance, RenderTime lastingTime)
         {
             StartLoc = startLoc;
             AnimationIndex = animIndex;

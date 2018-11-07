@@ -192,6 +192,7 @@
     <Compile Include="Logic\Display\DisplayMap.cs" />
     <Compile Include="Logic\Display\Spells\ArrowMoveAnimation.cs" />
     <Compile Include="Logic\Display\Spells\BeamMoveAnimation.cs" />
+    <Compile Include="Logic\Display\Spells\DirectionalMoveAnimation.cs" />
     <Compile Include="Logic\Display\Spells\ISpellSprite.cs" />
     <Compile Include="Data\GameData.cs" />
     <Compile Include="Logic\Display\Spells\ItemArrowMoveAnimation.cs" />
