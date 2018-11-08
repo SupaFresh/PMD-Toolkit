@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OpenTK;
+﻿using OpenTK;
 using PMDToolkit.Graphics;
-using PMDToolkit.Maps
+using PMDToolkit.Maps;
 
 namespace PMDToolkit.Logic.Display
 {
@@ -63,12 +59,16 @@ namespace PMDToolkit.Logic.Display
             set;
         }
 
+        public Direction8 Direction
+        {
+            get;
+            set;
+        }
+
         public MoveAnimationType AnimType
         {
             get { return MoveAnimationType.Directional; }
         }
-
-        public Direction8 Direction { get { return Direction8.None; } }
 
         public Loc2D StartLoc { get; set; }
         public Loc2D MapLoc { get { return new Loc2D(StartLoc.X * TextureManager.TILE_SIZE, StartLoc.Y * TextureManager.TILE_SIZE); } }

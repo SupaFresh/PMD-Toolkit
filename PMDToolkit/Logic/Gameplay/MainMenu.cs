@@ -66,7 +66,7 @@ namespace PMDToolkit.Logic.Gameplay
 
                 case 3:
                     {
-                        this.Visible = false;
+                        Visible = false;
                         MenuManager.Menus.Insert(0, new ReplayMenu());
                     }
                     break;
