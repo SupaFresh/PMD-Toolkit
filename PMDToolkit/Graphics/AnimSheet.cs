@@ -25,30 +25,27 @@ namespace PMDToolkit.Graphics
 {
     public class AnimSheet : TileSheet
     {
-        private int totalFrames;
-        private int dirs;
-        private int framesPerDir;
-        public int TotalFrames { get { return totalFrames; } }
-        public int TotalDirs { get { return dirs; } }
-        public int FramesPerDir { get { return framesPerDir; } }
+        public int TotalFrames { get; private set; }
+        public int TotalDirs { get; private set; }
+        public int FramesPerDir { get; private set; }
 
         public override void GenerateDataBuffer(int dirs, int framesPerDir)
         {
-            this.dirs = dirs;
-            this.framesPerDir = framesPerDir;
-            totalFrames = ImageWidth / (ImageHeight / dirs / framesPerDir);
+            TotalDirs = dirs;
+            FramesPerDir = framesPerDir;
+            TotalFrames = ImageWidth / (ImageHeight / dirs / framesPerDir);
             base.GenerateDataBuffer(ImageHeight / dirs / framesPerDir, ImageHeight / dirs / framesPerDir);
         }
 
         public void RenderAnim(int frame, int dir, int frameOfDir)
         {
-            if (frame >= totalFrames || dir >= TotalDirs || frameOfDir >= FramesPerDir)
+            if (frame >= TotalFrames || dir >= TotalDirs || frameOfDir >= FramesPerDir)
             {
                 TextureManager.ErrorTexture.RenderAnim(0, 0, 0);
                 return;
             }
 
-            RenderTile(frame, dir * framesPerDir + frameOfDir);
+            RenderTile(frame, dir * FramesPerDir + frameOfDir);
         }
     }
 }

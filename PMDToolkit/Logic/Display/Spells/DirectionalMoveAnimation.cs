@@ -61,8 +61,7 @@ namespace PMDToolkit.Logic.Display
 
         public Direction8 Direction
         {
-            get;
-            set;
+            get { Operations.GetDirection8(Loc2D loc1, Loc2D loc2), Operations.GetDirection4, Operations.GetDirection3D }
         }
 
         public MoveAnimationType AnimType

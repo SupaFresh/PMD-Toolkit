@@ -207,7 +207,7 @@ namespace PMDToolkit.Graphics
                 }
             }
 
-            this.BytesUsed = totalByteSize;
+            BytesUsed = totalByteSize;
         }
 
         public TileSheet GetSheet(FrameType type, Maps.Direction8 dir)

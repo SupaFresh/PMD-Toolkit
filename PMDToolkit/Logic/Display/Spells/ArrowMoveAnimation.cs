@@ -115,7 +115,7 @@ namespace PMDToolkit.Logic.Display
             set;
         }
 
-        public Maps.Direction8 Direction
+        public Direction8 Direction
         {
             get;
             set;

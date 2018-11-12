@@ -511,7 +511,7 @@ namespace PMDToolkit.Logic.Display
                 CharFrameType = FrameType.Hurt;
                 CharFrame = 0;
                 TileOffset = new Loc2D();
-                Operations.MoveInDirection8(ref TileOffset, CharDir, ActionTime.Ticks * Graphics.TextureManager.TILE_SIZE / totalActionTime.Ticks);
+                Operations.MoveInDirection8(ref TileOffset, CharDir, ActionTime.Ticks * TextureManager.TILE_SIZE / totalActionTime.Ticks);
                 MapHeight = DrawHelper.GetArc(TextureManager.TILE_SIZE / 2, totalActionTime.Ticks, ActionTime.Ticks);
             }
             else if (CurrentAction == ActionType.Knockback)
@@ -591,7 +591,7 @@ namespace PMDToolkit.Logic.Display
 
                 int frame = (int)(Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)TextureManager.GetStatusSheet(0).MaxX);
 
-                Graphics.TextureManager.GetStatusSheet(0).RenderTile(frame, 0);
+                TextureManager.GetStatusSheet(0).RenderTile(frame, 0);
 
                 TextureManager.TextureProgram.PopModelView();
             }
@@ -608,7 +608,7 @@ namespace PMDToolkit.Logic.Display
 
                 int frame = (int)(Screen.TotalTick / (ulong)STATUS_FRAME_LENGTH.Ticks % (ulong)TextureManager.GetStatusSheet(2).MaxX);
 
-                Graphics.TextureManager.GetStatusSheet(2).RenderTile(frame, 0);
+                TextureManager.GetStatusSheet(2).RenderTile(frame, 0);
 
                 TextureManager.TextureProgram.PopModelView();
             }
