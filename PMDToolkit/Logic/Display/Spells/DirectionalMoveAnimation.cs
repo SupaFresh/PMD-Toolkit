@@ -8,13 +8,15 @@ namespace PMDToolkit.Logic.Display
     {
         #region Constructors
 
-        public DirectionalMoveAnimation(Loc2D tileLoc, int animIndex, RenderTime animTime, Direction8 dir, int loops)
+        public DirectionalMoveAnimation(Loc2D tileLoc, Loc2D startloc, Loc2D endloc, int animIndex, RenderTime animTime, Direction8 dir, int loops)
         {
             AnimationIndex = animIndex;
             FrameLength = animTime;
             TotalLoops = loops;
             Direction = dir;
-            StartLoc = new Loc2D(tileLoc.X, tileLoc.Y);
+            Loc2D diffLoc = startloc - endloc;
+            startloc = StartLoc;
+            endloc = EndLoc;
         }
 
         #endregion Constructors
@@ -47,6 +49,18 @@ namespace PMDToolkit.Logic.Display
 
         //total frames
 
+        public Loc2D StartLoc
+        {
+            get;
+            set;
+        }
+
+        public Loc2D EndLoc
+        {
+            get;
+            set;
+        }
+
         public int Loops
         {
             get;
@@ -61,7 +75,8 @@ namespace PMDToolkit.Logic.Display
 
         public Direction8 Direction
         {
-            get { Operations.GetDirection8(Loc2D loc1, Loc2D loc2), Operations.GetDirection4, Operations.GetDirection3D }
+            get;
+            set;
         }
 
         public MoveAnimationType AnimType
@@ -69,7 +84,6 @@ namespace PMDToolkit.Logic.Display
             get { return MoveAnimationType.Directional; }
         }
 
-        public Loc2D StartLoc { get; set; }
         public Loc2D MapLoc { get { return new Loc2D(StartLoc.X * TextureManager.TILE_SIZE, StartLoc.Y * TextureManager.TILE_SIZE); } }
         public int MapHeight { get; set; }
 
