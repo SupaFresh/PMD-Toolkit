@@ -33,9 +33,7 @@ namespace PMDToolkit.Graphics
 
         public int[] TileSizes { get; set; }
 
-        private Size size;
-
-        public Size Size { get { return size; } }
+        public Size Size { get; }
 
         public int TotalTiles { get { return tilePositions.Length; } }
 
@@ -55,11 +53,11 @@ namespace PMDToolkit.Graphics
                 using (BinaryReader reader = new BinaryReader(fileStream))
                 {
                     // Read tileset width
-                    size.Width = reader.ReadInt32();
+                    Size.Width = reader.ReadInt32();
                     // Read tileset height
-                    size.Height = reader.ReadInt32();
+                    Size.Height = reader.ReadInt32();
 
-                    int tileCount = (size.Width / TextureManager.TILE_SIZE) * (size.Height / TextureManager.TILE_SIZE);
+                    int tileCount = (Size.Width / TextureManager.TILE_SIZE) * (Size.Height / TextureManager.TILE_SIZE);
 
                     // Prepare tile information cache
                     tilePositions = new long[tileCount];

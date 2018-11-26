@@ -67,7 +67,7 @@ namespace PMDToolkit.Graphics
             mIBOID = 0;
         }
 
-        public virtual void Dispose()
+        public virtual void Dispose(bool v)
         {
             //Free VBO and IBO if needed
             FreeVBO();
@@ -77,7 +77,8 @@ namespace PMDToolkit.Graphics
 
         ~Texture()
         {
-            Dispose();
+            Dispose(false);
+            return;
         }
 
         public bool LoadPixelsFromFile32(string path)
