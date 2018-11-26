@@ -142,7 +142,7 @@ namespace PMDToolkit.Graphics
                                             memStreamArray = memoryStream.ToArray();
                                             sheetSize = memStreamArray.Length;
                                         }
-                                        anim.Dispose();
+                                        anim.Dispose(false);
                                     }
                                     // Add the animation size
                                     writer.Write(sheetSize);
@@ -168,11 +168,11 @@ namespace PMDToolkit.Graphics
                                 {
                                     using (MemoryStream memoryStream = new MemoryStream())
                                     {
-                                        anim.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                                        anim.Save(memoryStream, ImageFormat.Png);
                                         memStreamArray = memoryStream.ToArray();
                                         sheetSize = memStreamArray.Length;
                                     }
-                                    anim.Dispose();
+                                    anim.Dispose(false);
                                 }
                                 // Add the animation size
                                 writer.Write(sheetSize);
@@ -546,11 +546,11 @@ namespace PMDToolkit.Graphics
                         {
                             using (MemoryStream memoryStream = new MemoryStream())
                             {
-                                sprite.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                                sprite.Save(memoryStream, ImageFormat.Png);
                                 memStreamArray = memoryStream.ToArray();
                                 sheetSize = memStreamArray.Length;
                             }
-                            sprite.Dispose();
+                            sprite.Dispose(false);
                         }
 
                         // Add the animation size

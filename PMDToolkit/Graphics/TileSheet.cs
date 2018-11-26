@@ -48,11 +48,11 @@ namespace PMDToolkit.Graphics
             mIndexBuffers = null;
         }
 
-        public override void Dispose()
+        public override void Dispose(bool v)
         {
             //Clear sprite sheet data
             FreeSheet();
-            base.Dispose();
+            base.Dispose(true);
         }
 
         public void FreeSheet()

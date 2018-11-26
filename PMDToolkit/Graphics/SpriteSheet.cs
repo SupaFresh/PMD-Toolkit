@@ -167,7 +167,7 @@ namespace PMDToolkit.Graphics
                                 }
                                 catch (Exception ex)
                                 {
-                                    sheetSurface.Dispose();
+                                    sheetSurface.Dispose(true);
                                     throw new Exception("Error reading image data for " + frameType.ToString() + " " + dir.ToString() + "\n", ex);
                                 }
                             }
@@ -195,7 +195,7 @@ namespace PMDToolkit.Graphics
                             }
                             catch (Exception ex)
                             {
-                                sheetSurface.Dispose();
+                                sheetSurface.Dispose(true);
                                 throw new Exception("Error reading image data for " + frameType.ToString() + "\n", ex);
                             }
                         }
@@ -261,7 +261,7 @@ namespace PMDToolkit.Graphics
                 {
                     if (animations[frameType][dir] != null)
                     {
-                        animations[frameType][dir].Dispose();
+                        animations[frameType][dir].Dispose(true);
                     }
                 }
             }

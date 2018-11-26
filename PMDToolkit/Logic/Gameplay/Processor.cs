@@ -515,6 +515,7 @@ namespace PMDToolkit.Logic.Gameplay
                     diagonal = true;
                 }
 
+
                 //single button presses
                 if (CurrentInput[Input.InputType.X] && !PrevInput[Input.InputType.X])
                 {

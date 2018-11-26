@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\obj\\x86"
   ],
-  "SelectedNode": "\\Graphics",
+  "SelectedNode": "\\obj",
   "PreviewInSolutionExplorer": false
 }

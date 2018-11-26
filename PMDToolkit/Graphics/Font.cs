@@ -73,7 +73,7 @@ namespace PMDToolkit.Graphics
 
             for (int i = 0; i < mFontSheets.Count; i++)
             {
-                mFontSheets[i].Dispose();
+                mFontSheets[i].Dispose(true);
             }
             //Reinitialize spacing constants
             mSpace = 0;

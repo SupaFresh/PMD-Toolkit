@@ -75,6 +75,12 @@ namespace PMDToolkit.Graphics
             FreeTexture();
         }
 
+        void IDisposable.Dispose()
+        {
+            //IDK if I'm doing this right -SupaFresh
+            throw new NotImplementedException();
+        }
+
         ~Texture()
         {
             Dispose(false);

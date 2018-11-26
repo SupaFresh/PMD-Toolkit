@@ -211,8 +211,8 @@ namespace PMDToolkit.Graphics
 
         public static void Exit()
         {
-            Picker.Dispose();
-            MenuBack.Dispose();
+            Picker.Dispose(true);
+            MenuBack.Dispose(true);
 
             tileCache.Clear();
             objectCache.Clear();
@@ -222,8 +222,8 @@ namespace PMDToolkit.Graphics
             mugshotCache.Clear();
             spriteCache.Clear();
 
-            BlankTexture.Dispose();
-            ErrorTexture.Dispose();
+            BlankTexture.Dispose(true);
+            ErrorTexture.Dispose(true);
 
             SingleFont.Dispose();
 
@@ -559,7 +559,7 @@ namespace PMDToolkit.Graphics
                                     }
                                     catch (Exception ex)
                                     {
-                                        sheet.Dispose();
+                                        sheet.Dispose(true);
                                         throw new Exception("Error reading image data.\n", ex);
                                     }
 
