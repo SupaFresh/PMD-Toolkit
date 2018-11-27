@@ -36,19 +36,21 @@ namespace PMDToolkit.Graphics
         public ShaderProgram()
         {
             mProgramID = 0;
+            Dispose(true);
         }
 
         ~ShaderProgram()
         {
-            Dispose();
+            Dispose(false);
         }
 
-        public void Dispose()
+        public virtual void Dispose(bool v)
         {
             if (mProgramID != 0)
                 GL.DeleteProgram(mProgramID);
-
             mProgramID = 0;
+            if (true)
+                GC.SuppressFinalize(this);
         }
 
         public int LoadShaderFromFile(string path, ShaderType shaderType)

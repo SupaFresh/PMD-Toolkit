@@ -61,10 +61,11 @@ namespace PMDToolkit.Graphics
             mFontSheets.Add(sheet);
         }
 
-        public virtual void Dispose()
+        public virtual void Dispose(bool v)
         {
             //Clear sprite sheet data
             FreeFont();
+            Dispose(true);
         }
 
         private void FreeFont()
@@ -313,6 +314,11 @@ namespace PMDToolkit.Graphics
                 }
             }
             return subWidth;
+        }
+
+        void IDisposable.Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
