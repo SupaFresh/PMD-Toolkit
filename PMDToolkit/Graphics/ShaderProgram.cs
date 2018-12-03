@@ -47,10 +47,12 @@ namespace PMDToolkit.Graphics
         public virtual void Dispose(bool v)
         {
             if (mProgramID != 0)
+            {
                 GL.DeleteProgram(mProgramID);
+            }
             mProgramID = 0;
-            if (true)
-                GC.SuppressFinalize(this);
+            Unbind();
+            GC.SuppressFinalize(this);
         }
 
         public int LoadShaderFromFile(string path, ShaderType shaderType)
@@ -112,6 +114,11 @@ namespace PMDToolkit.Graphics
             {
                 throw new Exception("ID " + program + " is not a program.");
             }
+        }
+
+        void IDisposable.Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

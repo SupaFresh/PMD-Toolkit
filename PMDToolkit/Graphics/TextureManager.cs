@@ -225,9 +225,9 @@ namespace PMDToolkit.Graphics
             BlankTexture.Dispose(true);
             ErrorTexture.Dispose(true);
 
-            SingleFont.Dispose();
+            SingleFont.Dispose(true);
 
-            TextureProgram.Dispose();
+            TextureProgram.Dispose(true);
         }
 
         public static void Update()

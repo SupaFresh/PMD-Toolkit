@@ -57,7 +57,7 @@ namespace PMDToolkit.Graphics
                     // Read tileset height
                     Size = new Size(Size.Height, reader.ReadInt32());
 
-                    int tileCount = (Size.Width / TextureManager.TILE_SIZE) * (Size.Height / TextureManager.TILE_SIZE);
+                    int tileCount = Size.Width / TextureManager.TILE_SIZE * (Size.Height / TextureManager.TILE_SIZE);
 
                     // Prepare tile information cache
                     tilePositions = new long[tileCount];

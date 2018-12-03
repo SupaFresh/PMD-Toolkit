@@ -274,7 +274,6 @@ namespace PMDToolkit.Graphics
             {
                 mBitmap.UnlockBits(ImgData);
             }
-            ImgData = null;
             if (mBitmap != null)
             {
                 mBitmap.Dispose();
