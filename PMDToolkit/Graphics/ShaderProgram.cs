@@ -37,10 +37,12 @@ namespace PMDToolkit.Graphics
         {
             mProgramID = 0;
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         ~ShaderProgram()
         {
+            mProgramID = 1;
             Dispose(false);
         }
 
@@ -52,7 +54,6 @@ namespace PMDToolkit.Graphics
             }
             mProgramID = 0;
             Unbind();
-            GC.SuppressFinalize(this);
         }
 
         public int LoadShaderFromFile(string path, ShaderType shaderType)
@@ -118,7 +119,9 @@ namespace PMDToolkit.Graphics
 
         void IDisposable.Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+            return;
         }
     }
 }

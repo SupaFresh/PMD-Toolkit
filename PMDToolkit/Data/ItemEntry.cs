@@ -208,7 +208,10 @@ namespace PMDToolkit.Data
         public void Save(int itemNum)
         {
             if (!Directory.Exists(Paths.DataPath + "Item"))
+            {
                 Directory.CreateDirectory(Paths.DataPath + "Item");
+            }
+
             using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Item\\" + itemNum + ".xml", Logger.XmlWriterSettings))
             {
                 writer.WriteStartDocument();

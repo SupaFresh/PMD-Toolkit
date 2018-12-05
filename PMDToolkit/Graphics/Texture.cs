@@ -84,6 +84,7 @@ namespace PMDToolkit.Graphics
         ~Texture()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
             return;
         }
 
@@ -261,7 +262,7 @@ namespace PMDToolkit.Graphics
             }
         }
 
-        public virtual void FreeTexture()
+        public void FreeTexture()
         {
             //Delete texture
             if (TextureID != 0)

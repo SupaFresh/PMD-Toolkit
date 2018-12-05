@@ -76,7 +76,6 @@ namespace PMDToolkit
             catch (Exception ex)
             {
                 Logs.Logger.LogError(ex);
-                throw ex;
             }
         }
 

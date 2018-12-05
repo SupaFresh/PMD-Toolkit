@@ -318,7 +318,9 @@ namespace PMDToolkit.Graphics
 
         void IDisposable.Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+            return;
         }
     }
 }

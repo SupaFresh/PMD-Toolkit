@@ -118,7 +118,7 @@ namespace PMDToolkit.Graphics
             //Set texture unit
             TextureProgram.SetTextureUnit(0);
             //Set program for texture
-            Graphics.Texture.SetTextureProgram(TextureProgram);
+            Texture.SetTextureProgram(TextureProgram);
 
             //load font
             SingleFont = new Font();
