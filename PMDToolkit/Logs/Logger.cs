@@ -33,7 +33,9 @@ namespace PMDToolkit.Logs
         private static readonly object lockObj = new object();
 
         private static List<string> battleLog;
+#pragma warning disable CS0169 // The field 'Logger.journeyStart' is never used
         private static readonly DateTime journeyStart;
+#pragma warning restore CS0169 // The field 'Logger.journeyStart' is never used
 
         public static XmlWriterSettings XmlWriterSettings { get; private set; }
 

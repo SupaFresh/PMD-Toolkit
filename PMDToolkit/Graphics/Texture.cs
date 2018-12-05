@@ -83,7 +83,7 @@ namespace PMDToolkit.Graphics
 
         ~Texture()
         {
-            Dispose(false);
+            Dispose(true);
             return;
         }
 
@@ -274,6 +274,7 @@ namespace PMDToolkit.Graphics
             {
                 mBitmap.UnlockBits(ImgData);
             }
+            ImgData = null;
             if (mBitmap != null)
             {
                 mBitmap.Dispose();

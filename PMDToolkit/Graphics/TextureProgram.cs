@@ -81,7 +81,9 @@ namespace PMDToolkit.Graphics
             //Link program
             GL.LinkProgram(mProgramID);
             //Check for errors
+#pragma warning disable CS0618 // 'GL.GetProgram(int, ProgramParameter, out int)' is obsolete: 'Use GetProgramParameterName overload instead'
             GL.GetProgram(mProgramID, ProgramParameter.LinkStatus, out int status_code);
+#pragma warning restore CS0618 // 'GL.GetProgram(int, ProgramParameter, out int)' is obsolete: 'Use GetProgramParameterName overload instead'
             if (status_code != 1)
             {
                 string log = PrintProgramLog(mProgramID);

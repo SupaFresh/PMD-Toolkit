@@ -456,7 +456,9 @@ namespace PMDToolkit.Logic.Gameplay
             Command command = new Command(Command.CommandType.None);
 
             bool jump = false;
+#pragma warning disable CS0219 // The variable 'spell' is assigned but its value is never used
             bool spell = false;
+#pragma warning restore CS0219 // The variable 'spell' is assigned but its value is never used
             bool turn = false;
             bool diagonal = false;
 
