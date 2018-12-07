@@ -83,12 +83,9 @@ namespace PMDToolkit.Logic.Display
             set;
         }
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.Normal; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.Normal;
 
-        public Direction8 Direction { get { return Direction8.None; } }
+        public Direction8 Direction => Direction8.None;
 
         public Loc2D MapLoc { get; set; }
         public int MapHeight { get; set; }

@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
     public class AddItem : IResult
     {
         //public ResultType Type { get { return ResultType.SpawnNpc; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly int itemSlot;
         private readonly int sprite;

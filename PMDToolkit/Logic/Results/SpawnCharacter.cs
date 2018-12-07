@@ -31,7 +31,7 @@ namespace PMDToolkit.Logic.Results
     public class SpawnCharacter : IResult
     {
         //public ResultType Type { get { return ResultType.SpawnNpc; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly int charIndex;
         private Loc2D charLoc;

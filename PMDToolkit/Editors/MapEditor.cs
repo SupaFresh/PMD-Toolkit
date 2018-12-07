@@ -83,7 +83,10 @@ namespace PMDToolkit.Editors
             RefreshTitle();
 
             if (!Directory.Exists(Paths.MapPath))
+            {
                 Directory.CreateDirectory(Paths.MapPath);
+            }
+
             openFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\" + Paths.MapPath;
             saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\" + Paths.MapPath;
 
@@ -119,7 +122,9 @@ namespace PMDToolkit.Editors
             LoadMapProperties();
             SetupLayerVisibility();
             if (MainPanel.CurrentMapLayerEditor != null)
+            {
                 MainPanel.CurrentMapLayerEditor.LoadLayers();
+            }
 
             MainPanel.EnterLoadPhase(Game.GameLoadState.Loaded);
         }
@@ -140,7 +145,9 @@ namespace PMDToolkit.Editors
                 LoadMapProperties();
                 SetupLayerVisibility();
                 if (MainPanel.CurrentMapLayerEditor != null)
+                {
                     MainPanel.CurrentMapLayerEditor.LoadLayers();
+                }
 
                 MainPanel.EnterLoadPhase(Game.GameLoadState.Loaded);
             }
@@ -204,10 +211,14 @@ namespace PMDToolkit.Editors
         private void RefreshTitle()
         {
             if (string.IsNullOrWhiteSpace(fileName))
+            {
                 fileName = "";
+            }
 
             if (fileName == "")
+            {
                 Text = "New Map";
+            }
             else
             {
                 string[] fileEnd = fileName.Split('\\');
@@ -234,15 +245,19 @@ namespace PMDToolkit.Editors
             UpdatePreviewTile(false);
 
             Image endImage = new Bitmap(picTileset.Width, picTileset.Height);
-            using (var graphics = System.Drawing.Graphics.FromImage(endImage))
+            using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(endImage))
             {
                 int width = picX;
                 if (tileX - hScroll.Value < width)
+                {
                     width = tileX - hScroll.Value;
+                }
 
                 int height = picY;
                 if (tileY - vScroll.Value < height)
+                {
                     height = tileY - vScroll.Value;
+                }
 
                 lock (drawLock)
                 {
@@ -296,7 +311,9 @@ namespace PMDToolkit.Editors
             }
 
             if (!refreshedPic)
+            {
                 RefreshPic();
+            }
         }
 
         private void RefreshScrollMaximums()
@@ -411,7 +428,9 @@ namespace PMDToolkit.Editors
             if (animThread != null)
             {
                 lock (drawLock)
+                {
                     runningAnim = false;
+                }
             }
         }
 
@@ -445,9 +464,13 @@ namespace PMDToolkit.Editors
                 if (inAnimMode)
                 {
                     if (lbxFrames.SelectedIndex > -1)
+                    {
                         chosenAnim.Frames[lbxFrames.SelectedIndex] = new TileTexture(chosenTile, chosenTileset);
+                    }
                     else
+                    {
                         chosenAnim.Frames.Add(new TileTexture(chosenTile, chosenTileset));
+                    }
 
                     UpdateAnimFrames();
                 }
@@ -457,7 +480,9 @@ namespace PMDToolkit.Editors
         private void TbTileset_Scroll(object sender, EventArgs e)
         {
             if (tbTileset.Value == currentTileset)
+            {
                 return;
+            }
 
             currentTileset = tbTileset.Value;
             RefreshTileset();
@@ -482,9 +507,13 @@ namespace PMDToolkit.Editors
         {
             int value = nud.Text.ToInt();
             if (value >= nud.Minimum && value <= nud.Maximum)
+            {
                 setInt = nud.Text.ToInt();
+            }
             else
+            {
                 setInt = (int)nud.Value;
+            }
         }
 
         private void CbWeather_SelectedIndexChanged(object sender, EventArgs e)
@@ -515,13 +544,17 @@ namespace PMDToolkit.Editors
             }
             MainPanel.GameNeedWait = true;
             while (!MainPanel.GameWaiting)
+            {
                 Thread.Sleep(100);
+            }
 
             Logic.Display.Screen.AddResult(new Logic.Results.BGM(Logic.Gameplay.Processor.CurrentMap.Music, true));
 
             MainPanel.GameNeedWait = false;
             while (MainPanel.GameWaiting)
+            {
                 Thread.Sleep(100);
+            }
         }
 
         private void ResizeMapToolStripMenuItem_Click(object sender, EventArgs e)
@@ -537,13 +570,22 @@ namespace PMDToolkit.Editors
                 Processor.FocusedCharacter.CharLoc += diff;
 
                 if (Processor.FocusedCharacter.CharLoc.X < 0)
+                {
                     Processor.FocusedCharacter.CharLoc.X = 0;
+                }
                 else if (Processor.FocusedCharacter.CharLoc.X >= window.Width)
+                {
                     Processor.FocusedCharacter.CharLoc.X = window.Width - 1;
+                }
+
                 if (Processor.FocusedCharacter.CharLoc.Y < 0)
+                {
                     Processor.FocusedCharacter.CharLoc.Y = 0;
+                }
                 else if (Processor.FocusedCharacter.CharLoc.Y >= window.Height)
+                {
                     Processor.FocusedCharacter.CharLoc.Y = window.Height - 1;
+                }
 
                 PMDToolkit.Logic.Display.Screen.AddResult(new PMDToolkit.Logic.Results.Loc(Processor.FocusedCharIndex, Processor.FocusedCharacter.CharLoc));
 
@@ -614,7 +656,9 @@ namespace PMDToolkit.Editors
         public static void PaintTile(Loc2D loc, TileAnim anim)
         {
             if (!Operations.IsInBound(Processor.CurrentMap.Width, Processor.CurrentMap.Height, loc.X, loc.Y))
+            {
                 return;
+            }
 
             switch (chosenEditLayer)
             {
@@ -638,7 +682,9 @@ namespace PMDToolkit.Editors
         public static void EyedropTile(Loc2D loc)
         {
             if (!Operations.IsInBound(Processor.CurrentMap.Width, Processor.CurrentMap.Height, loc.X, loc.Y))
+            {
                 return;
+            }
 
             switch (chosenEditLayer)
             {
@@ -661,16 +707,23 @@ namespace PMDToolkit.Editors
         {
             TileAnim anim;
             if (inAnimMode)
+            {
                 anim = new TileAnim(chosenAnim);
+            }
             else
+            {
                 anim = new TileAnim(chosenTile, chosenTileset);
+            }
+
             return anim;
         }
 
         public static void FillTile(Loc2D loc, TileAnim anim)
         {
             if (!Operations.IsInBound(Processor.CurrentMap.Width, Processor.CurrentMap.Height, loc.X, loc.Y))
+            {
                 return;
+            }
 
             switch (chosenEditLayer)
             {
@@ -797,13 +850,17 @@ namespace PMDToolkit.Editors
                 lock (drawLock)
                 {
                     if (!runningAnim)
+                    {
                         return;
+                    }
 
                     if (inAnimMode)
                     {
                         animFrame++;
                         if (animFrame >= chosenAnim.Frames.Count)
+                        {
                             animFrame = 0;
+                        }
 
                         UpdatePreviewTile(true);
                     }
@@ -822,7 +879,7 @@ namespace PMDToolkit.Editors
                 if (timer)
                 {
                     Image endTileImage = new Bitmap(picTileset.Width, picTileset.Height);
-                    using (var graphics = System.Drawing.Graphics.FromImage(endTileImage))
+                    using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(endTileImage))
                     {
                         TileTexture tex = chosenAnim.Frames[animFrame];
                         graphics.DrawImage(tiles[tex.Sheet], 0, 0,
@@ -842,7 +899,7 @@ namespace PMDToolkit.Editors
                 Image endTileImage = new Bitmap(picTileset.Width, picTileset.Height);
                 lock (drawLock)
                 {
-                    using (var graphics = System.Drawing.Graphics.FromImage(endTileImage))
+                    using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(endTileImage))
                     {
                         graphics.DrawImage(tiles[chosenTileset], 0, 0,
                             new Rectangle(chosenTile.X * Graphics.TextureManager.TILE_SIZE,
@@ -864,7 +921,9 @@ namespace PMDToolkit.Editors
                 lbxFrames.Items.Add("Tile" + chosenAnim.Frames[i].Sheet + " X" + chosenAnim.Frames[i].Texture.X + " Y" + chosenAnim.Frames[i].Texture.Y);
             }
             if (selection < lbxFrames.Items.Count)
+            {
                 lbxFrames.SelectedIndex = selection;
+            }
 
             ChangeAnimationTimer();
         }
@@ -882,9 +941,13 @@ namespace PMDToolkit.Editors
             lock (drawLock)
             {
                 if (lbxFrames.SelectedIndex > -1)
+                {
                     chosenAnim.Frames.Insert(lbxFrames.SelectedIndex, new TileTexture());
+                }
                 else
+                {
                     chosenAnim.Frames.Add(new TileTexture());
+                }
             }
             UpdateAnimFrames();
         }
@@ -896,12 +959,18 @@ namespace PMDToolkit.Editors
                 if (chosenAnim.Frames.Count > 1)
                 {
                     if (lbxFrames.SelectedIndex > -1)
+                    {
                         chosenAnim.Frames.RemoveAt(lbxFrames.SelectedIndex);
+                    }
                     else
+                    {
                         chosenAnim.Frames.RemoveAt(lbxFrames.Items.Count - 1);
+                    }
                 }
                 if (animFrame > chosenAnim.Frames.Count)
+                {
                     animFrame = 0;
+                }
             }
             UpdateAnimFrames();
         }

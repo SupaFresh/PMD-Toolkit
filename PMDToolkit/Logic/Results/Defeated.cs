@@ -31,13 +31,7 @@ namespace PMDToolkit.Logic.Results
     {
         //public ResultType Type { get { return ResultType.Defeated; } }
 
-        public RenderTime Delay
-        {
-            get
-            {
-                return CharSprite.GetPassTime(charData, dir, CharSprite.ActionType.Defeated);
-            }
-        }
+        public RenderTime Delay => CharSprite.GetPassTime(charData, dir, CharSprite.ActionType.Defeated);
 
         private readonly int charIndex;
         private FormData charData;

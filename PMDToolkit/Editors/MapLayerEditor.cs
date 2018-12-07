@@ -104,23 +104,33 @@ namespace PMDToolkit.Editors
         {
             int layerIndex = 0;
             if (layerType == MapEditor.EditLayer.Fringe)
+            {
                 return layerIndex + Processor.CurrentMap.FringeLayers.Count - 1 - layer;
+            }
 
             layerIndex += Processor.CurrentMap.FringeLayers.Count;
             if (layerType == MapEditor.EditLayer.PropFront)
+            {
                 return layerIndex + Processor.CurrentMap.PropFrontLayers.Count - 1 - layer;
+            }
 
             layerIndex += Processor.CurrentMap.PropFrontLayers.Count;
             if (layerType == MapEditor.EditLayer.PropBack)
+            {
                 return layerIndex + Processor.CurrentMap.PropBackLayers.Count - 1 - layer;
+            }
 
             layerIndex += Processor.CurrentMap.PropBackLayers.Count;
             if (layerType == MapEditor.EditLayer.Ground)
+            {
                 return layerIndex + Processor.CurrentMap.GroundLayers.Count - 1 - layer;
+            }
 
             layerIndex += Processor.CurrentMap.GroundLayers.Count;
             if (layerType == MapEditor.EditLayer.Data)
+            {
                 return layerIndex;
+            }
 
             return -1;
         }

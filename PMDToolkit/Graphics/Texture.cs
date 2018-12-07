@@ -44,9 +44,9 @@ namespace PMDToolkit.Graphics
         public BitmapData ImgData { get; set; }
 
         public int TextureID { get; private set; }
-        public int ImageWidth { get { return mBitmap.Width; } }
-        public int ImageHeight { get { return mBitmap.Height; } }
-        public System.Drawing.Imaging.PixelFormat PixelFormat { get { return mBitmap.PixelFormat; } }
+        public int ImageWidth => mBitmap.Width;
+        public int ImageHeight => mBitmap.Height;
+        public System.Drawing.Imaging.PixelFormat PixelFormat => mBitmap.PixelFormat;
 
         public static void SetTextureProgram(TextureProgram program)
         {
@@ -257,7 +257,9 @@ namespace PMDToolkit.Graphics
                     byte* targetOffset = targetY + targetStartX * bpp;
                     byte* sourceOffset = sourceY + sourceStartX * bpp;
                     for (int x = 0; x < copyW * bpp; x++, targetOffset++, sourceOffset++)
+                    {
                         *(targetOffset) = *(sourceOffset);
+                    }
                 }
             }
         }

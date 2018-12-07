@@ -350,7 +350,9 @@ namespace PMDToolkit.Data
                                 {
                                     string style = reader.ReadString();
                                     if (style.IsEnum<Enums.BodyShape>())
+                                    {
                                         BodyStyle = style.ToEnum<Enums.BodyShape>();
+                                    }
                                 }
                                 break;
 

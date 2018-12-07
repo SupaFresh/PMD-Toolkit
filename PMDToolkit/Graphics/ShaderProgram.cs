@@ -31,7 +31,7 @@ namespace PMDToolkit.Graphics
     {
         protected int mProgramID;
 
-        public int ProgramID { get { return mProgramID; } }
+        public int ProgramID => mProgramID;
 
         public ShaderProgram()
         {
@@ -76,7 +76,9 @@ namespace PMDToolkit.Graphics
             GL.GetShader(shaderID, ShaderParameter.CompileStatus, out int status_code);
 
             if (status_code != 1)
+            {
                 throw new ApplicationException(info);
+            }
 
             return shaderID;
         }

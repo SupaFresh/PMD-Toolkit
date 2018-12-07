@@ -63,7 +63,10 @@ namespace PMDToolkit.Logic.Gameplay
         private static void SetStatusAilment(ActiveChar character, Enums.StatusAilment ailment, int counter)
         {
             //check status protection
-            if (character.dead) return;
+            if (character.dead)
+            {
+                return;
+            }
 
             bool changeStatus = (character.Status != ailment);
 
@@ -251,7 +254,10 @@ namespace PMDToolkit.Logic.Gameplay
 
         public static void RemoveExtraStatus(ActiveChar character, string name, bool sendInfo)
         {
-            if (!character.VolatileStatus.ContainsKey(name)) return;
+            if (!character.VolatileStatus.ContainsKey(name))
+            {
+                return;
+            }
 
             ExtraStatus statusToRemove = character.VolatileStatus[name];
 

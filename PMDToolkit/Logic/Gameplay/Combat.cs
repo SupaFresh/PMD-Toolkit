@@ -32,10 +32,26 @@ namespace PMDToolkit.Logic.Gameplay
     {
         public static Enums.Alignment GetMatchup(ActiveChar attacker, ActiveChar defender)
         {
-            if (attacker == null) return Enums.Alignment.Foe;
-            if (defender == null) return Enums.Alignment.Foe;
-            if (attacker is Player && ((Player)attacker).dead) return Enums.Alignment.Foe;
-            if (defender is Player && ((Player)defender).dead) return Enums.Alignment.None;
+            if (attacker == null)
+            {
+                return Enums.Alignment.Foe;
+            }
+
+            if (defender == null)
+            {
+                return Enums.Alignment.Foe;
+            }
+
+            if (attacker is Player && ((Player)attacker).dead)
+            {
+                return Enums.Alignment.Foe;
+            }
+
+            if (defender is Player && ((Player)defender).dead)
+            {
+                return Enums.Alignment.None;
+            }
+
             if (attacker == defender)
             {
                 return Enums.Alignment.Self;
@@ -52,8 +68,16 @@ namespace PMDToolkit.Logic.Gameplay
 
         public static bool IsTargeted(ActiveChar attacker, ActiveChar defender, bool hitSelf, bool hitFriend, bool hitFoe)
         {
-            if (defender.dead) return false;
-            if (defender is Player && Intangible) return false;
+            if (defender.dead)
+            {
+                return false;
+            }
+
+            if (defender is Player && Intangible)
+            {
+                return false;
+            }
+
             Enums.Alignment alignment = GetMatchup(attacker, defender);
             switch (alignment)
             {
@@ -95,10 +119,18 @@ namespace PMDToolkit.Logic.Gameplay
         {
             for (int i = 0; i < range; i++)
             {
-                if (userLoc == targetLoc) return true;
+                if (userLoc == targetLoc)
+                {
+                    return true;
+                }
+
                 Operations.MoveInDirection8(ref userLoc, userDir, 1);
             }
-            if (userLoc == targetLoc) return true;
+            if (userLoc == targetLoc)
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -129,7 +161,9 @@ namespace PMDToolkit.Logic.Gameplay
                         Loc2D endLoc = startLoc;
                         Operations.MoveInDirection8(ref endLoc, direction, distance);
                         if (Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, endLoc.X, endLoc.Y))
+                        {
                             returnList.Add(endLoc);
+                        }
 
                         #endregion FrontOfUserUntil
                     }
@@ -147,7 +181,9 @@ namespace PMDToolkit.Logic.Gameplay
                                     y == startLoc.Y - distance || y == startLoc.Y + distance)
                                 {
                                     if (Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, x, y))
+                                    {
                                         returnList.Add(new Loc2D(x, y));
+                                    }
                                 }
                             }
                         }
@@ -176,7 +212,9 @@ namespace PMDToolkit.Logic.Gameplay
                                     if (x == endLoc.X || y == endLoc.Y)
                                     {
                                         if (Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, x, y))
+                                        {
                                             returnList.Add(new Loc2D(x, y));
+                                        }
                                     }
                                 }
                             }
@@ -187,7 +225,9 @@ namespace PMDToolkit.Logic.Gameplay
                             Operations.MoveInDirection8(ref endLoc, direction, distance);
 
                             if (Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, endLoc.X, endLoc.Y))
+                            {
                                 returnList.Add(new Loc2D(endLoc.X, endLoc.Y));
+                            }
 
                             Direction8 left = Operations.AddDir(direction, Direction8.Right);
                             Direction8 right = Operations.AddDir(direction, Direction8.Left);
@@ -196,10 +236,15 @@ namespace PMDToolkit.Logic.Gameplay
                             {
                                 Operations.MoveInDirection8(ref endLoc, left, i * 2 + 1);
                                 if (Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, endLoc.X, endLoc.Y))
+                                {
                                     returnList.Add(new Loc2D(endLoc.X, endLoc.Y));
+                                }
+
                                 Operations.MoveInDirection8(ref endLoc, right, (i + 1) * 2);
                                 if (Operations.IsInBound(CurrentMap.Width, CurrentMap.Height, endLoc.X, endLoc.Y))
+                                {
                                     returnList.Add(new Loc2D(endLoc.X, endLoc.Y));
+                                }
                             }
                         }
 
@@ -254,12 +299,17 @@ namespace PMDToolkit.Logic.Gameplay
                             {
                                 targetlist.Add(new TileTarget(loc, r));
                                 if (TileBlocked(loc, Enums.WalkMode.Air))
+                                {
                                     blockFound = true;
+                                }
                             }
                             if (blockFound)
                             {
                                 if (blockOff)
+                                {
                                     range.Distance = r;
+                                }
+
                                 break;
                             }
                             Operations.MoveInDirection8(ref targetLoc, userDir, 1);
@@ -297,12 +347,17 @@ namespace PMDToolkit.Logic.Gameplay
                             {
                                 targetlist.Add(new TileTarget(loc, r));
                                 if (TileBlocked(loc, Enums.WalkMode.Air))
+                                {
                                     blockFound = true;
+                                }
                             }
                             if (blockFound)
                             {
                                 if (blockOff)
+                                {
                                     range.Distance = r;
+                                }
+
                                 break;
                             }
                             Operations.MoveInDirection8(ref targetLoc, userDir, 1);
@@ -788,14 +843,20 @@ namespace PMDToolkit.Logic.Gameplay
                             Display.Screen.SwitchConcurrentBranch();
                             int totalWait = setup.TimeForHit.Value;
                             if (setup.TotalWaves > 0)
+                            {
                                 totalWait += setup.TotalWaveTime * target.Distance / setup.TotalWaves;
+                            }
+
                             Display.Screen.AddResult(new Results.Wait(RenderTime.FromMillisecs(totalWait)));
                         }
                         MoveHitCharacter(setup);
                         if (setup.Cancel)
                         {
                             if (attackEach)
+                            {
                                 Display.Screen.BeginConcurrent();
+                            }
+
                             return;
                         }
                     }
@@ -812,14 +873,20 @@ namespace PMDToolkit.Logic.Gameplay
                         Display.Screen.SwitchConcurrentBranch();
                         int totalWait = setup.TimeForHit.Value;
                         if (setup.TotalWaves > 0)
+                        {
                             totalWait += setup.TotalWaveTime * target.Distance / setup.TotalWaves;
+                        }
+
                         Display.Screen.AddResult(new Results.Wait(RenderTime.FromMillisecs(totalWait)));
                     }
                     MoveHitTile(setup);
                     if (setup.Cancel)
                     {
                         if (attackEach)
+                        {
                             Display.Screen.BeginConcurrent();
+                        }
+
                         return;
                     }
                     tileIndex++;
@@ -840,14 +907,20 @@ namespace PMDToolkit.Logic.Gameplay
                             Display.Screen.SwitchConcurrentBranch();
                             int totalWait = setup.TimeForHit.Value;
                             if (setup.TotalWaves > 0)
+                            {
                                 totalWait += setup.TotalWaveTime * target.Distance / setup.TotalWaves;
+                            }
+
                             Display.Screen.AddResult(new Results.Wait(RenderTime.FromMillisecs(totalWait)));
                         }
                         MoveHitCharacter(setup);
                         if (setup.Cancel)
                         {
                             if (attackEach)
+                            {
                                 Display.Screen.BeginConcurrent();
+                            }
+
                             return;
                         }
                     }
@@ -924,7 +997,9 @@ namespace PMDToolkit.Logic.Gameplay
                 DamageCharacter(setup.Defender, setup.Move.Power * setup.Multiplier / 1000 + setup.Attacker.Atk);
             }
             if (setup.Cancel)
+            {
                 return;
+            }
 
             #region MoveEffects
 
@@ -1223,7 +1298,11 @@ namespace PMDToolkit.Logic.Gameplay
 
         public static bool CanThrow(ActiveChar character, int invSlot)
         {
-            if (Inventory[invSlot] == -1) return false;
+            if (Inventory[invSlot] == -1)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -1305,7 +1384,9 @@ namespace PMDToolkit.Logic.Gameplay
         public static Loc2D? FindFreeTile(Loc2D origin, int range)
         {
             if (CanItemLand(origin))
+            {
                 return origin;
+            }
 
             Loc2D downLoc = origin;
             Loc2D leftLoc = origin;
@@ -1317,16 +1398,27 @@ namespace PMDToolkit.Logic.Gameplay
                 //check direct side
                 Operations.MoveInDirection8(ref downLoc, Direction8.Down, 1);
                 if (CanItemLand(downLoc))
+                {
                     return downLoc;
+                }
+
                 Operations.MoveInDirection8(ref leftLoc, Direction8.Left, 1);
                 if (CanItemLand(leftLoc))
+                {
                     return leftLoc;
+                }
+
                 Operations.MoveInDirection8(ref upLoc, Direction8.Up, 1);
                 if (CanItemLand(upLoc))
+                {
                     return upLoc;
+                }
+
                 Operations.MoveInDirection8(ref rightLoc, Direction8.Right, 1);
                 if (CanItemLand(rightLoc))
+                {
                     return rightLoc;
+                }
 
                 Loc2D downSideLoc = downLoc;
                 Loc2D leftSideLoc = leftLoc;
@@ -1338,31 +1430,53 @@ namespace PMDToolkit.Logic.Gameplay
                     //check side-sides
                     Operations.MoveInDirection8(ref downSideLoc, Direction8.Right, j * 2 + 1);
                     if (CanItemLand(downSideLoc))
+                    {
                         return downSideLoc;
+                    }
+
                     Operations.MoveInDirection8(ref leftSideLoc, Direction8.Down, j * 2 + 1);
                     if (CanItemLand(leftSideLoc))
+                    {
                         return leftSideLoc;
+                    }
+
                     Operations.MoveInDirection8(ref upSideLoc, Direction8.Left, j * 2 + 1);
                     if (CanItemLand(upSideLoc))
+                    {
                         return upSideLoc;
+                    }
+
                     Operations.MoveInDirection8(ref rightSideLoc, Direction8.Up, j * 2 + 1);
                     if (CanItemLand(rightSideLoc))
+                    {
                         return rightSideLoc;
+                    }
 
                     if (j < i - 1)
                     {
                         Operations.MoveInDirection8(ref downSideLoc, Direction8.Left, (j + 1) * 2);
                         if (CanItemLand(downSideLoc))
+                        {
                             return downSideLoc;
+                        }
+
                         Operations.MoveInDirection8(ref leftSideLoc, Direction8.Up, (j + 1) * 2);
                         if (CanItemLand(leftSideLoc))
+                        {
                             return leftSideLoc;
+                        }
+
                         Operations.MoveInDirection8(ref upSideLoc, Direction8.Right, (j + 1) * 2);
                         if (CanItemLand(upSideLoc))
+                        {
                             return upSideLoc;
+                        }
+
                         Operations.MoveInDirection8(ref rightSideLoc, Direction8.Down, (j + 1) * 2);
                         if (CanItemLand(rightSideLoc))
+                        {
                             return rightSideLoc;
+                        }
                     }
                 }
             }
@@ -1373,23 +1487,35 @@ namespace PMDToolkit.Logic.Gameplay
         public static void RestoreHP(ActiveChar character, int hp)
         {
             character.HP += hp;
-            if (character.HP > character.MaxHP) character.HP = character.MaxHP;
+            if (character.HP > character.MaxHP)
+            {
+                character.HP = character.MaxHP;
+            }
+
             Display.Screen.AddResult(new Results.MeterChanged(CharIndex(character), false, hp));
             Display.Screen.AddResult(new Results.BattleMsg(character.Name + " recovered " + hp + " HP."));
 
             if (character == FocusedCharacter)
+            {
                 Display.Screen.AddResult(new Results.SetStats(FocusedCharacter.HP, FocusedCharacter.MaxHP, FocusedCharacter.PP, FocusedCharacter.MaxPP, money));
+            }
         }
 
         public static void RestorePP(ActiveChar character, int pp)
         {
             character.PP += pp;
-            if (character.PP > character.MaxPP) character.PP = character.MaxPP;
+            if (character.PP > character.MaxPP)
+            {
+                character.PP = character.MaxPP;
+            }
+
             Display.Screen.AddResult(new Results.MeterChanged(CharIndex(character), true, pp));
             Display.Screen.AddResult(new Results.BattleMsg(character.Name + " recovered " + pp + " PP."));
 
             if (character == FocusedCharacter)
+            {
                 Display.Screen.AddResult(new Results.SetStats(FocusedCharacter.HP, FocusedCharacter.MaxHP, FocusedCharacter.PP, FocusedCharacter.MaxPP, money));
+            }
         }
 
         public static void DeductPP(ActiveChar character, int pp)
@@ -1400,20 +1526,30 @@ namespace PMDToolkit.Logic.Gameplay
         public static void DeductPP(ActiveChar character, int pp, bool declare)
         {
             character.PP -= pp;
-            if (character.PP < 0) character.PP = 0;
+            if (character.PP < 0)
+            {
+                character.PP = 0;
+            }
+
             if (declare)
             {
                 Display.Screen.AddResult(new Results.MeterChanged(CharIndex(character), true, -pp));
                 Display.Screen.AddResult(new Results.BattleMsg(character.Name + " lost " + pp + " PP."));
             }
             if (character == FocusedCharacter)
+            {
                 Display.Screen.AddResult(new Results.SetStats(FocusedCharacter.HP, FocusedCharacter.MaxHP, FocusedCharacter.PP, FocusedCharacter.MaxPP, money));
+            }
         }
 
         public static void DamageCharacter(ActiveChar character, int hp, bool hurt = true)
         {
             character.HP -= hp;
-            if (character.HP < 0) character.HP = 0;
+            if (character.HP < 0)
+            {
+                character.HP = 0;
+            }
+
             Display.Screen.AddResult(new Results.MeterChanged(CharIndex(character), false, -hp));
             Display.Screen.AddResult(new Results.BattleMsg(character.Name + " took " + hp + " damage!"));
 
@@ -1423,7 +1559,9 @@ namespace PMDToolkit.Logic.Gameplay
             }
 
             if (character == FocusedCharacter)
+            {
                 Display.Screen.AddResult(new Results.SetStats(FocusedCharacter.HP, FocusedCharacter.MaxHP, FocusedCharacter.PP, FocusedCharacter.MaxPP, money));
+            }
 
             //enqueue HP lost
             if (character.HP == 0)
@@ -1518,7 +1656,10 @@ namespace PMDToolkit.Logic.Gameplay
                 //setup.Move.StartUserAnim.Anim1, setup.Move.StartUserAnim.Anim2, setup.Move.StartUserAnim.Anim3);
                 Display.Screen.AddResult(result);
                 if (result.Delay.ToMillisecs() > maxStallTime)
+                {
                     maxStallTime = result.Delay.ToMillisecs();
+                }
+
                 result.InstantPass = true;
             }
 
@@ -1701,7 +1842,10 @@ namespace PMDToolkit.Logic.Gameplay
                 //setup.Move.MidUserAnim.Anim1, setup.Move.MidUserAnim.Anim2, setup.Move.MidUserAnim.Anim3);
                 Display.Screen.AddResult(result);
                 if (result.Delay.ToMillisecs() > maxStallTime)
+                {
                     maxStallTime = result.Delay.ToMillisecs();
+                }
+
                 result.InstantPass = true;
             }
 
@@ -1712,7 +1856,9 @@ namespace PMDToolkit.Logic.Gameplay
                 //setup.Move.MidTargetAnim.Anim1, setup.Move.MidTargetAnim.Anim2, setup.Move.MidTargetAnim.Anim3);
                 Display.Screen.AddResult(result);
                 if (result.Delay.ToMillisecs() > maxStallTime)
+                {
                     maxStallTime = result.Delay.ToMillisecs();
+                }
             }
 
             //draw effect
@@ -1776,7 +1922,9 @@ namespace PMDToolkit.Logic.Gameplay
                             setup.TotalWaves = anim.TotalDistance;
                             setup.TotalWaveTime = anim.TotalTime.ToMillisecs();
                             if (setup.TotalWaves > 0)
+                            {
                                 setup.TimeForHit.Value -= setup.TotalWaveTime / setup.TotalWaves;
+                            }
                         }
                         break;
 
@@ -1840,7 +1988,10 @@ namespace PMDToolkit.Logic.Gameplay
 
             setup.TimeForHit.Value += maxStallTime;
             if (sameThreadPauseTime < maxStallTime)
+            {
                 sameThreadPauseTime = maxStallTime;
+            }
+
             Display.Screen.AddResult(new Results.Wait(RenderTime.FromMillisecs(sameThreadPauseTime)));
             setup.SetBattleTag("EndLoc", endLoc);
         }

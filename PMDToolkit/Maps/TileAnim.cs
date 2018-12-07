@@ -111,14 +111,21 @@ namespace PMDToolkit.Maps
         public static bool operator ==(TileAnim param1, TileAnim param2)
         {
             if (param1.FrameLength != param2.FrameLength)
+            {
                 return false;
+            }
+
             if (param1.Frames.Count != param2.Frames.Count)
+            {
                 return false;
+            }
 
             for (int i = 0; i < param1.Frames.Count; i++)
             {
                 if (param1.Frames[0] != param2.Frames[0])
+                {
                     return false;
+                }
             }
             return true;
         }

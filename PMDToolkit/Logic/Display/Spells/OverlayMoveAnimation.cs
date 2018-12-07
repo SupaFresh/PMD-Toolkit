@@ -84,16 +84,13 @@ namespace PMDToolkit.Logic.Display
 
         public byte Alpha { get; set; }
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.Overlay; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.Overlay;
 
-        public Direction8 Direction { get { return Direction8.None; } }
+        public Direction8 Direction => Direction8.None;
 
-        public Loc2D StartLoc { get { return new Loc2D(); } }
+        public Loc2D StartLoc => new Loc2D();
 
-        public Loc2D MapLoc { get { return new Loc2D(); } }
+        public Loc2D MapLoc => new Loc2D();
         public int MapHeight { get; set; }
 
         public RenderTime ActionTime { get; set; }

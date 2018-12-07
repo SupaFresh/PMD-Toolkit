@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
     {
         private List<ResultBranch> branches;
 
-        public int BranchCount { get { return branches.Count; } }
+        public int BranchCount => branches.Count;
 
         public bool Empty
         {
@@ -39,7 +39,9 @@ namespace PMDToolkit.Logic.Results
                 for (int i = 0; i < branches.Count; i++)
                 {
                     if (branches[i].Results.Count > 0)
+                    {
                         return false;
+                    }
                 }
                 return true;
             }
@@ -56,7 +58,9 @@ namespace PMDToolkit.Logic.Results
             for (int i = 0; i < branches.Count; i++)
             {
                 if (branches[i].Results.Count > 0 || branches[i].Delay > RenderTime.Zero)
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -82,14 +86,18 @@ namespace PMDToolkit.Logic.Results
             {
                 branches[i].Delay -= time;
                 if (branches[i].Delay < RenderTime.Zero)
+                {
                     branches[i].Delay = RenderTime.Zero;
+                }
             }
         }
 
         public IEnumerable<ResultBranch> GetAllBranches()
         {
             foreach (ResultBranch branch in branches)
+            {
                 yield return branch;
+            }
         }
     }
 }

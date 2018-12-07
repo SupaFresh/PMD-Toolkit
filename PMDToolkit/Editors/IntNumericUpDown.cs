@@ -30,7 +30,9 @@ namespace PMDToolkit.Editors
         protected override void OnTextBoxKeyPress(object source, KeyPressEventArgs e)
         {
             if (e.KeyChar == 44 || e.KeyChar == 46)
+            {
                 e.Handled = true;
+            }
 
             base.OnTextBoxKeyPress(source, e);
         }

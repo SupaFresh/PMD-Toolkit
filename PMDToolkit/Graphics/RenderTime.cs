@@ -57,10 +57,7 @@ namespace PMDToolkit.Graphics
             return base.ToString();
         }
 
-        public static RenderTime Zero
-        {
-            get { return new RenderTime(); }
-        }
+        public static RenderTime Zero => new RenderTime();
 
         public static bool operator >(RenderTime param1, RenderTime param2)
         {

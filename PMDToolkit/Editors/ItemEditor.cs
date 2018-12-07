@@ -181,7 +181,7 @@ namespace PMDToolkit.Editors
         private void RefreshPic()
         {
             Image endImage = new Bitmap(picSprite.Width, picSprite.Height);
-            using (var graphics = System.Drawing.Graphics.FromImage(endImage))
+            using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(endImage))
             {
                 for (int i = 0; i <= TOTAL_PICS; i++)
                 {
@@ -207,7 +207,10 @@ namespace PMDToolkit.Editors
         {
             int picIndex = ((MouseEventArgs)e).Y / Graphics.TextureManager.TILE_SIZE + vsItemScroll.Value;
             if (picIndex < items.Count)
+            {
                 chosenPic = picIndex;
+            }
+
             RefreshPic();
         }
 

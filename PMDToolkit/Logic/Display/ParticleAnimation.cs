@@ -54,10 +54,7 @@ namespace PMDToolkit.Logic.Display
 
         public RenderTime TotalTime { get; set; }
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.Particle; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.Particle;
 
         public Loc2D StartLoc
         {
@@ -72,10 +69,10 @@ namespace PMDToolkit.Logic.Display
         public Color4 Color { get; set; }
         public Color4 ColorChange { get; set; }
 
-        public Direction8 Direction { get { return Direction8.None; } }
+        public Direction8 Direction => Direction8.None;
 
         public Loc2D MapLoc { get; set; }
-        public int MapHeight { get { return TextureManager.TILE_SIZE / 2; } }
+        public int MapHeight => TextureManager.TILE_SIZE / 2;
 
         public RenderTime ActionTime { get; set; }
         public bool ActionDone { get; set; }

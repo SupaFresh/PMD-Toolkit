@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
     public class Dir : IResult
     {
         //public ResultType Type { get { return ResultType.Dir; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly Direction8 newDir;
 

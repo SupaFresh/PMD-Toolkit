@@ -74,10 +74,7 @@ namespace PMDToolkit.Logic.Display
 
         //total frames
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.ItemThrow; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.ItemThrow;
 
         public Loc2D StartLoc
         {

@@ -34,7 +34,7 @@ namespace PMDToolkit.Maps
 
         public Tile(Tile tile)
         {
-            this.Data = tile.Data;
+            Data = tile.Data;
         }
 
         public Tile(Enums.TileType type, int data1, int data2, int data3)

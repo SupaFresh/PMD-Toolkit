@@ -206,7 +206,9 @@ namespace PMDToolkit.Graphics
                         if (currentTexture != texture_char.Item1)
                         {
                             if (currentTexture != -1)
+                            {
                                 mFontSheets[currentTexture].EndRender();
+                            }
 
                             mFontSheets[texture_char.Item1].BeginRender();
                             currentTexture = texture_char.Item1;
@@ -226,7 +228,9 @@ namespace PMDToolkit.Graphics
             }
 
             if (currentTexture != -1)
+            {
                 mFontSheets[currentTexture].EndRender();
+            }
 
             TextureManager.TextureProgram.PopModelView();
             TextureManager.TextureProgram.UpdateModelView();

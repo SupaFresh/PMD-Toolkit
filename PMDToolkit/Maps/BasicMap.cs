@@ -49,8 +49,8 @@ namespace PMDToolkit.Maps
         public List<MapLayer> FringeLayers { get; set; }
         public Tile[,] MapArray;
 
-        public int Width { get { return MapArray.GetLength(0); } }
-        public int Height { get { return MapArray.GetLength(1); } }
+        public int Width => MapArray.GetLength(0);
+        public int Height => MapArray.GetLength(1);
 
         public BasicMap()
         {
@@ -121,9 +121,14 @@ namespace PMDToolkit.Maps
                 {
                     NpcSpawns[i].Loc += diff;
                     if (NpcSpawns[i].Loc.X < 0)
+                    {
                         NpcSpawns[i].Loc.X = 0;
+                    }
+
                     if (NpcSpawns[i].Loc.Y < 0)
+                    {
                         NpcSpawns[i].Loc.Y = 0;
+                    }
                 }
             }
         }

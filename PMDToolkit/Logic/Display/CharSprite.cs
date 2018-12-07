@@ -75,7 +75,9 @@ namespace PMDToolkit.Logic.Display
                         int frames = TextureManager.GetSpriteSheet(charData.Species, charData.Form, charData.Shiny, charData.Gender).FrameData.GetFrameCount(FrameType.Walk, dir);
 
                         if (frames == 0)
+                        {
                             return GetPassTime(charData, dir, actionType);
+                        }
 
                         int totalFrames = frames;
                         while (WALK_FRAME_LENGTH * frames < passTime)
@@ -177,7 +179,7 @@ namespace PMDToolkit.Logic.Display
         public Loc2D TileOffset;
         private Loc2D drawOffset;
         private byte opacity;
-        public Loc2D MapLoc { get { return new Loc2D(CharLoc.X * TextureManager.TILE_SIZE + TileOffset.X + drawOffset.X, CharLoc.Y * TextureManager.TILE_SIZE + TileOffset.Y + drawOffset.Y); } }
+        public Loc2D MapLoc => new Loc2D(CharLoc.X * TextureManager.TILE_SIZE + TileOffset.X + drawOffset.X, CharLoc.Y * TextureManager.TILE_SIZE + TileOffset.Y + drawOffset.Y);
         public int MapHeight { get; set; }
 
         public bool Dead { get; set; }
@@ -229,7 +231,9 @@ namespace PMDToolkit.Logic.Display
         public void Process(RenderTime elapsedTime)
         {
             if (Dead)
+            {
                 return;
+            }
 
             if (CurrentAction == ActionType.Idle)
             {
@@ -248,7 +252,9 @@ namespace PMDToolkit.Logic.Display
             RenderTime totalPassTime = GetPassTime(CharData, CharDir, CurrentAction);
 
             if (ActionTime >= totalPassTime)
+            {
                 ActionDone = true;
+            }
 
             if (ActionTime >= totalActionTime)
             {
@@ -270,9 +276,13 @@ namespace PMDToolkit.Logic.Display
                         case ActionType.Idle:
                             {
                                 if (totalActionTime > RenderTime.Zero)
+                                {
                                     ActionTime = ActionTime % totalActionTime;
+                                }
                                 else
+                                {
                                     ActionTime = RenderTime.Zero;
+                                }
                             }
                             break;
 
@@ -297,7 +307,9 @@ namespace PMDToolkit.Logic.Display
                 CharFrameType = FrameType.Idle;
                 int totalFrames = TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.GetFrameCount(CharFrameType, CharDir);
                 if (totalFrames > 0)
+                {
                     CharFrame = (ActionTime.Ticks / IDLE_FRAME_LENGTH.Ticks) % totalFrames;
+                }
 
                 TileOffset = new Loc2D();
                 MapHeight = 0;
@@ -308,12 +320,16 @@ namespace PMDToolkit.Logic.Display
                 int totalFrames = TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.GetFrameCount(CharFrameType, CharDir);
 
                 if (totalFrames > 0)
+                {
                     CharFrame = ((ActionTime + PrevActionTime).Ticks / WALK_FRAME_LENGTH.Ticks) % totalFrames;
+                }
 
                 if (!MoveInPlace)
                 {
                     if (ActionTime.Ticks <= totalPassTime.Ticks)
+                    {
                         Operations.MoveInDirection8(ref TileOffset, CharDir, ActionTime.Ticks * TextureManager.TILE_SIZE / totalPassTime.Ticks);
+                    }
                 }
             }
             else if (CurrentAction == ActionType.Attack)
@@ -321,7 +337,9 @@ namespace PMDToolkit.Logic.Display
                 CharFrameType = FrameType.Attack;
                 int totalFrames = TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.GetFrameCount(CharFrameType, CharDir);
                 if (totalFrames > 0)
+                {
                     CharFrame = (ActionTime.Ticks * totalFrames / totalActionTime.Ticks);
+                }
 
                 if (!MoveInPlace)
                 {
@@ -332,15 +350,25 @@ namespace PMDToolkit.Logic.Display
                     int hit_point = totalActionTime.Ticks * 4 / 8;
                     int return_point = totalActionTime.Ticks * 6 / 8;
                     if (ActionTime.Ticks <= hold_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -ActionTime.Ticks * pullback_distance / rush_point);
+                    }
                     else if (ActionTime.Ticks <= rush_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= hit_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, (ActionTime.Ticks - rush_point) * (farthest_distance + pullback_distance) / (hit_point - rush_point) - pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= return_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, farthest_distance);
+                    }
                     else
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, ((totalActionTime.Ticks - hit_point) - (ActionTime.Ticks - hit_point)) * farthest_distance / (totalActionTime.Ticks - hit_point));
+                    }
                 }
             }
             else if (CurrentAction == ActionType.AttackArm)
@@ -348,7 +376,9 @@ namespace PMDToolkit.Logic.Display
                 CharFrameType = FrameType.AttackArm;
                 int totalFrames = TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.GetFrameCount(CharFrameType, CharDir);
                 if (totalFrames > 0)
+                {
                     CharFrame = (ActionTime.Ticks * totalFrames / totalActionTime.Ticks);
+                }
 
                 if (!MoveInPlace)
                 {
@@ -359,15 +389,25 @@ namespace PMDToolkit.Logic.Display
                     int hit_point = totalActionTime.Ticks * 4 / 8;
                     int return_point = totalActionTime.Ticks * 6 / 8;
                     if (ActionTime.Ticks <= hold_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -ActionTime.Ticks * pullback_distance / rush_point);
+                    }
                     else if (ActionTime.Ticks <= rush_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= hit_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, (ActionTime.Ticks - rush_point) * (farthest_distance + pullback_distance) / (hit_point - rush_point) - pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= return_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, farthest_distance);
+                    }
                     else
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, ((totalActionTime.Ticks - hit_point) - (ActionTime.Ticks - hit_point)) * farthest_distance / (totalActionTime.Ticks - hit_point));
+                    }
                 }
             }
             else if (CurrentAction == ActionType.AltAttack)
@@ -385,15 +425,25 @@ namespace PMDToolkit.Logic.Display
                     int hit_point = totalActionTime.Ticks * 4 / 8;
                     int return_point = totalActionTime.Ticks * 6 / 8;
                     if (ActionTime.Ticks <= hold_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -ActionTime.Ticks * pullback_distance / rush_point);
+                    }
                     else if (ActionTime.Ticks <= rush_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= hit_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, (ActionTime.Ticks - rush_point) * (farthest_distance + pullback_distance) / (hit_point - rush_point) - pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= return_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, farthest_distance);
+                    }
                     else
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, ((totalActionTime.Ticks - hit_point) - (ActionTime.Ticks - hit_point)) * farthest_distance / (totalActionTime.Ticks - hit_point));
+                    }
                 }
             }
             else if (CurrentAction == ActionType.SpAttack)
@@ -417,15 +467,25 @@ namespace PMDToolkit.Logic.Display
                     int hit_point = totalActionTime.Ticks * 4 / 8;
                     int return_point = totalActionTime.Ticks * 7 / 8;
                     if (ActionTime.Ticks <= hold_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -ActionTime.Ticks * pullback_distance / rush_point);
+                    }
                     else if (ActionTime.Ticks <= rush_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, -pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= hit_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, (ActionTime.Ticks - rush_point) * (farthest_distance + pullback_distance) / (hit_point - rush_point) - pullback_distance);
+                    }
                     else if (ActionTime.Ticks <= return_point)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, farthest_distance);
+                    }
                     else
+                    {
                         Operations.MoveInDirection8(ref drawOffset, CharDir, ((totalActionTime.Ticks - hit_point) - (ActionTime.Ticks - hit_point)) * farthest_distance / (totalActionTime.Ticks - hit_point));
+                    }
                 }
             }
             else if (CurrentAction == ActionType.SpAttackCharge)
@@ -433,12 +493,16 @@ namespace PMDToolkit.Logic.Display
                 CharFrameType = FrameType.SpAttackCharge;
                 int totalFrames = TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).FrameData.GetFrameCount(CharFrameType, CharDir);
                 if (totalFrames > 0)
+                {
                     CharFrame = totalFrames - 1;
+                }
 
                 if (!MoveInPlace)
                 {
                     if (ActionTime.Ticks / 40 % 2 == 0)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, Operations.AddDir(CharDir, Direction8.Left), 1);
+                    }
                 }
             }
             else if (CurrentAction == ActionType.Sleeping)
@@ -454,7 +518,9 @@ namespace PMDToolkit.Logic.Display
                 if (!MoveInPlace)
                 {
                     if ((ActionTime.Ticks * 3 / totalActionTime.Ticks) % 2 == 0)
+                    {
                         Operations.MoveInDirection8(ref drawOffset, Operations.ReverseDir(CharDir), 1);
+                    }
                 }
             }
             else if (CurrentAction == ActionType.Defeated)
@@ -462,9 +528,14 @@ namespace PMDToolkit.Logic.Display
                 CharFrameType = FrameType.Hurt;
                 CharFrame = 0;
                 if ((ActionTime.Ticks * 6 / totalActionTime.Ticks) % 2 == 0)
+                {
                     Operations.MoveInDirection8(ref drawOffset, Operations.ReverseDir(CharDir), 1);
+                }
+
                 if ((ActionTime.Ticks * 2 / totalActionTime.Ticks) > 0)
+                {
                     opacity = 128;
+                }
             }
             //else if (CurrentAction == ActionType.Jump)
             //{
@@ -544,17 +615,27 @@ namespace PMDToolkit.Logic.Display
             int curFrame = CharFrame;
 
             if (MovementSpeed < 0)
+            {
                 TextureManager.TextureProgram.SetTextureColor(new Color4(128, 128, 255, opacity));
+            }
             else if (MovementSpeed > 0)
+            {
                 TextureManager.TextureProgram.SetTextureColor(new Color4(255, 128, 128, opacity));
+            }
             else
+            {
                 TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, opacity));
+            }
 
             //draw sprite at current frame
             if (StatusAilment == Enums.StatusAilment.Freeze)
+            {
                 TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).GetSheet(FrameType.Hurt, CharDir).RenderTile(0, 0);
+            }
             else
+            {
                 TextureManager.GetSpriteSheet(CharData.Species, CharData.Form, CharData.Shiny, CharData.Gender).GetSheet(CharFrameType, CharDir).RenderTile(CharFrame, 0);
+            }
 
             TextureManager.TextureProgram.SetTextureColor(new Color4(255, 255, 255, 255));
 

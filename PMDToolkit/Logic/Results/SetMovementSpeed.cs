@@ -29,7 +29,7 @@ namespace PMDToolkit.Logic.Results
     public class SetMovementSpeed : IResult
     {
         //public ResultType Type { get { return ResultType.MovementSpeed; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly int charIndex;
         private readonly int speed;

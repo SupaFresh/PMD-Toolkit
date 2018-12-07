@@ -502,27 +502,51 @@ namespace PMDToolkit.Maps
 
         public static Direction4 ReverseDir(Direction4 dir)
         {
-            if ((int)dir <= (int)Direction4.None) return dir;
+            if ((int)dir <= (int)Direction4.None)
+            {
+                return dir;
+            }
+
             return (Direction4)(((int)dir + 2) % 4);
         }
 
         public static Direction4 AddDir(Direction4 dir1, Direction4 dir2)
         {
-            if ((int)dir1 <= (int)Direction4.None) return dir2;
-            if ((int)dir2 <= (int)Direction4.None) return dir1;
+            if ((int)dir1 <= (int)Direction4.None)
+            {
+                return dir2;
+            }
+
+            if ((int)dir2 <= (int)Direction4.None)
+            {
+                return dir1;
+            }
+
             return (Direction4)(((int)dir1 + (int)dir2) % 4);
         }
 
         public static Direction8 ReverseDir(Direction8 dir)
         {
-            if ((int)dir <= (int)Direction8.None) return dir;
+            if ((int)dir <= (int)Direction8.None)
+            {
+                return dir;
+            }
+
             return (Direction8)(((int)dir + 2) % 4 + (int)dir / 4 * 4);
         }
 
         public static Direction8 AddDir(Direction8 dir1, Direction8 dir2)
         {
-            if ((int)dir1 <= (int)Direction8.None) return dir2;
-            if ((int)dir2 <= (int)Direction8.None) return dir1;
+            if ((int)dir1 <= (int)Direction8.None)
+            {
+                return dir2;
+            }
+
+            if ((int)dir2 <= (int)Direction8.None)
+            {
+                return dir1;
+            }
+
             bool dir1Diag = IsDiagonal(dir1);
             bool dir2Diag = IsDiagonal(dir2);
             if (!dir1Diag && !dir2Diag)
@@ -889,8 +913,15 @@ namespace PMDToolkit.Maps
 
         public static bool DoLinesOverlap(int x1, int x2, int y1, int y2)
         {
-            if (x1 > x2) return DoLinesOverlap(x2, x1, y1, y2);
-            if (y1 > y2) return DoLinesOverlap(x1, x2, y2, y1);
+            if (x1 > x2)
+            {
+                return DoLinesOverlap(x2, x1, y1, y2);
+            }
+
+            if (y1 > y2)
+            {
+                return DoLinesOverlap(x1, x2, y2, y1);
+            }
 
             return (x2 > y1 && x1 < y2);
         }
@@ -1043,14 +1074,22 @@ namespace PMDToolkit.Maps
 
             Loc2D center = new Loc2D();
             if (horiz == Direction4.None)
+            {
                 center.X += (width - oldWidth) / 2;
+            }
             else if (horiz == Direction4.Left)
+            {
                 center.X += (width - oldWidth);
+            }
 
             if (vert == Direction4.None)
+            {
                 center.Y += (height - oldHeight) / 2;
+            }
             else if (vert == Direction4.Up)
+            {
                 center.Y += (height - oldHeight);
+            }
 
             return center;
         }
@@ -1083,24 +1122,30 @@ namespace PMDToolkit.Maps
                 }
 
                 if (inRange)
+                {
                     fillOp(x, y);
+                }
 
                 if (!isNext && x == min)
+                {
                     break;
+                }
             }
             if (inRange)
+            {
                 stack.Push(new StackItem(rMinX, x - 1, y, dir, rMinX == range_min, true));
+            }
         }
 
         public static void FillArray(int arrayWidth, int arrayHeight, TileCheck checkOp, TileOperation fillOp, Loc2D loc)
         {
-            var stack = new Stack<StackItem>();
+            Stack<StackItem> stack = new Stack<StackItem>();
             stack.Push(new StackItem(loc.X, loc.X, loc.Y, Direction4.None, true, true));
             fillOp(loc.X, loc.Y);
 
             while (stack.Count > 0)
             {
-                var item = stack.Pop();
+                StackItem item = stack.Pop();
                 int minX = item.MinX;
                 int maxX = item.MaxX;
                 int y = item.Y;
@@ -1132,10 +1177,14 @@ namespace PMDToolkit.Maps
                 maxX++;
 
                 if (y < arrayHeight - 1)
+                {
                     AddNextScanLine(checkOp, fillOp, minX, maxX, newMinX, newMaxX, y + 1, dir != Direction4.Up, Direction4.Down, stack);
+                }
 
                 if (y > 0)
+                {
                     AddNextScanLine(checkOp, fillOp, minX, maxX, newMinX, newMaxX, y - 1, dir != Direction4.Down, Direction4.Up, stack);
+                }
             }
         }
     }

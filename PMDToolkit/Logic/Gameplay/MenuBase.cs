@@ -51,7 +51,10 @@ namespace PMDToolkit.Logic.Gameplay
 
         public void Draw()
         {
-            if (!Visible) return;
+            if (!Visible)
+            {
+                return;
+            }
 
             //draw background
             //top-left

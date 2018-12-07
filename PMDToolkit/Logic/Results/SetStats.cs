@@ -29,7 +29,7 @@ namespace PMDToolkit.Logic.Results
     public class SetStats : IResult
     {
         //public ResultType Type { get { return ResultType.SetStats; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly int hp;
         private readonly int hpMax;

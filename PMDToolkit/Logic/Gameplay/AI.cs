@@ -177,7 +177,11 @@ namespace PMDToolkit.Logic.Gameplay
 
         private bool CanSeeCharacter(ActiveChar character)
         {
-            if (character == null) return false;
+            if (character == null)
+            {
+                return false;
+            }
+
             int horizSight = HorizSight();
             int vertSight = VertSight();
 

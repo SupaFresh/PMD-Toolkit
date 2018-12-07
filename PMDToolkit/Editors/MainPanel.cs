@@ -20,7 +20,9 @@ namespace PMDToolkit.Editors
         public MainPanel()
         {
             while (Game.GameLoaded < Game.GameLoadState.Loaded)
+            {
                 Thread.Sleep(100);
+            }
 
             InitializeComponent();
 
@@ -160,13 +162,17 @@ namespace PMDToolkit.Editors
         {
             GameNeedWait = true;
             while (!GameWaiting)
+            {
                 Thread.Sleep(100);
+            }
 
             Game.GameLoaded = loadState;
 
             GameNeedWait = false;
             while (GameWaiting)
+            {
                 Thread.Sleep(100);
+            }
         }
 
         private void TxtTilePath_Click(object sender, EventArgs e)

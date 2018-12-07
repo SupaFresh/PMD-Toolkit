@@ -144,7 +144,10 @@ namespace PMDToolkit.Data
         public void Save(int algorithmNum)
         {
             if (!Directory.Exists(Paths.DataPath + "FloorAlgorithm"))
+            {
                 Directory.CreateDirectory(Paths.DataPath + "FloorAlgorithm");
+            }
+
             using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "FloorAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings))
             {
                 writer.WriteStartDocument();

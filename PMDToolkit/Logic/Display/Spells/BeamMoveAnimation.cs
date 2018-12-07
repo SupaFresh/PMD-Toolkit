@@ -46,13 +46,7 @@ namespace PMDToolkit.Logic.Display
 
         #region Properties
 
-        public RenderTime TotalTime
-        {
-            get
-            {
-                return FrameLength * TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TotalFrames * TotalDistance;
-            }
-        }
+        public RenderTime TotalTime => FrameLength * TextureManager.GetSpellSheet(TextureManager.SpellAnimType.Beam, AnimationIndex).TotalFrames * TotalDistance;
 
         public Loc2D StartLoc
         {
@@ -92,10 +86,7 @@ namespace PMDToolkit.Logic.Display
             set;
         }
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.Beam; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.Beam;
 
         public int Distance
         {
@@ -117,7 +108,7 @@ namespace PMDToolkit.Logic.Display
 
         public RenderTime TimeSinceArrival { get; set; }
 
-        public Loc2D MapLoc { get { return StartLoc * TextureManager.TILE_SIZE; } }
+        public Loc2D MapLoc => StartLoc * TextureManager.TILE_SIZE;
         public int MapHeight { get; set; }
 
         public RenderTime ActionTime { get; set; }

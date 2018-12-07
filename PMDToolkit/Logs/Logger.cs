@@ -52,13 +52,17 @@ namespace PMDToolkit.Logs
             };
 
             if (!Directory.Exists("Logs"))
+            {
                 Directory.CreateDirectory("Logs");
+            }
 #if GAME_MODE
             if (!Directory.Exists("Logs/Journey"))
                 Directory.CreateDirectory("Logs/Journey");
 #endif
             if (!Directory.Exists("Logs/Error"))
+            {
                 Directory.CreateDirectory("Logs/Error");
+            }
         }
 
         public static void LogBattle(string msg)

@@ -34,7 +34,7 @@ namespace PMDToolkit.Logic.Results
         //may require attack, throw, and jump to be removed (they are solely used in battle context)
         //public ResultType Type { get { return ResultType.CreateAction; } }
 
-        public RenderTime Delay { get { return InstantPass ? RenderTime.Zero : CharSprite.GetPassTime(charData, dir, Action); } }
+        public RenderTime Delay => InstantPass ? RenderTime.Zero : CharSprite.GetPassTime(charData, dir, Action);
 
         private FormData charData;
         private readonly Maps.Direction8 dir;
@@ -75,9 +75,14 @@ namespace PMDToolkit.Logic.Results
                 sprite = Screen.Npcs[CharIndex];
             }
             if (sprite.CurrentAction == Action)
+            {
                 sprite.PrevActionTime += sprite.ActionTime;
+            }
             else
+            {
                 sprite.PrevActionTime = RenderTime.Zero;
+            }
+
             sprite.CurrentAction = Action;
             sprite.ActionTime = RenderTime.Zero;
             sprite.ActionDone = false;

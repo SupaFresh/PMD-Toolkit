@@ -23,7 +23,6 @@ THE SOFTWARE.
 
 using PMDToolkit.Data;
 using PMDToolkit.Maps;
-using System;
 using System.Collections.Generic;
 
 namespace PMDToolkit.Logic.Gameplay

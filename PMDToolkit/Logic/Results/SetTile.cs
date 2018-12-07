@@ -31,7 +31,7 @@ namespace PMDToolkit.Logic.Results
     public class SetTile : IResult
     {
         //public ResultType Type { get { return ResultType.SetTile; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private Loc2D loc;
         private readonly Tile tile;

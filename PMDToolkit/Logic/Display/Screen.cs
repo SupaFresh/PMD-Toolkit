@@ -111,9 +111,13 @@ namespace PMDToolkit.Logic.Display
             get
             {
                 if (FocusedIndex < 0)
+                {
                     return Players[FocusedIndex + Gameplay.Processor.MAX_TEAM_SLOTS];
+                }
                 else
+                {
                     return Npcs[FocusedIndex];
+                }
             }
         }
 
@@ -242,7 +246,9 @@ namespace PMDToolkit.Logic.Display
             if (currentContainer is Results.ResultContainer container)
             {
                 if (!container.IsBranchEmpty())
+                {
                     container.OpenNewBranch();
+                }
             }
             else
             {
@@ -351,14 +357,20 @@ namespace PMDToolkit.Logic.Display
                 for (int i = Effects[(EffectPriority)n].Count - 1; i >= 0; i--)
                 {
                     Effects[(EffectPriority)n][i].Process(elapsedTime);
-                    if (Effects[(EffectPriority)n][i].ActionDone) Effects[(EffectPriority)n].RemoveAt(i);
+                    if (Effects[(EffectPriority)n][i].ActionDone)
+                    {
+                        Effects[(EffectPriority)n].RemoveAt(i);
+                    }
                 }
             }
 
             for (int i = Emitters.Count - 1; i >= 0; i--)
             {
                 Emitters[i].Process(elapsedTime);
-                if (Emitters[i].ActionDone) Emitters.RemoveAt(i);
+                if (Emitters[i].ActionDone)
+                {
+                    Emitters.RemoveAt(i);
+                }
             }
 
             //update the camera, reliant on the player
@@ -375,11 +387,15 @@ namespace PMDToolkit.Logic.Display
             {
                 //if no choices are queued
                 if (ResultContainers.Count == 0 && askUp)
+                {
                     Gameplay.Processor.Process();
+                }
 
                 //then do actual choice queue processing (if choices are now queued)
                 if (ResultContainers.Count > 0)
+                {
                     outContainer = ResultContainers.Dequeue();
+                }
             }
 
             DelegateResultContainers();
@@ -406,13 +422,17 @@ namespace PMDToolkit.Logic.Display
                     //in the end, due to all elements potentially being zero-frame results,
                     //outContainer may be empty with the screen still ReadyForResults, and require another enqueue
                     if (ResultContainers.Count > 0)
+                    {
                         outContainer = ResultContainers.Dequeue();
+                    }
 
                     //after re-enqueue, the outContainer may or may not be empty now
                     //if so, it means the choice queue has exhausted all and must wait until the next call
                     //if not, we can try again to see if the next outContainer also contains only zero-frame results
                     if (outContainer.IsFinished())
+                    {
                         break;
+                    }
                 }
             }
         }
@@ -488,7 +508,10 @@ namespace PMDToolkit.Logic.Display
                     else
                     {
                         Map.DrawGround(i * TextureManager.TILE_SIZE, j * TextureManager.TILE_SIZE, new Loc2D(i, j));
-                        if (Turn) TextureManager.GetTile(1, new Loc2D(1, 0)).Render(null);
+                        if (Turn)
+                        {
+                            TextureManager.GetTile(1, new Loc2D(1, 0)).Render(null);
+                        }
                     }
                 }
             }
@@ -754,28 +777,42 @@ namespace PMDToolkit.Logic.Display
 
         public static bool IsSpriteInView(Loc2D camStart, Loc2D camEnd, ISprite sprite)
         {
-            if (sprite == null) return false;
+            if (sprite == null)
+            {
+                return false;
+            }
+
             Loc2D spriteStart = sprite.GetStart();
             Loc2D spriteEnd = sprite.GetEnd();
 
             if (spriteStart == spriteEnd)
+            {
                 return true;
+            }
 
             //check to see if the sprite's left is to the right of the screen's right side
             if (spriteStart.X > camEnd.X)
+            {
                 return false;
+            }
 
             //check to see if the sprite's right is to the left of the screen's left side
             if (spriteEnd.X < camStart.X)
+            {
                 return false;
+            }
 
             //check to see if the sprite's top is to the bottom of the screen's bottom side
             if (spriteStart.Y > camEnd.Y)
+            {
                 return false;
+            }
 
             //check to see if the sprite's bottom is to the top of the screen's top side
             if (spriteEnd.Y < camStart.Y)
+            {
                 return false;
+            }
 
             return true;
         }
@@ -883,11 +920,30 @@ namespace PMDToolkit.Logic.Display
                 TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 72, "F2 = Slow Down | F3 = Speed Up", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
                 TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 82, "Zoom: " + Zoom.ToString(), null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
 
-                if (Print) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 92, "ASCII Print", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.LightYellow);
-                if (Intangible) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 102, "Intangible", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.LightYellow);
-                if (Jump) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 112, "Jump", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
-                if (Turn) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 122, "Turn", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
-                if (Diagonal) TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 132, "Diagonal", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
+                if (Print)
+                {
+                    TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 92, "ASCII Print", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.LightYellow);
+                }
+
+                if (Intangible)
+                {
+                    TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 102, "Intangible", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.LightYellow);
+                }
+
+                if (Jump)
+                {
+                    TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 112, "Jump", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
+                }
+
+                if (Turn)
+                {
+                    TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 122, "Turn", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
+                }
+
+                if (Diagonal)
+                {
+                    TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH - 2, 132, "Diagonal", null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Right, 0, Color4.White);
+                }
             }
 
             if (ShowCoords)
@@ -897,7 +953,9 @@ namespace PMDToolkit.Logic.Display
             }
             List<string> logs = Logs.Logger.GetRecentBattleLog(16);
             for (int i = 0; i < logs.Count; i++)
+            {
                 TextureManager.SingleFont.RenderText(2, 48 + 10 * i, logs[i], null, AtlasSheet.SpriteVOrigin.Top, AtlasSheet.SpriteHOrigin.Left, 0, Color4.White);
+            }
         }
     }
 }

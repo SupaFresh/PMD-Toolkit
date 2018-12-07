@@ -83,7 +83,10 @@ namespace PMDToolkit.Data
         public void Save(int algorithmNum)
         {
             if (!Directory.Exists(Paths.DataPath + "DungeonAlgorithm"))
+            {
                 Directory.CreateDirectory(Paths.DataPath + "DungeonAlgorithm");
+            }
+
             using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "DungeonAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings))
             {
                 writer.WriteStartDocument();

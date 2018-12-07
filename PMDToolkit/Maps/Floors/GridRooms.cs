@@ -22,7 +22,7 @@ namespace PMDToolkit.Maps.Floors
 
         private Loc2D StartRoom { get; set; }
         private Loc2D EndRoom { get; set; }
-        private Loc2D StartPoint { get { return BorderPoints[0]; } }
+        private Loc2D StartPoint => BorderPoints[0];
 
         private GridType[,] GridArray { get; set; }
 
@@ -287,16 +287,24 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 0;
                             if (!blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 8 * 2;
+                            }
 
                             if (!blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 1;
+                            }
 
                             if (!blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 8;
+                            }
 
                             if (!blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 2;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -304,10 +312,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 6;
                             if (blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -315,10 +327,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 7;
                             if (blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -326,10 +342,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 4;
                             if (blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -337,10 +357,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 5;
                             if (blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -348,7 +372,9 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 34;
                             if (blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -356,7 +382,9 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 35;
                             if (blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -364,7 +392,9 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 32;
                             if (blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -372,24 +402,40 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 33;
                             if (blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
                         else if (blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(36, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(37, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(38, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(39, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(44, 0), 0);
+                        }
                         else if (blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(45, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(46, 0), 0);
+                        }
                     }
                     else
                     {
@@ -474,21 +520,50 @@ namespace PMDToolkit.Maps.Floors
             {
                 w = rand.Next(entry.FloorSettings["RoomWidthMin"], entry.FloorSettings["RoomWidthMax"] + 1);
                 l = rand.Next(entry.FloorSettings["RoomLengthMin"], entry.FloorSettings["RoomLengthMax"] + 1);
-                if (w < 1) w = 2;
-                if (l < 1) l = 2;
-                if (w > entry.FloorSettings["CellWidth"]) w = entry.FloorSettings["CellWidth"];
-                if (l > entry.FloorSettings["CellHeight"]) l = entry.FloorSettings["CellHeight"];
+                if (w < 1)
+                {
+                    w = 2;
+                }
+
+                if (l < 1)
+                {
+                    l = 2;
+                }
+
+                if (w > entry.FloorSettings["CellWidth"])
+                {
+                    w = entry.FloorSettings["CellWidth"];
+                }
+
+                if (l > entry.FloorSettings["CellHeight"])
+                {
+                    l = entry.FloorSettings["CellHeight"];
+                }
             }
 
             //move X and Y to a random starting point that still would include the original x/y; exceptional case for l/w under or equal to 6
             x += rand.Next(0, (entry.FloorSettings["CellWidth"] - (w - 1)));
             y += rand.Next(0, (entry.FloorSettings["CellHeight"] - (l - 1)));
 
-            if (x < 1) x = 1;
-            if ((x + (w - 1)) > Width - 2) x = (Width - 2 - (w - 1));
+            if (x < 1)
+            {
+                x = 1;
+            }
 
-            if (y < 1) y = 1;
-            if ((y + (l - 1)) > Height - 2) y = (Height - 2 - (l - 1));
+            if ((x + (w - 1)) > Width - 2)
+            {
+                x = (Width - 2 - (w - 1));
+            }
+
+            if (y < 1)
+            {
+                y = 1;
+            }
+
+            if ((y + (l - 1)) > Height - 2)
+            {
+                y = (Height - 2 - (l - 1));
+            }
 
             // once we have our room coords, render it on the map
             u = x + (w - 1);
@@ -514,7 +589,10 @@ namespace PMDToolkit.Maps.Floors
 
             GridType drawnTile = GridType.Walkable;
 
-            if (x == u || y == v) drawnTile = GridType.Hall;
+            if (x == u || y == v)
+            {
+                drawnTile = GridType.Hall;
+            }
 
             for (int i = x; i <= u; i++)
             {
@@ -586,7 +664,10 @@ namespace PMDToolkit.Maps.Floors
 
             m = rand.Next(entry.FloorSettings["HallTurnMin"], entry.FloorSettings["HallTurnMax"] + 1); // the number of vertical pieces in the hall
 
-            if (m > ((distance - 1) / 2)) m = (distance - 1) / 2; //reduces the number of hall turns to something the length of the hall can accept
+            if (m > ((distance - 1) / 2))
+            {
+                m = (distance - 1) / 2; //reduces the number of hall turns to something the length of the hall can accept
+            }
 
             y = rand.Next(startRoom.StartY, startRoom.EndY + 1); //picks a Y coordinate to start at
 
@@ -613,8 +694,15 @@ namespace PMDToolkit.Maps.Floors
                 }
                 if (i != 0)
                 {
-                    if ((y + var) < 1) var = 1 - y;
-                    if ((y + var) > Height - 2) var = Height - 2 - y;
+                    if ((y + var) < 1)
+                    {
+                        var = 1 - y;
+                    }
+
+                    if ((y + var) > Height - 2)
+                    {
+                        var = Height - 2 - y;
+                    }
 
                     y += var;
                     HHalls[hallX, hallY].TurnPoints.Add(new Loc2D(x, y));
@@ -675,7 +763,10 @@ namespace PMDToolkit.Maps.Floors
 
             m = rand.Next(entry.FloorSettings["HallTurnMin"], entry.FloorSettings["HallTurnMax"] + 1); // the number of horizontal pieces in the hall
 
-            if (m > ((n - 1) / 2)) m = (n - 1) / 2; //reduces the number of hall turns to something the length of the hall can accept
+            if (m > ((n - 1) / 2))
+            {
+                m = (n - 1) / 2; //reduces the number of hall turns to something the length of the hall can accept
+            }
 
             x = rand.Next(startRoom.StartX, startRoom.EndX + 1); //picks a X coordinate to start at
 
@@ -703,8 +794,15 @@ namespace PMDToolkit.Maps.Floors
 
                 if (i != 0)
                 {
-                    if ((x + var) < 1) var = 1 - x;
-                    if ((x + var) > Width - 2) var = Width - 2 - x;
+                    if ((x + var) < 1)
+                    {
+                        var = 1 - x;
+                    }
+
+                    if ((x + var) > Width - 2)
+                    {
+                        var = Width - 2 - x;
+                    }
                     //addHorizHall(x, y, var, mapArray);
 
                     x += var;
@@ -866,28 +964,40 @@ namespace PMDToolkit.Maps.Floors
         private static int GetRoomUp(int room)
         {
             if (room < 4)
+            {
                 return -1;
+            }
+
             return room - 4;
         }
 
         private static int GetRoomDown(int room)
         {
             if (room > 11)
+            {
                 return -1;
+            }
+
             return room + 4;
         }
 
         private static int GetRoomLeft(int room)
         {
             if (room % 4 == 0)
+            {
                 return -1;
+            }
+
             return room - 1;
         }
 
         private static int GetRoomRight(int room)
         {
             if (room % 4 == 3)
+            {
                 return -1;
+            }
+
             return room + 1;
         }
 

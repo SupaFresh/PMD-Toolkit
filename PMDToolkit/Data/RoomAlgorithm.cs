@@ -121,7 +121,10 @@ namespace PMDToolkit.Data
         public void Save(int algorithmNum)
         {
             if (!Directory.Exists(Paths.DataPath + "RoomAlgorithm"))
+            {
                 Directory.CreateDirectory(Paths.DataPath + "RoomAlgorithm");
+            }
+
             using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "RoomAlgorithm\\" + algorithmNum + ".xml", Logger.XmlWriterSettings))
             {
                 writer.WriteStartDocument();

@@ -28,7 +28,7 @@ namespace PMDToolkit.Logic.Results
     public class BattleMsg : IResult
     {
         //public ResultType Type { get { return ResultType.BattleMsg; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly string msg;
 

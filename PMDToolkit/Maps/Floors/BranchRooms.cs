@@ -39,7 +39,7 @@ namespace PMDToolkit.Maps.Floors
         private readonly int maxSizeChangePeriod = 7;
         private readonly double mainFreedom = 0.5;
 
-        private Loc2D StartPoint { get { return BorderPoints[0]; } }
+        private Loc2D StartPoint => BorderPoints[0];
 
         private int[,] AgeArray;
         private Loc2D TopLeft;
@@ -81,7 +81,9 @@ namespace PMDToolkit.Maps.Floors
             AddBlobs(3, 500, 3, 6, 1, 2, 0, 3);
 
             if (rand.Next() % 100 < 30)
+            {
                 AddBlob(startLine, 100, 3, 6, 1, 4, 0, 3);
+            }
 
             BorderPoints[0] = TopLeft * -1;
             BorderPoints[1] = TopLeft * -1;
@@ -111,16 +113,24 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 0;
                             if (!blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 8 * 2;
+                            }
 
                             if (!blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 1;
+                            }
 
                             if (!blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 8;
+                            }
 
                             if (!blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 2;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -128,10 +138,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 6;
                             if (blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -139,10 +153,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 7;
                             if (blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -150,10 +168,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 4;
                             if (blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -161,10 +183,14 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 5;
                             if (blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 1 * 8;
+                            }
 
                             if (blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 2 * 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -172,7 +198,9 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 34;
                             if (blockedDirs[(int)Direction8.UpRight])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -180,7 +208,9 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 35;
                             if (blockedDirs[(int)Direction8.DownRight])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -188,7 +218,9 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 32;
                             if (blockedDirs[(int)Direction8.DownLeft])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
@@ -196,24 +228,40 @@ namespace PMDToolkit.Maps.Floors
                         {
                             int layer = 33;
                             if (blockedDirs[(int)Direction8.UpLeft])
+                            {
                                 layer += 8;
+                            }
 
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(), 0);
                         }
                         else if (blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(36, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(37, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(38, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(39, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(44, 0), 0);
+                        }
                         else if (blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(45, 0), 0);
+                        }
                         else if (!blockedDirs[(int)Direction8.Down] && !blockedDirs[(int)Direction8.Left] && !blockedDirs[(int)Direction8.Up] && !blockedDirs[(int)Direction8.Right])
+                        {
                             GroundLayers[0].Tiles[x, y] = new TileAnim(new Loc2D(46, 0), 0);
+                        }
                     }
                     else
                     {
@@ -260,7 +308,10 @@ namespace PMDToolkit.Maps.Floors
                 while (currentBranch.Children.Count > 0)
                 {
                     if (rand.Next(0, total + 1) == 0)
+                    {
                         chosenBranch = currentBranch.Children[0];
+                    }
+
                     currentBranch = currentBranch.Children[0];
                     total++;
                 }
@@ -271,7 +322,9 @@ namespace PMDToolkit.Maps.Floors
         private bool CreatePath(BranchLine parent, int depth)
         {
             if (depth >= maxDepth)
+            {
                 return false;
+            }
 
             BranchLine branch = null;
             for (int i = 0; i < 50; i++)
@@ -283,7 +336,9 @@ namespace PMDToolkit.Maps.Floors
 
                 double parentAngle = rand.NextDouble() * 2 * Math.PI;
                 if (parent.Start != parent.End)
+                {
                     parentAngle = Math.Atan2(parent.End.Y - parent.Start.Y, parent.End.X - parent.Start.X);
+                }
 
                 //choose a random direction
                 double angle = (rand.NextDouble() * 2 - 1) * mainFreedom * Math.PI + parentAngle;
@@ -337,7 +392,9 @@ namespace PMDToolkit.Maps.Floors
 
                 double parentAngle = rand.NextDouble() * 2 * Math.PI;
                 if (line.Start != line.End)
+                {
                     parentAngle = Math.Atan2(line.End.Y - line.Start.Y, line.End.X - line.Start.X);
+                }
 
                 //choose a random direction
                 double angle = (rand.NextDouble() * 2 - 1) * mainFreedom * Math.PI + parentAngle;
@@ -389,7 +446,9 @@ namespace PMDToolkit.Maps.Floors
             //if out of range, return false
             Loc2D destLoc = loc - TopLeft;
             if (AgeArray[destLoc.X, destLoc.Y] < min || AgeArray[destLoc.X, destLoc.Y] > max)
+            {
                 return true;
+            }
 
             //if tile value is out of range of min and max, return true
             return false;
@@ -400,15 +459,21 @@ namespace PMDToolkit.Maps.Floors
             int expansion = 10;
 
             if (dir == Direction8.None)
+            {
                 return;
+            }
 
             //expand by an arbitrary amount: 10 tiles
             Loc2D size = new Loc2D(AgeArray.GetLength(0), AgeArray.GetLength(1));
 
             if (Operations.GetOrientation8(dir) == Orientation8.Horiz)
+            {
                 size.X += expansion;
+            }
             else if (Operations.GetOrientation8(dir) == Orientation8.Vert)
+            {
                 size.Y += expansion;
+            }
             else
             {
                 size.X += expansion;
@@ -473,9 +538,15 @@ namespace PMDToolkit.Maps.Floors
             Direction4 dir = (Math.Abs(diff.Y) > Math.Abs(diff.X)) ? Direction4.Down : Direction4.Right;
             Direction4 subDir = (dir == Direction4.Down) ? Direction4.Right : Direction4.Down;
             if (Operations.DimOfDir(diff.X, diff.Y, dir) < 0)
+            {
                 dir = Operations.ReverseDir(dir);
+            }
+
             if (Operations.DimOfDir(diff.X, diff.Y, subDir) < 0)
+            {
                 subDir = Operations.ReverseDir(subDir);
+            }
+
             Loc2D increment = new Loc2D();
             Loc2D subIncrement = new Loc2D();
             Operations.MoveInDirection4(ref increment, dir, 1);
@@ -517,9 +588,15 @@ namespace PMDToolkit.Maps.Floors
             Direction4 dir = (Math.Abs(diff.Y) > Math.Abs(diff.X)) ? Direction4.Down : Direction4.Right;
             Direction4 subDir = (dir == Direction4.Down) ? Direction4.Right : Direction4.Down;
             if (Operations.DimOfDir(diff.X, diff.Y, dir) < 0)
+            {
                 dir = Operations.ReverseDir(dir);
+            }
+
             if (Operations.DimOfDir(diff.X, diff.Y, subDir) < 0)
+            {
                 subDir = Operations.ReverseDir(subDir);
+            }
+
             Loc2D increment = new Loc2D();
             Loc2D subIncrement = new Loc2D();
             Operations.MoveInDirection4(ref increment, dir, 1);
@@ -638,10 +715,14 @@ namespace PMDToolkit.Maps.Floors
             Operations.MoveInDirection8(ref x, ref y, dir, 1);
 
             if (x < 0 || x > Width - 1 || y < 0 || y > Height - 1)
+            {
                 return true;
+            }
 
             if (AgeArray[x, y] != -1)
+            {
                 return true;
+            }
 
             return false;
         }

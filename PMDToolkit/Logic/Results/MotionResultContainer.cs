@@ -31,7 +31,7 @@ namespace PMDToolkit.Logic.Results
         private Dictionary<int, ResultBranch> branches;
         private int currentId;
 
-        public int BranchCount { get { return branches.Count; } }
+        public int BranchCount => branches.Count;
 
         public bool Empty
         {
@@ -40,7 +40,9 @@ namespace PMDToolkit.Logic.Results
                 foreach (KeyValuePair<int, ResultBranch> entry in branches)
                 {
                     if (entry.Value.Results.Count > 0)
+                    {
                         return false;
+                    }
                 }
                 return true;
             }
@@ -57,7 +59,9 @@ namespace PMDToolkit.Logic.Results
             foreach (KeyValuePair<int, ResultBranch> entry in branches)
             {
                 if (entry.Value.Results.Count > 0 || entry.Value.Delay > RenderTime.Zero)
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -65,7 +69,9 @@ namespace PMDToolkit.Logic.Results
         public void OpenBranch(int id)
         {
             if (!branches.ContainsKey(id))
+            {
                 branches.Add(id, new ResultBranch());
+            }
 
             currentId = id;
         }
@@ -86,7 +92,9 @@ namespace PMDToolkit.Logic.Results
             {
                 entry.Value.Delay -= time;
                 if (entry.Value.Delay < RenderTime.Zero)
+                {
                     entry.Value.Delay = RenderTime.Zero;
+                }
             }
         }
 

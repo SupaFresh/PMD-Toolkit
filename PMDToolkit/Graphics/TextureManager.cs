@@ -128,7 +128,9 @@ namespace PMDToolkit.Graphics
                 int startLength = (Paths.BaseGFXPath + "Font\\" + "pmd-").Length;
                 string num = dirs[i].Substring(startLength, dirs[i].Length - startLength - ".png".Length);
                 if (num.IsNumeric())
+                {
                     SingleFont.LoadFont(dirs[i], num.ToInt());
+                }
             }
         }
 
@@ -136,7 +138,9 @@ namespace PMDToolkit.Graphics
         {
             //run conversions
             if (!Directory.Exists(Paths.CachedGFXPath))
+            {
                 Directory.CreateDirectory(Paths.CachedGFXPath);
+            }
 
             Conversion.CompileAllSprites(Paths.SpritesPath, Paths.CachedGFXPath + "Sprite");
             Conversion.CompileAllTiles(Paths.TilesPath, Paths.CachedGFXPath + "Tile");
@@ -297,7 +301,9 @@ namespace PMDToolkit.Graphics
             SpriteSheet sheet = spriteCache.Get(num + formString);
 
             if (sheet != null)
+            {
                 return sheet;
+            }
 
             try
             {
@@ -392,7 +398,10 @@ namespace PMDToolkit.Graphics
         public static AnimSheet GetSpellSheet(SpellAnimType animType, int num)
         {
             AnimSheet cacheSheet = spellCache.Get(animType.ToString() + num);
-            if (cacheSheet != null) return cacheSheet;
+            if (cacheSheet != null)
+            {
+                return cacheSheet;
+            }
 
             if (File.Exists(Paths.EffectsPath + animType.ToString() + "-" + num + ".png"))
             {
@@ -423,7 +432,10 @@ namespace PMDToolkit.Graphics
         public static AnimSheet GetStatusSheet(int num)
         {
             AnimSheet cacheSheet = statusCache.Get(num);
-            if (cacheSheet != null) return cacheSheet;
+            if (cacheSheet != null)
+            {
+                return cacheSheet;
+            }
 
             if (File.Exists(Paths.DataPath + "\\Graphics\\Status\\Status-" + num + ".png"))
             {
@@ -441,7 +453,10 @@ namespace PMDToolkit.Graphics
         public static AnimSheet GetItemSheet(int num)
         {
             AnimSheet cacheSheet = itemCache.Get(num);
-            if (cacheSheet != null) return cacheSheet;
+            if (cacheSheet != null)
+            {
+                return cacheSheet;
+            }
 
             if (File.Exists(Paths.ItemsPath + num + ".png"))
             {
@@ -459,7 +474,10 @@ namespace PMDToolkit.Graphics
         public static AnimSheet GetObjectSheet(int num)
         {
             AnimSheet cacheSheet = objectCache.Get(num);
-            if (cacheSheet != null) return cacheSheet;
+            if (cacheSheet != null)
+            {
+                return cacheSheet;
+            }
 
             if (File.Exists(Paths.DataPath + "Graphics\\Object\\Object-" + num + ".png"))
             {
@@ -495,7 +513,9 @@ namespace PMDToolkit.Graphics
             TileSheet sheet = mugshotCache.Get(num + formString);
 
             if (sheet != null)
+            {
                 return sheet;
+            }
 
             try
             {
@@ -620,7 +640,10 @@ namespace PMDToolkit.Graphics
 
                 int tileNum = (tileData[sheetNum].Size.Width / TILE_SIZE) * tileLoc.Y + tileLoc.X;
                 Texture cacheSheet = tileCache.Get(sheetNum + "-" + tileLoc.X + "-" + tileLoc.Y);
-                if (cacheSheet != null) return cacheSheet;
+                if (cacheSheet != null)
+                {
+                    return cacheSheet;
+                }
 
                 if (sheetNum > -1 && sheetNum < TOTAL_TILE_SHEETS && tileNum > -1 && tileNum < tileData[sheetNum].TotalTiles)
                 {

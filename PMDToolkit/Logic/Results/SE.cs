@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
     public class SE : IResult
     {
         //public ResultType Type { get { return ResultType.SE; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly string newSE;
 

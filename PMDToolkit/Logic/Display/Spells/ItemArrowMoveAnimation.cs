@@ -46,13 +46,7 @@ namespace PMDToolkit.Logic.Display
 
         #region Properties
 
-        public int TotalTime
-        {
-            get
-            {
-                return TotalDistance * 1000 / TravelSpeed;
-            }
-        }
+        public int TotalTime => TotalDistance * 1000 / TravelSpeed;
 
         public int TotalWaves
         {
@@ -86,10 +80,7 @@ namespace PMDToolkit.Logic.Display
 
         //total frames
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.ItemArrow; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.ItemArrow;
 
         public Loc2D StartLoc
         {
@@ -122,7 +113,7 @@ namespace PMDToolkit.Logic.Display
         }
 
         public Loc2D MapLoc { get; set; }
-        public int MapHeight { get { return TextureManager.TILE_SIZE / 2; } }
+        public int MapHeight => TextureManager.TILE_SIZE / 2;
 
         public RenderTime ActionTime { get; set; }
         public bool ActionDone { get; set; }

@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
     public class BGM : IResult
     {
         //public ResultType Type { get { return ResultType.BGM; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly string newBGM;
         private readonly bool fade;

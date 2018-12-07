@@ -37,8 +37,8 @@ namespace PMDToolkit.Logic.Display
         public List<TileAnim[,]> PropFrontLayers { get; set; }
         public List<TileAnim[,]> FringeLayers { get; set; }
 
-        public int Width { get { return MapArray.GetLength(0); } }
-        public int Height { get { return MapArray.GetLength(1); } }
+        public int Width => MapArray.GetLength(0);
+        public int Height => MapArray.GetLength(1);
 
         public DisplayMap()
         {
@@ -64,10 +64,14 @@ namespace PMDToolkit.Logic.Display
                 bool drawLayer = true;
 
                 if (Editors.MapEditor.mapEditing && !Editors.MapEditor.showGroundLayer[i])
+                {
                     drawLayer = false;
+                }
 
                 if (drawLayer)
+                {
                     GroundLayers[i][loc.X, loc.Y].Draw(Screen.TotalTick);
+                }
             }
             TextureManager.TextureProgram.PopModelView();
         }
@@ -83,10 +87,14 @@ namespace PMDToolkit.Logic.Display
                 bool drawLayer = true;
 
                 if (Editors.MapEditor.mapEditing && !Editors.MapEditor.showPropBackLayer[i])
+                {
                     drawLayer = false;
+                }
 
                 if (drawLayer)
+                {
                     PropBackLayers[i][loc.X, loc.Y].Draw(Screen.TotalTick);
+                }
             }
             TextureManager.TextureProgram.PopModelView();
         }
@@ -102,10 +110,14 @@ namespace PMDToolkit.Logic.Display
                 bool drawLayer = true;
 
                 if (Editors.MapEditor.mapEditing && !Editors.MapEditor.showPropFrontLayer[i])
+                {
                     drawLayer = false;
+                }
 
                 if (drawLayer)
+                {
                     PropFrontLayers[i][loc.X, loc.Y].Draw(Screen.TotalTick);
+                }
             }
             TextureManager.TextureProgram.PopModelView();
         }
@@ -121,10 +133,14 @@ namespace PMDToolkit.Logic.Display
                 bool drawLayer = true;
 
                 if (Editors.MapEditor.mapEditing && !Editors.MapEditor.showFringeLayer[i])
+                {
                     drawLayer = false;
+                }
 
                 if (drawLayer)
+                {
                     FringeLayers[i][loc.X, loc.Y].Draw(Screen.TotalTick);
+                }
             }
             TextureManager.TextureProgram.PopModelView();
         }

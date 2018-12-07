@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
     {
         //public ResultType Type { get { return ResultType.CreateEmitter; } }
 
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly IEmitter emitter;
 

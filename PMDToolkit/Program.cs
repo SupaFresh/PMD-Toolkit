@@ -56,7 +56,9 @@ namespace PMDToolkit
         public static void UpdateLoadMsg(string loadMsg)
         {
             lock (lockObj)
+            {
                 loadMessage = loadMsg;
+            }
         }
 
         private int errorCount;
@@ -97,7 +99,10 @@ namespace PMDToolkit
             int major = version[0];
             int minor = version[2];
             if (major < 2 || major == 2 && minor < 1)
+            {
                 throw new Exception("OpenGL 2.1 not supported!  Current version: " + version);
+            }
+
             if (!extensions.Contains("GL_ARB_texture_non_power_of_two"))
             {
                 throw new Exception("Non-Power of 2 Textures not supported!");
@@ -156,7 +161,9 @@ namespace PMDToolkit
         protected override void OnUnload(EventArgs e)
         {
             while (GameLoaded < GameLoadState.Loaded)
+            {
                 Thread.Sleep(100);
+            }
 
             AudioManager.Exit();
             TextureManager.Exit();
@@ -190,15 +197,21 @@ namespace PMDToolkit
                 Editors.MainPanel.GameWaiting = true;
 
                 while (Editors.MainPanel.GameNeedWait)
+                {
                     Thread.Sleep(100);
+                }
 
                 Editors.MainPanel.GameWaiting = false;
             }
 
             if (GameLoaded == GameLoadState.Closing)
+            {
                 Close();
+            }
             else if (GameLoaded == GameLoadState.PostLoading)
+            {
                 GameLoaded = GameLoadState.Finalizing;
+            }
             else if (GameLoaded == GameLoadState.Finalizing)
             {
                 TextureManager.PostInit();
@@ -256,8 +269,10 @@ namespace PMDToolkit
                 TextureManager.TextureProgram.UpdateModelView();
 
                 lock (lockObj)
+                {
                     TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH / 2, TextureManager.SCREEN_HEIGHT / 2,
                         loadMessage, null, AtlasSheet.SpriteVOrigin.Center, AtlasSheet.SpriteHOrigin.Center, 0);
+                }
 
                 SwapBuffers();
             }
@@ -286,7 +301,9 @@ namespace PMDToolkit
                 }
 
                 if (errorCount > 10)
+                {
                     GameLoaded = GameLoadState.Errored;
+                }
             }
             else if (GameLoaded == GameLoadState.Errored)
             {
@@ -299,9 +316,11 @@ namespace PMDToolkit
                 TextureManager.TextureProgram.UpdateModelView();
 
                 lock (lockObj)
+                {
                     TextureManager.SingleFont.RenderText(TextureManager.SCREEN_WIDTH / 2, TextureManager.SCREEN_HEIGHT / 2,
                         "The program has encountered too many errors and needs to close.\nView the Error Logs for more details.",
                         null, AtlasSheet.SpriteVOrigin.Center, AtlasSheet.SpriteHOrigin.Center, 12);
+                }
 
                 SwapBuffers();
             }

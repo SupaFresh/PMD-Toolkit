@@ -30,7 +30,7 @@ namespace PMDToolkit.Logic.Results
     public class MeterChanged : IResult
     {
         //public ResultType Type { get { return ResultType.MeterChanged; } }
-        public RenderTime Delay { get { return RenderTime.Zero; } }
+        public RenderTime Delay => RenderTime.Zero;
 
         private readonly int charIndex;
         private readonly bool isPP;

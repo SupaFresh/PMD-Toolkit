@@ -29,7 +29,7 @@ namespace PMDToolkit.Maps
     {
         protected Dictionary<string, ActiveMap> maps;
 
-        public int MapCount { get { return maps.Count; } }
+        public int MapCount => maps.Count;
 
         public ActiveMap this[string id]
         {
@@ -40,7 +40,9 @@ namespace PMDToolkit.Maps
                     maps.Add(id, loadMap(id));
                 }
                 if (!maps.ContainsKey(id))
+                {
                     return null;
+                }
 
                 return maps[id];
             }
@@ -58,7 +60,9 @@ namespace PMDToolkit.Maps
         public void UnloadMap(string id)
         {
             if (maps.ContainsKey(id))
+            {
                 maps.Remove(id);
+            }
         }
 
         public void ReloadMap(string id)

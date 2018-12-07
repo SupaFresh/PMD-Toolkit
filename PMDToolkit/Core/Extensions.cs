@@ -60,17 +60,25 @@ namespace PMDToolkit.Core
         public static string ToIntString(this bool boolval)
         {
             if (boolval == true)
+            {
                 return "1";
+            }
             else
+            {
                 return "0";
+            }
         }
 
         public static int ToInt(this bool boolval)
         {
             if (boolval == true)
+            {
                 return 1;
+            }
             else
+            {
                 return 0;
+            }
         }
 
         public static bool IsNumeric(this string str)
@@ -163,8 +171,10 @@ namespace PMDToolkit.Core
             hex = hex.Replace("#", "");
 
             if (hex.Length != 8)
+            {
                 throw new Exception(hex +
                     " is not a valid 8-place hexadecimal color code.");
+            }
 
             string a, r, g, b;
             a = hex.Substring(0, 2);

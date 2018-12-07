@@ -79,12 +79,9 @@ namespace PMDToolkit.Logic.Display
             set;
         }
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.Directional; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.Directional;
 
-        public Loc2D MapLoc { get { return new Loc2D(StartLoc.X * TextureManager.TILE_SIZE, StartLoc.Y * TextureManager.TILE_SIZE); } }
+        public Loc2D MapLoc => new Loc2D(StartLoc.X * TextureManager.TILE_SIZE, StartLoc.Y * TextureManager.TILE_SIZE);
         public int MapHeight { get; set; }
 
         public RenderTime ActionTime { get; set; }
@@ -147,4 +144,3 @@ namespace PMDToolkit.Logic.Display
         }
     }
 }
-

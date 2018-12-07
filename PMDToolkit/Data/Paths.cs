@@ -35,15 +35,15 @@ namespace PMDToolkit.Data
 #else
         public const string AssetPath = "";
 #endif
-        public static string DataPath { get { return AssetPath + "Base\\"; } }
+        public static string DataPath => AssetPath + "Base\\";
 
-        public static string BaseGFXPath { get { return AssetPath + "Base\\Graphics\\"; } }
+        public static string BaseGFXPath => AssetPath + "Base\\Graphics\\";
 
-        public static string ShadersPath { get { return AssetPath + "Base\\Shaders\\"; } }
+        public static string ShadersPath => AssetPath + "Base\\Shaders\\";
 
-        public static string CachedGFXPath { get { return "Cache\\"; } }
+        public static string CachedGFXPath => "Cache\\";
 
-        public static string MapPath { get { return "Maps\\"; } }
+        public static string MapPath => "Maps\\";
 
         public static string TilesPath { get; set; }
 

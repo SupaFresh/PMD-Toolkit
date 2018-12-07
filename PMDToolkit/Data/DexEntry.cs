@@ -85,14 +85,20 @@ namespace PMDToolkit.Data
                                 {
                                     string group = reader.ReadString();
                                     if (group.IsEnum<Enums.EggGroup>())
+                                    {
                                         EggGroup1 = group.ToEnum<Enums.EggGroup>();
+                                    }
+
                                     break;
                                 }
                             case "EggGroup2":
                                 {
                                     string group = reader.ReadString();
                                     if (group.IsEnum<Enums.EggGroup>())
+                                    {
                                         EggGroup2 = group.ToEnum<Enums.EggGroup>();
+                                    }
+
                                     break;
                                 }
                         }
@@ -113,7 +119,10 @@ namespace PMDToolkit.Data
         public void Save()
         {
             if (!Directory.Exists(Paths.DataPath + "Dex\\" + DexNum))
+            {
                 Directory.CreateDirectory(Paths.DataPath + "Dex\\" + DexNum);
+            }
+
             using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Dex\\" + DexNum + ".xml", Logger.XmlWriterSettings))
             {
                 writer.WriteStartDocument();

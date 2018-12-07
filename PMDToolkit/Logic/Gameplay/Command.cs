@@ -49,15 +49,9 @@ namespace PMDToolkit.Logic.Gameplay
         public CommandType Type;
         private List<int> args;
 
-        public int this[int index]
-        {
-            get
-            {
-                return args[index];
-            }
-        }
+        public int this[int index] => args[index];
 
-        public int ArgCount { get { return args.Count; } }
+        public int ArgCount => args.Count;
 
         public Command(CommandType type, params int[] args)
         {
@@ -91,11 +85,22 @@ namespace PMDToolkit.Logic.Gameplay
 
         public static bool operator ==(Command command1, Command command2)
         {
-            if (command1.Type != command2.Type) return false;
-            if (command1.ArgCount != command2.ArgCount) return false;
+            if (command1.Type != command2.Type)
+            {
+                return false;
+            }
+
+            if (command1.ArgCount != command2.ArgCount)
+            {
+                return false;
+            }
+
             for (int i = 0; i < command1.ArgCount; i++)
             {
-                if (command1[i] != command2[i]) return false;
+                if (command1[i] != command2[i])
+                {
+                    return false;
+                }
             }
 
             return true;

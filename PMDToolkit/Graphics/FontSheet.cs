@@ -63,7 +63,10 @@ namespace PMDToolkit.Graphics
                 for (int x = 1; x < ImageWidth; x++)
                 {
                     if (GetPixel(x, 1) == cellPixel)
+                    {
                         break;
+                    }
+
                     mCellW++;
                 }
                 mCellW += 2;
@@ -73,7 +76,10 @@ namespace PMDToolkit.Graphics
                 for (int y = 1; y < ImageHeight; y++)
                 {
                     if (GetPixel(y, 1) == cellPixel)
+                    {
                         break;
+                    }
+
                     mCellH++;
                 }
                 mCellH += 2;
@@ -102,13 +108,18 @@ namespace PMDToolkit.Graphics
                                 for (int x = 1; x < ImageWidth; x++)
                                 {
                                     if (GetPixel(currentX + x, currentY + 1) != borderPixel)
+                                    {
                                         break;
+                                    }
+
                                     width++;
                                 }
                                 width -= 2;
 
                                 if (width > space)
+                                {
                                     space = width;
+                                }
                             }
                             else
                             {
@@ -116,7 +127,10 @@ namespace PMDToolkit.Graphics
                                 for (int x = 1; x < ImageWidth; x++)
                                 {
                                     if (GetPixel(currentX + x, currentY + 1) != borderPixel)
+                                    {
                                         break;
+                                    }
+
                                     width++;
                                 }
                                 width -= 2;
@@ -125,7 +139,10 @@ namespace PMDToolkit.Graphics
                                 for (int y = 1; y < ImageHeight; y++)
                                 {
                                     if (GetPixel(currentX + 1, currentY + y) != borderPixel)
+                                    {
                                         break;
+                                    }
+
                                     height++;
                                 }
                                 height -= 2;
@@ -134,7 +151,9 @@ namespace PMDToolkit.Graphics
                                 Rectangle nextClip = new Rectangle(mCellW * cols + 2, mCellH * rows + 2, width, height);
 
                                 if (maxLineHeight < nextClip.Height)
+                                {
                                     maxLineHeight = nextClip.Height;
+                                }
 
                                 charList.Add(currentChar);
                                 mClips.Add(nextClip);

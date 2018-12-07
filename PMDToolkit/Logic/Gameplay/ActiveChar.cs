@@ -61,64 +61,64 @@ namespace PMDToolkit.Logic.Gameplay
 
         public int AttackBuff
         {
-            get { return attackBuff; }
-            set { attackBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => attackBuff;
+            set => attackBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         private int defenseBuff;
 
         public int DefenseBuff
         {
-            get { return defenseBuff; }
-            set { defenseBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => defenseBuff;
+            set => defenseBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         private int spAtkBuff;
 
         public int SpAtkBuff
         {
-            get { return spAtkBuff; }
-            set { spAtkBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => spAtkBuff;
+            set => spAtkBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         private int spDefBuff;
 
         public int SpDefBuff
         {
-            get { return spDefBuff; }
-            set { spDefBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => spDefBuff;
+            set => spDefBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         private int speedBuff;
 
         public int SpeedBuff
         {
-            get { return speedBuff; }
-            set { speedBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => speedBuff;
+            set => speedBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         private int accuracyBuff;
 
         public int AccuracyBuff
         {
-            get { return accuracyBuff; }
-            set { accuracyBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => accuracyBuff;
+            set => accuracyBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         private int evasionBuff;
 
         public int EvasionBuff
         {
-            get { return evasionBuff; }
-            set { evasionBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => evasionBuff;
+            set => evasionBuff = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         private int movementSpeed;
 
         public int MovementSpeed
         {
-            get { return movementSpeed; }
-            set { movementSpeed = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED); }
+            get => movementSpeed;
+            set => movementSpeed = Math.Min(Math.Max(value, MIN_SPEED), MAX_SPEED);
         }
 
         //determining position

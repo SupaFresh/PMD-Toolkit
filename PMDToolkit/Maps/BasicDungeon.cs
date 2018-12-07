@@ -30,7 +30,7 @@ namespace PMDToolkit.Maps
     {
         protected int seed;
         protected Random rand;
-        public int Seed { get { return seed; } }
+        public int Seed => seed;
 
         protected Data.RDungeonEntry entry;
 
@@ -39,7 +39,7 @@ namespace PMDToolkit.Maps
 
         protected Dictionary<int, RandomMap> maps;
 
-        public int MapCount { get { return maps.Count; } }
+        public int MapCount => maps.Count;
 
         protected Dictionary<FloorLink, FloorLink> floorLinks;
 
@@ -52,7 +52,9 @@ namespace PMDToolkit.Maps
                     GenerateFloor(i);
                 }
                 if (!maps.ContainsKey(i))
+                {
                     return null;
+                }
 
                 return maps[i];
             }

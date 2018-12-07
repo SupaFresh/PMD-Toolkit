@@ -34,7 +34,7 @@ namespace PMDToolkit.Logic.Display
         private const int NUM_SCALE = 2;
 
         public Loc2D EffectLoc { get; set; }
-        public Loc2D MapLoc { get { return new Loc2D(EffectLoc.X * TextureManager.TILE_SIZE, EffectLoc.Y * TextureManager.TILE_SIZE); } }
+        public Loc2D MapLoc => new Loc2D(EffectLoc.X * TextureManager.TILE_SIZE, EffectLoc.Y * TextureManager.TILE_SIZE);
         public int MapHeight { get; set; }
         public RenderTime ActionTime { get; set; }
         public string Text { get; set; }
@@ -63,7 +63,10 @@ namespace PMDToolkit.Logic.Display
             else
             {
                 MapHeight = ActionTime.Ticks * TextureManager.TILE_SIZE * 6 / TOTAL_ANIM_TIME.Ticks;
-                if (MapHeight > TextureManager.TILE_SIZE) MapHeight = TextureManager.TILE_SIZE;
+                if (MapHeight > TextureManager.TILE_SIZE)
+                {
+                    MapHeight = TextureManager.TILE_SIZE;
+                }
             }
         }
 

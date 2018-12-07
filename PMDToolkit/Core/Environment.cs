@@ -30,21 +30,9 @@ namespace PMDToolkit.Core
     {
         private static DateTime compileDate = DateTime.MinValue;
 
-        public static string StartupPath
-        {
-            get
-            {
-                return System.Reflection.Assembly.GetEntryAssembly().Location;
-            }
-        }
+        public static string StartupPath => System.Reflection.Assembly.GetEntryAssembly().Location;
 
-        public static string StartupDirectory
-        {
-            get
-            {
-                return Path.GetDirectoryName(StartupPath);
-            }
-        }
+        public static string StartupDirectory => Path.GetDirectoryName(StartupPath);
 
         public static DateTime CompileDate
         {
@@ -64,9 +52,13 @@ namespace PMDToolkit.Core
             {
                 Type t = Type.GetType("Mono.Runtime");
                 if (t != null)
+                {
                     return true;
+                }
                 else
+                {
                     return false;
+                }
             }
         }
 

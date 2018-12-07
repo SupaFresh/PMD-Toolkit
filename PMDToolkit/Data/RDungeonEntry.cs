@@ -113,7 +113,10 @@ namespace PMDToolkit.Data
         public void Save(int rdungeonNum)
         {
             if (!Directory.Exists(Paths.DataPath + "RDungeon\\" + rdungeonNum))
+            {
                 Directory.CreateDirectory(Paths.DataPath + "RDungeon\\" + rdungeonNum);
+            }
+
             using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "RDungeon\\" + rdungeonNum + "\\base.xml", Logger.XmlWriterSettings))
             {
                 writer.WriteStartDocument();

@@ -38,7 +38,9 @@ namespace PMDToolkit.Graphics
         public static bool CompileAllSprites(string spriteRootDirectory, string spriteCacheDirectory)
         {
             if (!Directory.Exists(spriteCacheDirectory))
+            {
                 Directory.CreateDirectory(spriteCacheDirectory);
+            }
 
             foreach (int index in GetAllNumDirs(spriteRootDirectory, "Sprite"))
             {
@@ -93,7 +95,10 @@ namespace PMDToolkit.Graphics
         {
             //check to see if files exist
             string[] pngs = Directory.GetFiles(spriteDir, "*.png", SearchOption.TopDirectoryOnly);
-            if (pngs.Length < 1) return;
+            if (pngs.Length < 1)
+            {
+                return;
+            }
 
             string outForm = "r";
             if (form >= 0)
@@ -275,28 +280,48 @@ namespace PMDToolkit.Graphics
             }
 
             if (usedFrames.Count < 1)
+            {
                 throw new Exception("No frames");
+            }
 
             List<string> pngs = new List<string>(Directory.GetFiles(spriteRootDirectory, "*.png", SearchOption.TopDirectoryOnly));
             if (pngs.Count > usedFrames.Count)
             {
                 foreach (Dictionary<Maps.Direction8, List<Bitmap>> dict in frameCollection.Values)
+                {
                     foreach (List<Bitmap> list in dict.Values)
+                    {
                         foreach (Bitmap bitmap in list)
+                        {
                             bitmap.Dispose();
+                        }
+                    }
+                }
 
                 foreach (List<Bitmap> list in miscFrameCollection.Values)
+                {
                     foreach (Bitmap bitmap in list)
+                    {
                         bitmap.Dispose();
+                    }
+                }
 
                 foreach (string path in usedFrames)
+                {
                     for (int i = pngs.Count - 1; i >= 0; i--)
+                    {
                         if (pngs[i] == path)
+                        {
                             pngs.RemoveAt(i);
+                        }
+                    }
+                }
 
                 string errorMsg = spriteRootDirectory + ": The following files do not match the naming pattern, or a preceding file is missing:";
                 for (int i = 0; i < pngs.Count; i++)
+                {
                     errorMsg += "\n" + pngs[i].Substring(pngs[i].LastIndexOf('\\'));
+                }
 
                 throw new Exception(errorMsg);
             }
@@ -459,7 +484,9 @@ namespace PMDToolkit.Graphics
         public static bool CompileAllPortraits(string spriteRootDirectory, string spriteCacheDirectory)
         {
             if (!Directory.Exists(spriteCacheDirectory))
+            {
                 Directory.CreateDirectory(spriteCacheDirectory);
+            }
 
             foreach (int index in GetAllNumDirs(spriteRootDirectory, "Sprite"))
             {
@@ -514,9 +541,12 @@ namespace PMDToolkit.Graphics
         {
             //check to see if files exist
             string[] pngs = Directory.GetFiles(spriteDir, "*.png", SearchOption.TopDirectoryOnly);
-            if (pngs.Length < 1) return;
+            if (pngs.Length < 1)
+            {
+                return;
+            }
 
-            String outForm = "r";
+            string outForm = "r";
             if (form >= 0)
             {
                 outForm += "-" + form;
@@ -557,7 +587,9 @@ namespace PMDToolkit.Graphics
                         writer.Write(sheetSize);
                         //add the animation itself
                         if (sheetSize > 0)
+                        {
                             spriteStream.Write(memStreamArray, 0, memStreamArray.Length);
+                        }
                     }
 
                     byte[] writingBytes = spriteStream.ToArray();
@@ -582,22 +614,34 @@ namespace PMDToolkit.Graphics
             }
 
             if (usedFrames.Count < 1)
+            {
                 throw new Exception("No frames");
+            }
 
             List<string> pngs = new List<string>(Directory.GetFiles(spriteRootDirectory, "*.png", SearchOption.TopDirectoryOnly));
             if (pngs.Count > usedFrames.Count)
             {
                 foreach (Bitmap bitmap in portraitCollection)
+                {
                     bitmap.Dispose();
+                }
 
                 foreach (string path in usedFrames)
+                {
                     for (int i = pngs.Count - 1; i >= 0; i--)
+                    {
                         if (pngs[i] == path)
+                        {
                             pngs.RemoveAt(i);
+                        }
+                    }
+                }
 
                 string errorMsg = spriteRootDirectory + ": The following files do not match the naming pattern, or a preceding file is missing:";
                 for (int i = 0; i < pngs.Count; i++)
+                {
                     errorMsg += "\n" + pngs[i].Substring(pngs[i].LastIndexOf('\\'));
+                }
 
                 throw new Exception(errorMsg);
             }
@@ -620,7 +664,9 @@ namespace PMDToolkit.Graphics
             foreach (Bitmap frame in frameCollection)
             {
                 if (frameHeight == 0)
+                {
                     frameHeight = frame.Height;
+                }
                 else if (frameHeight != frame.Height)
                 {
                     throw new Exception("Frameheight mismatch: " + frameNum + " (" + frameHeight + " vs. " + frame.Height + ")");
@@ -661,19 +707,27 @@ namespace PMDToolkit.Graphics
             if (inDir)
             {
                 if (!Directory.Exists(inFile))
+                {
                     return false;
+                }
             }
             else
             {
                 if (!File.Exists(inFile))
+                {
                     return false;
+                }
             }
 
             if (!File.Exists(outFile))
+            {
                 return true;
+            }
 
             if (File.GetLastWriteTimeUtc(inFile) > File.GetLastWriteTimeUtc(outFile))
+            {
                 return true;
+            }
 
             return false;
         }
@@ -686,7 +740,9 @@ namespace PMDToolkit.Graphics
             {
                 string num = dirs[i].Substring((spriteRootDirectory + dirName).Length);
                 if (num.IsNumeric())
+                {
                     yield return num.ToInt();
+                }
             }
         }
 
@@ -695,7 +751,9 @@ namespace PMDToolkit.Graphics
         public static void CompileAllTiles(string sourceDir, string cacheDir)
         {
             if (!Directory.Exists(cacheDir))
+            {
                 Directory.CreateDirectory(cacheDir);
+            }
 
             string[] dirs = Directory.GetFiles(sourceDir, "Tiles*.png");
             //go through each sprite folder, and each form folder

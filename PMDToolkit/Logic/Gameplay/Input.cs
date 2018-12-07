@@ -43,15 +43,9 @@ namespace PMDToolkit.Logic.Gameplay
 
         private bool[] inputStates = new bool[9];
 
-        public bool this[InputType i]
-        {
-            get
-            {
-                return inputStates[(int)i];
-            }
-        }
+        public bool this[InputType i] => inputStates[(int)i];
 
-        public int TotalInputs { get { return inputStates.Length; } }
+        public int TotalInputs => inputStates.Length;
 
         public Direction8 Direction { get; } = Direction8.None;
 
@@ -129,11 +123,17 @@ namespace PMDToolkit.Logic.Gameplay
 
         public static bool operator ==(Input input1, Input input2)
         {
-            if (input1.Direction != input2.Direction) return false;
+            if (input1.Direction != input2.Direction)
+            {
+                return false;
+            }
 
             for (int i = 0; i < 9; i++)
             {
-                if (input1[(InputType)i] != input2[(InputType)i]) return false;
+                if (input1[(InputType)i] != input2[(InputType)i])
+                {
+                    return false;
+                }
             }
 
             return true;

@@ -322,7 +322,10 @@ namespace PMDToolkit.Data
         public void Save(int moveNum)
         {
             if (!Directory.Exists(Paths.DataPath + "Move"))
+            {
                 Directory.CreateDirectory(Paths.DataPath + "Move");
+            }
+
             using (XmlWriter writer = XmlWriter.Create(Paths.DataPath + "Move\\" + moveNum + ".xml", Logger.XmlWriterSettings))
             {
                 writer.WriteStartDocument();

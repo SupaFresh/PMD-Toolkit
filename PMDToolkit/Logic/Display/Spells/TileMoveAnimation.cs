@@ -49,13 +49,7 @@ namespace PMDToolkit.Logic.Display
 
         #region Properties
 
-        public RenderTime TotalTime
-        {
-            get
-            {
-                return StallTime * TotalDistance;
-            }
-        }
+        public RenderTime TotalTime => StallTime * TotalDistance;
 
         public int AnimationIndex
         {
@@ -89,10 +83,7 @@ namespace PMDToolkit.Logic.Display
             set;
         }
 
-        public MoveAnimationType AnimType
-        {
-            get { return MoveAnimationType.Tile; }
-        }
+        public MoveAnimationType AnimType => MoveAnimationType.Tile;
 
         public Loc2D StartLoc
         {
